@@ -12,6 +12,8 @@ The purpose of this book is to introduce some of the features of Polars with R
 
 ### Polars and duckdb 
 
-### Benchmark 
+### Benchmark  
+
+### Polars in production 
 
 ## Contribution
