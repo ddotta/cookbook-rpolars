@@ -1,1 +1,36 @@
 # First steps with Polars and R
+
+Until the R polars package is uploaded to CRAN, [the polars package development team](https://github.com/pola-rs/r-polars/graphs/contributors) offers [several solutions](https://rpolars.github.io/#install) for installation.
+
+The most practical one in my opinion at the moment is to use [R-universe](https://r-universe.dev/search/) and install like this: 
+
+```r
+install.packages("polars", repos = "https://rpolars.r-universe.dev")
+```
+
+To avoid conflicts with other packages and base R function names, polars’s top level functions are hosted in the pl namespace, and accessible via the pl$ prefix. 
+
+To convert an R data frame to a Polars DataFrame:
+
+``` {r}
+library(polars)
+data <- pl$DataFrame(iris)
+data
+```
+
+For example, to count the number of lines of the iris data frame :  
+
+::: {.panel-tabset}
+## polars
+
+```{r}
+data$height
+```
+
+## R base
+
+```{r}
+nrow(iris)
+```
+
+:::
