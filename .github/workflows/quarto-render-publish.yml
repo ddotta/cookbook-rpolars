@@ -15,6 +15,9 @@ jobs:
       - name: Set up Quarto
         uses: quarto-dev/quarto-actions/setup@v2
 
+      - name: Install R
+        uses: r-lib/actions/setup-r@main
+
       - name: Install packages
         run: |
           R -e 'install.packages("rmarkdown")'
