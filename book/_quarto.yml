@@ -8,6 +8,7 @@ book:
   description: A side-by-side comparison of polars, dplyr and data.table packages.
   keyword: polars, dplyr, data.table, dataframe, performance, data science, data engineering
   url: https://ddotta.github.io/cookbook-rpolars/
+  page-navigation: true
   sidebar: 
     logo: logo_cookbook_rpolars.png
     search: true
