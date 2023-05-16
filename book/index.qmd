@@ -2,13 +2,10 @@
 
 Welcome to the [Polars](https://www.pola.rs/) cookbook for [R](https://www.r-project.org/) users. The goal of the cookbook is to provide solutions to common tasks and problems in using Polars with R. It allows R users using their usual packages to quickly get the syntax required to use Polars with R.  
 
-It is structured around side-by-side comparisons between Polars, [dplyr](https://dplyr.tidyverse.org/) and [data.table](https://rdatatable.gitlab.io/data.table/).
+It is structured around side-by-side comparisons between [polars](https://rpolars.github.io/), [dplyr](https://dplyr.tidyverse.org/) and [data.table](https://rdatatable.gitlab.io/data.table/).
 
-This book is not a substitute for the official documentation of the [rpolars] project (https://rpolars.github.io/) which is the definitive reference on the subject.
-
-This book is simply intended to illustrate my use of Polars with R and can be a complementary to the official Polars documentation. 
-
-This is a side-by-side comparison of the Polars and Pandas dataframe libraries, based on Modern Pandas by Tom Augsburger.
+This book is not a substitute for the official documentation of the [rpolars project](https://rpolars.github.io/) which is the definitive reference on the subject. 
+It is simply intended to illustrate my use of Polars with R and can be a complementary to the official Polars documentation. 
 
 ::: {.callout-note}
 Most of the code in these pages can be copied and pasted into the R command window if you want to see them in action.
@@ -25,10 +22,6 @@ Most of this book is structured examples of Polars, dplyr and data.table idiomat
 This is not a beginner's introduction to data programming, though you certainly don't need to be an expert to read it. If you have some familiarity with any dataframe library, most of the examples should make sense, but if you're familiar with dplyr or data.table they'll make even more sense because all the Polars code is accompanied by the equivalent code.
 
 For users of Python and in particular [Pandas](https://pandas.pydata.org/), you can consult [this excellent book](https://kevinheavey.github.io/modern-polars/) which was the inspiration for the one you are reading now.
-
-### Data
-
-All the data fetching code is included, but will eventually break as websites change or shut down. The smaller datasets have been checked in [here](https://github.com/kevinheavey/modern-polars/tree/master/data) for posterity.
 
 ## Contributing
 
