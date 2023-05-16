@@ -2,19 +2,18 @@
 ======================================
 The purpose of this book is to introduce some of the features of Polars with R
 
-## Plan
+### Plan
 
-### Installation   
+- Installation   
 
-### Polars and dplyr
+- Data manipulation
 
-### Polars and duckdb 
+- Articulation with duckdb 
 
-### Benchmark  
+- Polars in production 
 
-### Polars in production 
+- Graphics
 
-## Contribution
+### Contribution
 
-## Go further
-
+This book is free and open source, so please do [open an issue](https://github.com/ddotta/cookbook-rpolars/issues/new) if you notice a problem.
