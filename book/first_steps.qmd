@@ -4,7 +4,8 @@ Until the R polars package is uploaded to CRAN, [the polars package development 
 
 The most practical one in my opinion at the moment is to use [R-universe](https://r-universe.dev/search/) and install like this: 
 
-``` {r installation, eval = FALSE, message = FALSE}
+``` {r installation}
+#| eval = FALSE
 install.packages("polars", repos = "https://rpolars.r-universe.dev")
 ```
 
