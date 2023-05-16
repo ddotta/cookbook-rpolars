@@ -1,0 +1,30 @@
+[
+  {
+    "objectID": "index.html",
+    "href": "index.html",
+    "title": "Cookbook Polars for R",
+    "section": "",
+    "text": "Preface\nWelcome to the Polars cookbook for R users. The goal of the cookbook is to provide solutions to common tasks and problems in using Polars with R. It allows R users using their usual packages to quickly get the syntax required to use Polars with R.\nIt is structured around side-by-side comparisons between polars, dplyr and data.table.\nThis book is not a substitute for the official documentation of the rpolars project which is the definitive reference on the subject. It is simply intended to illustrate my use of Polars with R and can be a complementary to the official Polars documentation."
+  },
+  {
+    "objectID": "index.html#what-is-polars",
+    "href": "index.html#what-is-polars",
+    "title": "Cookbook Polars for R",
+    "section": "What is Polars ?",
+    "text": "What is Polars ?\nPolars is a very fast and elegant dataframe library that does the same sort of thing as the main data manipulation packages in R including dplyr and data.table.\nMost of this book is structured examples of Polars, dplyr and data.table idiomatic code, with comments on the API and performance of the three."
+  },
+  {
+    "objectID": "index.html#who-is-this-for",
+    "href": "index.html#who-is-this-for",
+    "title": "Cookbook Polars for R",
+    "section": "Who is this for?",
+    "text": "Who is this for?\nThis is not a beginner’s introduction to data programming, though you certainly don’t need to be an expert to read it. If you have some familiarity with any dataframe library, most of the examples should make sense, but if you’re familiar with dplyr or data.table they’ll make even more sense because all the Polars code is accompanied by the equivalent code.\nFor users of Python and in particular Pandas, you can consult this excellent book which was the inspiration for the one you are reading now."
+  },
+  {
+    "objectID": "index.html#contributing",
+    "href": "index.html#contributing",
+    "title": "Cookbook Polars for R",
+    "section": "Contributing",
+    "text": "Contributing\nThis book is free and open source, so please do open an issue if you notice a problem!"
+  }
+]
