@@ -17,7 +17,7 @@ jobs:
 
       - name: Render website
         run: |
-          quarto render
+          quarto render book/
 
       - name: Publish to GitHub Pages (and render)
         uses: quarto-dev/quarto-actions/publish@v2
