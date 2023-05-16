@@ -4,7 +4,7 @@ Until the R polars package is uploaded to CRAN, [the polars package development 
 
 The most practical one in my opinion at the moment is to use [R-universe](https://r-universe.dev/search/) and install like this: 
 
-```r
+``` {r installation}
 install.packages("polars", repos = "https://rpolars.r-universe.dev")
 ```
 
@@ -12,7 +12,7 @@ To avoid conflicts with other packages and base R function names, polars’s top
 
 To convert an R data frame to a Polars DataFrame:
 
-``` {r}
+``` {r conversion}
 library(polars)
 data <- pl$DataFrame(iris)
 data
@@ -23,13 +23,13 @@ For example, to count the number of lines of the iris data frame :
 ::: {.panel-tabset}
 ## polars
 
-```{r}
+```{r height-function}
 data$height
 ```
 
 ## R base
 
-```{r}
+```{r nrow-function}
 nrow(iris)
 ```
 
