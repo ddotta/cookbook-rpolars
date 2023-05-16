@@ -26,23 +26,15 @@ book:
 
   chapters:
     - index.qmd
-    - indexing.qmd
-    - method_chaining.qmd
-    - performance.qmd
-    - tidy.qmd
-    - timeseries.qmd
-    - scaling.qmd
-    - summary.qmd
+    - installation.qmd
+    - data_manipulation.qmd
+    - duckdb.qmd
+    - production.qmd
+    - graphics.qmd
 
 format:
   html:
     theme:
-      light: cosmo
+      light: lumen
     code-fold: false
     css: custom.css
-    backgroundcolor: "#F5F5F5"
-
-
-
-# good themes: default, cosmo, flatly, lumen, minty, pulse, sandstone, solar, united
-# favourites: minty, cosmo
