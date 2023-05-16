@@ -15,9 +15,9 @@ jobs:
       - name: Set up Quarto
         uses: quarto-dev/quarto-actions/setup@v2
 
-      - name: Install dependencies
+      - name: Install packages
         run: |
-          install.packages(c("rmarkdown")
+          R -e 'install.packages("rmarkdown")'
 
       - name: Render Quarto Project
         uses: quarto-dev/quarto-actions/render@v2
