@@ -2,22 +2,47 @@ project:
   type: book
 
 book:
-  title: "cookbook-rpolars"
-  author: "Jane Doe"
-  date: "06/04/2023"
+  title: "Cookbook Polars for R"
+  author: "Damien Dotta"
+  favicon: logo_cookbook_rpolars.png
+  description: A side-by-side comparison of the Polars, dplyr and data.table packages.
+  keyword: polars, dplyr, data.table, dataframe, performance, data science, data engineering
+  url: https://ddotta.github.io/cookbook-rpolars/
+  sidebar: 
+    logo: logo_cookbook_rpolars.png
+    search: true
+  repo-url: https://github.com/ddotta/cookbook-rpolars/
+  repo-subdir: book
+  repo-branch: main
+  repo-actions: [edit, issue, source]
+  sharing: [twitter, linkedin]
+  image: polar-bear-airpods-no-background.png
+  comments:
+    giscus:
+      repo: ddotta/cookbook-rpolars
+  open-graph:
+    image: https://github.com/ddotta/cookbook-rpolars/blob/main/book/logo_cookbook_rpolars.png
+    description: A side-by-side comparison of the Polars, dplyr and data.table packages.
+
   chapters:
     - index.qmd
-    - intro.qmd
+    - indexing.qmd
+    - method_chaining.qmd
+    - performance.qmd
+    - tidy.qmd
+    - timeseries.qmd
+    - scaling.qmd
     - summary.qmd
-    - references.qmd
-
-bibliography: references.bib
 
 format:
   html:
-    theme: cosmo
-  pdf:
-    documentclass: scrreprt
+    theme:
+      light: cosmo
+    code-fold: false
+    css: custom.css
+    backgroundcolor: "#F5F5F5"
 
 
 
+# good themes: default, cosmo, flatly, lumen, minty, pulse, sandstone, solar, united
+# favourites: minty, cosmo
