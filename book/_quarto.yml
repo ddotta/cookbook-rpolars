@@ -17,12 +17,6 @@ book:
   repo-actions: [edit, issue, source]
   sharing: [twitter, linkedin]
   image: polar-bear-airpods-no-background.png
-  comments:
-    giscus:
-      repo: ddotta/cookbook-rpolars
-  open-graph:
-    image: https://github.com/ddotta/cookbook-rpolars/blob/main/book/logo_cookbook_rpolars.png
-    description: A side-by-side comparison of the Polars, dplyr and data.table packages.
 
   chapters:
     - index.qmd
