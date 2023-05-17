@@ -3,7 +3,6 @@
 ```{r}
 #| label: load-packages-data-manipulation
 #| code-fold: true
-#| cache: true
 #| message: false
 #| warning: false
 #| results: 'hide'
@@ -189,7 +188,7 @@ pl$DataFrame(iris)$filter(
 
 ```{r}
 #| label: filter-rbase
-iris[Petal.Length > 6 & Petal.Width < 2,] # here don't forget the comma
+iris[iris$Petal.Length > 6 & iris$Petal.Width < 2,] # here don't forget the comma
 ```
 
 ## dplyr
