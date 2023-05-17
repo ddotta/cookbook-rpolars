@@ -29,7 +29,6 @@ write_parquet(
 iris_dt <- as.data.table(iris)
 ```
 
-
 ``` {r}
 #| label: load-packages
 # Loading packages

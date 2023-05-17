@@ -1,5 +1,19 @@
 # Data manipulation
 
+``` {r}
+#| label: load-packages-data-manipulation
+#| code-fold: true
+#| cache: true
+#| message: false
+#| warning: false
+#| results: 'hide'
+library(polars)
+library(dplyr)
+library(data.table)
+library(arrow)
+iris_dt <- as.data.table(iris)
+```
+
 ## Series and vectors
 
 In polars objects, `Series` object are like R `vectors`.
@@ -97,14 +111,14 @@ ncol(mydf)
 The added value of Polars consists in the `methods`. Those powerful methods are accessed using the `$` operator.
 
 ```{r}
-#| label: series-manipulation-standard
+#| label: series-manipulation-method
 mynumbers_serie$sum()
 # To convert Polars Series to vector
 myletters_serie$to_vector()
 ```
 
 ```{r}
-#| label: dataframe-manipulation-standard
+#| label: dataframe-manipulation-method
 mydf$columns
 length(mydf$columns)
 # To convert DataFrames to data.frames
@@ -122,7 +136,7 @@ Let's see an example with the iris dataset:
 ## polars
 
 ```{r}
-#| label: dataframe-polars
+#| label: chaining-polars
 # Creation of a DataFrame object with Series
 pl$DataFrame(iris)$
   groupby("Species")$
@@ -132,14 +146,14 @@ pl$DataFrame(iris)$
 ## R base
 
 ```{r}
-#| label: dataframe-rbase
+#| label: aggregate-rbase
 aggregate(. ~ Species, iris, median)
 ```
 
 ## dplyr
 
 ```{r}
-#| label: tibble-dplyr
+#| label: chaining-dplyr
 iris |>
   group_by(Species) |>
   summarise(across(everything(),median))
@@ -148,7 +162,7 @@ iris |>
 ## data.table
 
 ```{r}
-#| label: tibble-datatable
+#| label: chaining-datatable
 iris_dt[, lapply(.SD, median), by = Species]
 ```
 
