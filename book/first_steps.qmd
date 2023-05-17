@@ -11,8 +11,8 @@ First of all we need to install all the packages and create an big random datase
 #| results: 'hide'
 
 # Installation of packages for cookbook-rpolars
-install.packages(c('dplyr','data.table','arrow'), repos = c('https://tidyverse.r-universe.dev'))
-install.packages('fakir', repos = c('https://colinfay.r-universe.dev'))
+install.packages(c('dplyr','data.table','arrow'), repos = c('https://tidyverse.r-universe.dev'),dependencies = TRUE)
+install.packages('fakir', repos = c('https://colinfay.r-universe.dev'),dependencies = TRUE)
 
 # Loading fakir package
 library(fakir)
