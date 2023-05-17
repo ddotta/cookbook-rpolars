@@ -5,6 +5,9 @@ Until the R polars package is uploaded to CRAN, [the polars package development 
 The most practical one in my opinion at the moment is to use [R-universe](https://r-universe.dev/search/) and install like this: 
 
 ``` {r installation}
+#| message: false
+#| warning: false
+#| results: 'hide'
 install.packages("polars", repos = "https://rpolars.r-universe.dev")
 library(polars)
 ```
@@ -14,7 +17,6 @@ To avoid conflicts with other packages and base R function names, polars’s top
 To convert an R data frame to a Polars DataFrame:
 
 ``` {r conversion}
-library(polars)
 data <- pl$DataFrame(iris)
 data
 ```
