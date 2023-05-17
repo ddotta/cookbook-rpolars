@@ -1,6 +1,5 @@
 # Data manipulation
 
-
 ```{r}
 #| label: load-packages-data-manipulation
 #| code-fold: true
@@ -138,7 +137,6 @@ Let's see an example with the iris dataset:
 
 ```{r}
 #| label: chaining-polars
-# Creation of a DataFrame object with Series
 pl$DataFrame(iris)$groupby(
   "Species")$median()  
 ```
@@ -171,3 +169,43 @@ iris_dt[, lapply(.SD, median), by = Species]
 ::: {.callout-tip}
 In the Polars code used above, you will notice thatwe have introduced line breaks. We could have written the whole code on the same line but for the sake of readability I prefer to separate the methods used by line breaks.
 :::
+
+## Common data manipulation methods
+
+### filter
+
+The `filter()` method is used to filter the rows of a DataFrame.
+
+::: {.panel-tabset}
+## polars
+
+```{r}
+#| label: filter-polars
+pl$DataFrame(iris)$filter(
+  pl$col("Petal.Length") > 6.5)
+```
+
+## R base
+
+```{r}
+#| label: filter-rbase
+iris[iris$Petal.Length > 6.5,]
+```
+
+## dplyr
+
+```{r}
+#| label: filter-dplyr
+iris |>
+  filter(Petal.Length > 6.5) 
+```
+
+## data.table
+
+```{r}
+#| label: filter-datatable
+iris_dt[Petal.Length > 6.5]
+```
+
+:::
+
