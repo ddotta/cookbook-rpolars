@@ -1,6 +1,7 @@
 # Data manipulation
 
-``` {r}
+
+```{r}
 #| label: load-packages-data-manipulation
 #| code-fold: true
 #| cache: true
@@ -138,9 +139,8 @@ Let's see an example with the iris dataset:
 ```{r}
 #| label: chaining-polars
 # Creation of a DataFrame object with Series
-pl$DataFrame(iris)$
-  groupby("Species")$
-  median()  
+pl$DataFrame(iris)$groupby(
+  "Species")$median()  
 ```
 
 ## R base
@@ -169,5 +169,5 @@ iris_dt[, lapply(.SD, median), by = Species]
 :::
 
 ::: {.callout-tip}
-In the Polars code used above, you will notice thatwe have introduced line breaks after each `$`. We could have written the whole code on the same line but for the sake of readability I prefer to separate the methods used by line breaks.
+In the Polars code used above, you will notice thatwe have introduced line breaks. We could have written the whole code on the same line but for the sake of readability I prefer to separate the methods used by line breaks.
 :::
