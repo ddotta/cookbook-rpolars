@@ -1,1 +1,69 @@
 # Data manipulation
+
+## Series and vectors
+
+In polars objects, `Series` object are like R `vectors`.
+
+::: {.panel-tabset}
+## polars
+
+```{r}
+#| label: series-polars
+mynumbers <- pl$Series(1:4)
+myletters <- pl$Series(c("a","b","c"))
+```
+
+## R base
+
+```{r}
+#| label: vectors-rbase
+mynumbers <- 1:4
+myletters <- c("a","b","c"))
+```
+
+:::
+
+## DataFrame and data.frame
+
+::: {.panel-tabset}
+## polars
+
+```{r}
+#| label: dataframe-polars
+pl$DataFrame(
+  col1 = mynumbers,
+  col2 = myletters,
+)
+```
+
+## R base
+
+```{r}
+#| label: dataframe-rbase
+data.frame(
+  col1 = mynumbers,
+  col2 = myletters
+)
+```
+
+## dplyr
+
+```{r}
+#| label: tibble-dplyr
+tibble(
+  col1 = mynumbers,
+  col2 = myletters
+)
+```
+
+## data.table
+
+```{r}
+#| label: tibble-datatable
+data.table(
+  col1 = mynumbers,
+  col2 = myletters
+)
+```
+
+:::
