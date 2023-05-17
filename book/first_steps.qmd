@@ -117,3 +117,5 @@ iris_dt[1:5, .(Petal.Length, Species)]
 ```
 
 :::
+
+If you have read this far and managed to reproduce the examples, congratulations! You are ready to dive into the deep end of Polars with R in the next parts of this cookbook!
