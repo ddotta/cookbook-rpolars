@@ -5,6 +5,7 @@
 :book: cookbook-rpolars <img src="book/logo_cookbook_rpolars.png" width=110 align="right"/>
 ======================================
 The purpose of [this book](https://ddotta.github.io/cookbook-rpolars/) is to introduce some of the features of Polars with R.
+It contains a side-by-side comparison between Polars, R base and the two most popular packages for data manipulation dplyr and data.table.
 
 ### Table of Contents
 
