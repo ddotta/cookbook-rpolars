@@ -1,10 +1,49 @@
 # First steps with Polars and R
 
+First of all we need to install all the packages and create an big random dataset needed for this book to work, so don't bother with the following code:
+
+``` {r}
+#| label: necessary-settings
+#| code-fold: true
+#| cache: true
+#| message: false
+#| warning: false
+#| results: 'hide'
+
+# Installation of packages for cookbook-rpolars
+install.packages(c('dplyr','data.table','arrow'), repos = c('https://tidyverse.r-universe.dev'))
+install.packages('fakir', repos = c('https://colinfay.r-universe.dev'))
+
+# Loading fakir package
+library(fakir)
+
+# Creation the "Datasets" folder
+dir.create(normalizePath("Datasets"))
+
+# Creation of large example dataset
+write_parquet(
+  x = fake_ticket_client(vol = 1000),
+  sink = normalizePath("Datasets/example_data.parquet"))
+
+# Creation of iris_dt
+iris_dt <- as.data.table(iris)
+```
+
+
+``` {r}
+#| label: load-packages
+# Loading packages
+library(dplyr)
+library(data.table)
+library(arrow)
+```
+
 Until the R polars package is uploaded to CRAN, [the polars package development team](https://github.com/pola-rs/r-polars/graphs/contributors) offers [several solutions](https://rpolars.github.io/#install) for installation.
 
 The most practical one in my opinion at the moment is to use [R-universe](https://r-universe.dev/search/) and install like this: 
 
-``` {r installation}
+``` {r}
+#| label: installation
 #| message: false
 #| warning: false
 #| results: 'hide'
@@ -12,28 +51,69 @@ install.packages("polars", repos = "https://rpolars.r-universe.dev")
 library(polars)
 ```
 
-To avoid conflicts with other packages and base R function names, polars’s top level functions are hosted in the pl namespace, and accessible via the pl$ prefix. 
+Polars' main functions are stored in the "pl" namespace and can be accessed using the "pl$" prefix to prevent conflicts with other packages and base R function names.
 
-To convert an R data frame to a Polars DataFrame:
+First example to convert the most famous R data frame ([iris](https://archive.ics.uci.edu/ml/datasets/iris)) to a Polars DataFrame:
 
-``` {r conversion}
-data <- pl$DataFrame(iris)
-data
+``` {r}
+#| label: iris-conversion
+iris_polars <- pl$DataFrame(iris)
+iris_polars
 ```
 
-For example, to count the number of lines of the iris data frame :  
+For example, **to count the number of lines** of the iris data frame :  
 
 ::: {.panel-tabset}
 ## polars
 
-```{r height-function}
-data$height
+```{r}
+#| label: height-function
+# With pl$ prefix
+pl$DataFrame(iris)$height
+# Using iris_polars
+iris_polars$height
 ```
 
 ## R base
 
-```{r nrow-function}
+```{r}
+#| label: nrow-function
 nrow(iris)
+```
+
+:::
+
+**To select the first 5 iris rows and the Petal.Length and Species columns**, syntax is identical between Polars and R base:
+
+::: {.panel-tabset}
+## polars
+
+```{r}
+#| label: first-extract-polars
+iris_polars[1:5, c("Petal.Length", "Species")]
+```
+
+## R base
+
+```{r}
+#| label: first-extract-rbase
+iris[1:5, c("Petal.Length", "Species")]
+```
+
+## dplyr
+
+```{r}
+#| label: first-extract-dplyr
+iris |> 
+  slice(1:5) |> 
+  select(Petal.Length,Species)
+```
+
+## data.table
+
+```{r}
+#| label: first-extract-datatable
+iris_dt[1:5, .(Petal.Length, Species)]
 ```
 
 :::
