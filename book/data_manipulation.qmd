@@ -91,3 +91,69 @@ paste(myletters_serie,collapse = "")
 names(mydf)
 ncol(mydf)
 ```
+
+## Methods
+
+The added value of Polars consists in the `methods`. Those powerful methods are accessed using the `$` operator.
+
+```{r}
+#| label: series-manipulation-standard
+mynumbers_serie$sum()
+# To convert Polars Series to vector
+myletters_serie$to_vector()
+```
+
+```{r}
+#| label: dataframe-manipulation-standard
+mydf$columns
+length(mydf$columns)
+# To convert DataFrames to data.frames
+mydf$to_data_frame()
+```
+
+Polars includes a very useful chaining method in data manipulation operations. From this point of view, Polars is more like dplyr and data.table.
+This is how the chaining method is defined in the official documentation:
+
+> In polars our method chaining syntax takes the form `object$m1()$m2()`, where object is our data `object`, and `m1()` and `m2()` are appropriate methods, like subsetting or aggregation expressions.
+
+Let's see an example with the iris dataset:
+
+::: {.panel-tabset}
+## polars
+
+```{r}
+#| label: dataframe-polars
+# Creation of a DataFrame object with Series
+pl$DataFrame(iris)$
+  groupby("Species")$
+  median()  
+```
+
+## R base
+
+```{r}
+#| label: dataframe-rbase
+aggregate(. ~ Species, iris, median)
+```
+
+## dplyr
+
+```{r}
+#| label: tibble-dplyr
+iris |>
+  group_by(Species) |>
+  summarise(across(everything(),median))
+```
+
+## data.table
+
+```{r}
+#| label: tibble-datatable
+iris_dt[, lapply(.SD, median), by = Species]
+```
+
+:::
+
+::: {.callout-tip}
+In the Polars code used above, you will notice thatwe have introduced line breaks after each `$`. We could have written the whole code on the same line but for the sake of readability I prefer to separate the methods used by line breaks.
+:::
