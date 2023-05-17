@@ -172,9 +172,9 @@ In the Polars code used above, you will notice thatwe have introduced line break
 
 ## Common data manipulation methods
 
-### filter
+### Method filter
 
-The `filter()` method is used to filter the rows of a DataFrame.
+The `filter()` method is used to filter the rows of a DataFrame. It must be used with the `col()` method which allows to designate the columns on which the filter condition will be applied.
 
 ::: {.panel-tabset}
 ## polars
@@ -182,14 +182,14 @@ The `filter()` method is used to filter the rows of a DataFrame.
 ```{r}
 #| label: filter-polars
 pl$DataFrame(iris)$filter(
-  pl$col("Petal.Length") > 6.5)
+  pl$col("Petal.Length") > 6 & pl$col("Petal.Width") < 2)
 ```
 
 ## R base
 
 ```{r}
 #| label: filter-rbase
-iris[iris$Petal.Length > 6.5,]
+iris[Petal.Length > 6 & Petal.Width < 2,] # here don't forget the comma
 ```
 
 ## dplyr
@@ -197,15 +197,57 @@ iris[iris$Petal.Length > 6.5,]
 ```{r}
 #| label: filter-dplyr
 iris |>
-  filter(Petal.Length > 6.5) 
+  filter(Petal.Length > 6 & Petal.Width < 2) 
 ```
 
 ## data.table
 
 ```{r}
 #| label: filter-datatable
-iris_dt[Petal.Length > 6.5]
+iris_dt[Petal.Length > 6 & Petal.Width < 2]
 ```
 
 :::
 
+### Method select
+
+The `select()` method is used to filter the rows of a DataFrame. It must be used with the `col()` method which allows to designate the columns to be selected.
+
+::: {.panel-tabset}
+## polars
+
+```{r}
+#| label: select-polars
+pl$DataFrame(iris)$select(
+  pl$col(c("Petal.Length","Petal.Width"))
+)$head(3) # display the first 3 lines
+```
+
+## R base
+
+```{r}
+#| label: select-rbase
+iris[1:3,c("Petal.Length","Petal.Width")] 
+```
+
+## dplyr
+
+```{r}
+#| label: select-dplyr
+iris |>
+  select(Petal.Length,Petal.Width) |>
+  head(3)
+```
+
+## data.table
+
+```{r}
+#| label: select-datatable
+iris_dt[1:3,.(Petal.Length,Petal.Width)]
+```
+
+:::
+
+::: {.callout-note}
+If you want to obtain a result in an R data.frame, you can simply add the method `to_data_frame()` at the end of the method chaining.
+:::
