@@ -193,7 +193,7 @@ In the Polars code used above, you will notice that we have introduced line brea
 These conversions have already been seen earlier in this book.
 
 ```{r}
-#| label: conversion-method
+#| label: conversion-to-series-dataframes
 # To convert vector to Polars Series
 myvector <- pl$Series(c("a","b","c"))
 # To convert data.frames to DataFrames
@@ -205,7 +205,7 @@ iris_polars <- pl$DataFrame(iris)
 Here, we can use `to_r()` and `to_data_frame()` methods.
 
 ```{r}
-#| label: conversion-method
+#| label: conversion-tor-dataframes
 # To convert Polars Series to vector or list
 myletters_serie$to_r()
 # To convert DataFrames to data.frames
@@ -229,7 +229,7 @@ mydf$estimated_size()
 # To get the first n rows
 mydf$head(2)
 # To get the dimensions
-mydf$shape()
+mydf$shape
 ```
 
 #### Count NA over columns in a DataFrame
@@ -361,7 +361,7 @@ Similar to the dplyr package, the select() method can also be used to modify exi
 For example, if we want to get in the data.frame iris the `Petal.Length` column rounded without decimals.
 
 ```{r}
-#| label: select-round-polars
+#| label: select-round-select-polars
 pl$DataFrame(iris)$select(
   pl$col("Petal.Length")$round(decimals = 0)
 )$head(3) # display the first 3 lines
@@ -377,7 +377,7 @@ Again, let's look at the official documentation:
 ## polars
 
 ```{r}
-#| label: select-round-polars
+#| label: select-round-with_column-polars
 pl$DataFrame(iris)$with_columns(
   pl$col("Petal.Length")$round(decimals = 0)
 )$head(3) # display the first 3 lines
@@ -414,7 +414,7 @@ iris_dt[1:3,]
 If you want to add a column to a data.frame, you use the same syntax as above with `with_columns()`. Simply use the `alias()` method to specify the name of the newly created column.
 
 ```{r}
-#| label: select-round-polars
+#| label: select-round-alias-polars
 pl$DataFrame(iris)$with_columns(
   pl$col("Petal.Length")$round(decimals = 0)$alias("Petal.Length.rounded")
 )$head(3) # display the first 3 lines
@@ -440,7 +440,7 @@ pl$DataFrame(iris)$groupby(
 ## R base
 
 ```{r}
-#| label: aggregate-rbase
+#| label: aggregate-cbind-rbase
 aggregate(cbind(Petal.Length, Petal.Width) ~ Species, data = iris, FUN = sum)
 ```
 
@@ -474,14 +474,18 @@ To perform joins, the `join()` method must be used.
 ```{r}
 #| label: join-polars
 # First, creation of colors_species Polars DataFrame
-colors_species <- pl$DataFrame(
-  Species = c("setosa","versicolor","virginica"),
-  Color = c("blue","red","yellow")
+colors <- pl$DataFrame(
+  Surname = pl$Series(c("toto","titi","tata")),
+  Color = pl$Series(c("blue","red","yellow"))
+)
+values <- pl$DataFrame(
+  Surname = pl$Series(c("toto","titi","tata")),
+  value = pl$Series(c(10,20,30))
 )
 # Let's join !
-pl$DataFrame(iris)$join(
-  colors_species,
-  on = "Species",
+colors$join(
+  other = values,
+  on = "Surname",
   how = "left"
 )
 ```
@@ -489,26 +493,34 @@ pl$DataFrame(iris)$join(
 ## R base
 
 ```{r}
-#| label: join-rbase
-aggregate(cbind(Petal.Length, Petal.Width) ~ Species, data = iris, FUN = sum)
+#| label: merge-rbase
+colors <- data.frame(
+  Surname = c("toto","titi","tata"),
+  Color = c("blue","red","yellow")
+)
+values <- data.frame(
+  Surname = c("toto","titi","tata"),
+  value = c(10,20,30)
+)
+merge(colors, values, by = "Surname", all.x = TRUE)
 ```
 
 ## dplyr
 
 ```{r}
 #| label: join-dplyr
-data(iris)
-iris |>
-  group_by(Species) |>
-  summarise(across(c(Petal.Length, Petal.Width), sum)) 
+colors |>
+  left_join(values,
+            by = "Surname") 
 ```
 
 ## data.table
 
 ```{r}
 #| label: join-datatable
-iris_dt <- as.data.table(iris)
-iris_dt[, .(Petal.Length = sum(Petal.Length), Petal.Width = sum(Petal.Width)), by = Species]
+merge(as.data.table(colors), 
+      as.data.table(values), 
+      by = "Surname", all.x = TRUE)
 ```
 
 :::

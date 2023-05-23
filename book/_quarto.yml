@@ -30,6 +30,6 @@ book:
 format:
   html:
     theme:
-      light: lumen
+      light: cosmo
     code-fold: false
     css: custom.css
