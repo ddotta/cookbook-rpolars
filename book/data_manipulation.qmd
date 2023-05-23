@@ -714,7 +714,7 @@ table(iris$Species)
 ## dplyr
 
 ```{r}
-#| label: value-counts-Series
+#| label: count-dplyr
 iris |>
   count(Species)
 ```
@@ -722,17 +722,51 @@ iris |>
 ## data.table
 
 ```{r}
-#| label: value-counts-Series
+#| label: value-counts-datatable
 iris_dt[, .N, by = Species]
 ```
 :::
 
 #### On DataFrames
 
+##### Get value Counts of a Series
+
+The `to_series()` method can be used to get one column from `DataFrame` as `Series`.  
+
+::: {.panel-tabset}
+## polars
+
+```{r}
+#| label: to-series-Series
+pl$DataFrame(iris)$select(pl$col("Petal.Length"))$to_series()
+```
+
+## R base
+
+```{r}
+#| label: tovector-rbase
+iris$Species
+```
+
+## dplyr
+
+```{r}
+#| label: pull-dplyr
+iris |>
+  pull(Species)
+```
+
+## data.table
+
+```{r}
+#| label: tovector-datatable
+iris_dt[, c(Species)]
+```
+:::
+
 ```{r}
 #| label: useful-methods-DataFrame
-# To get one column by name as series 
-pl$DataFrame(a = 1:4)$to_series()
+
 # To create a new DataFrame that shows the null counts per column
 x = mtcars
 x[1, 2:3] = NA
