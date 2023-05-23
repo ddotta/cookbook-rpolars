@@ -657,6 +657,38 @@ length(1:4)
 ```
 :::
 
+## R base
+
+```{r}
+#| label: length-rbase
+length(1:4)
+```
+:::
+
+##### Check if Series are equal
+
+The `series_equal()` method can be used to check if a `Series` is equal with another `Series`.
+
+::: {.callout-tip}
+Caution, if two series are identical but one is named and the other is not then `series_equal()` returns FALSE.
+:::
+
+::: {.panel-tabset}
+## polars
+
+```{r}
+#| label: len-Series
+pl$Series(1:4)$series_equal(pl$Series(1:4))
+pl$Series(1:4,name = "toto")$series_equal(pl$Series(1:4))
+```
+
+## R base
+
+```{r}
+#| label: length-rbase
+identical(1:4,1:4)
+```
+:::
 
 
 #### On DataFrames
