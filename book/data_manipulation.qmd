@@ -166,7 +166,7 @@ iris_dt[, lapply(.SD, median), by = Species]
 :::
 
 ::: {.callout-tip}
-In the Polars code used above, you will notice thatwe have introduced line breaks. We could have written the whole code on the same line but for the sake of readability I prefer to separate the methods used by line breaks.
+In the Polars code used above, you will notice that we have introduced line breaks. We could have written the whole code on the same line but for the sake of readability I prefer to separate the methods used by line breaks.
 :::
 
 ## Common data manipulation methods
@@ -242,11 +242,67 @@ iris |>
 
 ```{r}
 #| label: select-datatable
-iris_dt[1:3,.(Petal.Length,Petal.Width)]
+iris_dt[,.(Petal.Length,Petal.Width)]
+iris_dt[1:3,]
 ```
 
 :::
 
 ::: {.callout-note}
 If you want to obtain a result in an R data.frame, you can simply add the method `to_data_frame()` at the end of the method chaining.
+:::
+
+Similar to the dplyr package, the select() method can also be used to modify existing data. However, the result will exclude any columns that were not specified in the expression.
+
+For example, if we want to get in the data.frame iris the `Petal.Length` column rounded without decimals.
+
+```{r}
+#| label: select-round-polars
+pl$DataFrame(iris)$select(
+  pl$col("Petal.Length")$round(decimals = 0)
+)$head(3) # display the first 3 lines
+```
+
+The problem here is that we would like to keep all the iris columns and not just `Petal.Length`.
+
+Again, let's look at the official documentation:
+
+> To modify or add some columns—whilst preserving all others in the dataset—it is therefore better to use the `with_columns()` method. 
+
+::: {.panel-tabset}
+## polars
+
+```{r}
+#| label: select-round-polars
+pl$DataFrame(iris)$with_columns(
+  pl$col("Petal.Length")$round(decimals = 0)
+)$head(3) # display the first 3 lines
+```
+
+## R base
+
+```{r}
+#| label: select-round-rbase
+iris$Petal.Length <- round(iris$Petal.Length, digits = 0)
+iris[1:3,]
+```
+
+## dplyr
+
+```{r}
+#| label: select-round-dplyr
+data(iris)
+iris |>
+  mutate(Petal.Length = round(Petal.Length,0)) |>
+  head(3)
+```
+
+## data.table
+
+```{r}
+#| label: select-round-datatable
+iris_dt[,Petal.Length := round(Petal.Length, digits = 0)]
+iris_dt[1:3,]
+```
+
 :::
