@@ -315,3 +315,47 @@ pl$DataFrame(iris)$with_columns(
   pl$col("Petal.Length")$round(decimals = 0)$alias("Petal.Length.rounded")
 )$head(3) # display the first 3 lines
 ```
+
+### Methods agg and group_by
+
+Another frequently used data manipulation is the aggregation of data by group.
+To do this, we indicate in the `group_by()` method which column will be used to group the data.frame. And the `agg()` method which specifies the expression to aggregate.
+
+::: {.panel-tabset}
+## polars
+
+```{r}
+#| label: select-round-polars
+pl$DataFrame(iris)$groupby(
+  "Species"
+)$agg(
+  pl$col(c("Petal.Length","Petal.Width"))$sum()
+)
+```
+
+## R base
+
+```{r}
+#| label: select-round-rbase
+aggregate(cbind(Petal.Length, Petal.Width) ~ Species, data = iris, FUN = sum)
+```
+
+## dplyr
+
+```{r}
+#| label: select-round-dplyr
+data(iris)
+iris |>
+  group_by(Species) |>
+  summarise(across(c(Petal.Length, Petal.Width), sum)) 
+```
+
+## data.table
+
+```{r}
+#| label: select-round-datatable
+iris_dt <- as.data.table(iris)
+iris_dt[, .(Petal.Length = sum(Petal.Length), Petal.Width = sum(Petal.Width)), by = Species]
+```
+
+:::
