@@ -677,7 +677,7 @@ Caution, if two series are identical but one is named and the other is not then 
 ## polars
 
 ```{r}
-#| label: len-Series
+#| label: series-equal-Series
 pl$Series(1:4)$series_equal(pl$Series(1:4))
 pl$Series(1:4,name = "toto")$series_equal(pl$Series(1:4))
 ```
@@ -685,10 +685,21 @@ pl$Series(1:4,name = "toto")$series_equal(pl$Series(1:4))
 ## R base
 
 ```{r}
-#| label: length-rbase
+#| label: identical-rbase
 identical(1:4,1:4)
 ```
 :::
+
+##### Convert Series to Polars DataFrame
+
+The `to_frame()` method can be used to convert a `Series` to a `DataFrame`.  
+In this case, a `DataFrame` with only one column will be created. If the `Series` is initially named then the column of the `DataFrame` will be named as such.
+
+```{r}
+#| label: to-frame-Series
+pl$Series(1:3, "toto")$to_frame()
+```
+
 
 
 #### On DataFrames
