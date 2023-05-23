@@ -1,11 +1,6 @@
 /.quarto/
 _book/
 *.html
-book/Datasets/
-book/data_manipulation_cache/
-book/first_steps_cache/
-book/duckdb_cache/
-book/graphics_cache/
-book/index_cache/
-book/production_cache/
 Datasets/
+*.parquet
+*.rds
