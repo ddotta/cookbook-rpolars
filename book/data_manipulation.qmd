@@ -15,7 +15,8 @@ iris_dt <- as.data.table(iris)
 
 ## Series and vectors
 
-In polars objects, `Series` object are like R `vectors`.
+In polars objects, `Series` object are like R `vectors`.  
+To create a Polars Series from scratch:
 
 ::: {.panel-tabset}
 ## polars
@@ -38,7 +39,8 @@ myletters_vector <- c("a","b","c")
 
 ## DataFrame and data.frame
 
-In polars objects, `Series` object are like R `vectors` and close to a `tibble` and a `data.table` object.
+In polars objects, `DataFrame` object are like R `vectors` and close to a `tibble` and a `data.table` object.  
+To create a Polars DataFrame from scratch:
 
 ::: {.panel-tabset}
 ## polars
@@ -91,13 +93,16 @@ data.table(
 
 ## Manipulation of Series and DataFrames with R standard functions
 
-Series and DataFrames can be manipulated with a lot of standard R functions.
+`Series` and `DataFrames` can be manipulated **with a lot of standard R functions**.  
+Some examples with `Series`:
 
 ```{r}
 #| label: series-manipulation-standard
 sum(mynumbers_serie)
 paste(myletters_serie,collapse = "")
 ```
+
+Some examples with `DataFrames`:
 
 ```{r}
 #| label: dataframe-manipulation-standard
@@ -107,21 +112,27 @@ ncol(mydf)
 
 ## Methods
 
-The added value of Polars consists in the `methods`. Those powerful methods are accessed using the `$` operator.
+The added value of Polars consists in the `methods`. Those powerful methods are accessed using the `$` operator.  
+Some examples with `Series`:
 
 ```{r}
 #| label: series-manipulation-method
+# To get a sum
 mynumbers_serie$sum()
-# To convert Polars Series to vector
-myletters_serie$to_vector()
+# To get a max
+mynumbers_serie$max()
 ```
+
+Some examples with `DataFrame`:
 
 ```{r}
 #| label: dataframe-manipulation-method
+# To get a character vector of column names
 mydf$columns
+# To get dimensions of DataFrame
+mydf$shape
+# We can mix standard R functions and methods
 length(mydf$columns)
-# To convert DataFrames to data.frames
-mydf$to_data_frame()
 ```
 
 Polars includes a very useful chaining method in data manipulation operations. From this point of view, Polars is more like dplyr and data.table.
@@ -170,6 +181,32 @@ In the Polars code used above, you will notice that we have introduced line brea
 :::
 
 ## Common data manipulation methods
+
+### Conversion between Series/DataFrames and vector/data.frames
+
+#### From vector/data.frames to Series/DataFrames
+
+These conversions have already been seen earlier in this book.
+
+```{r}
+#| label: conversion-method
+# To convert vector to Polars Series
+myvector <- pl$Series(c("a","b","c"))
+# To convert data.frames to DataFrames
+iris_polars <- pl$DataFrame(iris)
+```
+
+#### From Series/DataFrames to vector/data.frames
+
+Here, we can use `to_vector()` and `to_data_frame()` methods.
+
+```{r}
+#| label: conversion-method
+# To convert Polars Series to vector
+myletters_serie$to_vector()
+# To convert DataFrames to data.frames
+mydf$to_data_frame()
+```
 
 ### Method filter
 
@@ -325,7 +362,7 @@ To do this, we indicate in the `group_by()` method which column will be used to 
 ## polars
 
 ```{r}
-#| label: select-round-polars
+#| label: agg-polars
 pl$DataFrame(iris)$groupby(
   "Species"
 )$agg(
@@ -336,14 +373,14 @@ pl$DataFrame(iris)$groupby(
 ## R base
 
 ```{r}
-#| label: select-round-rbase
+#| label: aggregate-rbase
 aggregate(cbind(Petal.Length, Petal.Width) ~ Species, data = iris, FUN = sum)
 ```
 
 ## dplyr
 
 ```{r}
-#| label: select-round-dplyr
+#| label: summarise-dplyr
 data(iris)
 iris |>
   group_by(Species) |>
@@ -353,9 +390,59 @@ iris |>
 ## data.table
 
 ```{r}
-#| label: select-round-datatable
+#| label: summarise-datatable
 iris_dt <- as.data.table(iris)
 iris_dt[, .(Petal.Length = sum(Petal.Length), Petal.Width = sum(Petal.Width)), by = Species]
 ```
 
 :::
+
+### Method join
+
+To perform joins, the `join()` method must be used.
+
+::: {.panel-tabset}
+## polars
+
+```{r}
+#| label: join-polars
+# First, creation of colors_species Polars DataFrame
+colors_species <- pl$DataFrame(
+  Species = c("setosa","versicolor","virginica"),
+  Color = c("blue","red","yellow")
+)
+# Let's join !
+pl$DataFrame(iris)$join(
+  colors_species,
+  on = "Species",
+  how = "left"
+)
+```
+
+## R base
+
+```{r}
+#| label: join-rbase
+aggregate(cbind(Petal.Length, Petal.Width) ~ Species, data = iris, FUN = sum)
+```
+
+## dplyr
+
+```{r}
+#| label: join-dplyr
+data(iris)
+iris |>
+  group_by(Species) |>
+  summarise(across(c(Petal.Length, Petal.Width), sum)) 
+```
+
+## data.table
+
+```{r}
+#| label: join-datatable
+iris_dt <- as.data.table(iris)
+iris_dt[, .(Petal.Length = sum(Petal.Length), Petal.Width = sum(Petal.Width)), by = Species]
+```
+
+:::
+
