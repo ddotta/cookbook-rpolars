@@ -657,14 +657,6 @@ length(1:4)
 ```
 :::
 
-## R base
-
-```{r}
-#| label: length-rbase
-length(1:4)
-```
-:::
-
 ##### Check if Series are equal
 
 The `series_equal()` method can be used to check if a `Series` is equal with another `Series`.
@@ -700,7 +692,40 @@ In this case, a `DataFrame` with only one column will be created. If the `Series
 pl$Series(1:3, "toto")$to_frame()
 ```
 
+##### Get value Counts of a Series
 
+The `value_counts()` method can be used to get a value counts of a `Series`.  
+
+::: {.panel-tabset}
+## polars
+
+```{r}
+#| label: value-counts-Series
+pl$Series(iris$Species)$value_counts()
+```
+
+## R base
+
+```{r}
+#| label: table-rbase
+table(iris$Species)
+```
+
+## dplyr
+
+```{r}
+#| label: value-counts-Series
+iris |>
+  count(Species)
+```
+
+## data.table
+
+```{r}
+#| label: value-counts-Series
+iris_dt[, .N, by = Species]
+```
+:::
 
 #### On DataFrames
 
