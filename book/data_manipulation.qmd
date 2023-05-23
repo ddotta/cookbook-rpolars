@@ -218,14 +218,14 @@ Here is a list of instructions that I frequently use to quickly get information 
 
 ```{r}
 #| label: informations-methods
+# To get the schema (= a named list)
+mydf$schema
 # To get column types as strings. 
 mydf$dtype_strings()
 # To get an estimation of the total allocated size (in Bytes)
 mydf$estimated_size()
 # To get the first n rows
 mydf$head(2)
-# To get the dimensions
-mydf$shape()
 # To get the dimensions
 mydf$shape()
 ```
@@ -855,25 +855,35 @@ iris |>
   arrange(desc(Species), Petal.Length) |>
   head(3)
 ```
+:::
+
+##### Get a structure from a DataFrame
+
+The `to_struct()` method can be used to get a structure from a `DataFrame`.  
 
 
 ```{r}
-#| label: useful-methods-DataFrame
-
-# To create a new DataFrame that shows the null counts per column
-x = mtcars
-x[1, 2:3] = NA
-pl$DataFrame(x)$null_count()
-
-# To sort
-df$sort("mpg")
-# To structure
-df = pl$DataFrame(a = 1:5, b = c("one", "two", "three", "four", "five"))
-s = df$to_struct()
-s
-s$to_r() # to r list
-# To drop duplicate rows from this dataframe. 
+#| label: to_struct-dataframe-polars
+mystruc <- mydf$to_struct()
+mystruc
 ```
+`to_struct()` returns a `Series` which can be converted to a R list with `to_r` method.
+
+```{r}
+#| label: to_struct-to-r
+mylist <- mystruc$to_r()
+mylist
+```
+`
+mylist is now a list where each element is a column of the initial DataFrame.
+
+With `to_frame()` and `unnest()` methods, we can reconstruct the original DataFrame:
+
+```{r}
+back_df <- mystruc$to_frame()$unnest()
+back_df
+```
+
 
 ### List of methods to apply to Series
 
