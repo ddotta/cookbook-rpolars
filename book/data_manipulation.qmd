@@ -113,14 +113,18 @@ ncol(mydf)
 ## Methods
 
 The added value of Polars consists in the `methods`. Those powerful methods are accessed using the `$` operator.  
+
+- For `Series`, see [this section](#list-of-methods-to-apply-to-series) for the methods available in {polars}.
+- For `DataFrames`, see [this section](#list-of-methods-to-apply-to-dataframe) for the methods available in {polars}.
+
 Some examples with `Series`:
 
 ```{r}
 #| label: series-manipulation-method
 # To get a sum
 mynumbers_serie$sum()
-# To get a max
-mynumbers_serie$max()
+# To sort in descending order
+mynumbers_serie$sort(reverse = TRUE)
 ```
 
 Some examples with `DataFrame`:
@@ -198,15 +202,34 @@ iris_polars <- pl$DataFrame(iris)
 
 #### From Series/DataFrames to vector/data.frames
 
-Here, we can use `to_vector()` and `to_data_frame()` methods.
+Here, we can use `to_r()` and `to_data_frame()` methods.
 
 ```{r}
 #| label: conversion-method
-# To convert Polars Series to vector
-myletters_serie$to_vector()
+# To convert Polars Series to vector or list
+myletters_serie$to_r()
 # To convert DataFrames to data.frames
 mydf$to_data_frame()
 ```
+
+### Some initial informations on a DataFrame
+
+Here is a list of instructions that I frequently use to quickly get information about a DataFrame:
+
+```{r}
+#| label: informations-methods
+# To get column types as strings. 
+mydf$dtype_strings()
+# To get an estimation of the total allocated size (in Bytes)
+mydf$estimated_size()
+# To get the first n rows
+mydf$head(2)
+# To get the dimensions
+mydf$shape()
+# To get the dimensions
+mydf$shape()
+```
+
 
 ### Method filter
 
@@ -445,6 +468,30 @@ iris_dt[, .(Petal.Length = sum(Petal.Length), Petal.Width = sum(Petal.Width)), b
 ```
 
 :::
+
+### Others useful methods
+
+#### On DataFrames
+
+```{r}
+#| label: conversion-method
+# To get one column by name as series 
+pl$DataFrame(a = 1:4)$to_series()
+# To create a new DataFrame that shows the null counts per column
+x = mtcars
+x[1, 2:3] = NA
+pl$DataFrame(x)$null_count()
+# To get a slice
+pl$DataFrame(mtcars)$slice(2, 4)
+# To sort
+df$sort("mpg")
+# To structure
+df = pl$DataFrame(a = 1:5, b = c("one", "two", "three", "four", "five"))
+s = df$to_struct()
+s
+s$to_r() # to r list
+# To drop duplicate rows from this dataframe. 
+```
 
 ### List of methods to apply to Series
 
