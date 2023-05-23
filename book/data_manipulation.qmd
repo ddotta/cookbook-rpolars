@@ -803,6 +803,60 @@ iris_dt[2:4,]
 ```
 :::
 
+##### Sort a DataFrame
+
+The `sort()` method can be used to sort a `DataFrame`.
+
+::: {.panel-tabset}
+## polars
+
+```{r}
+#| label: sort-dataframe-polars
+# Sort by one column
+pl$DataFrame(iris
+  )$sort("Species"
+  )$head(3)
+# Sort by two columns
+pl$DataFrame(iris
+  )$sort(c("Species","Petal.Length")
+  )$head(3)
+# Sort by two columns one in a decreasing manner and the other in an increasing manner
+pl$DataFrame(iris
+  )$sort(c("Species","Petal.Length"), descending = c(TRUE,FALSE)
+  )$head(3)
+```
+
+## R base
+
+```{r}
+#| label: sort-dataframe-rbase
+# Sort by one column
+iris[order(iris$Species),][1:3,]
+# Sort by two columns
+iris[order(iris$Species,iris$Petal.Length),][1:3,]
+# Sort by two columns one in a decreasing manner and the other in an increasing manner
+iris[order(rev(iris$Species),iris$Petal.Length),][1:3,]
+```
+
+## dplyr
+
+```{r}
+#| label: slice-dataframe-dplyr
+# Sort by one column
+iris |>
+  arrange(Species) |>
+  head(3)
+# Sort by two columns
+iris |>
+  arrange(Species, Petal.Length) |>
+  head(3)
+# Sort by two columns one in a decreasing manner and the other in an increasing manner
+iris |>
+  arrange(desc(Species), Petal.Length) |>
+  head(3)
+```
+
+
 ```{r}
 #| label: useful-methods-DataFrame
 
