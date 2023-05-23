@@ -520,6 +520,7 @@ all(c(TRUE,TRUE,NA))
 all(c(TRUE,TRUE,FALSE))
 all(c(TRUE,TRUE,TRUE))
 ```
+:::
 
 ##### Get data type of Series
 
@@ -589,6 +590,52 @@ To summarise the main types between Polars and R:
 | Boolean     | logical   |
 | Categorical | Factor    |
 | Date        | Date      |
+
+##### Check if Series is numeric
+
+The `is_numeric()` method can be used to check if `Series` is numeric.  
+Note that unlike R base, there is no method to check if a Series is character (in this case, its type is anyway Utf8).  
+
+::: {.panel-tabset}
+## polars
+
+```{r}
+#| label: all-Series
+pl$Series(1:4)$is_numeric()
+pl$Series(c("a", "b", "c"))$is_numeric()
+```
+
+## R base
+
+```{r}
+#| label: all-rbase
+is.numeric(1:4)
+is.numeric(c("a","b","c"))
+```
+:::
+
+##### Check if Series is sorted
+
+The `is_sorted()` method can be used to check if `Series` is sorted.  
+Note that R base provides `is.unsorted()` which returns the opposite boolean to `is_sorted()` of Polars.
+
+::: {.panel-tabset}
+## polars
+
+```{r}
+#| label: all-Series
+pl$Series(1:4)$is_sorted()
+pl$Series(c(1,3,2))$is_sorted()
+```
+
+## R base
+
+```{r}
+#| label: all-rbase
+is.unsorted(1:4)
+is.unsorted(c(1,3,2))
+```
+:::
 
 
 
