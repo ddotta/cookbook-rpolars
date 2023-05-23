@@ -306,3 +306,12 @@ iris_dt[1:3,]
 ```
 
 :::
+
+If you want to add a column to a data.frame, you use the same syntax as above with `with_columns()`. Simply use the `alias()` method to specify the name of the newly created column.
+
+```{r}
+#| label: select-round-polars
+pl$DataFrame(iris)$with_columns(
+  pl$col("Petal.Length")$round(decimals = 0)$alias("Petal.Length.rounded")
+)$head(3) # display the first 3 lines
+```
