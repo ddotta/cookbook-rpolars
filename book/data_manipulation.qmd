@@ -446,3 +446,26 @@ iris_dt[, .(Petal.Length = sum(Petal.Length), Petal.Width = sum(Petal.Width)), b
 
 :::
 
+### List of methods to apply to Series
+
+To learn more about the methods to be applied to the `Series`, see [this page](https://rpolars.github.io/reference/Series_class/).
+
+```{r}
+#| label: list-methods-series
+# See all exported methods for Series
+ls(polars:::Series)
+# See all private methods for Series (not intended for regular use)
+ls(polars:::.pr$Series)
+```
+
+### List of methods to apply to DataFrame
+
+To learn more about the methods to be applied to the `DataFrames`, see [this page](https://rpolars.github.io/reference/DataFrame_class/).
+
+```{r}
+#| label: list-methods-dataframes
+# See all exported methods for DataFrame
+ls(polars:::DataFrame)
+# See all private methods for DataFrame (not intended for regular use)
+ls(polars:::.pr$DataFrame)
+```
