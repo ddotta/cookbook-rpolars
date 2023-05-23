@@ -471,10 +471,131 @@ iris_dt[, .(Petal.Length = sum(Petal.Length), Petal.Width = sum(Petal.Width)), b
 
 ### Others useful methods
 
+#### On Series
+
+##### Change name of Series 
+
+The `alias()` method is very useful especially in method chaining operation.  
+With R base, the syntax is longer.
+
+::: {.panel-tabset}
+## polars
+
+```{r}
+#| label: change-name-Series
+pl$Series(1:3, name = "toto")$alias("titi")
+```
+
+## R base
+
+```{r}
+#| label: change-name-rbase
+toto <- 1:3
+titi <- toto
+rm(toto)
+```
+
+:::
+
+##### Reduce Boolean Series
+
+The `all()` and `any()` methods can be used to check if all or any values in a vector evaluate to TRUE for some expression.
+
+::: {.panel-tabset}
+## polars
+
+```{r}
+#| label: all-Series
+# all(pl$Series(c(TRUE,TRUE))) doesn't work
+pl$Series(c(TRUE, TRUE, NA))$all()
+pl$Series(c(TRUE, TRUE, FALSE))$all()
+pl$Series(c(TRUE, TRUE, TRUE))$all()
+```
+
+## R base
+
+```{r}
+#| label: all-rbase
+all(c(TRUE,TRUE,NA))
+all(c(TRUE,TRUE,FALSE))
+all(c(TRUE,TRUE,TRUE))
+```
+
+##### Get data type of Series
+
+The `dtype()` method can be used to get data type of `Series`.
+
+::: {.panel-tabset}
+## polars
+
+```{r}
+#| label: dtype-Series
+
+pl$Series(letters)$dtype
+pl$Series(c(1, 2))$dtype
+pl$DataFrame(iris)$select("Species")$to_series()$dtype
+```
+
+## R base
+
+```{r}
+#| label: dtype-rbase
+infer_type(letters)
+infer_type(c(1, 2))
+infer_type(iris$Species)
+```
+
+:::
+
+::: {.callout-tip}
+Polars is strongly typed. `print(ls(pl$dtypes))` returns the full list of valid Polars types. Caution, some type names differ from what they are called in R base. See below!
+:::
+
+::: {.panel-tabset}
+## polars
+
+```{r}
+#| label: dtype-examples-Series
+pl$Series(c("x","y","z"))$dtype
+pl$Series(c(1, 2, 3))$dtype
+pl$Series(c(1:3))$dtype
+pl$Series(c(TRUE,FALSE))$dtype
+pl$DataFrame(iris)$select("Species")$to_series()$dtype
+pl$Series(Sys.Date())$dtype
+pl$Series(c(0,1))$dtype
+```
+
+## R base
+
+```{r}
+#| label: dtype-examples-rbase
+typeof(c("x","y","z"))
+typeof(c(1, 2, 3))
+typeof(c(1:3))
+typeof(c(TRUE,FALSE))
+typeof(iris$Species)
+typeof(Sys.Date())
+```
+
+:::
+
+To summarise the main types between Polars and R:
+
+| Polars      | R Base    |
+|-------------|-----------|
+| Utf8        | character |
+| Float64     | double    |
+| Int32       | integer   |
+| Boolean     | logical   |
+| Categorical | Factor    |
+| Date        | Date      |
+
+
+
 #### On DataFrames
 
 ```{r}
-#| label: conversion-method
+#| label: useful-methods-DataFrame
 # To get one column by name as series 
 pl$DataFrame(a = 1:4)$to_series()
 # To create a new DataFrame that shows the null counts per column
