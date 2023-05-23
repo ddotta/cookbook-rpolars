@@ -214,7 +214,9 @@ mydf$to_data_frame()
 
 ### Some initial informations on a DataFrame
 
-Here is a list of instructions that I frequently use to quickly get information about a DataFrame:
+#### First overview of a DataFrame
+
+Here is a list of instructions that I frequently use to quickly get information about a DataFrame.
 
 ```{r}
 #| label: informations-methods
@@ -230,6 +232,48 @@ mydf$head(2)
 mydf$shape()
 ```
 
+#### Count NA over columns in a DataFrame
+
+The `null_count()` method can be used to count NA values of a DataFrame.
+
+::: {.panel-tabset}
+## polars
+
+```{r}
+#| label: null-count-polars
+mydfNA <- pl$DataFrame(
+  colA = pl$Series(c("a",NA,"c")),
+  colB = pl$Series(c("d",NA,NA)))
+mydfNA$null_count()
+```
+
+## R base
+
+```{r}
+#| label: sapply-NA-rbase
+mydfNA <- data.frame(
+  colA = c("a",NA,"c"),
+  colB = c("d",NA,NA))
+sapply(mydfNA, function(x) sum(is.na(x)))
+```
+
+## dplyr
+
+```{r}
+#| label: count-NA-dplyr
+mydfNA %>%
+  summarise(across(everything(), ~sum(is.na(.))))
+```
+
+## data.table
+
+```{r}
+#| label: count-NA-datatable
+mydfNA_dt <- as.data.table(mydfNA)
+mydfNA_dt[, lapply(.SD, function(x) sum(is.na(x))), .SDcols = names(mydfNA_dt)]
+```
+
+:::
 
 ### Method filter
 
@@ -867,6 +911,7 @@ The `to_struct()` method can be used to get a structure from a `DataFrame`.
 mystruc <- mydf$to_struct()
 mystruc
 ```
+
 `to_struct()` returns a `Series` which can be converted to a R list with `to_r` method.
 
 ```{r}
