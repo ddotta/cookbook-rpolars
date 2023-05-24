@@ -346,14 +346,13 @@ iris |>
 
 ```{r}
 #| label: select-datatable
-iris_dt[,.(Petal.Length,Petal.Width)]
-iris_dt[1:3,]
+iris_dt[1:3,.(Petal.Length,Petal.Width)]
 ```
 
 :::
 
 ::: {.callout-note}
-If you want to obtain a result in an R data.frame, you can simply add the method `to_data_frame()` at the end of the method chaining.
+With Polars if you want to obtain a result in an R data.frame, you can simply add the method `to_data_frame()` at the end of the method chaining.
 :::
 
 Similar to the dplyr package, the select() method can also be used to modify existing data. However, the result will exclude any columns that were not specified in the expression.
@@ -897,7 +896,7 @@ iris[order(rev(iris$Species),iris$Petal.Length),][1:3,]
 ## dplyr
 
 ```{r}
-#| label: slice-dataframe-dplyr
+#| label: sort-dataframe-dplyr
 # Sort by one column
 iris |>
   arrange(Species) |>
@@ -910,6 +909,18 @@ iris |>
 iris |>
   arrange(desc(Species), Petal.Length) |>
   head(3)
+```
+
+## data.table
+
+```{r}
+#| label: sort-dataframe-datatable
+# Sort by one column
+iris_dt[order(Species)][1:3,]
+# Sort by two columns
+iris_dt[order(Species,Petal.Length)][1:3,]
+# Sort by two columns one in a decreasing manner and the other in an increasing manner
+iris_dt[order(-Species,Petal.Length)][1:3,]
 ```
 :::
 
