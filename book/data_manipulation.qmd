@@ -646,6 +646,8 @@ To summarise the main types between Polars and R:
 | Categorical | Factor    |
 | Date        | Date      |
 
+To learn more about Data types in Polars, see [here](https://pola-rs.github.io/polars-book/user-guide/concepts/data-types/). 
+
 ##### Check if Series is numeric
 
 The `is_numeric()` method can be used to check if `Series` is numeric.  
