@@ -30,10 +30,7 @@ write_parquet(
 iris_dt <- as.data.table(iris)
 ```
 
-```{r}
-#| label: load-packages
-
-```
+## Installation
 
 Until the R polars package is uploaded to CRAN, [the polars package development team](https://github.com/pola-rs/r-polars/graphs/contributors) offers [several solutions](https://rpolars.github.io/#install) for installation.
 
@@ -48,11 +45,13 @@ install.packages("polars", repos = "https://rpolars.r-universe.dev")
 library(polars)
 ```
 
+## First glimpse
+
 Polars' main functions are stored in the "pl" namespace and can be accessed using the "pl$" prefix to prevent conflicts with other packages and base R function names.
 
 First example to convert the most famous R data frame ([iris](https://archive.ics.uci.edu/ml/datasets/iris)) to a Polars DataFrame:
 
-``` {r}
+```{r}
 #| label: iris-conversion
 iris_polars <- pl$DataFrame(iris)
 iris_polars
@@ -115,9 +114,17 @@ iris_dt[1:5, .(Petal.Length, Species)]
 
 :::
 
-## Series and vectors
+## Data Structures
 
-In polars objects, `Series` object are like R `vectors`.  
+> The core base data structures provided by Polars are Series and DataFrames. 
+
+### Series and vectors
+
+::: {.callout-important}
+`Series` are a **1-dimensional** data structure. Within a series all elements have the same Data Type. 
+:::
+
+In Polars objects, `Series` object are like R `vectors`.  
 To create a Polars Series from scratch:
 
 ::: {.panel-tabset}
@@ -139,9 +146,13 @@ myletters_vector <- c("a","b","c")
 
 :::
 
-## DataFrame and data.frame
+### DataFrame and data.frame
 
-In polars objects, `DataFrame` object are like R `vectors` and close to a `tibble` and a `data.table` object.  
+::: {.callout-note}
+A `DataFrame` is a **2-dimensional** data structure that is backed by a `Series`, and it can be seen as an abstraction of a collection (e.g. list) of Series. 
+:::
+
+In polars objects, `DataFrame` object are like R `data.frame` and close to a `tibble` and a `data.table` object.  
 To create a Polars DataFrame from scratch:
 
 ::: {.panel-tabset}
