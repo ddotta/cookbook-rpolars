@@ -119,7 +119,7 @@ mydf$to_data_frame()
 
 #### First overview of a DataFrame
 
-Here is a list of instructions that I frequently use to quickly get information about a DataFrame.
+Here is a list of instructions that I frequently use to quickly get information about a `DataFrame`.
 
 ```{r}
 #| label: informations-methods
@@ -136,7 +136,7 @@ mydf$shape
 ```
 
 ::: {.callout-caution}
-Polars API contains a [describe](https://pola-rs.github.io/polars/py-polars/html/reference/dataframe/api/polars.DataFrame.describe.html) method that has not yet been implemented (end of May 2023).
+Polars API contains useful methods for quickly describing a `DataFrame` - [describe](https://pola-rs.github.io/polars/py-polars/html/reference/dataframe/api/polars.DataFrame.describe.html) and [glimpse](https://pola-rs.github.io/polars/py-polars/html/reference/dataframe/api/polars.DataFrame.glimpse.html#) that has not yet been implemented (end of May 2023).
 :::
 
 #### Count NA over columns in a DataFrame
