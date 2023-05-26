@@ -10,7 +10,7 @@ First of all we need to install all the packages and create an big random datase
 #| results: 'hide'
 
 # Installation of packages for cookbook-rpolars
-install.packages(c('dplyr','data.table','arrow','fakir'),dependencies = TRUE)
+# install.packages(c('dplyr','data.table','arrow','fakir'),dependencies = TRUE,repos = "http://cran.us.r-project.org")
 
 # Loading packages
 library(dplyr)
@@ -258,4 +258,4 @@ To learn more about Polars expressions, see [the official documentation](https:/
 
 ------------------
 
-If you have read this far and managed to reproduce the examples, congratulations! You are ready to dive into the deep end of Polars with R in the next parts of this cookbook! 🚀
+**If you have read this far and managed to reproduce the examples, congratulations! You are ready to dive into the deep end of Polars with R in the next parts of this cookbook!** 🚀
