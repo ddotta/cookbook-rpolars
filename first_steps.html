@@ -200,7 +200,21 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <div id="quarto-sidebar-glass" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass"></div>
 <!-- margin-sidebar -->
     <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
-        
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">Table of contents</h2>
+   
+  <ul>
+  <li><a href="#installation" id="toc-installation" class="nav-link active" data-scroll-target="#installation"><span class="header-section-number">1.1</span> Installation</a></li>
+  <li><a href="#first-glimpse" id="toc-first-glimpse" class="nav-link" data-scroll-target="#first-glimpse"><span class="header-section-number">1.2</span> First glimpse</a></li>
+  <li><a href="#data-structures" id="toc-data-structures" class="nav-link" data-scroll-target="#data-structures"><span class="header-section-number">1.3</span> Data Structures</a>
+  <ul class="collapse">
+  <li><a href="#series-and-vectors" id="toc-series-and-vectors" class="nav-link" data-scroll-target="#series-and-vectors"><span class="header-section-number">1.3.1</span> Series and vectors</a></li>
+  <li><a href="#dataframe-and-data.frame" id="toc-dataframe-and-data.frame" class="nav-link" data-scroll-target="#dataframe-and-data.frame"><span class="header-section-number">1.3.2</span> DataFrame and data.frame</a></li>
+  </ul></li>
+  <li><a href="#manipulation-of-series-and-dataframes-with-r-standard-functions" id="toc-manipulation-of-series-and-dataframes-with-r-standard-functions" class="nav-link" data-scroll-target="#manipulation-of-series-and-dataframes-with-r-standard-functions"><span class="header-section-number">1.4</span> Manipulation of Series and DataFrames with R standard functions</a></li>
+  <li><a href="#expressions" id="toc-expressions" class="nav-link" data-scroll-target="#expressions"><span class="header-section-number">1.5</span> Expressions</a></li>
+  </ul>
+<div class="toc-actions"><div><i class="bi bi-github"></i></div><div class="action-links"><p><a href="https://github.com/ddotta/cookbook-rpolars/edit/main/book/first_steps.qmd" class="toc-action">Edit this page</a></p><p><a href="https://github.com/ddotta/cookbook-rpolars/issues/new" class="toc-action">Report an issue</a></p><p><a href="https://github.com/ddotta/cookbook-rpolars/blob/main/book/first_steps.qmd" class="toc-action">View source</a></p></div></div></nav>
     </div>
 <!-- main -->
 <main class="content" id="quarto-document-content">
@@ -227,7 +241,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <details>
 <summary>Code</summary>
 <div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Installation of packages for cookbook-rpolars</span></span>
-<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="fu">install.packages</span>(<span class="fu">c</span>(<span class="st">'dplyr'</span>,<span class="st">'data.table'</span>,<span class="st">'arrow'</span>,<span class="st">'fakir'</span>),<span class="at">dependencies =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="fu">install.packages</span>(<span class="fu">c</span>(<span class="st">'dplyr'</span>,<span class="st">'data.table'</span>,<span class="st">'arrow'</span>,<span class="st">'fakir'</span>),<span class="at">dependencies =</span> <span class="cn">TRUE</span>,<span class="at">repos =</span> <span class="st">"http://cran.us.r-project.org"</span>)</span>
 <span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Loading packages</span></span>
 <span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(dplyr)</span>
@@ -247,12 +261,17 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb1-19"><a href="#cb1-19" aria-hidden="true" tabindex="-1"></a>iris_dt <span class="ot">&lt;-</span> <span class="fu">as.data.table</span>(iris)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 </div>
+<section id="installation" class="level2" data-number="1.1">
+<h2 data-number="1.1" class="anchored" data-anchor-id="installation"><span class="header-section-number">1.1</span> Installation</h2>
 <p>Until the R polars package is uploaded to CRAN, <a href="https://github.com/pola-rs/r-polars/graphs/contributors">the polars package development team</a> offers <a href="https://rpolars.github.io/#install">several solutions</a> for installation.</p>
 <p>The most practical one in my opinion at the moment is to use <a href="https://r-universe.dev/search/">R-universe</a> and install like this:</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="fu">install.packages</span>(<span class="st">"polars"</span>, <span class="at">repos =</span> <span class="st">"https://rpolars.r-universe.dev"</span>)</span>
 <span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(polars)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
+</section>
+<section id="first-glimpse" class="level2" data-number="1.2">
+<h2 data-number="1.2" class="anchored" data-anchor-id="first-glimpse"><span class="header-section-number">1.2</span> First glimpse</h2>
 <p>Polars’ main functions are stored in the “pl” namespace and can be accessed using the “pl$” prefix to prevent conflicts with other packages and base R function names.</p>
 <p>First example to convert the most famous R data frame (<a href="https://archive.ics.uci.edu/ml/datasets/iris">iris</a>) to a Polars DataFrame:</p>
 <div class="cell">
@@ -371,9 +390,201 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 </div>
 </div>
-<p>If you have read this far and managed to reproduce the examples, congratulations! You are ready to dive into the deep end of Polars with R in the next parts of this cookbook!</p>
+</section>
+<section id="data-structures" class="level2" data-number="1.3">
+<h2 data-number="1.3" class="anchored" data-anchor-id="data-structures"><span class="header-section-number">1.3</span> Data Structures</h2>
+<blockquote class="blockquote">
+<p>The core base data structures provided by Polars are Series and DataFrames.</p>
+</blockquote>
+<section id="series-and-vectors" class="level3" data-number="1.3.1">
+<h3 data-number="1.3.1" class="anchored" data-anchor-id="series-and-vectors"><span class="header-section-number">1.3.1</span> Series and vectors</h3>
+<div class="callout callout-style-default callout-important callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Important
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p><code>Series</code> are a <strong>1-dimensional</strong> data structure. Within a series all elements have the same Data Type.</p>
+</div>
+</div>
+<p>In Polars objects, <code>Series</code> object are like R <code>vectors</code>.<br>
+To create a Polars Series from scratch:</p>
+<div class="tabset-margin-container"></div><div class="panel-tabset">
+<ul class="nav nav-tabs" role="tablist"><li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-3-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-3-1" role="tab" aria-controls="tabset-3-1" aria-selected="true">polars</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-3-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-3-2" role="tab" aria-controls="tabset-3-2" aria-selected="false">R base</a></li></ul>
+<div class="tab-content">
+<div id="tabset-3-1" class="tab-pane active" role="tabpanel" aria-labelledby="tabset-3-1-tab">
+<div class="cell">
+<div class="sourceCode cell-code" id="cb19"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a>mynumbers_serie <span class="ot">&lt;-</span> pl<span class="sc">$</span><span class="fu">Series</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">3</span>)</span>
+<span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a>myletters_serie <span class="ot">&lt;-</span> pl<span class="sc">$</span><span class="fu">Series</span>(<span class="fu">c</span>(<span class="st">"a"</span>,<span class="st">"b"</span>,<span class="st">"c"</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</div>
+<div id="tabset-3-2" class="tab-pane" role="tabpanel" aria-labelledby="tabset-3-2-tab">
+<div class="cell">
+<div class="sourceCode cell-code" id="cb20"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a>mynumbers_vector <span class="ot">&lt;-</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">3</span></span>
+<span id="cb20-2"><a href="#cb20-2" aria-hidden="true" tabindex="-1"></a>myletters_vector <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">"a"</span>,<span class="st">"b"</span>,<span class="st">"c"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</div>
+</div>
+</div>
+</section>
+<section id="dataframe-and-data.frame" class="level3" data-number="1.3.2">
+<h3 data-number="1.3.2" class="anchored" data-anchor-id="dataframe-and-data.frame"><span class="header-section-number">1.3.2</span> DataFrame and data.frame</h3>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Note
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>A <code>DataFrame</code> is a <strong>2-dimensional</strong> data structure that is backed by a <code>Series</code>, and it can be seen as an abstraction of a collection (e.g.&nbsp;list) of Series.</p>
+</div>
+</div>
+<p>In polars objects, <code>DataFrame</code> object are like R <code>data.frame</code> and close to a <code>tibble</code> and a <code>data.table</code> object.<br>
+To create a Polars DataFrame from scratch:</p>
+<div class="tabset-margin-container"></div><div class="panel-tabset">
+<ul class="nav nav-tabs" role="tablist"><li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-4-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-4-1" role="tab" aria-controls="tabset-4-1" aria-selected="true">polars</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-4-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-4-2" role="tab" aria-controls="tabset-4-2" aria-selected="false">R base</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-4-3-tab" data-bs-toggle="tab" data-bs-target="#tabset-4-3" role="tab" aria-controls="tabset-4-3" aria-selected="false">dplyr</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-4-4-tab" data-bs-toggle="tab" data-bs-target="#tabset-4-4" role="tab" aria-controls="tabset-4-4" aria-selected="false">data.table</a></li></ul>
+<div class="tab-content">
+<div id="tabset-4-1" class="tab-pane active" role="tabpanel" aria-labelledby="tabset-4-1-tab">
+<div class="cell">
+<div class="sourceCode cell-code" id="cb21"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Creation of a DataFrame object with Series</span></span>
+<span id="cb21-2"><a href="#cb21-2" aria-hidden="true" tabindex="-1"></a>mydf <span class="ot">&lt;-</span> pl<span class="sc">$</span><span class="fu">DataFrame</span>(</span>
+<span id="cb21-3"><a href="#cb21-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">col1 =</span> mynumbers_serie,</span>
+<span id="cb21-4"><a href="#cb21-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">col2 =</span> myletters_serie</span>
+<span id="cb21-5"><a href="#cb21-5" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb21-6"><a href="#cb21-6" aria-hidden="true" tabindex="-1"></a><span class="co"># Creation of a DataFrame object with Series and vectors</span></span>
+<span id="cb21-7"><a href="#cb21-7" aria-hidden="true" tabindex="-1"></a>pl<span class="sc">$</span><span class="fu">DataFrame</span>(</span>
+<span id="cb21-8"><a href="#cb21-8" aria-hidden="true" tabindex="-1"></a>  <span class="at">col1 =</span> mynumbers_serie,</span>
+<span id="cb21-9"><a href="#cb21-9" aria-hidden="true" tabindex="-1"></a>  <span class="at">col2 =</span> myletters_vector</span>
+<span id="cb21-10"><a href="#cb21-10" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>shape: (3, 2)
+┌──────┬──────┐
+│ col1 ┆ col2 │
+│ ---  ┆ ---  │
+│ i32  ┆ str  │
+╞══════╪══════╡
+│ 1    ┆ a    │
+│ 2    ┆ b    │
+│ 3    ┆ c    │
+└──────┴──────┘</code></pre>
+</div>
+</div>
+</div>
+<div id="tabset-4-2" class="tab-pane" role="tabpanel" aria-labelledby="tabset-4-2-tab">
+<div class="cell">
+<div class="sourceCode cell-code" id="cb23"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a><span class="fu">data.frame</span>(</span>
+<span id="cb23-2"><a href="#cb23-2" aria-hidden="true" tabindex="-1"></a>  <span class="at">col1 =</span> mynumbers_vector,</span>
+<span id="cb23-3"><a href="#cb23-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">col2 =</span> myletters_vector</span>
+<span id="cb23-4"><a href="#cb23-4" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>  col1 col2
+1    1    a
+2    2    b
+3    3    c</code></pre>
+</div>
+</div>
+</div>
+<div id="tabset-4-3" class="tab-pane" role="tabpanel" aria-labelledby="tabset-4-3-tab">
+<div class="cell">
+<div class="sourceCode cell-code" id="cb25"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a><span class="fu">tibble</span>(</span>
+<span id="cb25-2"><a href="#cb25-2" aria-hidden="true" tabindex="-1"></a>  <span class="at">col1 =</span> mynumbers_vector,</span>
+<span id="cb25-3"><a href="#cb25-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">col2 =</span> myletters_vector</span>
+<span id="cb25-4"><a href="#cb25-4" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 3 × 2
+   col1 col2 
+  &lt;int&gt; &lt;chr&gt;
+1     1 a    
+2     2 b    
+3     3 c    </code></pre>
+</div>
+</div>
+</div>
+<div id="tabset-4-4" class="tab-pane" role="tabpanel" aria-labelledby="tabset-4-4-tab">
+<div class="cell">
+<div class="sourceCode cell-code" id="cb27"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a><span class="fu">data.table</span>(</span>
+<span id="cb27-2"><a href="#cb27-2" aria-hidden="true" tabindex="-1"></a>  <span class="at">col1 =</span> mynumbers_vector,</span>
+<span id="cb27-3"><a href="#cb27-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">col2 =</span> myletters_vector</span>
+<span id="cb27-4"><a href="#cb27-4" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>   col1 col2
+1:    1    a
+2:    2    b
+3:    3    c</code></pre>
+</div>
+</div>
+</div>
+</div>
+</div>
+</section>
+</section>
+<section id="manipulation-of-series-and-dataframes-with-r-standard-functions" class="level2" data-number="1.4">
+<h2 data-number="1.4" class="anchored" data-anchor-id="manipulation-of-series-and-dataframes-with-r-standard-functions"><span class="header-section-number">1.4</span> Manipulation of Series and DataFrames with R standard functions</h2>
+<p><code>Series</code> and <code>DataFrames</code> can be manipulated <strong>with a lot of standard R functions</strong>.<br>
+Some examples with <code>Series</code>:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb29"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true" tabindex="-1"></a><span class="fu">sum</span>(mynumbers_serie)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 6</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb31"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb31-1"><a href="#cb31-1" aria-hidden="true" tabindex="-1"></a><span class="fu">paste</span>(myletters_serie,<span class="at">collapse =</span> <span class="st">""</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] "abc"</code></pre>
+</div>
+</div>
+<p>Some examples with <code>DataFrames</code>:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb33"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb33-1"><a href="#cb33-1" aria-hidden="true" tabindex="-1"></a><span class="fu">names</span>(mydf)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] "col1" "col2"</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb35"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb35-1"><a href="#cb35-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ncol</span>(mydf)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 2</code></pre>
+</div>
+</div>
+</section>
+<section id="expressions" class="level2" data-number="1.5">
+<h2 data-number="1.5" class="anchored" data-anchor-id="expressions"><span class="header-section-number">1.5</span> Expressions</h2>
+<p>Here I’m quoting what Damian Skrzypiec said <a href="https://dskrzypiec.dev/polars/">in his blog</a> about Polars expressions:</p>
+<blockquote class="blockquote">
+<p>One of fundamental building blocks in Polars are Polars expressions. In general Polars expression is any function that transforms Polars series into another Polars series. There are few advantageous aspects of Polars expressions. Firstly expressions are optimized. Particularly if expression need to be executed on multiple columns, then it will be parallelized. It’s one of reasons behind Polars high performance. Another aspect is the fact the Polars implements an extensive set of builtin expressions that user can compose (chain) into more complex expressions.</p>
+</blockquote>
+<p>This is what an Polars expression looks like:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb37"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb37-1"><a href="#cb37-1" aria-hidden="true" tabindex="-1"></a>pl<span class="sc">$</span><span class="fu">col</span>(<span class="st">"Petal.Length"</span>)<span class="sc">$</span><span class="fu">round</span>(<span class="at">decimals =</span> <span class="dv">0</span>)<span class="sc">$</span><span class="fu">alias</span>(<span class="st">"Petal.Length.rounded"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Which means that: - Select column “Petal.Length” - Then round the column with 0 decimals - Then rename the column “Petal.Length.rounded”</p>
+<div class="callout callout-style-default callout-tip callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Tip
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Every expression produces a new expression, and that they can be piped together.</p>
+</div>
+</div>
+<p>For example:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb38"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb38-1"><a href="#cb38-1" aria-hidden="true" tabindex="-1"></a><span class="fu">pl.col</span>(<span class="st">"bar"</span>)<span class="fu">.filter</span>(<span class="fu">pl.col</span>(<span class="st">"foo"</span>) <span class="sc">==</span> <span class="dv">1</span>)<span class="fu">.sum</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>To learn more about Polars expressions, see <a href="https://pola-rs.github.io/polars-book/user-guide/concepts/expressions/">the official documentation</a>.</p>
+<hr>
+<p><strong>If you have read this far and managed to reproduce the examples, congratulations! You are ready to dive into the deep end of Polars with R in the next parts of this cookbook!</strong> 🚀</p>
 
 
+</section>
 
 </main> <!-- /main -->
 <script id="quarto-html-after-body" type="application/javascript">
@@ -625,4 +836,4 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 
 
 
-<footer class="footer"><div class="nav-footer"><div class="nav-footer-center"><div class="toc-actions"><div><i class="bi bi-github"></i></div><div class="action-links"><p><a href="https://github.com/ddotta/cookbook-rpolars/edit/main/book/first_steps.qmd" class="toc-action">Edit this page</a></p><p><a href="https://github.com/ddotta/cookbook-rpolars/issues/new" class="toc-action">Report an issue</a></p><p><a href="https://github.com/ddotta/cookbook-rpolars/blob/main/book/first_steps.qmd" class="toc-action">View source</a></p></div></div></div></div></footer></body></html>
+</body></html>
