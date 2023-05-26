@@ -564,15 +564,49 @@ To learn more about Data types in Polars, see [here](https://pola-rs.github.io/p
 ##### Cast
 
 The `cast()` method can be used to convert the data types of a column to a new one.  
-With R base, the syntax is longer.
+
+::: {.panel-tabset}
+## polars
 
 ```{r}
 #| label: cast-polars
 pl$DataFrame(iris)$with_columns(
-  pl$col("Petal.Length")$cast(pl$Int64), # The "Petal.Length" column is converted into integers
+  pl$col("Petal.Length")$cast(pl$Int8), # The "Petal.Length" column is converted into integers
   pl$col("Species")$cast(pl$Utf8) # The "Species" column is converted into strings
   )$schema
 ```
+
+## R base
+
+```{r}
+#| label: cast-rbase
+data(iris)
+iris$Petal.Length <- as.integer(iris$Petal.Length)
+iris$Species <- as.integer(iris$Species)
+str(iris)
+```
+
+## dplyr
+
+```{r}
+#| label: cast-dplyr
+data(iris)
+iris |>
+  mutate(
+    Petal.Length = as.integer(Petal.Length),
+    Species = as.character(Species)) |>
+  str()
+```
+
+## data.table
+
+```{r}
+#| label: cast-datatable
+iris_dt[, `:=`(Petal.Length = as.integer(Petal.Length),
+               Species = as.character(Species))]
+str(iris_dt)
+```
+:::
 
 ::: {.callout-tip}
 When working with very large tables we can **Reduce the memory footprint** by modifying the number of bits allocated to an element. ⚠️
