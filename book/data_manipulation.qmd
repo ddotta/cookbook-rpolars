@@ -135,6 +135,10 @@ mydf$head(2)
 mydf$shape
 ```
 
+::: {.callout-caution}
+Polars API contains a [describe](https://pola-rs.github.io/polars/py-polars/html/reference/dataframe/api/polars.DataFrame.describe.html) method that has not yet been implemented (end of May 2023).
+:::
+
 #### Count NA over columns in a DataFrame
 
 The `null_count()` method can be used to count NA values of a DataFrame.
