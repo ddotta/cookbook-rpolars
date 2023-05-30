@@ -2,6 +2,7 @@
 /_site/
 /_book/
 *.html
+*.parquet
 .Rproj.user
 *.Rproj
 /book/Datasets/
@@ -11,4 +12,3 @@
 /book/graphics_cache/
 /book/index_cache/
 /book/production_cache/
-*.parquet
