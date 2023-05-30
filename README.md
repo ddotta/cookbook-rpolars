@@ -13,6 +13,10 @@ It contains a side-by-side comparison between Polars, R base and the two most po
 
 - [Data manipulation](https://ddotta.github.io/cookbook-rpolars/data_manipulation.html)
 
+- [Lazy execution](https://ddotta.github.io/cookbook-rpolars/lazy_execution.html)
+
+- [Import/Export](https://ddotta.github.io/cookbook-rpolars/import_export.html)
+
 - [Articulation with duckdb](https://ddotta.github.io/cookbook-rpolars/duckdb.html)
 
 - [Polars in production](https://ddotta.github.io/cookbook-rpolars/production.html)
