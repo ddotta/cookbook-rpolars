@@ -36,7 +36,7 @@ As you can see, with **lazy mode**, you give the engine the chance to analyse wh
 
 So far in this book, we have only used the **eager mode** but fortunately all the syntax we've seen applies to **lazy mode** too. Whatever mode is used, queries will be executed transparently for users.
 
-## Creation of a `LazyFrame`
+### Creation of a `LazyFrame`
 
 To create a `LazyFrame` from an existing object in memory, we can invoke the `lazy()` constructor.
 
@@ -46,7 +46,7 @@ pl$DataFrame(iris)$lazy()
 ```
 We are no longer working on a `DataFrame` but on a `LazyFrame`.  
 
-## First query passed on `LazyFrame`
+### First query passed on `LazyFrame`
 
 Let's look at what happens when we request this `LazyFrame`:
 
@@ -67,7 +67,7 @@ myquery$describe_optimized_plan()
 ```
 This example shows a simple but surprisingly effective element of query optimisation: **projection**. Changing the order in which our subset operations occur - in this case, the subset on columns first - reduces the memory overhead of the global query.
 
-## Execute the plan
+### Execute the plan
 
 To actually execute the plan, we just need to invoke the **collect()** method. 
 
@@ -75,3 +75,39 @@ To actually execute the plan, we just need to invoke the **collect()** method.
 #| label: collect-query-lazy
 myquery$collect()
 ```
+
+## Lazy vs eager mode comparison
+
+```{r}
+#| label: eager-query-steps
+df <- pl$read_csv("examples/iris.csv")
+df_small = df$filter(pl$col("Petal.Length") > 5)
+df_agg = df_small$groupby("Species")$agg(pl$col("Petal.Width")$median())
+df_agg
+```
+
+In this example we use the **eager API** to:
+
+- Read the iris dataset.
+- Filter the dataset based on Petal.Length
+- Calculate the median of the Petal.Width per Species
+
+**Every step is executed immediately returning the intermediate results**. This can be very **wastefull** as we might do work or load extra data that is not being used.  
+If we instead used the **lazy API** and waited on execution untill all the steps are defined then the query planner could perform various optimizations. In this case:
+
+- `Predicate pushdown`: Apply filters as early as possible while reading the dataset, thus only reading rows with sepal length greater than 5.
+- `Projection pushdown`: Select only the columns that are needed while reading the dataset, thus removing the need to load additional columns
+
+Here is the equivalent code using the lazy API. At the end of the query, don't forget to use the `collect()` method to inform Polars that you want to execute it.
+
+```{r}
+#| label: lazy-query_-steps
+pl$read_csv("examples/iris.csv", lazy = TRUE)$filter(
+  pl$col("Petal.Length") > 5)$groupby(
+    "Species")$agg(pl$col("Petal.Width")$median())$collect() # <- don't forget collect() here!
+```
+
+::: {.callout-important}
+Use **lazy execution** will signficantly lower the load on memory & CPU thus allowing you to fit bigger datasets in memory and process faster.
+:::
+These  Once the query is defined you call collect to inform Polars that you want to execute it
