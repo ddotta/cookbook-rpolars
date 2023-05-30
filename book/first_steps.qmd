@@ -16,15 +16,6 @@ install.packages(c('dplyr','data.table','arrow','fakir'),dependencies = TRUE,rep
 library(dplyr)
 library(data.table)
 library(arrow)
-library(fakir)
-
-# Creation the "Datasets" folder
-dir.create(normalizePath("Datasets"))
-
-# Creation of large example dataset
-write_parquet(
-  x = fake_ticket_client(vol = 1000),
-  sink = normalizePath("Datasets/example_data.parquet"))
 
 # Creation of iris_dt
 iris_dt <- as.data.table(iris)
