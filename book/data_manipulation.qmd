@@ -799,7 +799,7 @@ pl$DataFrame(iris)$select(pl$col("Petal.Length"))$to_series()
 
 ```{r}
 #| label: tovector-rbase
-iris$Species
+iris$Petal.Length
 ```
 
 ## dplyr
@@ -807,14 +807,14 @@ iris$Species
 ```{r}
 #| label: pull-dplyr
 iris |>
-  pull(Species)
+  pull(Petal.Length)
 ```
 
 ## data.table
 
 ```{r}
 #| label: tovector-datatable
-iris_dt[, c(Species)]
+iris_dt[, c(Petal.Length)]
 ```
 :::
 
