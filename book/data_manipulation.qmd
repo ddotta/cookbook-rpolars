@@ -927,7 +927,6 @@ iris_dt[order(-Species,Petal.Length)][1:3,]
 
 The `to_struct()` method can be used to get a structure from a `DataFrame`.  
 
-
 ```{r}
 #| label: to_struct-dataframe-polars
 mystruc <- mydf$to_struct()
@@ -950,6 +949,82 @@ With `to_frame()` and `unnest()` methods, we can reconstruct the original DataFr
 back_df <- mystruc$to_frame()$unnest()
 back_df
 ```
+
+### Import methods
+
+The `read_csv()` method can be used to import a csv file from a file or an URL.  
+
+From a file:
+
+::: {.panel-tabset}
+## polars
+
+```{r}
+#| label: read_csv-from-file-polars
+# Sort by one column
+pl$read_csv("examples/iris.csv")
+```
+
+`read_csv()` returns a DataFrame.  
+This method also works with an URL:
+
+```{r}
+#| label: read_csv-from-URL-polars
+# Sort by one column
+pl$read_csv("https://j.mp/iriscsv")
+```
+
+If you want to use this method in [lazy mode](#lazy-executioin), it accepts a lazy boolean argument (FALSE by default).
+
+```{r}
+#| label: read_csv-from-file-lazy-polars
+# Sort by one column
+pl$read_csv("examples/iris.csv", lazy = TRUE)
+```
+
+## R base
+
+```{r}
+#| label: sort-dataframe-rbase
+# Sort by one column
+iris[order(iris$Species),][1:3,]
+# Sort by two columns
+iris[order(iris$Species,iris$Petal.Length),][1:3,]
+# Sort by two columns one in a decreasing manner and the other in an increasing manner
+iris[order(rev(iris$Species),iris$Petal.Length),][1:3,]
+```
+
+## dplyr
+
+```{r}
+#| label: sort-dataframe-dplyr
+# Sort by one column
+iris |>
+  arrange(Species) |>
+  head(3)
+# Sort by two columns
+iris |>
+  arrange(Species, Petal.Length) |>
+  head(3)
+# Sort by two columns one in a decreasing manner and the other in an increasing manner
+iris |>
+  arrange(desc(Species), Petal.Length) |>
+  head(3)
+```
+
+## data.table
+
+```{r}
+#| label: sort-dataframe-datatable
+# Sort by one column
+iris_dt[order(Species)][1:3,]
+# Sort by two columns
+iris_dt[order(Species,Petal.Length)][1:3,]
+# Sort by two columns one in a decreasing manner and the other in an increasing manner
+iris_dt[order(-Species,Petal.Length)][1:3,]
+```
+:::
+
 
 
 ### List of methods to apply to Series
