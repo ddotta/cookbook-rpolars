@@ -21,9 +21,10 @@ write_parquet(
 ```
 
 ::: {.callout-note}
-This chapter only deals with the **lazy evaluation** of Polars. It does not include a comparison with R base, dplyr and data.table
+This chapter only deals with the **lazy execution** of Polars. It does not include a comparison with R base, dplyr and data.table
 :::
 
+## Introduction to lazy mode
 
 Polars supports two modes of operation: **lazy** and **eager**.
 
@@ -35,13 +36,18 @@ As you can see, with **lazy mode**, you give the engine the chance to analyse wh
 
 So far in this book, we have only used the **eager mode** but fortunately all the syntax we've seen applies to **lazy mode** too. Whatever mode is used, queries will be executed transparently for users.
 
-To create a so-called “LazyFrame” from an existing object in memory, we can invoke the `lazy()` constructor.
+## Creation of a `LazyFrame`
+
+To create a `LazyFrame` from an existing object in memory, we can invoke the `lazy()` constructor.
 
 ```{r}
 #| label: creation-lazyFrame
 pl$DataFrame(iris)$lazy()
 ```
 We are no longer working on a `DataFrame` but on a `LazyFrame`.  
+
+## First query passed on `LazyFrame`
+
 Let's look at what happens when we request this `LazyFrame`:
 
 ```{r}
@@ -60,6 +66,8 @@ This way, we can display the **naive plan** but as indicated in the console, we 
 myquery$describe_optimized_plan()
 ```
 This example shows a simple but surprisingly effective element of query optimisation: **projection**. Changing the order in which our subset operations occur - in this case, the subset on columns first - reduces the memory overhead of the global query.
+
+## Execute the plan
 
 To actually execute the plan, we just need to invoke the **collect()** method. 
 
