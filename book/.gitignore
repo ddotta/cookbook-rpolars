@@ -3,6 +3,7 @@ _book/
 *.html
 Datasets/
 *.parquet
+!examples/*.parquet
 *.rds
 data_manipulation_cache/
 first_steps_cache/
