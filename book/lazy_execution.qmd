@@ -1,6 +1,5 @@
 # Lazy execution
 
-
 ```{r}
 #| label: load-packages-lazy-execution
 #| code-fold: true
@@ -8,16 +7,22 @@
 #| warning: false
 #| results: 'hide'
 library(polars)
-
+library(arrow)
 library(fakir)
+library(tictoc)
 
 # Creation the "Datasets" folder
 dir.create(normalizePath("Datasets"))
 
-# Creation of large example dataset
+# Creation of large example csv dataset
+write.csv(
+  x = fake_ticket_client(vol = 100000),
+  file = normalizePath("Datasets/fakir_file.csv"))
+
+# Creation of large example parquet dataset
 write_parquet(
-  x = fake_ticket_client(vol = 1000),
-  sink = normalizePath("Datasets/example_data.parquet"))
+  x = fake_ticket_client(vol = 100000),
+  sink = normalizePath("Datasets/fakir_file.parquet"))
 ```
 
 ::: {.callout-note}
@@ -36,9 +41,9 @@ As you can see, with **lazy mode**, you give the engine the chance to analyse wh
 
 So far in this book, we have only used the **eager mode** but fortunately all the syntax we've seen applies to **lazy mode** too. Whatever mode is used, queries will be executed transparently for users.
 
-### Creation of a `LazyFrame`
+### Creation of a `LazyFrame` with lazy()
 
-To create a `LazyFrame` from an existing object in memory, we can invoke the `lazy()` constructor.
+To convert a `DataFrame` to a `LazyFrame` we can use the `lazy()` contructor.
 
 ```{r}
 #| label: creation-lazyFrame
@@ -65,6 +70,7 @@ This way, we can display the **naive plan** but as indicated in the console, we 
 #| label: optimized-query-lazy
 myquery$describe_optimized_plan()
 ```
+
 This example shows a simple but surprisingly effective element of query optimisation: **projection**. Changing the order in which our subset operations occur - in this case, the subset on columns first - reduces the memory overhead of the global query.
 
 ### Execute the plan
@@ -76,7 +82,7 @@ To actually execute the plan, we just need to invoke the **collect()** method.
 myquery$collect()
 ```
 
-## Lazy vs eager mode comparison
+## `Lazy` vs `eager` mode comparison
 
 ```{r}
 #| label: eager-query-steps
@@ -98,10 +104,14 @@ If we instead used the **lazy API** and waited on execution untill all the steps
 - `Predicate pushdown`: Apply filters as early as possible while reading the dataset, thus only reading rows with sepal length greater than 5.
 - `Projection pushdown`: Select only the columns that are needed while reading the dataset, thus removing the need to load additional columns
 
+::: callout-tip
+To consult the list of **optimisations** made by `Polars` on queries in **lazy mode**, see [this page](https://pola-rs.github.io/polars-book/user-guide/lazy/optimizations/)..
+:::
+
 Here is the equivalent code using the lazy API. At the end of the query, don't forget to use the `collect()` method to inform Polars that you want to execute it.
 
 ```{r}
-#| label: lazy-query_-steps
+#| label: lazy-query-steps
 pl$read_csv("examples/iris.csv", lazy = TRUE)$filter(
   pl$col("Petal.Length") > 5)$groupby(
     "Species")$agg(pl$col("Petal.Width")$median())$collect() # <- don't forget collect() here!
@@ -110,4 +120,67 @@ pl$read_csv("examples/iris.csv", lazy = TRUE)$filter(
 ::: {.callout-important}
 Use **lazy execution** will signficantly lower the load on memory & CPU thus allowing you to fit bigger datasets in memory and process faster.
 :::
-These  Once the query is defined you call collect to inform Polars that you want to execute it
+
+The next part will demonstrate this time saving. 👇
+
+## `Lazy` vs `eager` mode : fight !
+
+For this fight, we're going to use a fake dataset created with the {fakir} package. The code for creating this dataset is available at the beginning of this document.
+
+
+```{r}
+tic()
+#| label: fight-eager_read_csv
+pl$read_csv("Datasets/fakir_file.csv", infer_schema_length=0)$ 
+  select(
+    pl$col(c("region","departement","priority")) 
+  )$
+  filter(
+    pl$col("region") == "Bretagne")
+toc()
+```
+  
+```{r}
+#| label: fight-lazy_csv_reader
+tic()
+pl$lazy_csv_reader("Datasets/fakir_file.csv")$ 
+  select(
+    pl$col(c("region","departement","priority")) 
+  )$
+  filter(
+    pl$col("region") == "Bretagne")$
+  collect()
+toc()
+```
+
+
+
+
+::: {.callout-note}
+The `read_parquet()` method has not been implemented in the R Polars package, but for this fight we will use `arrow::read_parquet()`, which will compete with `polars::scan_parquet()`.
+:::
+
+```{r}
+#| label: fight-eager-read-parquet
+#| message: false
+tic()
+eager_result <- arrow::read_parquet("Datasets/fakir_file.parquet") %>% 
+  filter(region == "Bretagne") %>% 
+  group_by(departement,priority) %>% 
+  summarise(mymean=mean(age)) %>% 
+  arrange(departement)
+toc()
+```
+
+```{r}
+#| label: fight-lazy-scan-parquet
+tic()
+lazy_result <- scan_parquet("Datasets/fakir_file.parquet")$
+  filter( 
+    pl$col("region") == "Bretagne")$
+  groupby(c("departement","priority"))$
+  agg(
+    pl$col(c("age"))$mean()
+)$collect()
+toc()
+```
