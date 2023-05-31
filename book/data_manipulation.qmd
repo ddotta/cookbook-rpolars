@@ -782,6 +782,38 @@ iris_dt[, .N, by = Species]
 ```
 :::
 
+##### Sum across `Series`
+
+The `sum()` method can be used to get a sum of a `Series`.
+
+- From a single `Series`:
+
+```{r}
+#| label: first-sum-polars
+pl$Series(1:3)$sum()
+```
+
+- From a `DataFrame` and a column as string:
+
+```{r}
+#| label: df-string-sum-polars
+pl$DataFrame(iris)$select(pl$sum("Petal.Length"))
+```
+
+- From a `DataFrame` and a column as an expression:
+
+```{r}
+#| label: df-exp-sum-polars
+pl$DataFrame(iris)$select(pl$sum("Petal.Length"))
+```
+
+- From a `DataFrame` and a column as a list and **sum horizontally**:
+
+```{r}
+#| label: df-list-sum-polars
+df <- pl$DataFrame(col1 = c(10L,20L), col2= c(30L,40L), col3 = c(40L,50L))
+df$with_column(pl$sum(list("col1", "col3")))
+```
 
 #### On DataFrames
 
