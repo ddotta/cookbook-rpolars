@@ -1,5 +1,8 @@
 # Lazy execution
 
+Below is the code used to create the fake data needed to compare the `eager` and `lazy` modes in this document.  
+Click to expand it! 👇
+
 ```{r}
 #| label: load-packages-lazy-execution
 #| code-fold: true
@@ -85,6 +88,8 @@ myquery$collect()
 
 ## `Lazy` vs `eager` mode comparison
 
+In this first example we use the **eager API**:
+
 ```{r}
 #| label: eager-query-steps
 df <- pl$read_csv("examples/iris.csv")
@@ -93,7 +98,7 @@ df_agg = df_small$groupby("Species")$agg(pl$col("Petal.Width")$median())
 df_agg
 ```
 
-In this example we use the **eager API** to:
+This example:
 
 - Read the iris dataset.
 - Filter the dataset based on Petal.Length
@@ -127,10 +132,11 @@ Use **lazy execution** will signficantly lower the load on memory & CPU thus all
 
 The next part will demonstrate this time saving. 👇
 
-## `Lazy` vs `eager` mode : fight !
+## `Lazy` vs `eager` mode : fight! ⚔️
 
-For this fight, we're going to use a fake dataset created with the {fakir} package. The code for creating this dataset is available at the beginning of this document.
+For this fight, we're going to use a fake dataset with 1 000 000 rows and 25 columns created with the {fakir} package. The code for creating this dataset is available at the beginning of this document.
 
+The `eager` mode is represented here by the `read_csv()` method...
 
 ```{r}
 tic()
@@ -146,7 +152,9 @@ pl$read_csv("Datasets/fakir_file.csv", infer_schema_length=0)$
   agg(pl$col("age")$mean())
 toc()
 ```
-  
+
+... while the `lazy` method is represented by the `lazy_csv_reader`:
+
 ```{r}
 #| label: fight-lazy_csv_reader
 tic()
@@ -159,8 +167,7 @@ pl$lazy_csv_reader("Datasets/fakir_file.csv")$
   collect()
 toc()
 ```
-
-
+We can clearly see that we save a lot of time when executing the `lazy` version of the code!
 
 
 ::: {.callout-note}
