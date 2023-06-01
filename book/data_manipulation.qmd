@@ -1072,6 +1072,108 @@ back_df <- mystruc$to_frame()$unnest()
 back_df
 ```
 
+#### Drop all rows that contain null values
+
+The `drop_nulls()` method can be used to drop all rows that contain null values in a `DataFrame`.
+
+By default, `drop_nulls()` use all columns to drop rows:
+
+::: {.panel-tabset}
+## polars
+
+```{r}
+#| label: drop_nulls_all_columns-polars
+data_pl <- pl$DataFrame(
+  col1 = pl$Series(c(NA,"b","c")),
+  col2 = pl$Series(c(1,2,NA))
+)
+data_pl$drop_nulls()
+```
+
+## R base
+```{r}
+#| label: drop_nulls_all_columns-rbase
+data_df <- data.frame(
+  col1 = c(NA, "b", "c"),
+  col2 = c(1, 2, NA)
+)
+data_df[complete.cases(data), ]
+```
+
+## dplyr
+
+```{r}
+#| label: drop_nulls_all_columns-dplyr
+data_df <- data.frame(
+  col1 = c(NA, "b", "c"),
+  col2 = c(1, 2, NA)
+)
+data_df %>%
+  filter(complete.cases(.))
+```
+
+## data.table
+
+```{r}
+#| label: drop_nulls_all_columns-datatable
+data_dt <- data.table(
+  col1 = c(NA, "b", "c"),
+  col2 = c(1, 2, NA)
+)
+na.omit(data_dt)
+```
+:::
+
+
+If you want, you can specify a column (or multiple columns):
+
+::: {.panel-tabset}
+## polars
+
+```{r}
+#| label: drop_nulls_all_columns-polars
+data_pl$drop_nulls("col1")
+```
+
+## R base
+```{r}
+#| label: drop_nulls_all_columns-rbase
+data_df[!is.na(data$col1), ]
+```
+
+## dplyr
+```{r}
+#| label: drop_nulls_all_columns-dplyr
+data_df %>%
+  filter(!is.na(col1))
+```
+
+## data.table
+```{r}
+#| label: drop_nulls_all_columns-datatable
+data_dt[complete.cases(data_dt[, .SD, .SDcols = "col1"]), ]
+```
+:::
+
+`to_struct()` returns a `Series` which can be converted to a R list with `to_r` method.
+
+```{r}
+#| label: to_struct-to-r
+mylist <- mystruc$to_r()
+mylist
+```
+
+mylist is now a list where each element is a column of the initial DataFrame.
+
+With `to_frame()` and `unnest()` methods, we can reconstruct the original DataFrame:
+
+```{r}
+back_df <- mystruc$to_frame()$unnest()
+back_df
+```
+
+
+
 ## List of methods to apply to Series {#list-of-methods-to-apply-to-series}
 
 To learn more about the methods to be applied to the `Series`, see [this page](https://rpolars.github.io/reference/Series_class/).
