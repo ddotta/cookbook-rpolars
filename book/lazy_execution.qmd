@@ -18,14 +18,17 @@ library(tictoc)
 # Creation the "Datasets" folder
 dir.create(normalizePath("Datasets"))
 
+# Creation of large example R data.frame
+fake_data <- fake_ticket_client(vol = 100000)
+
 # Creation of large example csv dataset
 write.csv(
-  x = fake_ticket_client(vol = 100000),
+  x = fake_data,
   file = normalizePath("Datasets/fakir_file.csv"))
 
 # Creation of large example parquet dataset
 write_parquet(
-  x = fake_ticket_client(vol = 100000),
+  x = fake_data,
   sink = normalizePath("Datasets/fakir_file.parquet"))
 ```
 
@@ -136,7 +139,45 @@ The next part will demonstrate this time saving. 👇
 
 For this fight, we're going to use a fake dataset with 1 000 000 rows and 25 columns created with the {fakir} package. The code for creating this dataset is available at the beginning of this document.
 
-The `eager` mode is represented here by the `read_csv()` method...
+This fight will take place over 3 rounds :
+
+1. With an eager query versus a lazy query **from a DataFrame**
+2. With an eager query versus a lazy query **from a csv file**
+3. With an eager query versus a lazy query **from a parquet file**
+
+### From a DataFrame
+
+For this first round and as seen above, let's start with a simple query from a `DataFrame`:
+
+```{r}
+tic()
+#| label: fight-eager_dataframe
+pl$DataFrame(fake_data)$select(
+    pl$col(c("region","departement","priority")) 
+  )$
+  filter(
+    pl$col("region") == "Aquitaine")
+toc()
+```
+
+As seen above, we're going to use the `lazy()` method to convert a `DataFrame` to a `LazyFrame`:
+
+```{r}
+tic()
+#| label: fight-lazy_lazyframe
+pl$DataFrame(fake_data)$lazy()$
+  select(
+    pl$col(c("region","departement","priority")) 
+  )$
+  filter(
+    pl$col("region") == "Aquitaine")$
+  collect() # don't forget collect() here!
+toc()
+```
+
+### From a csv file
+
+Now, the `eager` mode is represented here by the `read_csv()` method...
 
 ```{r}
 tic()
@@ -158,21 +199,26 @@ toc()
 ```{r}
 #| label: fight-lazy_csv_reader
 tic()
-pl$lazy_csv_reader("Datasets/fakir_file.csv")$ 
+pl$lazy_csv_reader("Datasets/fakir_file.csv", infer_schema_length=0)$
   select(
-    pl$col(c("region","departement","priority")) 
-  )$
+    pl$col(c("region","departement","priority","age")))$
+  with_columns(
+    pl$col("age")$cast(pl$Int32,strict = FALSE))$
   filter(
     pl$col("region") == "Bretagne")$
+  groupby("departement","priority")$
+  agg(pl$col("age")$mean())$
   collect()
 toc()
 ```
+
 We can clearly see that we save a lot of time when executing the `lazy` version of the code!
 
 
-::: {.callout-note}
-The `read_parquet()` method has not been implemented in the R Polars package, but for this fight we will use `arrow::read_parquet()`, which will compete with `polars::scan_parquet()`.
-:::
+### From a parquet file
+
+The `read_parquet()` method has not been implemented in the R Polars package, but for this fight we will use `arrow::read_parquet()` and {dplyr} syntax, which will compete with `polars::scan_parquet()`.
+
 
 ```{r}
 #| label: fight-eager-read-parquet
@@ -198,3 +244,4 @@ lazy_result <- scan_parquet("Datasets/fakir_file.parquet")$
 )$collect()
 toc()
 ```
+And it's another victory for the `lazy` execution!
