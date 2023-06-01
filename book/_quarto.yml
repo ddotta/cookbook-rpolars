@@ -23,6 +23,8 @@ book:
     - index.qmd
     - first_steps.qmd
     - data_manipulation.qmd
+    - import_export.qmd
+    - lazy_execution.qmd
     - duckdb.qmd
     - production.qmd
     - graphics.qmd

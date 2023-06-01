@@ -8,6 +8,7 @@
 #| results: 'hide'
 library(polars)
 library(arrow)
+library(dplyr)
 library(fakir)
 library(tictoc)
 
@@ -112,9 +113,12 @@ Here is the equivalent code using the lazy API. At the end of the query, don't f
 
 ```{r}
 #| label: lazy-query-steps
-pl$read_csv("examples/iris.csv", lazy = TRUE)$filter(
-  pl$col("Petal.Length") > 5)$groupby(
-    "Species")$agg(pl$col("Petal.Width")$median())$collect() # <- don't forget collect() here!
+pl$read_csv("examples/iris.csv", lazy = TRUE)$
+  filter(
+    pl$col("Petal.Length") > 5)$
+  groupby("Species")$
+  agg(pl$col("Petal.Width")$median())$
+  collect() # <- don't forget collect() here!
 ```
 
 ::: {.callout-important}
@@ -133,10 +137,13 @@ tic()
 #| label: fight-eager_read_csv
 pl$read_csv("Datasets/fakir_file.csv", infer_schema_length=0)$ 
   select(
-    pl$col(c("region","departement","priority")) 
-  )$
+    pl$col(c("region","departement","priority","age")))$
+  with_columns(
+    pl$col("age")$cast(pl$Int32,strict = FALSE))$
   filter(
-    pl$col("region") == "Bretagne")
+    pl$col("region") == "Bretagne")$
+  groupby("departement","priority")$
+  agg(pl$col("age")$mean())
 toc()
 ```
   

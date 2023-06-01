@@ -10,7 +10,7 @@ First of all we need to install all the packages and create an big random datase
 #| results: 'hide'
 
 # Installation of packages for cookbook-rpolars
-install.packages(c('dplyr','data.table','arrow','fakir'),dependencies = TRUE,repos = "http://cran.us.r-project.org")
+# install.packages(c('dplyr','data.table','arrow','fakir'),dependencies = TRUE,repos = "http://cran.us.r-project.org")
 
 # Loading packages
 library(dplyr)
@@ -32,7 +32,7 @@ The most practical one in my opinion at the moment is to use [R-universe](https:
 #| message: false
 #| warning: false
 #| results: 'hide'
-install.packages("polars", repos = "https://rpolars.r-universe.dev")
+# install.packages("polars", repos = "https://rpolars.r-universe.dev")
 library(polars)
 ```
 

@@ -852,8 +852,8 @@ In this case, use `with_column()` method.
 
 ```{r}
 #| label: df-horizontally-sum-polars
-df <- pl$DataFrame(col1 = c(10L,20L), col2= c(30L,40L), col3 = c(40L,50L))
-df$with_column(pl$sum(list("col1", "col3")))
+df_pl <- pl$DataFrame(col1 = c(10L,20L), col2= c(30L,40L), col3 = c(40L,50L))
+df_pl$with_column(pl$sum(list("col1", "col3")))
 ```
 
 ## R base
@@ -868,7 +868,7 @@ cbind(df,mysum)
 ## dplyr
 
 ```{r}
-#| label: df-string-sum-dplyr
+#| label: df-horizontally-sum-dplyr
 df %>%
   rowwise() %>% 
   mutate(mysum = sum(col1,col3))
@@ -877,7 +877,7 @@ df %>%
 ## data.table
 
 ```{r}
-#| label: df-string-sum-datatable
+#| label: df-horizontally-sum-datatable
 df_dt <- as.data.table(df)
 df_dt[, somme := rowSums(.SD), .SDcols = c("col1", "col3")]
 print(df_dt)
@@ -890,7 +890,7 @@ In this case, use `list(*)`.
 
 ```{r}
 #| label: df-list-sum-polars
-df$with_column(pl$sum(list("*")))
+df_pl$with_column(pl$sum(list("*")))
 ```
 
 With iris `Dataframe`, you must first select numerical variables:
@@ -1097,7 +1097,7 @@ data_df <- data.frame(
   col1 = c(NA, "b", "c"),
   col2 = c(1, 2, NA)
 )
-data_df[complete.cases(data), ]
+data_df[complete.cases(data_df), ]
 ```
 
 ## dplyr
@@ -1131,48 +1131,29 @@ If you want, you can specify a column (or multiple columns):
 ## polars
 
 ```{r}
-#| label: drop_nulls_all_columns-polars
+#| label: drop_nulls_one_column-polars
 data_pl$drop_nulls("col1")
 ```
 
 ## R base
 ```{r}
-#| label: drop_nulls_all_columns-rbase
-data_df[!is.na(data$col1), ]
+#| label: drop_nulls_one_column-rbase
+data_df[!is.na(data_df$col1), ]
 ```
 
 ## dplyr
 ```{r}
-#| label: drop_nulls_all_columns-dplyr
+#| label: drop_nulls_one_column-dplyr
 data_df %>%
   filter(!is.na(col1))
 ```
 
 ## data.table
 ```{r}
-#| label: drop_nulls_all_columns-datatable
+#| label: drop_nulls_one_column-datatable
 data_dt[complete.cases(data_dt[, .SD, .SDcols = "col1"]), ]
 ```
 :::
-
-`to_struct()` returns a `Series` which can be converted to a R list with `to_r` method.
-
-```{r}
-#| label: to_struct-to-r
-mylist <- mystruc$to_r()
-mylist
-```
-
-mylist is now a list where each element is a column of the initial DataFrame.
-
-With `to_frame()` and `unnest()` methods, we can reconstruct the original DataFrame:
-
-```{r}
-back_df <- mystruc$to_frame()$unnest()
-back_df
-```
-
-
 
 ## List of methods to apply to Series {#list-of-methods-to-apply-to-series}
 
