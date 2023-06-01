@@ -10,12 +10,14 @@ First of all we need to install all the packages and create an big random datase
 #| results: 'hide'
 
 # Installation of packages for cookbook-rpolars
-# install.packages(c('dplyr','data.table','arrow','fakir'),dependencies = TRUE,repos = "http://cran.us.r-project.org")
+packages <- c('dplyr','data.table','arrow','fakir','tictoc')
+installed_packages <- packages %in% rownames(installed.packages())
+if (any(installed_packages == FALSE)) {
+  install.packages(packages[!installed_packages], dependencies = TRUE)
+}
 
 # Loading packages
-library(dplyr)
-library(data.table)
-library(arrow)
+invisible(lapply(packages, library, character.only = TRUE))
 
 # Creation of iris_dt
 iris_dt <- as.data.table(iris)
@@ -32,7 +34,13 @@ The most practical one in my opinion at the moment is to use [R-universe](https:
 #| message: false
 #| warning: false
 #| results: 'hide'
-# install.packages("polars", repos = "https://rpolars.r-universe.dev")
+
+# Install packages not yet installed
+packages <- c("polars")
+installed_packages <- packages %in% rownames(installed.packages())
+if (any(installed_packages == FALSE)) {
+  install.packages(packages[!installed_packages], repos = "https://rpolars.r-universe.dev")
+}
 library(polars)
 ```
 
