@@ -16,7 +16,7 @@ library(polars)
 The `read_csv()` method can be used to import a csv file from a file or an URL.
 `read_csv()` returns a `DataFrame`. 
 
-#### From a file:
+#### From a file
 
 ::: {.panel-tabset} 
 
@@ -56,7 +56,6 @@ for (i in 1:10) {
 ::: callout-important
 May 2023: Reading those multiple files into a single `DataFrame` is not yet implemented in R. See [here](https://pola-rs.github.io/polars-book/user-guide/io/multiple/#reading-into-a-single-dataframe) for an example in Python.
 :::
-
 
 #### From an URL
 
@@ -104,6 +103,8 @@ May 2023: arguments available in Python `eol_char` and `with_column_names` not y
 
 ### Scan a parquet file
 
+#### From a single file
+
 The `scan_parquet()` method can be used to lazily read a parquet file from a file.  
 Scanning delays the actual parsing of the file and `scan_parquet()` returns a `LazyFrame`. 
 
@@ -116,8 +117,41 @@ scan_parquet("examples/iris.parquet")
 
 At the end of the query, don't forget to use the `collect()` method to inform Polars that you want to execute it.
 
+```{r}
+#| label: scan-parquet-collect-polars
+scan_parquet("examples/iris.parquet")$
+  collect()
+```
+
 ::: callout-caution
 May 2023 : Export methods have not yet been implemented in R. This methods start with `write_` (write_parquet(), write_parquet(), write_json(), write_ndjson()...)
 :::
 
 
+#### From multiple files
+
+The `scan_parquet()` method can also be used to lazily read multiple parquet files in the same folder.  
+This is particularly useful for partitioned files!
+For example:
+
+```{r}
+#| label: scan-parquet-multiple-polars
+# Write multiple parquet files in examples folder
+arrow::write_dataset(dataset = iris,
+                     path = "examples",
+                     partitioning = "Species")
+# Reading all parquet files in the example folder and its subfolders
+scan_parquet("examples/*/*.parquet")$
+  collect()
+```
+
+In the code above:  
+
+- `/*` refers to all subfolders in the `example` folder  
+- `/*.parquet` refers to all files with a `.parquet` extension  
+
+::: callout-important
+In this case, note that the `Species` column which been used for partitioning **is missing**
+:::
+
+Of course, the advantage of using `scan_parquet()` is that you can query several partitioned files and retrieve the result of the query in R. See an example [here](#from-a-parquet-file).

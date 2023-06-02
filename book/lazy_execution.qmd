@@ -224,10 +224,10 @@ The `read_parquet()` method has not been implemented in the R Polars package, bu
 #| label: fight-eager-read-parquet
 #| message: false
 tic()
-eager_result <- arrow::read_parquet("Datasets/fakir_file.parquet") %>% 
+arrow::read_parquet("Datasets/fakir_file.parquet") %>% 
   filter(region == "Bretagne") %>% 
   group_by(departement,priority) %>% 
-  summarise(mymean=mean(age)) %>% 
+  summarise(mymean=mean(age, na.rm = TRUE)) %>% 
   arrange(departement)
 toc()
 ```
@@ -235,13 +235,14 @@ toc()
 ```{r}
 #| label: fight-lazy-scan-parquet
 tic()
-lazy_result <- scan_parquet("Datasets/fakir_file.parquet")$
+scan_parquet("Datasets/fakir_file.parquet")$
   filter( 
     pl$col("region") == "Bretagne")$
   groupby(c("departement","priority"))$
   agg(
     pl$col(c("age"))$mean()
-)$collect()
+)$sort("departement")$
+  collect()
 toc()
 ```
 And it's another victory for the `lazy` execution!
