@@ -21,8 +21,6 @@ It contains a side-by-side comparison between Polars, R base and the two most po
 
 - [Polars in production](https://ddotta.github.io/cookbook-rpolars/production.html)
 
-- [Graphics](https://ddotta.github.io/cookbook-rpolars/graphics.html)
-
 ### Contribution
 
 This book is free and open source, so please do [open an issue](https://github.com/ddotta/cookbook-rpolars/issues/new) if you notice a problem.

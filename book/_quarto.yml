@@ -27,7 +27,6 @@ book:
     - lazy_execution.qmd
     - duckdb.qmd
     - production.qmd
-    - graphics.qmd
 
 format:
   html:
