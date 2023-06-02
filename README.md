@@ -21,6 +21,18 @@ It contains a side-by-side comparison between Polars, R base and the two most po
 
 - [Polars in production](https://ddotta.github.io/cookbook-rpolars/production.html)
 
+
 ### Contribution
 
-This book is free and open source, so please do [open an issue](https://github.com/ddotta/cookbook-rpolars/issues/new) if you notice a problem.
+This book is free and open source, so please do [open an issue](https://github.com/ddotta/cookbook-rpolars/issues/new) or even better a PR if you notice a problem.
+
+### How to render the book locally
+
+If you want to render the book locally, follow these instructions:
+
+```
+git clone https://github.com/ddotta/cookbook-rpolars.git (HTTPS)
+or
+git clone git@github.com:ddotta/cookbook-rpolars.git (SSH)
+quarto render book/
+```
