@@ -201,12 +201,6 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
  <span class="menu-text"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">Polars and R in production</span></span></a>
   </div>
 </li>
-        <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="./graphics.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">Graphics with Polars and R</span></span></a>
-  </div>
-</li>
     </ul>
     </div>
 </nav>
@@ -258,7 +252,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <h3 data-number="3.1.1" class="anchored" data-anchor-id="read-a-csv-file-or-url"><span class="header-section-number">3.1.1</span> Read a csv file or URL</h3>
 <p>The <code>read_csv()</code> method can be used to import a csv file from a file or an URL. <code>read_csv()</code> returns a <code>DataFrame</code>.</p>
 <section id="from-a-file" class="level4" data-number="3.1.1.1">
-<h4 data-number="3.1.1.1" class="anchored" data-anchor-id="from-a-file"><span class="header-section-number">3.1.1.1</span> From a file:</h4>
+<h4 data-number="3.1.1.1" class="anchored" data-anchor-id="from-a-file"><span class="header-section-number">3.1.1.1</span> From a file</h4>
 <div class="tabset-margin-container"></div><div class="panel-tabset">
 <ul class="nav nav-tabs" role="tablist"><li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-1-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-1-1" role="tab" aria-controls="tabset-1-1" aria-selected="true">polars</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-1-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-1-2" role="tab" aria-controls="tabset-1-2" aria-selected="false">R base</a></li></ul>
 <div class="tab-content">
@@ -480,7 +474,7 @@ Important
 <div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>pl<span class="sc">$</span><span class="fu">read_csv</span>(<span class="st">"https://j.mp/iriscsv"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stderr">
 <pre><code>tmp file placed in 
- /tmp/Rtmpq9wFUX/https...j.mp.iriscsv</code></pre>
+ /tmp/Rtmpmx5NAU/https...j.mp.iriscsv</code></pre>
 </div>
 <div class="cell-output cell-output-stdout">
 <pre><code>shape: (150, 5)
@@ -565,6 +559,8 @@ Important
 </section>
 <section id="scan-a-parquet-file" class="level3" data-number="3.1.3">
 <h3 data-number="3.1.3" class="anchored" data-anchor-id="scan-a-parquet-file"><span class="header-section-number">3.1.3</span> Scan a parquet file</h3>
+<section id="from-a-single-file" class="level4" data-number="3.1.3.1">
+<h4 data-number="3.1.3.1" class="anchored" data-anchor-id="from-a-single-file"><span class="header-section-number">3.1.3.1</span> From a single file</h4>
 <p>The <code>scan_parquet()</code> method can be used to lazily read a parquet file from a file.<br>
 Scanning delays the actual parsing of the file and <code>scan_parquet()</code> returns a <code>LazyFrame</code>.</p>
 <div class="cell">
@@ -578,6 +574,28 @@ Scanning delays the actual parsing of the file and <code>scan_parquet()</code> r
 </div>
 <p>👉 For a complete list of arguments to use with the <code>scan_parquet()</code> method, see <a href="https://rpolars.github.io/reference/scan_parquet/">this page</a>.</p>
 <p>At the end of the query, don’t forget to use the <code>collect()</code> method to inform Polars that you want to execute it.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb16"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="fu">scan_parquet</span>(<span class="st">"examples/iris.parquet"</span>)<span class="sc">$</span></span>
+<span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">collect</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>shape: (150, 5)
+┌──────────────┬─────────────┬──────────────┬─────────────┬───────────┐
+│ Sepal.Length ┆ Sepal.Width ┆ Petal.Length ┆ Petal.Width ┆ Species   │
+│ ---          ┆ ---         ┆ ---          ┆ ---         ┆ ---       │
+│ f64          ┆ f64         ┆ f64          ┆ f64         ┆ cat       │
+╞══════════════╪═════════════╪══════════════╪═════════════╪═══════════╡
+│ 5.1          ┆ 3.5         ┆ 1.4          ┆ 0.2         ┆ setosa    │
+│ 4.9          ┆ 3.0         ┆ 1.4          ┆ 0.2         ┆ setosa    │
+│ 4.7          ┆ 3.2         ┆ 1.3          ┆ 0.2         ┆ setosa    │
+│ 4.6          ┆ 3.1         ┆ 1.5          ┆ 0.2         ┆ setosa    │
+│ …            ┆ …           ┆ …            ┆ …           ┆ …         │
+│ 6.3          ┆ 2.5         ┆ 5.0          ┆ 1.9         ┆ virginica │
+│ 6.5          ┆ 3.0         ┆ 5.2          ┆ 2.0         ┆ virginica │
+│ 6.2          ┆ 3.4         ┆ 5.4          ┆ 2.3         ┆ virginica │
+│ 5.9          ┆ 3.0         ┆ 5.1          ┆ 1.8         ┆ virginica │
+└──────────────┴─────────────┴──────────────┴─────────────┴───────────┘</code></pre>
+</div>
+</div>
 <div class="callout callout-style-default callout-caution callout-titled">
 <div class="callout-header d-flex align-content-center">
 <div class="callout-icon-container">
@@ -591,8 +609,61 @@ Caution
 <p>May 2023 : Export methods have not yet been implemented in R. This methods start with <code>write_</code> (write_parquet(), write_parquet(), write_json(), write_ndjson()…)</p>
 </div>
 </div>
+</section>
+<section id="from-multiple-files-1" class="level4" data-number="3.1.3.2">
+<h4 data-number="3.1.3.2" class="anchored" data-anchor-id="from-multiple-files-1"><span class="header-section-number">3.1.3.2</span> From multiple files</h4>
+<p>The <code>scan_parquet()</code> method can also be used to lazily read multiple parquet files in the same folder.<br>
+This is particularly useful for partitioned files! For example:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb18"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Write multiple parquet files in examples folder</span></span>
+<span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a>arrow<span class="sc">::</span><span class="fu">write_dataset</span>(<span class="at">dataset =</span> iris,</span>
+<span id="cb18-3"><a href="#cb18-3" aria-hidden="true" tabindex="-1"></a>                     <span class="at">path =</span> <span class="st">"examples"</span>,</span>
+<span id="cb18-4"><a href="#cb18-4" aria-hidden="true" tabindex="-1"></a>                     <span class="at">partitioning =</span> <span class="st">"Species"</span>)</span>
+<span id="cb18-5"><a href="#cb18-5" aria-hidden="true" tabindex="-1"></a><span class="co"># Reading all parquet files in the example folder and its subfolders</span></span>
+<span id="cb18-6"><a href="#cb18-6" aria-hidden="true" tabindex="-1"></a><span class="fu">scan_parquet</span>(<span class="st">"examples/*/*.parquet"</span>)<span class="sc">$</span></span>
+<span id="cb18-7"><a href="#cb18-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">collect</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>shape: (150, 4)
+┌──────────────┬─────────────┬──────────────┬─────────────┐
+│ Sepal.Length ┆ Sepal.Width ┆ Petal.Length ┆ Petal.Width │
+│ ---          ┆ ---         ┆ ---          ┆ ---         │
+│ f64          ┆ f64         ┆ f64          ┆ f64         │
+╞══════════════╪═════════════╪══════════════╪═════════════╡
+│ 5.1          ┆ 3.5         ┆ 1.4          ┆ 0.2         │
+│ 4.9          ┆ 3.0         ┆ 1.4          ┆ 0.2         │
+│ 4.7          ┆ 3.2         ┆ 1.3          ┆ 0.2         │
+│ 4.6          ┆ 3.1         ┆ 1.5          ┆ 0.2         │
+│ …            ┆ …           ┆ …            ┆ …           │
+│ 6.3          ┆ 2.5         ┆ 5.0          ┆ 1.9         │
+│ 6.5          ┆ 3.0         ┆ 5.2          ┆ 2.0         │
+│ 6.2          ┆ 3.4         ┆ 5.4          ┆ 2.3         │
+│ 5.9          ┆ 3.0         ┆ 5.1          ┆ 1.8         │
+└──────────────┴─────────────┴──────────────┴─────────────┘</code></pre>
+</div>
+</div>
+<p>In the code above:</p>
+<ul>
+<li><code>/*</code> refers to all subfolders in the <code>example</code> folder<br>
+</li>
+<li><code>/*.parquet</code> refers to all files with a <code>.parquet</code> extension</li>
+</ul>
+<div class="callout callout-style-default callout-important callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Important
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>In this case, note that the <code>Species</code> column which been used for partitioning <strong>is missing</strong></p>
+</div>
+</div>
+<p>Of course, the advantage of using <code>scan_parquet()</code> is that you can query several partitioned files and retrieve the result of the query in R. See an example <a href="lazy_execution.html#from-a-parquet-file">here</a>.</p>
 
 
+</section>
 </section>
 </section>
 
