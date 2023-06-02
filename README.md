@@ -28,7 +28,7 @@ This book is free and open source, so please do [open an issue](https://github.c
 
 ### How to render the book locally
 
-If you want to render the book locally, follow these instructions:
+If you want to render the book locally, follow these instructions in your terminal:
 
 ```
 git clone https://github.com/ddotta/cookbook-rpolars.git (HTTPS)
