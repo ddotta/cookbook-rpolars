@@ -141,6 +141,10 @@ mydf$estimated_size()
 mydf$head(2)
 # To get the dimensions
 mydf$shape
+# To get the number of rows
+nrow.DataFrame(mydf)
+# To get the number of columns
+ncol.DataFrame(mydf)
 ```
 
 ::: callout-caution
