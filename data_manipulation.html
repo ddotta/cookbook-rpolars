@@ -2297,11 +2297,12 @@ attr(,"is_struct")
 [17] "dtype"         "expr"          "flags"         "floor"        
 [21] "is_numeric"    "is_sorted"     "len"           "max"          
 [25] "mean"          "median"        "min"           "mul"          
-[29] "name"          "print"         "rem"           "rename"       
-[33] "rep"           "series_equal"  "set_sorted"    "shape"        
-[37] "sort"          "std"           "sub"           "sum"          
-[41] "to_frame"      "to_lit"        "to_r"          "to_r_list"    
-[45] "to_r_vector"   "to_vector"     "value_counts"  "var"          </code></pre>
+[29] "n_unique"      "name"          "print"         "rem"          
+[33] "rename"        "rep"           "series_equal"  "set_sorted"   
+[37] "shape"         "sort"          "std"           "sub"          
+[41] "sum"           "to_frame"      "to_lit"        "to_r"         
+[45] "to_r_list"     "to_r_vector"   "to_vector"     "value_counts" 
+[49] "var"          </code></pre>
 </div>
 <div class="sourceCode cell-code" id="cb284"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb284-1"><a href="#cb284-1" aria-hidden="true" tabindex="-1"></a><span class="co"># See all private methods for Series (not intended for regular use)</span></span>
 <span id="cb284-2"><a href="#cb284-2" aria-hidden="true" tabindex="-1"></a><span class="fu">ls</span>(polars<span class="sc">:::</span>.pr<span class="sc">$</span>Series)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
@@ -2315,13 +2316,14 @@ attr(,"is_struct")
 [19] "get_fmt"                "is_sorted"              "is_sorted_flag"        
 [22] "is_sorted_reverse_flag" "len"                    "max"                   
 [25] "mean"                   "median"                 "min"                   
-[28] "mul"                    "name"                   "new"                   
-[31] "panic"                  "print"                  "rem"                   
-[34] "rename_mut"             "rep"                    "series_equal"          
-[37] "set_sorted_mut"         "shape"                  "sleep"                 
-[40] "sort_mut"               "std"                    "sub"                   
-[43] "sum"                    "to_fmt_char"            "to_frame"              
-[46] "to_r"                   "value_counts"           "var"                   </code></pre>
+[28] "mul"                    "n_unique"               "name"                  
+[31] "new"                    "panic"                  "print"                 
+[34] "rem"                    "rename_mut"             "rep"                   
+[37] "series_equal"           "set_sorted_mut"         "shape"                 
+[40] "sleep"                  "sort_mut"               "std"                   
+[43] "sub"                    "sum"                    "to_fmt_char"           
+[46] "to_frame"               "to_r"                   "value_counts"          
+[49] "var"                   </code></pre>
 </div>
 </div>
 </section>
@@ -2350,12 +2352,12 @@ attr(,"is_struct")
 <span id="cb288-2"><a href="#cb288-2" aria-hidden="true" tabindex="-1"></a><span class="fu">ls</span>(polars<span class="sc">:::</span>.pr<span class="sc">$</span>DataFrame)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code> [1] "by_agg"                    "clone_see_me_macro"       
- [3] "columns"                   "drop_in_place"            
- [5] "dtype_strings"             "dtypes"                   
- [7] "estimated_size"            "export_stream"            
- [9] "frame_equal"               "from_arrow_record_batches"
-[11] "get_column"                "get_columns"              
-[13] "lazy"                      "new"                      
+ [3] "columns"                   "default"                  
+ [5] "drop_in_place"             "dtype_strings"            
+ [7] "dtypes"                    "estimated_size"           
+ [9] "export_stream"             "frame_equal"              
+[11] "from_arrow_record_batches" "get_column"               
+[13] "get_columns"               "lazy"                     
 [15] "new_par_from_list"         "new_with_capacity"        
 [17] "null_count"                "print"                    
 [19] "schema"                    "select"                   
