@@ -1,0 +1,43 @@
+First of all we need to install all the packages and create an big random dataset needed for this book to work, so don't bother with the following code:
+
+```{r}
+#| label: necessary-settings
+#| code-fold: true
+#| message: false
+#| warning: false
+#| results: 'hide'
+
+# Installation of packages for cookbook-rpolars
+packages <- c('dplyr','data.table','tidyr','arrow','fakir','tictoc')
+installed_packages <- packages %in% rownames(installed.packages())
+if (any(installed_packages == FALSE)) {
+  install.packages(packages[!installed_packages], dependencies = TRUE)
+}
+
+# Loading packages
+invisible(lapply(packages, library, character.only = TRUE))
+
+# Creation of iris_dt
+iris_dt <- as.data.table(iris)
+```
+
+## Installation
+
+Until the R polars package is uploaded to CRAN, [the polars package development team](https://github.com/pola-rs/r-polars/graphs/contributors) offers [several solutions](https://rpolars.github.io/#install) for installation.
+
+The most practical one in my opinion at the moment is to use [R-universe](https://r-universe.dev/search/) and install like this: 
+
+``` {r}
+#| label: installation
+#| message: false
+#| warning: false
+#| results: 'hide'
+
+# Install packages not yet installed
+packages <- c("polars")
+installed_packages <- packages %in% rownames(installed.packages())
+if (any(installed_packages == FALSE)) {
+  install.packages(packages[!installed_packages], repos = "https://rpolars.r-universe.dev")
+}
+library(polars)
+```

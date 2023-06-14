@@ -1,0 +1,73 @@
+## Introduction to methods
+
+The added value of Polars consists in the `methods`. Those powerful methods are accessed using the `$` operator.
+
+-   For `Series`, see [this section](#list-of-methods-to-apply-to-series) for the methods available in {polars}.
+-   For `DataFrames`, see [this section](#list-of-methods-to-apply-to-dataframe) for the methods available in {polars}.
+
+Some examples with `Series`:
+
+```{r}
+#| label: series-manipulation-method
+# To get a sum
+mynumbers_serie$sum()
+# To sort in descending order
+mynumbers_serie$sort(reverse = TRUE)
+```
+
+Some examples with `DataFrame`:
+
+```{r}
+#| label: dataframe-manipulation-method
+# To get a character vector of column names
+mydf$columns
+# To get dimensions of DataFrame
+mydf$shape
+# We can mix standard R functions and methods
+length(mydf$columns)
+```
+
+Polars includes a very useful chaining method in data manipulation operations. From this point of view, Polars is more like dplyr and data.table. This is how the chaining method is defined in the official documentation:
+
+> In polars our method chaining syntax takes the form `object$m1()$m2()`, where object is our data `object`, and `m1()` and `m2()` are appropriate methods, like subsetting or aggregation expressions.
+
+Let's see an example with the iris dataset:
+
+::: {.panel-tabset}
+## polars
+
+```{r}
+#| label: chaining-polars
+pl$DataFrame(iris)$
+  groupby(
+  "Species")$
+  median()  
+```
+
+## R base
+
+```{r}
+#| label: aggregate-rbase
+aggregate(. ~ Species, iris, median)
+```
+
+## dplyr
+
+```{r}
+#| label: chaining-dplyr
+iris |>
+  group_by(Species) |>
+  summarise(across(everything(),median))
+```
+
+## data.table
+
+```{r}
+#| label: chaining-datatable
+iris_dt[, lapply(.SD, median), by = Species]
+```
+:::
+
+::: callout-tip
+In the Polars code used above, you will notice that we have introduced **line breaks**. We could have written the whole code on the same line but for the sake of readability I prefer to separate the methods used by line breaks.
+:::

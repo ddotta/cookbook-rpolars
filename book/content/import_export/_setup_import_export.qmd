@@ -1,0 +1,8 @@
+```{r}
+#| label: load-packages-import-export
+#| code-fold: true
+#| message: false
+#| warning: false
+#| results: 'hide'
+library(polars)
+```

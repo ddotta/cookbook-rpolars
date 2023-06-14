@@ -1,0 +1,59 @@
+## Join DataFrames
+
+To perform joins, the `join()` method must be used.
+
+::: {.panel-tabset}
+## polars
+
+```{r}
+#| label: join-polars
+# First, creation of colors_species Polars DataFrame
+colors <- pl$DataFrame(
+  Surname = pl$Series(c("toto","titi","tata")),
+  Color = pl$Series(c("blue","red","yellow"))
+)
+values <- pl$DataFrame(
+  Surname = pl$Series(c("toto","titi","tata")),
+  value = pl$Series(c(10,20,30))
+)
+# Let's join !
+colors$join(
+  other = values,
+  on = "Surname",
+  how = "left"
+)
+```
+
+## R base
+
+```{r}
+#| label: merge-rbase
+colors <- data.frame(
+  Surname = c("toto","titi","tata"),
+  Color = c("blue","red","yellow")
+)
+values <- data.frame(
+  Surname = c("toto","titi","tata"),
+  value = c(10,20,30)
+)
+merge(colors, values, by = "Surname", all.x = TRUE)
+```
+
+## dplyr
+
+```{r}
+#| label: join-dplyr
+colors |>
+  left_join(values,
+            by = "Surname") 
+```
+
+## data.table
+
+```{r}
+#| label: join-datatable
+merge(as.data.table(colors), 
+      as.data.table(values), 
+      by = "Surname", all.x = TRUE)
+```
+:::

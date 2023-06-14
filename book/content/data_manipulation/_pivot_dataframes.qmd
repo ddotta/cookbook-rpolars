@@ -1,0 +1,211 @@
+#### Pivot a DataFrame wider
+
+The `pivot()` method can be used to pivot a `DataFrame` from long to wide.  
+
+Let's go for a first example :  
+
+```{r}
+#| label: creation-df-for-pivot-wider
+df <- data.frame(
+  country = c(rep("France",3),rep("Italy","3")),
+  city = c("Paris", "Lille", "Nice", "Roma", "Milan", "Napoli"),
+  location = c("North","North","South","South","North","South"),
+  population = c(2.1, 0.2, 0.4, 2.8, 1.4, 3.0)
+)
+```
+
+
+::: {.panel-tabset}
+## polars
+
+```{r}
+#| label: first-wide-pivot-polars
+pl$DataFrame(df)$pivot(
+  index = "country", 
+  columns = "city",
+  values = "population", 
+)
+```
+
+## R base
+```{r}
+#| label: first-wide-pivot-rbase
+reshape(df[,-which(names(df) %in% c("location"))], 
+        idvar = "country", 
+        timevar = "city", 
+        direction = "wide")
+```
+
+## tidyr
+
+```{r}
+#| label: first-wide-pivot-polars-tidyr
+df |>
+  pivot_wider(
+    id_cols = country,
+    names_from = city,
+    values_from = population
+  )
+```
+
+## data.table
+
+```{r}
+#| label: first-wide-pivot-datatable
+df_dt <- as.data.table(df)
+dcast(df_dt, country ~ city, value.var = "population")
+```
+:::
+
+You can also aggregate the results using a function that you enter in the argument `aggregate_function` in `pivot()` method.  
+
+In this case, the `aggregate_function` argument of `pivot()` is the equivalent of `values_fn` of `pivot_wider()` from `{tidyr}` and `fun.aggregate` of `dcast()` from `{data.table}`.
+
+::: {.panel-tabset}
+## polars
+
+```{r}
+#| label: mean-wide-pivot-polars
+pl$DataFrame(df)$pivot(
+  index = "country", 
+  columns = "location",
+  values = "population",
+  aggregate_function = "mean"
+)
+```
+
+## R base
+```{r}
+#| label: mean-wide-pivot-rbase
+df_summary <- aggregate(population ~ country + location, data = df, FUN = mean)
+df_final <- reshape(df_summary, idvar = "country", timevar = "location", direction = "wide")
+colnames(df_final) <- c("country", "North", "South")
+df_final
+```
+
+## tidyr
+
+```{r}
+#| label: mean-wide-pivot-polars-tidyr
+df |>
+  pivot_wider(id_cols = country,
+              names_from = location, 
+              values_from = population, 
+              values_fn = mean)
+```
+
+## data.table
+
+```{r}
+#| label: mean-wide-pivot-datatable
+df_dt <- as.data.table(df)
+dcast(df_dt, country ~ location, value.var = "population", fun.aggregate = mean)
+```
+:::
+
+However with `{polars}`, we can also run an expression as an aggregation function.  
+With `{tidyr}` and `{data.table}`, you need to calculate this in advance.  
+For example:
+
+::: {.panel-tabset}
+## polars
+
+```{r}
+#| label: expr-wide-pivot-polars
+pl$DataFrame(df)$pivot(
+  index = "country", 
+  columns = "location",
+  values = "population",
+  aggregate_function = pl$element()$sum()$sqrt()
+)
+```
+
+## R base
+```{r}
+#| label: expr-wide-pivot-rbase
+df_summarized <- aggregate(population ~ country + location, df, FUN = function(x) sqrt(sum(x)))
+df_final <- reshape(df_summarized, idvar = "country", timevar = "location", direction = "wide")
+colnames(df_final) <- c("country", "North", "South")
+df_final
+```
+
+## tidyr
+
+```{r}
+#| label: expr-wide-pivot-polars-tidyr
+df %>%
+  group_by(country, location) %>%
+  summarise(population_sum = sqrt(sum(population))) %>%
+  pivot_wider(names_from = location, values_from = population_sum)
+```
+
+## data.table
+
+```{r}
+#| label: expr-wide-pivot-datatable
+dt_final <- df_dt[, .(population_sum = sqrt(sum(population))), by = .(country, location)]
+dcast(dt_final, country ~ location, value.var = "population_sum")
+```
+:::
+
+#### Pivot a DataFrame longer
+
+The `melt()` method can be used to pivot a `DataFrame` from wide to long.  
+
+Let's see with an example :  
+
+```{r}
+#| label: creation-df-for-pivot-longer
+df <- data.frame(
+  country = c("France","Italy"),
+  North = c(1.1,1.4),
+  South = c(0.4,2.9)
+)
+```
+
+
+::: {.panel-tabset}
+## polars
+
+```{r}
+#| label: first-long-pivot-polars
+pl$DataFrame(df)$melt(
+  id_vars = "country",
+  value_vars = c("North","South")
+)
+```
+
+## R base
+```{r}
+#| label: first-long-pivot-rbase
+melted_df  <- reshape(df, 
+        varying = c("North", "South"), 
+        v.names = "value", 
+        idvar = "country", 
+        times = c("North", "South"), 
+        timevar = "variable", 
+        direction = "long")
+rownames(melted_df) <- NULL
+melted_df
+```
+
+## tidyr
+
+```{r}
+#| label: first-long-pivot-polars-tidyr
+df |>
+  pivot_longer(
+    !country,
+    names_to = "variable",
+    values_to = "value"
+  )
+```
+
+## data.table
+
+```{r}
+#| label: first-long-pivot-datatable
+df_dt <- as.data.table(df)
+melt(df_dt, id.vars = "country", variable.name = "variable", value.name = "value")
+```
+:::

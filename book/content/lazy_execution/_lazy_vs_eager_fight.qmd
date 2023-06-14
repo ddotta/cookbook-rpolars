@@ -1,0 +1,131 @@
+## `Lazy` vs `eager` mode : fight! ⚔️
+
+For this fight, we're going to use a fake dataset with 1 000 000 rows and 25 columns created with the {fakir} package. The code for creating this dataset is available at the beginning of this document.
+
+This fight will take place over 3 rounds :
+
+1. With an eager query versus a lazy query **from a DataFrame**
+2. With an eager query versus a lazy query **from a csv file**
+3. With an eager query versus a lazy query **from a parquet file**
+
+### From a DataFrame
+
+For this first round and as seen above, let's start with a simple query from a `DataFrame`:
+
+```{r}
+tic()
+#| label: fight-eager_dataframe
+pl$DataFrame(fake_data)$select(
+    pl$col(c("region","departement","priority")) 
+  )$
+  filter(
+    pl$col("region") == "Aquitaine")
+toc()
+```
+
+As seen above, we're going to use the `lazy()` method to convert a `DataFrame` to a `LazyFrame`:
+
+```{r}
+tic()
+#| label: fight-lazy_lazyframe
+pl$DataFrame(fake_data)$lazy()$
+  select(
+    pl$col(c("region","departement","priority")) 
+  )$
+  filter(
+    pl$col("region") == "Aquitaine")$
+  collect() # don't forget collect() here!
+toc()
+```
+
+### From a csv file
+
+Now, the `eager` mode is represented here by the `read_csv()` method...
+
+```{r}
+tic()
+#| label: fight-eager_read_csv
+pl$read_csv("Datasets/fakir_file.csv", infer_schema_length=0)$ 
+  select(
+    pl$col(c("region","departement","priority","age")))$
+  with_columns(
+    pl$col("age")$cast(pl$Int32,strict = FALSE))$
+  filter(
+    pl$col("region") == "Bretagne")$
+  groupby("departement","priority")$
+  agg(pl$col("age")$mean())
+toc()
+```
+
+... while the `lazy` method is represented by the `lazy_csv_reader`:
+
+```{r}
+#| label: fight-lazy_csv_reader
+tic()
+pl$lazy_csv_reader("Datasets/fakir_file.csv", infer_schema_length=0)$
+  select(
+    pl$col(c("region","departement","priority","age")))$
+  with_columns(
+    pl$col("age")$cast(pl$Int32,strict = FALSE))$
+  filter(
+    pl$col("region") == "Bretagne")$
+  groupby("departement","priority")$
+  agg(pl$col("age")$mean())$
+  collect()
+toc()
+```
+
+We can clearly see that we save a lot of time when executing the `lazy` version of the code!
+
+
+### From a parquet file
+
+The `read_parquet()` method has not been implemented in the R Polars package, but for this fight we will use `arrow::read_parquet()` and {dplyr} syntax, which will compete with `polars::scan_parquet()`.
+
+
+```{r}
+#| label: fight-eager-read-parquet
+#| message: false
+tic()
+arrow::read_parquet("Datasets/fakir_file.parquet", as_data_frame = FALSE) %>% 
+  filter(region == "Bretagne") %>% 
+  group_by(departement,priority) %>% 
+  summarise(mymean=mean(age, na.rm = TRUE)) %>% 
+  arrange(departement) %>%
+  collect()
+toc()
+```
+
+```{r}
+#| label: fight-lazy-scan-parquet
+tic()
+scan_parquet("Datasets/fakir_file.parquet")$
+  filter( 
+    pl$col("region") == "Bretagne")$
+  groupby(c("departement","priority"))$
+  agg(
+    pl$col(c("age"))$mean()
+)$sort("departement")$
+  collect()
+toc()
+```
+And it's another victory for the `lazy` execution!
+
+::: {.callout-important}
+
+Note that the {arrow} package also have ability to scan parquet files in a lazy way with the `arrow::open_dataset` function.
+
+```{r}
+#| label: fight-lazy-open-dataset
+#| message: false
+tic()
+arrow::open_dataset("Datasets/fakir_file.parquet") %>% 
+  filter(region == "Bretagne") %>% 
+  group_by(departement,priority) %>% 
+  summarise(mymean=mean(age, na.rm = TRUE)) %>% 
+  arrange(departement) %>%
+  collect()
+toc()
+```
+
+:::

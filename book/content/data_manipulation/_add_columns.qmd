@@ -1,0 +1,73 @@
+## Add columns
+
+Similar to the dplyr package, the `select()` method can also be used to **modify existing data**. However, the result will exclude any columns that were not specified in the expression.
+
+For example, if we want to get in the data.frame iris the `Petal.Length` column rounded without decimals.
+
+```{r}
+#| label: select-round-select-polars
+pl$DataFrame(iris)$select(
+  pl$col("Petal.Length")$round(decimals = 0)
+)$head(3) # display the first 3 lines
+```
+
+The problem here is that we would like to keep all the iris columns and not just `Petal.Length`.
+
+Again, let's look at the official documentation:
+
+> To modify or add some columns---whilst preserving all others in the dataset---it is therefore better to use the `with_columns()` method.
+
+::: {.panel-tabset}
+## polars
+
+```{r}
+#| label: select-round-with_column-polars
+pl$DataFrame(iris)$with_columns(
+  pl$col("Petal.Length")$round(decimals = 0)
+)$head(3) # display the first 3 lines
+```
+
+## R base
+
+```{r}
+#| label: select-round-rbase
+iris$Petal.Length <- round(iris$Petal.Length, digits = 0)
+iris[1:3,]
+```
+
+## dplyr
+
+```{r}
+#| label: select-round-dplyr
+data(iris)
+iris |>
+  mutate(Petal.Length = round(Petal.Length,0)) |>
+  head(3)
+```
+
+## data.table
+
+```{r}
+#| label: select-round-datatable
+iris_dt[,Petal.Length := round(Petal.Length, digits = 0)]
+iris_dt[1:3,]
+```
+:::
+
+If you want to add a column to a data.frame, you use the same syntax as above with `with_columns()`. Simply use the `alias()` method to specify the name of the newly created column.
+
+```{r}
+#| label: select-round-alias-polars
+pl$DataFrame(iris)$with_columns(
+  pl$col("Petal.Length")$round(decimals = 0)$alias("Petal.Length.rounded")
+)$head(3) # display the first 3 lines
+```
+
+If you need to **create a new column with a constant value** (i.e. the same value for all the rows in your DataFrame), you can use the `lit()` method. It works with the main types of Polars.
+
+```{r}
+#| label: lit-polars
+pl$DataFrame(iris)$with_columns(
+  pl$lit("toto")$alias("mynewcolumn")
+)$head(3) # display the first 3 lines
+```

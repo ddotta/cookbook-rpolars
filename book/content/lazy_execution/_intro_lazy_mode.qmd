@@ -1,0 +1,56 @@
+::: {.callout-note}
+This chapter only deals with the **lazy execution** of Polars. It does not include a comparison with R base, dplyr and data.table
+:::
+
+## Introduction to lazy mode
+
+Polars supports two modes of operation: **lazy** and **eager**.
+
+Let's start this chapter by citing the official documentation:
+
+> In the eager API the query is executed immediately while in the lazy API the query is only evaluated once it is 'needed'. Deferring the execution to the last minute can have significant performance advantages that is why the Lazy API is preferred in most cases. Delaying execution until the last possible moment allows Polars to apply automatic optimization to every query.
+
+As you can see, with **lazy mode**, you give the engine the chance to analyse what you want to do in order to propose optimal execution (for both reading and transforming datasets). **Lazy evaluation** is a fairly common method of improving processing speed and is used by [Spark](https://spark.apache.org/docs/latest/index.html), among others.
+
+So far in this book, we have only used the **eager mode** but fortunately all the syntax we've seen applies to **lazy mode** too. Whatever mode is used, queries will be executed transparently for users.
+
+### Creation of a `LazyFrame` with lazy()
+
+To convert a `DataFrame` to a `LazyFrame` we can use the `lazy()` contructor.
+
+```{r}
+#| label: creation-lazyFrame
+pl$DataFrame(iris)$lazy()
+```
+We are no longer working on a `DataFrame` but on a `LazyFrame`.  
+
+### First query passed on `LazyFrame`
+
+Let's look at what happens when we request this `LazyFrame`:
+
+```{r}
+#| label: first-query-lazy
+myquery <- pl$DataFrame(iris)$lazy()$filter(
+  pl$col("Species") == "setosa"
+)$select(
+  pl$col(c("Species", "Petal.Length"))
+)
+myquery
+```
+This way, we can display the **naive plan** but as indicated in the console, we can use the `describe_optimized_plan()` method to see the **optimized plan**.
+
+```{r}
+#| label: optimized-query-lazy
+myquery$describe_optimized_plan()
+```
+
+This example shows a simple but surprisingly effective element of query optimisation: **projection**. Changing the order in which our subset operations occur - in this case, the subset on columns first - reduces the memory overhead of the global query.
+
+### Execute the plan
+
+To actually execute the plan, we just need to invoke the **collect()** method. 
+
+```{r}
+#| label: collect-query-lazy
+myquery$collect()
+```

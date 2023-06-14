@@ -1,0 +1,118 @@
+## Some initial informations on a DataFrame
+
+### First overview of a DataFrame
+
+Here is a list of instructions that I frequently use to quickly get information about a `DataFrame`.
+
+```{r}
+#| label: informations-methods
+# To get the schema (= a named list)
+mydf$schema
+# To get column types as strings. 
+mydf$dtype_strings()
+# To get an estimation of the total allocated size (in Bytes)
+mydf$estimated_size()
+# To get the first n rows
+mydf$head(2)
+# To get the dimensions
+mydf$shape
+# To get the number of rows
+nrow.DataFrame(mydf)
+# To get the number of columns
+ncol.DataFrame(mydf)
+```
+
+::: callout-caution
+Polars API contains useful methods for quickly describing a `DataFrame` - [describe](https://pola-rs.github.io/polars/py-polars/html/reference/dataframe/api/polars.DataFrame.describe.html) and [glimpse](https://pola-rs.github.io/polars/py-polars/html/reference/dataframe/api/polars.DataFrame.glimpse.html#) that has not yet been implemented (end of May 2023).
+:::
+
+
+#### Missing values
+
+As in arrow, **missing data** is represented in Polars with a `null` value. This `null` missing value applies for all data types including numerical values.
+
+You can manually define a missing value using `NA` value in R:
+
+```{r}
+pl$DataFrame(
+  col1 = pl$Series(c(NA,"b","c"))
+)
+```
+
+### Count NA over columns in a DataFrame
+
+The `null_count()` method can be used to count NA values of a DataFrame.
+
+::: {.panel-tabset}
+## polars
+
+```{r}
+#| label: null-count-polars
+mydfNA <- pl$DataFrame(
+  colA = pl$Series(c("a",NA,"c")),
+  colB = pl$Series(c("d",NA,NA)))
+mydfNA$null_count()
+```
+
+## R base
+
+```{r}
+#| label: sapply-NA-rbase
+mydfNA <- data.frame(
+  colA = c("a",NA,"c"),
+  colB = c("d",NA,NA))
+sapply(mydfNA, function(x) sum(is.na(x)))
+```
+
+## dplyr
+
+```{r}
+#| label: count-NA-dplyr
+mydfNA %>%
+  summarise(across(everything(), ~sum(is.na(.))))
+```
+
+## data.table
+
+```{r}
+#| label: count-NA-datatable
+mydfNA_dt <- as.data.table(mydfNA)
+mydfNA_dt[, lapply(.SD, function(x) sum(is.na(x))), .SDcols = names(mydfNA_dt)]
+```
+:::
+
+## Filter rows
+
+The `filter()` method is used to filter the rows of a DataFrame. It must be used with the `col()` method which allows to designate the columns on which the filter condition will be applied.
+
+::: {.panel-tabset}
+## polars
+
+```{r}
+#| label: filter-polars
+pl$DataFrame(iris)$filter(
+  pl$col("Petal.Length") > 6 & pl$col("Petal.Width") < 2)
+```
+
+## R base
+
+```{r}
+#| label: filter-rbase
+iris[iris$Petal.Length > 6 & iris$Petal.Width < 2,] # here don't forget the comma
+```
+
+## dplyr
+
+```{r}
+#| label: filter-dplyr
+iris |>
+  filter(Petal.Length > 6 & Petal.Width < 2) 
+```
+
+## data.table
+
+```{r}
+#| label: filter-datatable
+iris_dt[Petal.Length > 6 & Petal.Width < 2]
+```
+:::

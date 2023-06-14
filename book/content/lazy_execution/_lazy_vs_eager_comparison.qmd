@@ -1,0 +1,45 @@
+## `Lazy` vs `eager` mode comparison
+
+In this first example we use the **eager API**:
+
+```{r}
+#| label: eager-query-steps
+df <- pl$read_csv("examples/iris.csv")
+df_small = df$filter(pl$col("Petal.Length") > 5)
+df_agg = df_small$groupby("Species")$agg(pl$col("Petal.Width")$median())
+df_agg
+```
+
+This example:
+
+- Read the iris dataset.
+- Filter the dataset based on Petal.Length
+- Calculate the median of the Petal.Width per Species
+
+**Every step is executed immediately returning the intermediate results**. This can be very **wastefull** as we might do work or load extra data that is not being used.  
+If we instead used the **lazy API** and waited on execution untill all the steps are defined then the query planner could perform various optimizations. In this case:
+
+- `Predicate pushdown`: Apply filters as early as possible while reading the dataset, thus only reading rows with sepal length greater than 5.
+- `Projection pushdown`: Select only the columns that are needed while reading the dataset, thus removing the need to load additional columns
+
+::: callout-tip
+To consult the list of **optimisations** made by `Polars` on queries in **lazy mode**, see [this page](https://pola-rs.github.io/polars-book/user-guide/lazy/optimizations/)..
+:::
+
+Here is the equivalent code using the lazy API. At the end of the query, don't forget to use the `collect()` method to inform Polars that you want to execute it.
+
+```{r}
+#| label: lazy-query-steps
+pl$read_csv("examples/iris.csv", lazy = TRUE)$
+  filter(
+    pl$col("Petal.Length") > 5)$
+  groupby("Species")$
+  agg(pl$col("Petal.Width")$median())$
+  collect() # <- don't forget collect() here!
+```
+
+::: {.callout-important}
+Use **lazy execution** will signficantly lower the load on memory & CPU thus allowing you to fit bigger datasets in memory and process faster.
+:::
+
+The next part will demonstrate this time saving. 👇

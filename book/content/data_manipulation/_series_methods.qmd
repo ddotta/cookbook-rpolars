@@ -1,0 +1,457 @@
+## Others useful methods
+
+### On Series
+
+#### Change name of Series
+
+The `alias()` method is very useful especially in method chaining operation.\
+With R base, the syntax is longer.
+
+::: {.panel-tabset}
+## polars
+
+```{r}
+#| label: change-name-Series
+pl$Series(1:3, name = "toto")$alias("titi")
+```
+
+## R base
+
+```{r}
+#| label: change-name-rbase
+toto <- 1:3
+titi <- toto
+rm(toto)
+```
+:::
+
+#### Reduce Boolean Series
+
+The `all()` and `any()` methods can be used to check if all or any values in a vector evaluate to TRUE for some expression.
+
+::: {.panel-tabset}
+## polars
+
+```{r}
+#| label: all-Series
+# all(pl$Series(c(TRUE,TRUE))) doesn't work
+pl$Series(c(TRUE, TRUE, NA))$all()
+pl$Series(c(TRUE, TRUE, FALSE))$all()
+pl$Series(c(TRUE, TRUE, TRUE))$all()
+```
+
+## R base
+
+```{r}
+#| label: all-rbase
+all(c(TRUE,TRUE,NA))
+all(c(TRUE,TRUE,FALSE))
+all(c(TRUE,TRUE,TRUE))
+```
+:::
+
+#### Get data type of Series
+
+The `dtype()` method can be used to get data type of `Series`.
+
+::: {.panel-tabset}
+## polars
+
+```{r}
+#| label: dtype-Series
+
+pl$Series(letters)$dtype
+pl$Series(c(1, 2))$dtype
+pl$DataFrame(iris)$select("Species")$to_series()$dtype
+```
+
+## R base
+
+```{r}
+#| label: dtype-rbase
+infer_type(letters)
+infer_type(c(1, 2))
+infer_type(iris$Species)
+```
+:::
+
+::: callout-tip
+Polars is strongly typed. `print(ls(pl$dtypes))` returns the full list of valid Polars types. Caution, some type names differ from what they are called in R base. See below!
+:::
+
+::: {.panel-tabset}
+## polars
+
+```{r}
+#| label: dtype-examples-Series
+pl$Series(c("x","y","z"))$dtype
+pl$Series(c(1, 2, 3))$dtype
+pl$Series(c(1:3))$dtype
+pl$Series(c(TRUE,FALSE))$dtype
+pl$DataFrame(iris)$select("Species")$to_series()$dtype
+pl$Series(Sys.Date())$dtype
+pl$Series(c(0,1))$dtype
+```
+
+## R base
+
+```{r}
+#| label: dtype-examples-rbase
+typeof(c("x","y","z"))
+typeof(c(1, 2, 3))
+typeof(c(1:3))
+typeof(c(TRUE,FALSE))
+typeof(iris$Species)
+typeof(Sys.Date())
+```
+:::
+
+To summarise the main types between Polars and R:
+
+| Polars      | R Base    |
+|-------------|-----------|
+| Utf8        | character |
+| Float64     | double    |
+| Int32       | integer   |
+| Boolean     | logical   |
+| Categorical | Factor    |
+| Date        | Date      |
+
+To learn more about Data types in Polars, see [here](https://pola-rs.github.io/polars-book/user-guide/concepts/data-types/).
+
+#### Cast
+
+The `cast()` method can be used to convert the data types of a column to a new one.
+
+::: {.panel-tabset}
+## polars
+
+```{r}
+#| label: cast-polars
+pl$DataFrame(iris)$with_columns(
+  pl$col("Petal.Length")$cast(pl$Int8), # The "Petal.Length" column is converted into integers
+  pl$col("Species")$cast(pl$Utf8) # The "Species" column is converted into strings
+  )$schema
+```
+
+## R base
+
+```{r}
+#| label: cast-rbase
+data(iris)
+iris$Petal.Length <- as.integer(iris$Petal.Length)
+iris$Species <- as.integer(iris$Species)
+str(iris)
+```
+
+## dplyr
+
+```{r}
+#| label: cast-dplyr
+data(iris)
+iris |>
+  mutate(
+    Petal.Length = as.integer(Petal.Length),
+    Species = as.character(Species)) |>
+  str()
+```
+
+## data.table
+
+```{r}
+#| label: cast-datatable
+iris_dt[, `:=`(Petal.Length = as.integer(Petal.Length),
+               Species = as.character(Species))]
+str(iris_dt)
+```
+:::
+
+::: callout-tip
+When working with very large tables we can **Reduce the memory footprint** by modifying the number of bits allocated to an element. ⚠️
+:::
+
+For example, the example below illustrates how converting Float64 to Float8 reduces memory usage:
+
+```{r}
+pl$DataFrame(iris)$estimated_size()
+
+#| label: reduce-footprint-polars
+pl$DataFrame(iris)$with_columns(
+  pl$col("Petal.Length")$cast(pl$Float32), 
+  pl$col("Petal.Width")$cast(pl$Float32), 
+  pl$col("Sepal.Length")$cast(pl$Float32), 
+  pl$col("Sepal.Width")$cast(pl$Float32)
+  )$estimated_size()
+```
+
+When performing downcasting, it is crucial to ensure that the chosen number of bits is sufficient to accommodate the largest and smallest numbers in the column.
+
+A quick reminder:
+
+| Type    | Range                      | Accuracy                |
+|---------|----------------------------|-------------------------|
+| Int8    | -128 to +127               |                         |
+| Int16   | -32768 to +32767           |                         |
+| Int32   | -2147483648 to +2147483647 |                         |
+| Int64   | --2E63 to --2E63-1         |                         |
+| Float32 | -3.4E+38 to +3.4E+38       | about 7 decimal digits  |
+| Float64 | -1.7E+308 to +1.7E+308     | about 16 decimal digits |
+
+#### Check if Series is numeric
+
+The `is_numeric()` method can be used to check if `Series` is numeric.\
+Note that unlike R base, there is no method to check if a Series is character (in this case, its type is anyway Utf8).
+
+::: {.panel-tabset}
+## polars
+
+```{r}
+#| label: isnumeric-Series
+pl$Series(1:4)$is_numeric()
+pl$Series(c("a", "b", "c"))$is_numeric()
+```
+
+## R base
+
+```{r}
+#| label: isnumeric-rbase
+is.numeric(1:4)
+is.numeric(c("a","b","c"))
+```
+:::
+
+#### Check if Series is sorted
+
+The `is_sorted()` method can be used to check if `Series` is sorted.\
+Note that R base provides `is.unsorted()` which returns the opposite boolean to `is_sorted()` of Polars.
+
+::: {.panel-tabset}
+## polars
+
+```{r}
+#| label: issorted-Series
+pl$Series(1:4)$is_sorted()
+pl$Series(c(1,3,2))$is_sorted()
+```
+
+## R base
+
+```{r}
+#| label: isunsorted-rbase
+is.unsorted(1:4)
+is.unsorted(c(1,3,2))
+```
+:::
+
+#### Get length of a Series
+
+The `len()` method can be used to get the length of a `Series`.
+
+::: {.panel-tabset}
+## polars
+
+```{r}
+#| label: len-Series
+pl$Series(1:4)$len()
+```
+
+## R base
+
+```{r}
+#| label: length-rbase
+length(1:4)
+```
+:::
+
+#### Check if Series are equal
+
+The `series_equal()` method can be used to check if a `Series` is equal with another `Series`.
+
+::: callout-tip
+Caution, if two series are identical but one is named and the other is not then `series_equal()` returns FALSE.
+:::
+
+::: {.panel-tabset}
+## polars
+
+```{r}
+#| label: series-equal-Series
+pl$Series(1:4)$series_equal(pl$Series(1:4))
+pl$Series(1:4,name = "toto")$series_equal(pl$Series(1:4))
+```
+
+## R base
+
+```{r}
+#| label: identical-rbase
+identical(1:4,1:4)
+```
+:::
+
+#### Convert Series to Polars DataFrame
+
+The `to_frame()` method can be used to convert a `Series` to a `DataFrame`.\
+In this case, a `DataFrame` with only one column will be created. If the `Series` is initially named then the column of the `DataFrame` will be named as such.
+
+```{r}
+#| label: to-frame-Series
+pl$Series(1:3, "toto")$to_frame()
+```
+
+#### Get value Counts of a Series
+
+The `value_counts()` method can be used to get a value counts of a `Series`.
+
+::: {.panel-tabset}
+## polars
+
+```{r}
+#| label: value-counts-Series
+pl$Series(iris$Species)$value_counts()
+```
+
+## R base
+
+```{r}
+#| label: table-rbase
+table(iris$Species)
+```
+
+## dplyr
+
+```{r}
+#| label: count-dplyr
+iris |>
+  count(Species)
+```
+
+## data.table
+
+```{r}
+#| label: value-counts-datatable
+iris_dt[, .N, by = Species]
+```
+:::
+
+#### Sum across `Series`
+
+The `sum()` method can be used to get a sum of a `Series`.
+
+- From a single `Series`:
+
+::: {.panel-tabset}
+## polars
+
+```{r}
+#| label: first-sum-polars
+pl$Series(1:3)$sum()
+```
+
+## R base
+
+```{r}
+#| label: first-sum-rbase
+sum(c(1:3))
+```
+:::
+
+
+- From a `DataFrame` and a column as **a string**:
+
+::: {.panel-tabset}
+## polars
+
+```{r}
+#| label: df-string-sum-polars
+pl$DataFrame(iris)$select(pl$sum("Petal.Length"))
+```
+
+## R base
+
+```{r}
+#| label: df-string-sum-rbase
+sum(iris$Petal.Length)
+```
+
+## dplyr
+
+```{r}
+#| label: df-string-sum-dplyr
+iris %>% summarise(sum(Petal.Length))
+```
+
+## data.table
+
+```{r}
+#| label: df-string-sum-datatable
+sum(iris_dt[, Petal.Length])
+```
+:::
+
+
+- From a `DataFrame` and a column as **an expression**:
+
+```{r}
+#| label: df-exp-sum-polars
+pl$DataFrame(iris)$select(pl$sum(pl$col("Petal.Width")))
+```
+
+- From a `DataFrame` and a column as a list and **sum horizontally**:
+
+In this case, use `with_column()` method.
+
+::: {.panel-tabset}
+## polars
+
+```{r}
+#| label: df-horizontally-sum-polars
+df_pl <- pl$DataFrame(col1 = c(10L,20L), col2= c(30L,40L), col3 = c(40L,50L))
+df_pl$with_column(pl$sum(list("col1", "col3")))
+```
+
+## R base
+
+```{r}
+#| label: df-horizontally-rbase
+df <- data.frame(col1 = c(10L,20L), col2= c(30L,40L), col3 = c(40L,50L))
+mysum <- rowSums(df[, c("col1", "col3")])
+cbind(df,mysum)
+```
+
+## dplyr
+
+```{r}
+#| label: df-horizontally-sum-dplyr
+df %>%
+  rowwise() %>% 
+  mutate(mysum = sum(col1,col3))
+```
+
+## data.table
+
+```{r}
+#| label: df-horizontally-sum-datatable
+df_dt <- as.data.table(df)
+df_dt[, somme := rowSums(.SD), .SDcols = c("col1", "col3")]
+print(df_dt)
+```
+:::
+
+- From a `DataFrame` and **sum horizontally** all columns:
+
+In this case, use `list(*)`.
+
+```{r}
+#| label: df-list-sum-polars
+df_pl$with_column(pl$sum(list("*")))
+```
+
+With iris `Dataframe`, you must first select numerical variables:
+
+```{r}
+#| label: df-list-sum-iris-polars
+pl$DataFrame(iris)$
+  select(
+  pl$col(c("Petal.Length","Petal.Width")))$
+  with_column(pl$sum(list("*")))
+```

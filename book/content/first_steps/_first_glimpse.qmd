@@ -1,0 +1,68 @@
+## First glimpse
+
+Polars' main functions are stored in the "pl" namespace and can be accessed using the "pl$" prefix to prevent conflicts with other packages and base R function names. For more, see [here](https://rpolars.github.io/reference/pl_pl/#examples).
+
+First example to convert the most famous R data frame ([iris](https://archive.ics.uci.edu/ml/datasets/iris)) to a Polars DataFrame:
+
+```{r}
+#| label: iris-conversion
+iris_polars <- pl$DataFrame(iris)
+iris_polars
+```
+
+For example, **to count the number of lines** of the iris data frame :  
+
+::: {.panel-tabset}
+## polars
+
+```{r}
+#| label: height-function
+# With pl$ prefix
+pl$DataFrame(iris)$height
+# Using iris_polars
+iris_polars$height
+```
+
+## R base
+
+```{r}
+#| label: nrow-function
+nrow(iris)
+```
+
+:::
+
+**To select the first 5 iris rows and the Petal.Length and Species columns**, syntax is identical between Polars and R base:
+
+::: {.panel-tabset}
+## polars
+
+```{r}
+#| label: first-extract-polars
+iris_polars[1:5, c("Petal.Length", "Species")]
+```
+
+## R base
+
+```{r}
+#| label: first-extract-rbase
+iris[1:5, c("Petal.Length", "Species")]
+```
+
+## dplyr
+
+```{r}
+#| label: first-extract-dplyr
+iris |> 
+  slice(1:5) |> 
+  select(Petal.Length,Species)
+```
+
+## data.table
+
+```{r}
+#| label: first-extract-datatable
+iris_dt[1:5, .(Petal.Length, Species)]
+```
+
+:::

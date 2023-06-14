@@ -1,0 +1,251 @@
+### On DataFrames
+
+#### Get Series from DataFrame
+
+The `to_series()` method can be used to get one column from `DataFrame` as `Series`.
+
+::: {.panel-tabset}
+## polars
+
+```{r}
+#| label: to-series-Series
+pl$DataFrame(iris)$select(pl$col("Petal.Length"))$to_series()
+```
+
+## R base
+
+```{r}
+#| label: tovector-rbase
+iris$Petal.Length
+```
+
+## dplyr
+
+```{r}
+#| label: pull-dplyr
+iris |>
+  pull(Petal.Length)
+```
+
+## data.table
+
+```{r}
+#| label: tovector-datatable
+iris_dt[, c(Petal.Length)]
+```
+:::
+
+#### Get a slice of a DataFrame
+
+The `to_series()` method can be used to get a slice of a `DataFrame`.
+
+::: callout-important
+With Polars, numeric default is 0! Thus the equivalent to `slice(1,3)` with Polars will be `2:4` in R Base and data.table and `slice(1,4)` with dplyr.
+:::
+
+::: {.panel-tabset}
+## polars
+
+```{r}
+#| label: slice-Series
+pl$DataFrame(iris)$slice(1,3)
+```
+
+## R base
+
+```{r}
+#| label: slice-rbase
+iris[2:4,]
+```
+
+## dplyr
+
+```{r}
+#| label: slice-dplyr
+iris |>
+  slice(2:4)
+```
+
+## data.table
+
+```{r}
+#| label: slice-datatable
+iris_dt[2:4,]
+```
+:::
+
+#### Sort a DataFrame
+
+The `sort()` method can be used to sort a `DataFrame`.
+
+::: {.panel-tabset}
+## polars
+
+```{r}
+#| label: sort-dataframe-polars
+# Sort by one column
+pl$DataFrame(iris
+  )$sort("Species"
+  )$head(3)
+# Sort by two columns
+pl$DataFrame(iris
+  )$sort(c("Species","Petal.Length")
+  )$head(3)
+# Sort by two columns one in a decreasing manner and the other in an increasing manner
+pl$DataFrame(iris
+  )$sort(c("Species","Petal.Length"), descending = c(TRUE,FALSE)
+  )$head(3)
+```
+
+## R base
+
+```{r}
+#| label: sort-dataframe-rbase
+# Sort by one column
+iris[order(iris$Species),][1:3,]
+# Sort by two columns
+iris[order(iris$Species,iris$Petal.Length),][1:3,]
+# Sort by two columns one in a decreasing manner and the other in an increasing manner
+iris[order(rev(iris$Species),iris$Petal.Length),][1:3,]
+```
+
+## dplyr
+
+```{r}
+#| label: sort-dataframe-dplyr
+# Sort by one column
+iris |>
+  arrange(Species) |>
+  head(3)
+# Sort by two columns
+iris |>
+  arrange(Species, Petal.Length) |>
+  head(3)
+# Sort by two columns one in a decreasing manner and the other in an increasing manner
+iris |>
+  arrange(desc(Species), Petal.Length) |>
+  head(3)
+```
+
+## data.table
+
+```{r}
+#| label: sort-dataframe-datatable
+# Sort by one column
+iris_dt[order(Species)][1:3,]
+# Sort by two columns
+iris_dt[order(Species,Petal.Length)][1:3,]
+# Sort by two columns one in a decreasing manner and the other in an increasing manner
+iris_dt[order(-Species,Petal.Length)][1:3,]
+```
+:::
+
+#### Get a structure from a DataFrame
+
+The `to_struct()` method can be used to get a structure from a `DataFrame`.
+
+```{r}
+#| label: to_struct-dataframe-polars
+mystruc <- mydf$to_struct()
+mystruc
+```
+
+`to_struct()` returns a `Series` which can be converted to a R list with `to_r` method.
+
+```{r}
+#| label: to_struct-to-r
+mylist <- mystruc$to_r()
+mylist
+```
+
+mylist is now a list where each element is a column of the initial DataFrame.
+
+With `to_frame()` and `unnest()` methods, we can reconstruct the original DataFrame:
+
+```{r}
+back_df <- mystruc$to_frame()$unnest()
+back_df
+```
+
+#### Drop all rows that contain null values
+
+The `drop_nulls()` method can be used to drop all rows that contain null values in a `DataFrame`.
+
+By default, `drop_nulls()` use all columns to drop rows:
+
+::: {.panel-tabset}
+## polars
+
+```{r}
+#| label: drop_nulls_all_columns-polars
+data_pl <- pl$DataFrame(
+  col1 = pl$Series(c(NA,"b","c")),
+  col2 = pl$Series(c(1,2,NA))
+)
+data_pl$drop_nulls()
+```
+
+## R base
+```{r}
+#| label: drop_nulls_all_columns-rbase
+data_df <- data.frame(
+  col1 = c(NA, "b", "c"),
+  col2 = c(1, 2, NA)
+)
+data_df[complete.cases(data_df), ]
+```
+
+## dplyr
+
+```{r}
+#| label: drop_nulls_all_columns-dplyr
+data_df <- data.frame(
+  col1 = c(NA, "b", "c"),
+  col2 = c(1, 2, NA)
+)
+data_df %>%
+  filter(complete.cases(.))
+```
+
+## data.table
+
+```{r}
+#| label: drop_nulls_all_columns-datatable
+data_dt <- data.table(
+  col1 = c(NA, "b", "c"),
+  col2 = c(1, 2, NA)
+)
+na.omit(data_dt)
+```
+:::
+
+
+If you want, you can specify a column (or multiple columns):
+
+::: {.panel-tabset}
+## polars
+
+```{r}
+#| label: drop_nulls_one_column-polars
+data_pl$drop_nulls("col1")
+```
+
+## R base
+```{r}
+#| label: drop_nulls_one_column-rbase
+data_df[!is.na(data_df$col1), ]
+```
+
+## dplyr
+```{r}
+#| label: drop_nulls_one_column-dplyr
+data_df %>%
+  filter(!is.na(col1))
+```
+
+## data.table
+```{r}
+#| label: drop_nulls_one_column-datatable
+data_dt[complete.cases(data_dt[, .SD, .SDcols = "col1"]), ]
+```
+:::

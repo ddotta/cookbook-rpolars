@@ -1,0 +1,55 @@
+## Manipulation of Series and DataFrames with R standard functions
+
+`Series` and `DataFrames` can be manipulated **with a lot of standard R functions**.  
+Some examples with `Series`:
+
+```{r}
+#| label: series-manipulation-standard
+sum(mynumbers_serie)
+paste(myletters_serie,collapse = "")
+```
+
+Some examples with `DataFrames`:
+
+```{r}
+#| label: dataframe-manipulation-standard
+names(mydf)
+ncol(mydf)
+```
+
+## Expressions
+
+Here I'm quoting what Damian Skrzypiec said [in his blog](https://dskrzypiec.dev/polars/) about Polars expressions:
+
+> One of fundamental building blocks in Polars are Polars expressions. In general Polars expression is any function that transforms Polars series into another Polars series. There are few advantageous aspects of Polars expressions. Firstly expressions are optimized. Particularly if expression need to be executed on multiple columns, then it will be parallelized. It’s one of reasons behind Polars high performance. Another aspect is the fact the Polars implements an extensive set of builtin expressions that user can compose (chain) into more complex expressions.
+
+This is what an Polars expression looks like:
+
+```{r}
+#| label: first-polars-expression
+#| eval: false
+pl$col("Petal.Length")$round(decimals = 0)$alias("Petal.Length.rounded")
+```
+
+Which means that:
+- Select column "Petal.Length"
+- Then round the column with 0 decimals
+- Then rename the column "Petal.Length.rounded"
+
+::: {.callout-tip}
+Every expression produces a new expression, and that they can be piped together.
+:::
+
+For example:
+
+```{r}
+#| label: second-polars-expression
+#| eval: false
+pl$col("bar")$filter(pl.col("foo") == 1)$sum()
+```
+
+To learn more about Polars expressions, see [the official documentation](https://pola-rs.github.io/polars-book/user-guide/concepts/expressions/).
+
+------------------
+
+**If you have read this far and managed to reproduce the examples, congratulations! You are ready to dive into the deep end of Polars with R in the next parts of this cookbook!** 🚀

@@ -1,0 +1,41 @@
+## Aggregation by group
+
+Another frequently used data manipulation is the aggregation of data by group. To do this, we indicate in the `group_by()` method which column will be used to group the data.frame. And the `agg()` method which specifies the expression to aggregate.
+
+::: {.panel-tabset}
+## polars
+
+```{r}
+#| label: agg-polars
+pl$DataFrame(iris)$groupby(
+  "Species"
+)$agg(
+  pl$col(c("Petal.Length","Petal.Width"))$sum()
+)
+```
+
+## R base
+
+```{r}
+#| label: aggregate-cbind-rbase
+aggregate(cbind(Petal.Length, Petal.Width) ~ Species, data = iris, FUN = sum)
+```
+
+## dplyr
+
+```{r}
+#| label: summarise-dplyr
+data(iris)
+iris |>
+  group_by(Species) |>
+  summarise(across(c(Petal.Length, Petal.Width), sum)) 
+```
+
+## data.table
+
+```{r}
+#| label: summarise-datatable
+iris_dt <- as.data.table(iris)
+iris_dt[, .(Petal.Length = sum(Petal.Length), Petal.Width = sum(Petal.Width)), by = Species]
+```
+:::

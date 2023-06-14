@@ -1,0 +1,23 @@
+```{r}
+#| label: load-packages-data-manipulation
+#| code-fold: true
+#| message: false
+#| warning: false
+#| results: 'hide'
+library(polars)
+library(dplyr)
+library(tidyr)
+library(data.table)
+library(arrow)
+iris_dt <- as.data.table(iris)
+
+# Creation of Series
+mynumbers_serie <- pl$Series(1:3)
+myletters_serie <- pl$Series(c("a","b","c"))
+
+# Creation of mydf DataFrame 
+mydf <- pl$DataFrame(
+  col1 = mynumbers_serie,
+  col2 = myletters_serie
+)
+```

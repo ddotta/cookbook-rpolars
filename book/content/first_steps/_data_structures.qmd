@@ -1,0 +1,89 @@
+## Data Structures
+
+> The core base data structures provided by Polars are Series and DataFrames. 
+
+### Series and vectors
+
+::: {.callout-important}
+`Series` are a **1-dimensional** data structure. Within a series all elements have the same Data Type. 
+:::
+
+In Polars objects, `Series` object are like R `vectors`.  
+To create a Polars Series from scratch:
+
+::: {.panel-tabset}
+## polars
+
+```{r}
+#| label: series-polars
+mynumbers_serie <- pl$Series(1:3)
+myletters_serie <- pl$Series(c("a","b","c"))
+```
+
+## R base
+
+```{r}
+#| label: vectors-rbase
+mynumbers_vector <- 1:3
+myletters_vector <- c("a","b","c")
+```
+
+:::
+
+### DataFrame and data.frame
+
+::: {.callout-note}
+A `DataFrame` is a **2-dimensional** data structure that is backed by a `Series`, and it can be seen as an abstraction of a collection (e.g. list) of Series. 
+:::
+
+In polars objects, `DataFrame` object are like R `data.frame` and close to a `tibble` and a `data.table` object.  
+To create a Polars DataFrame from scratch:
+
+::: {.panel-tabset}
+## polars
+
+```{r}
+#| label: dataframe-polars
+# Creation of a DataFrame object with Series
+mydf <- pl$DataFrame(
+  col1 = mynumbers_serie,
+  col2 = myletters_serie
+)
+# Creation of a DataFrame object with Series and vectors
+pl$DataFrame(
+  col1 = mynumbers_serie,
+  col2 = myletters_vector
+)
+```
+
+## R base
+
+```{r}
+#| label: dataframe-rbase
+data.frame(
+  col1 = mynumbers_vector,
+  col2 = myletters_vector
+)
+```
+
+## dplyr
+
+```{r}
+#| label: tibble-dplyr
+tibble(
+  col1 = mynumbers_vector,
+  col2 = myletters_vector
+)
+```
+
+## data.table
+
+```{r}
+#| label: tibble-datatable
+data.table(
+  col1 = mynumbers_vector,
+  col2 = myletters_vector
+)
+```
+
+:::
