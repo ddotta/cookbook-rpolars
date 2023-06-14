@@ -20,6 +20,8 @@ mydf$shape
 nrow.DataFrame(mydf)
 # To get the number of columns
 ncol.DataFrame(mydf)
+# or
+mydf$height
 ```
 
 ::: {.callout-caution title="Work in Progress"}
