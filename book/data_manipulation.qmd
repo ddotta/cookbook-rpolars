@@ -14,12 +14,14 @@
 
 {{< include content/data_manipulation/_aggregations_by_group.qmd >}}
 
+{{< include content/data_manipulation/_sort_dataframes.qmd >}}
+
 {{< include content/data_manipulation/_join_dataframes.qmd >}}
+
+{{< include content/data_manipulation/_pivot_dataframes.qmd >}}
 
 {{< include content/data_manipulation/_series_methods.qmd >}}
 
 {{< include content/data_manipulation/_dataframes_methods.qmd >}}
-
-{{< include content/data_manipulation/_pivot_dataframes.qmd >}}
 
 {{< include content/data_manipulation/_list_methods.qmd >}}

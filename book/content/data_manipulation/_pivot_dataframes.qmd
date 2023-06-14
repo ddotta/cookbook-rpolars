@@ -1,4 +1,6 @@
-#### Pivot a DataFrame wider
+## Pivot a DataFrame
+
+### From long to wide
 
 The `pivot()` method can be used to pivot a `DataFrame` from long to wide.  
 
@@ -149,7 +151,7 @@ dcast(dt_final, country ~ location, value.var = "population_sum")
 ```
 :::
 
-#### Pivot a DataFrame longer
+### From wide to long
 
 The `melt()` method can be used to pivot a `DataFrame` from wide to long.  
 
