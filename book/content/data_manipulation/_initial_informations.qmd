@@ -29,18 +29,6 @@ Polars API contains useful methods for quickly describing a `DataFrame` - [descr
 :::
 
 
-#### Missing values
-
-As in arrow, **missing data** is represented in Polars with a `null` value. This `null` missing value applies for all data types including numerical values.
-
-You can manually define a missing value using `NA` value in R:
-
-```{r}
-pl$DataFrame(
-  col1 = pl$Series(c(NA,"b","c"))
-)
-```
-
 ### Count NA over columns in a DataFrame
 
 The `null_count()` method can be used to count NA values of a DataFrame.

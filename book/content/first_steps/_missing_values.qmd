@@ -1,0 +1,11 @@
+#### Missing values
+
+As in arrow, **missing data** is represented in Polars with a `null` value. This `null` missing value applies for all data types including numerical values.
+
+You can manually define a missing value using `NA` value in R:
+
+```{r}
+pl$DataFrame(
+  col1 = pl$Series(c(NA,"b","c"))
+)
+```

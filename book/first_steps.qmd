@@ -6,4 +6,8 @@
 
 {{< include content/first_steps/_data_structures.qmd >}}
 
+{{< include content/first_steps/_missing_values.qmd >}}
+
 {{< include content/first_steps/_manipulation_standard_R_functions.qmd >}}
+
+{{< include content/first_steps/_expressions.qmd >}}
