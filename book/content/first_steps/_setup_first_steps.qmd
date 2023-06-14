@@ -33,11 +33,6 @@ The most practical one in my opinion at the moment is to use [R-universe](https:
 #| warning: false
 #| results: 'hide'
 
-# Install packages not yet installed
-packages <- c("polars")
-installed_packages <- packages %in% rownames(installed.packages())
-if (any(installed_packages == FALSE)) {
-  install.packages(packages[!installed_packages], repos = "https://rpolars.r-universe.dev")
-}
+install.packages("polars", repos = "https://rpolars.r-universe.dev")
 library(polars)
 ```
