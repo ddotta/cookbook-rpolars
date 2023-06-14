@@ -1,0 +1,49 @@
+## Filter rows
+
+The `filter()` method is used to filter the rows of a DataFrame. It must be used with the `col()` method which allows to designate the columns on which the filter condition will be applied.
+
+::: {.panel-tabset}
+## polars
+
+```{r}
+#| label: filter-polars
+pl$DataFrame(iris)$filter(
+  pl$col("Petal.Length") > 6 & pl$col("Petal.Width") < 2)
+```
+
+## R base
+
+```{r}
+#| label: filter-rbase
+iris[iris$Petal.Length > 6 & iris$Petal.Width < 2,] # here don't forget the comma
+```
+
+## dplyr
+
+```{r}
+#| label: filter-dplyr
+iris |>
+  filter(Petal.Length > 6 & Petal.Width < 2) 
+```
+
+## data.table
+
+```{r}
+#| label: filter-datatable
+iris_dt[Petal.Length > 6 & Petal.Width < 2]
+```
+:::
+
+::: callout-tip
+The equivalent of `%in%` R operator is the `is_in()` method. It should be used in association with the `lit()` method.
+
+```{r}
+#| label: example-is_in
+mydf$filter(
+  pl$col("col2")$is_in(pl$lit(c("a","b")))
+)
+```
+:::
+
+
+

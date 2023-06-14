@@ -80,39 +80,3 @@ mydfNA_dt <- as.data.table(mydfNA)
 mydfNA_dt[, lapply(.SD, function(x) sum(is.na(x))), .SDcols = names(mydfNA_dt)]
 ```
 :::
-
-## Filter rows
-
-The `filter()` method is used to filter the rows of a DataFrame. It must be used with the `col()` method which allows to designate the columns on which the filter condition will be applied.
-
-::: {.panel-tabset}
-## polars
-
-```{r}
-#| label: filter-polars
-pl$DataFrame(iris)$filter(
-  pl$col("Petal.Length") > 6 & pl$col("Petal.Width") < 2)
-```
-
-## R base
-
-```{r}
-#| label: filter-rbase
-iris[iris$Petal.Length > 6 & iris$Petal.Width < 2,] # here don't forget the comma
-```
-
-## dplyr
-
-```{r}
-#| label: filter-dplyr
-iris |>
-  filter(Petal.Length > 6 & Petal.Width < 2) 
-```
-
-## data.table
-
-```{r}
-#| label: filter-datatable
-iris_dt[Petal.Length > 6 & Petal.Width < 2]
-```
-:::

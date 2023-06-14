@@ -8,6 +8,8 @@
 
 {{< include content/data_manipulation/_initial_informations.qmd >}}
 
+{{< include content/data_manipulation/_filter_rows.qmd >}}
+
 {{< include content/data_manipulation/_select_columns.qmd >}}
 
 {{< include content/data_manipulation/_add_columns.qmd >}}
