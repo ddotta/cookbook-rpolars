@@ -1,4 +1,4 @@
-# First steps with Polars and R
+# First steps with Polars
 
 {{< include content/first_steps/_setup_first_steps.qmd >}}
 
