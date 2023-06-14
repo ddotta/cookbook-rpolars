@@ -159,7 +159,7 @@ data_df <- data.frame(
   col1 = c(NA, "b", "c"),
   col2 = c(1, 2, NA)
 )
-data_df |>
+data_df %>%
   filter(complete.cases(.))
 ```
 
