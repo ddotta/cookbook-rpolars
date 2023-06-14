@@ -1231,7 +1231,9 @@ dcast(df_dt, country ~ city, value.var = "population")
 ```
 :::
 
-You can also aggregate the results using a function that you enter in the argument `aggregate_function`:
+You can also aggregate the results using a function that you enter in the argument `aggregate_function` in `pivot()` method.  
+
+In this case, the `aggregate_function` argument of `pivot()` is the equivalent of `values_fn` of `pivot_wider()` from `{tidyr}` and `fun.aggregate` of `dcast()` from `{data.table}`.
 
 ::: {.panel-tabset}
 ## polars
@@ -1251,6 +1253,8 @@ pl$DataFrame(df)$pivot(
 #| label: mean-wide-pivot-rbase
 df_summary <- aggregate(population ~ country + location, data = df, FUN = mean)
 reshape(df_summary, idvar = "country", timevar = "location", direction = "wide")
+colnames(df_final) <- c("country", "North", "South")
+df_final
 ```
 
 ## tidyr
@@ -1272,6 +1276,52 @@ df_dt <- as.data.table(df)
 dcast(df_dt, country ~ location, value.var = "population", fun.aggregate = mean)
 ```
 :::
+
+However with `{polars}`, we can also run an expression as an aggregation function.  
+With `{tidyr}` and `{data.table}`, you need to calculate this in advance.  
+For example:
+
+::: {.panel-tabset}
+## polars
+
+```{r}
+#| label: expr-wide-pivot-polars
+pl$DataFrame(df)$pivot(
+  index = "country", 
+  columns = "location",
+  values = "population",
+  aggregate_function = pl$element()$sum()$sqrt()
+)
+```
+
+## R base
+```{r}
+#| label: expr-wide-pivot-rbase
+df_summarized <- aggregate(population ~ country + location, df, FUN = function(x) sqrt(sum(x)))
+df_final <- reshape(df_summarized, idvar = "country", timevar = "location", direction = "wide")
+colnames(df_final) <- c("country", "North", "South")
+df_final
+```
+
+## tidyr
+
+```{r}
+#| label: expr-wide-pivot-polars-tidyr
+df %>%
+  group_by(country, location) %>%
+  summarise(population_sum = sqrt(sum(population))) %>%
+  pivot_wider(names_from = location, values_from = population_sum)
+```
+
+## data.table
+
+```{r}
+#| label: expr-wide-pivot-datatable
+dt_final <- df_dt[, .(population_sum = sqrt(sum(population))), by = .(country, location)]
+dcast(dt_final, country ~ location, value.var = "population_sum")
+```
+:::
+
 
 
 ## List of methods to apply to Series {#list-of-methods-to-apply-to-series}
