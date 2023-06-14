@@ -1174,7 +1174,7 @@ data_dt[complete.cases(data_dt[, .SD, .SDcols = "col1"]), ]
 
 #### Pivot a DataFrame
 
-The `pivot()` method can be used to pivot a `DataFrame`.  
+The `pivot()` method can be used to pivot a `DataFrame` from long to wide.  
 
 Let's go for a first example :  
 
@@ -1182,7 +1182,7 @@ Let's go for a first example :
 ## polars
 
 ```{r}
-#| label: first-pivot-polars
+#| label: first-wide-pivot-polars
 pl$DataFrame(df)$pivot(
   index = "country", 
   columns = "city",
@@ -1192,8 +1192,8 @@ pl$DataFrame(df)$pivot(
 
 ## R base
 ```{r}
-#| label: first-pivot-rbase
-reshape(df[,-which(names(df) %in% c("localisation"))], 
+#| label: first-wide-pivot-rbase
+reshape(df[,-which(names(df) %in% c("location"))], 
         idvar = "country", 
         timevar = "city", 
         direction = "wide")
@@ -1202,7 +1202,7 @@ reshape(df[,-which(names(df) %in% c("localisation"))],
 ## tidyr
 
 ```{r}
-#| label: first-pivot-polars-tidyr
+#| label: first-wide-pivot-polars-tidyr
 df |>
   pivot_wider(
     id_cols = country,
@@ -1214,11 +1214,54 @@ df |>
 ## data.table
 
 ```{r}
-#| label: first-pivot-datatable
+#| label: first-wide-pivot-datatable
 df_dt <- as.data.table(df)
 dcast(df_dt, country ~ city, value.var = "population")
 ```
 :::
+
+You can also aggregate the results using a function that you enter in the argument `aggregate_function`:
+
+::: {.panel-tabset}
+## polars
+
+```{r}
+#| label: mean-wide-pivot-polars
+pl$DataFrame(df)$pivot(
+  index = "country", 
+  columns = "location",
+  values = "population",
+  aggregate_function = "mean"
+)
+```
+
+## R base
+```{r}
+#| label: mean-wide-pivot-rbase
+df_summary <- aggregate(population ~ country + location, data = df, FUN = mean)
+reshape(df_summary, idvar = "country", timevar = "location", direction = "wide")
+```
+
+## tidyr
+
+```{r}
+#| label: mean-wide-pivot-polars-tidyr
+df |>
+  pivot_wider(id_cols = country,
+              names_from = location, 
+              values_from = population, 
+              values_fn = mean)
+```
+
+## data.table
+
+```{r}
+#| label: mean-wide-pivot-datatable
+df_dt <- as.data.table(df)
+dcast(df_dt, country ~ location, value.var = "population", fun.aggregate = mean)
+```
+:::
+
 
 ## List of methods to apply to Series {#list-of-methods-to-apply-to-series}
 
