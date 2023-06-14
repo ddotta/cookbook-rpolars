@@ -1252,7 +1252,7 @@ pl$DataFrame(df)$pivot(
 ```{r}
 #| label: mean-wide-pivot-rbase
 df_summary <- aggregate(population ~ country + location, data = df, FUN = mean)
-reshape(df_summary, idvar = "country", timevar = "location", direction = "wide")
+df_final <- reshape(df_summary, idvar = "country", timevar = "location", direction = "wide")
 colnames(df_final) <- c("country", "North", "South")
 df_final
 ```
