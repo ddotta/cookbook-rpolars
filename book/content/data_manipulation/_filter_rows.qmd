@@ -1,6 +1,18 @@
 ## Filter rows
 
-The `filter()` method is used to filter the rows of a DataFrame. It must be used with the `col()` method which allows to designate the columns on which the filter condition will be applied.
+The first option to filter rows of a DataFrame is to use square brackets `[]` indexing. 
+
+```{r}
+#| label: filter-square-brackets-polars
+data(iris)
+pl$DataFrame(iris)[1:4]
+```
+
+::: {.callout-important}
+It's convenient when you have to quickly inspect your data. But you'll quickly be limited by the square brackets, as they don't accept conditions with the expressions. For example `pl$DataFrame(iris)[Petal.Length > 6]` doesn't work.
+:::
+
+The second and best option is to use the `filter()` method. It must be used with the `col()` method which allows to designate the columns on which the filter condition will be applied.
 
 ::: {.panel-tabset}
 ## polars
@@ -45,5 +57,4 @@ mydf$filter(
 ```
 :::
 
-
-
+Another reason for using the `filter()` method is that filter expressions can be optimised in [lazy mode](#introduction-to-lazy-mode) by the query optimiser. 
