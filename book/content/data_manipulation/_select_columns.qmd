@@ -10,7 +10,7 @@ The second option is to use the `select()` method. In this case, it must be used
 #| label: select-polars
 
 # 1st option : with square brackets syntax
-pl$DataFrame(iris)[1:3,c("Petal.Length","Petal.Width")] # display the first 3 lines
+pl$DataFrame(iris)[1:3,c("Petal.Length","Petal.Width")] 
 # 2nd option : with select() method
 pl$DataFrame(iris)$select(
   pl$col(c("Petal.Length","Petal.Width"))
