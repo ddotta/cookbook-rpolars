@@ -5,8 +5,8 @@ book:
   title: "Cookbook Polars for R"
   author: "Damien Dotta"
   favicon: logo_cookbook_rpolars.png
-  description: A side-by-side comparison of polars, R base, dplyr and data.table packages.
-  keyword: polars, dplyr, data.table, dataframe, performance, data science, data engineering
+  description: A side-by-side comparison of polars, R base, dplyr, tidyr and data.table packages.
+  keyword: polars, dplyr, tidyr, data.table, dataframe, performance, data science, data engineering
   url: https://ddotta.github.io/cookbook-rpolars/
   page-navigation: true
   sidebar: 
