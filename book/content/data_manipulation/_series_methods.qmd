@@ -117,6 +117,14 @@ To summarise the main types between Polars and R:
 | Categorical | Factor    |
 | Date        | Date      |
 
+::: {.callout-note}
+We can deduce from this cross-reference table that if we want to create a categorical column in a DataFrame, we can proceed for example as follows:
+```{r}
+#| label: creation-categorical-column
+pl$DataFrame(pl$Series(factor(c("a","b","c"))))
+```
+:::
+
 To learn more about Data types in Polars, see [here](https://pola-rs.github.io/polars-book/user-guide/concepts/data-types/).
 
 #### Cast
