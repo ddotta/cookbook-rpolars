@@ -43,7 +43,7 @@ for (i in 1:10) {
 ```
 
 ::: {.callout-important}
-May 2023: Reading those multiple files into a single `DataFrame` is not yet implemented in R. See [here](https://pola-rs.github.io/polars-book/user-guide/io/multiple/#reading-into-a-single-dataframe) for an example in Python.
+June 2023: Reading those multiple files into a single `DataFrame` is not yet implemented in R. See [here](https://pola-rs.github.io/polars-book/user-guide/io/multiple/#reading-into-a-single-dataframe) for an example in Python.
 :::
 
 #### From an URL
@@ -86,7 +86,7 @@ pl$lazy_csv_reader("examples/iris.csv")$ # lazy, don't do a thing
 👉 For a complete list of arguments to use with the `lazy_csv_reader()` method, see [this page](https://rpolars.github.io/reference/lazy_csv_reader/).
 
 ::: {.callout-important}
-May 2023: arguments available in Python `eol_char` and `with_column_names` not yet supporting in R
+June 2023: arguments available in Python `eol_char` and `with_column_names` not yet supporting in R
 :::
 
 
@@ -113,7 +113,7 @@ scan_parquet("examples/iris.parquet")$
 ```
 
 ::: {.callout-caution}
-May 2023 : Export methods have not yet been implemented in R. This methods start with `write_` (write_parquet(), write_parquet(), write_json(), write_ndjson()...)
+June 2023 : Export methods have not yet been implemented in R. This methods start with `write_` (write_parquet(), write_parquet(), write_json(), write_ndjson()...)
 :::
 
 
