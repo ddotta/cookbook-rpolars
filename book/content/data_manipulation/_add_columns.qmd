@@ -81,7 +81,7 @@ pl$DataFrame(iris)$with_columns(
 ### Add a new column based on conditions
 
 To add new columns based on conditions, the `when-then-otherwise` expression must be used.  
-For example:
+Here's an example with equivalent syntax to help you understand:  
 
 ::: {.panel-tabset}
 ## polars
