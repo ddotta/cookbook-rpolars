@@ -28,6 +28,46 @@ mydf$height
 Polars API contains useful methods for quickly describing a `DataFrame` - [describe](https://pola-rs.github.io/polars/py-polars/html/reference/dataframe/api/polars.DataFrame.describe.html) and [glimpse](https://pola-rs.github.io/polars/py-polars/html/reference/dataframe/api/polars.DataFrame.glimpse.html#) that has not yet been implemented (June 2023).
 :::
 
+### Count values in a DataFrame
+
+The `value_counts()` method can be used to count values in a Series of a DataFrame. 
+`value_counts()` works with a `Series`. It must therefore be supplied either with square brackets or with the `select()` method. See [here](#select-columns) to learn about it.
+
+::: {.panel-tabset}
+## polars
+
+```{r}
+#| label: value-count-polars
+
+# 1st option with square brackets
+pl$DataFrame(iris)[,c("Species")]$value_counts()
+# 2nd option with select() method
+pl$DataFrame(iris)$select(pl$col("Species"))$to_series()$value_counts()
+```
+
+## R base
+
+```{r}
+#| label: value-count-rbase
+table(iris$Species)
+```
+
+## dplyr
+
+```{r}
+#| label: value-count-dplyr
+iris |>
+  count(Species)
+```
+
+## data.table
+
+```{r}
+#| label: value-count-datatable
+iris_dt[, .N, by = Species]
+```
+:::
+
 
 ### Count NA over columns in a DataFrame
 
@@ -58,7 +98,7 @@ sapply(mydfNA, function(x) sum(is.na(x)))
 
 ```{r}
 #| label: count-NA-dplyr
-mydfNA %>%
+mydfNA |>
   summarise(across(everything(), ~sum(is.na(.))))
 ```
 
