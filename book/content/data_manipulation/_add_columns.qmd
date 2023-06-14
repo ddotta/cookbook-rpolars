@@ -1,4 +1,6 @@
-## Add columns
+## Modify/Add columns
+
+### Modify existing column
 
 Similar to the dplyr package, the `select()` method can also be used to **modify existing data**. However, the result will exclude any columns that were not specified in the expression.
 
@@ -54,6 +56,8 @@ iris_dt[1:3,]
 ```
 :::
 
+### Add a new column
+
 If you want to add a column to a data.frame, you use the same syntax as above with `with_columns()`. Simply use the `alias()` method to specify the name of the newly created column.
 
 ```{r}
@@ -63,7 +67,9 @@ pl$DataFrame(iris)$with_columns(
 )$head(3) # display the first 3 lines
 ```
 
-If you need to **create a new column with a constant value** (i.e. the same value for all the rows in your DataFrame), you can use the `lit()` method. It works with the main types of Polars.
+### Add a new column with a constant value
+
+If you need to **create a new column with a constant value** (i.e. the same value for all the rows in your DataFrame), you can use the literal `lit()` method. It works with the main types of Polars.
 
 ```{r}
 #| label: lit-polars
@@ -71,3 +77,63 @@ pl$DataFrame(iris)$with_columns(
   pl$lit("toto")$alias("mynewcolumn")
 )$head(3) # display the first 3 lines
 ```
+
+### Add a new column based on conditions
+
+To add new columns based on conditions, the `when-then-otherwise` expression must be used.  
+For example:
+
+::: {.panel-tabset}
+## polars
+
+```{r}
+#| label: add-column-with-conditions-polars
+pl$DataFrame(iris)$with_columns(
+  pl$when(pl$col("Petal.Length") <= 2)$then("<=2")$
+    when(pl$col("Petal.Length") <= 5)$then("<=5")$
+    otherwise(">5")$alias("mygroups")
+# we only need to display 2 variables to check that it's OK
+)$select(
+  pl$col(c("Petal.Length","mygroups"))
+)[c(1,2,59,150)]
+```
+
+## R base
+
+```{r}
+#| label: add-column-with-conditions-rbase
+iris$mygroups <- ifelse(iris$Petal.Length <= 2, "<=2",
+                        ifelse(iris$Petal.Length <= 5, "<=5", ">5"))
+# we only need to display 2 variables to check that it's OK
+iris[c(1,2,59,150), c("Petal.Length", "mygroups")]
+```
+
+## dplyr
+
+```{r}
+#| label: add-column-with-conditions-dplyr
+iris |>
+  mutate(
+    mygroups = case_when(
+      Petal.Length <=2 ~ "<=2",
+      Petal.Length <=5 ~ "<=5",
+      .default = ">5")
+  ) |>
+  # we only need to display 2 variables  to check that it's OK
+  select(Petal.Length,mygroups) |>
+  slice(1,2,59,150)
+```
+
+## data.table
+
+```{r}
+#| label: add-column-with-conditions-datatable
+iris_dt[, mygroups := case_when(
+  Petal.Length <= 2 ~ "<=2",
+  Petal.Length <= 5 ~ "<=5",
+  TRUE ~ ">5"
+)]
+# we only need to display 2 variables to check that it's OK
+iris_dt[c(1,2,59,150), .(Petal.Length, mygroups)]
+```
+:::
