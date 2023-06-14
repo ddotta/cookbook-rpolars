@@ -1182,9 +1182,9 @@ Let's go for a first example :
 #| label: creation-df-for-pivot-wider
 df <- data.frame(
   country = c(rep("France",3),rep("Italy","3")),
-  city = c("Paris", "Marseille", "Toulouse", "Roma", "Milan", "Napoli"),
-  location = c("North","South","South","South","North","South"),
-  population = c(2.1, 0.8, 0.5, 2.8, 1.4, 3.0)
+  city = c("Paris", "Lille", "Nice", "Roma", "Milan", "Napoli"),
+  location = c("North","North","South","South","North","South"),
+  population = c(2.1, 0.2, 0.4, 2.8, 1.4, 3.0)
 )
 ```
 
@@ -1332,8 +1332,8 @@ Let's see with an example :
 #| label: creation-df-for-pivot-longer
 df <- data.frame(
   country = c("France","Italy"),
-  North = c(2.1,1.4),
-  South = c(0.6,2.9)
+  North = c(1.1,1.4),
+  South = c(0.4,2.9)
 )
 ```
 
