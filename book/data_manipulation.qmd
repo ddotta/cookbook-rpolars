@@ -242,7 +242,7 @@ iris_dt[Petal.Length > 6 & Petal.Width < 2]
 ```
 :::
 
-## Select
+## Select columns
 
 The `select()` method is used to select columns of a DataFrame. It must be used with the `col()` method which allows to designate the columns to be selected.
 
@@ -284,7 +284,9 @@ iris_dt[1:3,.(Petal.Length,Petal.Width)]
 With Polars if you want to obtain a result in an R data.frame, you can simply add the method `to_data_frame()` at the end of the method chaining.
 :::
 
-Similar to the dplyr package, the select() method can also be used to modify existing data. However, the result will exclude any columns that were not specified in the expression.
+## Add columns
+
+Similar to the dplyr package, the `select()` method can also be used to **modify existing data**. However, the result will exclude any columns that were not specified in the expression.
 
 For example, if we want to get in the data.frame iris the `Petal.Length` column rounded without decimals.
 
@@ -346,6 +348,16 @@ pl$DataFrame(iris)$with_columns(
   pl$col("Petal.Length")$round(decimals = 0)$alias("Petal.Length.rounded")
 )$head(3) # display the first 3 lines
 ```
+
+If you need to **create a new column with a constant value** (i.e. the same value for all the rows in your DataFrame), you can use the `lit()` method. It works with the main types of Polars.
+
+```{r}
+#| label: lit-polars
+pl$DataFrame(iris)$with_columns(
+  pl$lit("toto")$alias("mynewcolumn")
+)$head(3) # display the first 3 lines
+```
+
 
 ## Methods agg and group_by
 
