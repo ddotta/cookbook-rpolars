@@ -8,7 +8,7 @@ The `to_series()` method can be used to get one column from `DataFrame` as `Seri
 ## polars
 
 ```{r}
-#| label: to-series-Series
+#| label: to-series-polars
 pl$DataFrame(iris)$select(pl$col("Petal.Length"))$to_series()
 ```
 
@@ -32,6 +32,28 @@ iris |>
 ```{r}
 #| label: tovector-datatable
 iris_dt[, c(Petal.Length)]
+```
+:::
+
+#### Get a R List from DataFrame
+
+The `to_list()` method can be used to get a R List from `DataFrame`.
+
+::: {.panel-tabset}
+## polars
+
+```{r}
+#| label: to-list-polars
+mylist <- pl$DataFrame(iris)$to_list()
+names(mylist)
+```
+
+## R base
+
+```{r}
+#| label: to-list-rbase
+mylist <- as.list(iris)
+names(mylist)
 ```
 :::
 
