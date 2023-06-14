@@ -34,7 +34,7 @@ iris_dt[Petal.Length > 6 & Petal.Width < 2]
 ```
 :::
 
-::: callout-tip
+::: {.callout-tip}
 The equivalent of `%in%` R operator is the `is_in()` method. It should be used in association with the `lit()` method.
 
 ```{r}

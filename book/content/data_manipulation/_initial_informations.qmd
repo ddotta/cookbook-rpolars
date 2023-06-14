@@ -22,7 +22,7 @@ nrow.DataFrame(mydf)
 ncol.DataFrame(mydf)
 ```
 
-::: callout-caution
+::: {.callout-caution title="Work in Progress"}
 Polars API contains useful methods for quickly describing a `DataFrame` - [describe](https://pola-rs.github.io/polars/py-polars/html/reference/dataframe/api/polars.DataFrame.describe.html) and [glimpse](https://pola-rs.github.io/polars/py-polars/html/reference/dataframe/api/polars.DataFrame.glimpse.html#) that has not yet been implemented (June 2023).
 :::
 

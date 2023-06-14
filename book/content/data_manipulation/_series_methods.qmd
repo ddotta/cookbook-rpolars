@@ -75,7 +75,7 @@ infer_type(iris$Species)
 ```
 :::
 
-::: callout-tip
+::: {.callout-tip}
 Polars is strongly typed. `print(ls(pl$dtypes))` returns the full list of valid Polars types. Caution, some type names differ from what they are called in R base. See below!
 :::
 
@@ -166,7 +166,7 @@ str(iris_dt)
 ```
 :::
 
-::: callout-tip
+::: {.callout-tip}
 When working with very large tables we can **Reduce the memory footprint** by modifying the number of bits allocated to an element. ⚠️
 :::
 
@@ -267,7 +267,7 @@ length(1:4)
 
 The `series_equal()` method can be used to check if a `Series` is equal with another `Series`.
 
-::: callout-tip
+::: {.callout-tip}
 Caution, if two series are identical but one is named and the other is not then `series_equal()` returns FALSE.
 :::
 

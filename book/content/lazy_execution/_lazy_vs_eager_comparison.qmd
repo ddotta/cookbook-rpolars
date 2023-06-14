@@ -22,7 +22,7 @@ If we instead used the **lazy API** and waited on execution untill all the steps
 - `Predicate pushdown`: Apply filters as early as possible while reading the dataset, thus only reading rows with sepal length greater than 5.
 - `Projection pushdown`: Select only the columns that are needed while reading the dataset, thus removing the need to load additional columns
 
-::: callout-tip
+::: {.callout-tip}
 To consult the list of **optimisations** made by `Polars` on queries in **lazy mode**, see [this page](https://pola-rs.github.io/polars-book/user-guide/lazy/optimizations/)..
 :::
 

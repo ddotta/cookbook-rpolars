@@ -68,6 +68,6 @@ iris_dt[, lapply(.SD, median), by = Species]
 ```
 :::
 
-::: callout-tip
+::: {.callout-tip}
 In the Polars code used above, you will notice that we have introduced **line breaks**. We could have written the whole code on the same line but for the sake of readability I prefer to separate the methods used by line breaks.
 :::
