@@ -1,0 +1,7 @@
+## Export data
+
+Unlike Python, the Polars R API does not yet contain native methods for **exporting to Excel format**.
+
+The best current solution is to use the [data.frame conversion method](#from-seriesdataframes-to-vectordata.frames) and then use the [{openxlsx}](https://ycphs.github.io/openxlsx/index.html) package or one of its [{tablexlsx}](https://ddotta.github.io/tablexlsx/) wrapper to export these DataFrames in xlsx format.  
+
+Fortunately, the contributors to the R {polars} package are in full development and we hope soon to have methods for exporting to arrow or tibbles, for example! 💪
