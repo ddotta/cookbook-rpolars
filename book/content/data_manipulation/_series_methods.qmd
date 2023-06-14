@@ -385,7 +385,7 @@ sum(iris$Petal.Length)
 
 ```{r}
 #| label: df-string-sum-dplyr
-iris %>% summarise(sum(Petal.Length))
+iris |> summarise(sum(Petal.Length))
 ```
 
 ## data.table
@@ -430,8 +430,8 @@ cbind(df,mysum)
 
 ```{r}
 #| label: df-horizontally-sum-dplyr
-df %>%
-  rowwise() %>% 
+df |>
+  rowwise() |> 
   mutate(mysum = sum(col1,col3))
 ```
 
