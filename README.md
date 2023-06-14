@@ -19,8 +19,6 @@ It contains a side-by-side comparison between Polars, R base and the two most po
 
 - [Articulation with duckdb](https://ddotta.github.io/cookbook-rpolars/duckdb.html)
 
-- [Polars in production](https://ddotta.github.io/cookbook-rpolars/production.html)
-
 
 ### Contribution
 

@@ -26,7 +26,6 @@ book:
     - import_export.qmd
     - lazy_execution.qmd
     - duckdb.qmd
-    - production.qmd
 
 format:
   html:
