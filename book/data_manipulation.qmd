@@ -8,6 +8,7 @@
 #| results: 'hide'
 library(polars)
 library(dplyr)
+library(tidyr)
 library(data.table)
 library(arrow)
 iris_dt <- as.data.table(iris)
@@ -1171,6 +1172,54 @@ data_dt[complete.cases(data_dt[, .SD, .SDcols = "col1"]), ]
 ```
 :::
 
+#### Pivot a DataFrame
+
+The `pivot()` method can be used to pivot a `DataFrame`.  
+
+Let's go for a first example :  
+
+::: {.panel-tabset}
+## polars
+
+```{r}
+#| label: first-pivot-polars
+pl$DataFrame(df)$pivot(
+  index = "country", 
+  columns = "city",
+  values = "population", 
+)
+```
+
+## R base
+```{r}
+#| label: first-pivot-rbase
+reshape(df[,-which(names(df) %in% c("localisation"))], 
+        idvar = "country", 
+        timevar = "city", 
+        direction = "wide")
+```
+
+## tidyr
+
+```{r}
+#| label: first-pivot-polars-tidyr
+df |>
+  pivot_wider(
+    id_cols = country,
+    names_from = city,
+    values_from = population
+  )
+```
+
+## data.table
+
+```{r}
+#| label: first-pivot-datatable
+df_dt <- as.data.table(df)
+dcast(df_dt, country ~ city, value.var = "population")
+```
+:::
+
 ## List of methods to apply to Series {#list-of-methods-to-apply-to-series}
 
 To learn more about the methods to be applied to the `Series`, see [this page](https://rpolars.github.io/reference/Series_class/).
@@ -1182,6 +1231,7 @@ ls(polars:::Series)
 # See all private methods for Series (not intended for regular use)
 ls(polars:::.pr$Series)
 ```
+
 
 ## List of methods to apply to DataFrame {#list-of-methods-to-apply-to-dataframe}
 
