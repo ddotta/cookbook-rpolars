@@ -133,6 +133,7 @@ df_final
 
 ```{r}
 #| label: expr-wide-pivot-polars-tidyr
+#| message: false
 df %>%
   group_by(country, location) %>%
   summarise(population_sum = sqrt(sum(population))) %>%
