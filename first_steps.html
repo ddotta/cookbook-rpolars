@@ -219,6 +219,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   </ul></li>
   <li><a href="#manipulation-of-series-and-dataframes-with-r-standard-functions" id="toc-manipulation-of-series-and-dataframes-with-r-standard-functions" class="nav-link" data-scroll-target="#manipulation-of-series-and-dataframes-with-r-standard-functions"><span class="header-section-number">1.4</span> Manipulation of Series and DataFrames with R standard functions</a></li>
   <li><a href="#expressions" id="toc-expressions" class="nav-link" data-scroll-target="#expressions"><span class="header-section-number">1.5</span> Expressions</a></li>
+  <li><a href="#dataframes-display-on-windows" id="toc-dataframes-display-on-windows" class="nav-link" data-scroll-target="#dataframes-display-on-windows"><span class="header-section-number">1.6</span> DataFrames display on Windows</a></li>
   </ul>
 <div class="toc-actions"><div><i class="bi bi-github"></i></div><div class="action-links"><p><a href="https://github.com/ddotta/cookbook-rpolars/edit/main/book/first_steps.qmd" class="toc-action">Edit this page</a></p><p><a href="https://github.com/ddotta/cookbook-rpolars/issues/new" class="toc-action">Report an issue</a></p><p><a href="https://github.com/ddotta/cookbook-rpolars/blob/main/book/first_steps.qmd" class="toc-action">View source</a></p></div></div></nav>
     </div>
@@ -612,6 +613,35 @@ Tip
 <p>To learn more about Polars expressions, see <a href="https://pola-rs.github.io/polars-book/user-guide/concepts/expressions/">the official documentation</a>.</p>
 <hr>
 <p><strong>If you have read this far and managed to reproduce the examples, congratulations! You are ready to dive into the deep end of Polars with R in the next parts of this cookbook!</strong> 🚀</p>
+</section>
+<section id="dataframes-display-on-windows" class="level2" data-number="1.6">
+<h2 data-number="1.6" class="anchored" data-anchor-id="dataframes-display-on-windows"><span class="header-section-number">1.6</span> DataFrames display on Windows</h2>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Note
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>This section is for Windows and RStudio users only!</p>
+</div>
+</div>
+<p>As a Windows and <a href="https://posit.co/download/rstudio-desktop/">RStudio</a> user, you may encounter a problem with the display of <code>Polars</code> DataFrames.</p>
+<p>Here’s what can happen with the default font in RStudio <strong>Lucida Console</strong>:</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="content/images/polars_lucida_console.png" class="img-fluid figure-img" alt="Displaying the mtcars DataFrame with Lucida Console font."></p>
+</figure>
+</div>
+<p>To resolve this display problem, I recommend using the <strong>Cascadia</strong> font:</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="content/images/polars_cascadia.png" class="img-fluid figure-img" alt="Displaying the mtcars DataFrame with Cascadia font."></p>
+</figure>
+</div>
 
 
 </section>

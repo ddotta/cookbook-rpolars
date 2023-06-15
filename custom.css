@@ -6,3 +6,21 @@
     text-align: right;
 }
 tbody tr:hover {background: rgba(66, 165, 245, 0.2);}
+
+.nav-tabs .nav-item .nav-link {
+  background-color: #e9e9e9;
+  color: #585858;
+  border-radius: 25% 10%;
+}
+
+.nav-tabs .nav-item .nav-link.active {
+  background-color: #5f7ba7;
+  color: #f0eded;
+}
+
+.nav-tabs .nav-link:hover {
+   border-color: white;
+   border-width: 2px;
+   background-color: #5f7ba7;
+   color: #f0eded;
+} 
