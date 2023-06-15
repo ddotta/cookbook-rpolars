@@ -11,3 +11,5 @@
 {{< include content/first_steps/_manipulation_standard_R_functions.qmd >}}
 
 {{< include content/first_steps/_expressions.qmd >}}
+
+{{< include content/first_steps/_dataframes_display.qmd >}}
