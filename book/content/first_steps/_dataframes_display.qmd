@@ -1,16 +1,15 @@
 ## DataFrames display on Windows
 
-::: {.callout-note}
+::: callout-note
 This section is for Windows and RStudio users only!
 :::
 
-
 As a Windows and [RStudio](https://posit.co/download/rstudio-desktop/) user, you may encounter a problem with the display of `Polars` DataFrames.
 
-Here's what can happen with the default font in RStudio "Lucida Console":
+Here's what can happen with the default font in RStudio **Lucida Console**:
 
-![](../images/polars_lucida_console.png){fig-alt="Displaying the mtcars DataFrame with Lucida Console font."}
+![](content/images/polars_lucida_console.png){fig-alt="Displaying the mtcars DataFrame with Lucida Console font." fig-align="center"}
 
-To resolve this display problem, I recommend using the "Cascadia" font:
+To resolve this display problem, I recommend using the **Cascadia** font:
 
-![](../images/polars_cascadia.png){fig-alt="Displaying the mtcars DataFrame with Cascadia font."}
+![](content/images/polars_cascadia.png){fig-alt="Displaying the mtcars DataFrame with Cascadia font." fig-align="center"}
