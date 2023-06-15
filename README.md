@@ -37,4 +37,5 @@ quarto render book/
 
 ### Overview of the book and equivalences between different syntaxes
 
-<img src="book/content/images/navtabs-syntax-equivalent.gif" width="100%"/>
+
+<img src="book/content/images/navtabs-syntax-equivalent.gif" width="100%" />
