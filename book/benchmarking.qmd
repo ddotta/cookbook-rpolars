@@ -1,0 +1,112 @@
+# Benchmarking
+
+Below is the code used to create the data needed for the comparisons.  
+Click to expand it! 👇
+
+```{r}
+#| label: load-packages-lazy-execution
+#| code-fold: true
+#| message: false
+#| warning: false
+#| results: 'hide'
+library(polars)
+library(arrow)
+library(dplyr)
+library(tictoc)
+
+# Creation the "Datasets" folder
+dir.create(normalizePath("Datasets"))
+
+# Creation of large example R data.frame
+DataMultiTypes <- data.frame(
+  colInt = sample(1:2000000, 10000, replace = TRUE), 
+  colNum = runif(2000000), 
+  colString = sample(c("A", "B", "C"), 2000000, replace = TRUE), 
+  colFactor = factor(sample(c("Low", "Medium", "High"), 2000000, replace = TRUE))
+)
+
+# Creation of large csv file
+write.csv(x = DataMultiTypes,
+          file = "Datasets/DataMultiTypes.csv")
+
+# Creation of unique parquet file
+arrow::write_parquet(x = DataMultiTypes,
+                     sink = "Datasets/DataMultiTypes.parquet")
+# Creation of partitionned parquet file
+arrow::write_dataset(dataset = DataMultiTypes,
+                     path = "Datasets/DataMultiTypes",
+                     format = c("parquet"),
+                     partitioning = c("colFactor"))
+# Creation of duckdb file
+con <- dbConnect(duckdb::duckdb(),
+                 "Datasets/DataMultiTypes.duckdb")
+duckdb::dbWriteTable(con,
+                     "DataMultiTypes",
+                     DataMultiTypes,
+                     overwrite = TRUE)
+dbDisconnect(con)
+```
+
+In this part of the book we will compare the performance of `polars` by comparing 
+with other syntaxes, in particular `R base`, `dplyr`, `dbplyr`, `SQL` and `data.table`.
+
+This section is structured according to the **type of file format** used for the comparison
+
+## From a csv file
+
+## From an unique parquet file
+
+## From a partitionned parquet file
+
+## From a duckdb file
+
+PLAN :
+1. A partir d'un fichier csv, comparer les performances d'une requête avec :
+  i. R Base
+  ii. dplyr
+  iii. data.table
+  iv. polars
+2. A partir d'un fichier parquet unique, comparer : 
+  i. dplyr
+  ii. polars
+3. A partir d'un fichier parquet partitionné, comparer : 
+  i. dplyr
+  ii. polars
+4. La même comparaison à partir d'un fichier duckdb
+  i. requête sql
+  ii. dbplyr
+  iii. polars
+
+
+## Polars to DuckDB
+
+DuckDB can natively query Polars DataFrames by referring to the name of Polars DataFrames as they exist in the current scope.
+
+
+```{r}
+con <- dbConnect(duckdb::duckdb(),
+                 "Datasets/data.duckdb")
+# Fonctionne
+duckdb::dbWriteTable(con,
+                     "iris_table",
+                     iris,
+                     overwrite = TRUE)
+# Fonctionne
+duckdb::dbWriteTable(con,
+                     "mtcars_table",
+                     mtcars,
+                     overwrite = TRUE)
+# Ne fonctionne pas
+duckdb::dbWriteTable(con,
+                     "iris_pl_table",
+                     pl$DataFrame("iris"),
+                     overwrite = TRUE)
+dbListTables(con)
+dbGetQuery(con, "SELECT * FROM iris_table WHERE SPECIES == 'setosa'")
+dbExecute(con, "CREATE TABLE items(item VARCHAR, value DECIMAL(10,2), count INTEGER)")
+dbExecute(con, "INSERT INTO items VALUES ('jeans', 20.0, 1), ('hammer', 42.2, 2)")
+res <- dbGetQuery(con, "SELECT * FROM items")
+print(res)
+```
+
+

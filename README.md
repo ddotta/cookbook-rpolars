@@ -17,7 +17,7 @@ It contains a side-by-side comparison between Polars, R base and the two most po
 
 - [Lazy execution](https://ddotta.github.io/cookbook-rpolars/lazy_execution.html)
 
-- [Articulation with duckdb](https://ddotta.github.io/cookbook-rpolars/duckdb.html)
+- [Benchmarking](https://ddotta.github.io/cookbook-rpolars/benchmarking.html)
 
 
 ### Contribution

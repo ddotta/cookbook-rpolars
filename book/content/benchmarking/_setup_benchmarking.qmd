@@ -1,0 +1,32 @@
+Below is the code used to create the fake data needed to compare the `eager` and `lazy` modes in this document.  
+Click to expand it! 👇
+
+```{r}
+#| label: load-packages-benchmarking
+#| code-fold: true
+#| message: false
+#| warning: false
+#| results: 'hide'
+library(polars)
+library(arrow)
+library(dplyr)
+library(fakir)
+library(tictoc)
+library(bench)
+
+# Creation the "Datasets" folder
+dir.create(normalizePath("Datasets"))
+
+# Creation of large example R data.frame
+fake_data <- fake_ticket_client(vol = 100000)
+
+# Creation of large example csv dataset
+write.csv(
+  x = fake_data,
+  file = normalizePath("Datasets/fakir_file.csv"))
+
+# Creation of large example parquet dataset
+write_parquet(
+  x = fake_data,
+  sink = normalizePath("Datasets/fakir_file.parquet"))
+```

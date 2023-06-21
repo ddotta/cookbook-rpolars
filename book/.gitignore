@@ -7,7 +7,7 @@ Datasets/
 *.rds
 data_manipulation_cache/
 first_steps_cache/
-duckdb_cache/
+benchmarking_cache/
 graphics_cache/
 index_cache/
 

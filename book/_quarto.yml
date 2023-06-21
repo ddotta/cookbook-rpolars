@@ -25,7 +25,7 @@ book:
     - data_manipulation.qmd
     - import_export.qmd
     - lazy_execution.qmd
-    - duckdb.qmd
+    - benchmarking.qmd
 
 format:
   html:
