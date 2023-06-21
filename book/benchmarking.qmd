@@ -1,64 +1,25 @@
 # Benchmarking
 
-Below is the code used to create the data needed for the comparisons.  
-Click to expand it! 👇
+{{< include content/benchmarking/_setup_benchmarking.qmd >}}
 
-```{r}
-#| label: load-packages-lazy-execution
-#| code-fold: true
-#| message: false
-#| warning: false
-#| results: 'hide'
-library(polars)
-library(arrow)
-library(dplyr)
-library(tictoc)
+{{< include content/benchmarking/_from_csv.qmd >}}
 
-# Creation the "Datasets" folder
-dir.create(normalizePath("Datasets"))
+{{< include content/benchmarking/_from_unique_parquet.qmd >}}
 
-# Creation of large example R data.frame
-DataMultiTypes <- data.frame(
-  colInt = sample(1:2000000, 10000, replace = TRUE), 
-  colNum = runif(2000000), 
-  colString = sample(c("A", "B", "C"), 2000000, replace = TRUE), 
-  colFactor = factor(sample(c("Low", "Medium", "High"), 2000000, replace = TRUE))
-)
+{{< include content/benchmarking/_from_partitioned_parquet.qmd >}}
 
-# Creation of large csv file
-write.csv(x = DataMultiTypes,
-          file = "Datasets/DataMultiTypes.csv")
+{{< include content/benchmarking/_from_duckdb.qmd >}}
 
-# Creation of unique parquet file
-arrow::write_parquet(x = DataMultiTypes,
-                     sink = "Datasets/DataMultiTypes.parquet")
-# Creation of partitionned parquet file
-arrow::write_dataset(dataset = DataMultiTypes,
-                     path = "Datasets/DataMultiTypes",
-                     format = c("parquet"),
-                     partitioning = c("colFactor"))
-# Creation of duckdb file
-con <- dbConnect(duckdb::duckdb(),
-                 "Datasets/DataMultiTypes.duckdb")
-duckdb::dbWriteTable(con,
-                     "DataMultiTypes",
-                     DataMultiTypes,
-                     overwrite = TRUE)
-dbDisconnect(con)
-```
 
-In this part of the book we will compare the performance of `polars` by comparing 
-with other syntaxes, in particular `R base`, `dplyr`, `dbplyr`, `SQL` and `data.table`.
 
-This section is structured according to the **type of file format** used for the comparison
 
-## From a csv file
 
-## From an unique parquet file
 
-## From a partitionned parquet file
 
-## From a duckdb file
+
+
+
+
 
 PLAN :
 1. A partir d'un fichier csv, comparer les performances d'une requête avec :

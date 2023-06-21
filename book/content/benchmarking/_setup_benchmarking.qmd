@@ -18,15 +18,31 @@ library(bench)
 dir.create(normalizePath("Datasets"))
 
 # Creation of large example R data.frame
-fake_data <- fake_ticket_client(vol = 100000)
+DataMultiTypes <- data.frame(
+  colInt = sample(1:2000000, 10000, replace = TRUE), 
+  colNum = runif(2000000), 
+  colString = sample(c("A", "B", "C"), 2000000, replace = TRUE), 
+  colFactor = factor(sample(c("Low", "Medium", "High"), 2000000, replace = TRUE))
+)
 
-# Creation of large example csv dataset
-write.csv(
-  x = fake_data,
-  file = normalizePath("Datasets/fakir_file.csv"))
+# Creation of large csv file
+write.csv(x = DataMultiTypes,
+          file = "Datasets/DataMultiTypes.csv")
 
-# Creation of large example parquet dataset
-write_parquet(
-  x = fake_data,
-  sink = normalizePath("Datasets/fakir_file.parquet"))
+# Creation of unique parquet file
+arrow::write_parquet(x = DataMultiTypes,
+                     sink = "Datasets/DataMultiTypes.parquet")
+# Creation of partitionned parquet file
+arrow::write_dataset(dataset = DataMultiTypes,
+                     path = "Datasets/DataMultiTypes",
+                     format = c("parquet"),
+                     partitioning = c("colFactor"))
+# Creation of duckdb file
+con <- dbConnect(duckdb::duckdb(),
+                 "Datasets/DataMultiTypes.duckdb")
+duckdb::dbWriteTable(con,
+                     "DataMultiTypes",
+                     DataMultiTypes,
+                     overwrite = TRUE)
+dbDisconnect(con)
 ```
