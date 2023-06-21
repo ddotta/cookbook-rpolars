@@ -10,6 +10,7 @@ Click to expand it! 👇
 library(polars)
 library(arrow)
 library(dplyr)
+library(data.table)
 library(bench)
 
 # Creation the "Datasets" folder

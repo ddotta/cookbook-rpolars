@@ -25,7 +25,37 @@ DataMultiTypes$diff <- round(
 ```
 
 ### With dplyr
+
+```{r}
+#| label: csv-dplyr-benchmarking
+
+# Creation of 2 columns (date) 
+DataMultiTypes <- DataMultiTypes |>
+  mutate(
+    colDate1 = as.Date(colDate1),
+    colDate2 = as.Date(colDate2)
+  )
+  
+# Creation of a diff column between 2 dates (in days)
+DataMultiTypes <- DataMultiTypes |> 
+  mutate(diff = round(difftime(colDate2, colDate1, units = "days")),0)
+```
+
 ### With data.table
+
+```{r}
+#| label: csv-datatable-benchmarking
+
+# Conversion data.frame to data.table
+DataMultiTypes_dt <- as.data.table(DataMultiTypes)
+
+# Creation of 2 columns (date) 
+DataMultiTypes_dt[, `:=`(colDate1 = as.Date(colDate1),colDate2 = as.Date(colDate2))]
+  
+# Creation of a diff column between 2 dates (in days)
+DataMultiTypes_dt[, diff := difftime(colDate2, colDate1, units = "days")]
+```
+
 
 ### With polars
 
@@ -38,17 +68,16 @@ DataMultiTypes_pl <- pl$read_csv(path = "Datasets/DataMultiTypes.csv")
 ```{r}
 #| label: csv-polars-benchmarking
 
-# Creation of 2 columns (date) 
+# Creation of 2 columns (date)
 DataMultiTypes_pl <- DataMultiTypes_pl$with_columns(
   pl$col("colDate1")$str$strptime(pl$Date, "%F %T", strict = FALSE),
   pl$col("colDate2")$str$strptime(pl$Date, "%F %T", strict = FALSE)
-  )
+)
 
 # Creation of a diff column between 2 dates (in days)
-
 DataMultiTypes_pl <- DataMultiTypes_pl$with_columns(
-  (pl$col("colDate2") - pl$col("colDate1"))$alias("diff")
-  )
+  difftime(pl$col("colDate2") - pl$col("colDate1"))$alias("diff")
+)
 
 DataMultiTypes_pl
 ```
