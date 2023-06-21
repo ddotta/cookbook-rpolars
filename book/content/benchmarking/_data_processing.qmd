@@ -1,0 +1,9 @@
+In this part of the book we will compare the performance of `polars` by comparing 
+with other syntaxes, in particular `R base`, `dplyr`, `dbplyr`, `SQL` and `data.table`.
+
+This section is structured according to the **type of file format** used for the comparison.
+
+**Data processing**:
+
+- 
+

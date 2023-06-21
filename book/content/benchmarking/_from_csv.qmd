@@ -1,6 +1,54 @@
-In this part of the book we will compare the performance of `polars` by comparing 
-with other syntaxes, in particular `R base`, `dplyr`, `dbplyr`, `SQL` and `data.table`.
-
-This section is structured according to the **type of file format** used for the comparison
-
 ## From a csv file
+
+### With R base
+
+
+```{r}
+#| label: read-csv-rbase-benchmarking
+DataMultiTypes <- read.csv("Datasets/DataMultiTypes.csv")
+```
+
+```{r}
+#| label: csv-rbase-benchmarking
+
+# Creation of 2 columns (date) 
+DataMultiTypes$colDate1 <- as.Date(DataMultiTypes$colDate1)
+DataMultiTypes$colDate2 <- as.Date(DataMultiTypes$colDate2)
+
+# Creation of a diff column between 2 dates (in days)
+DataMultiTypes$diff <- round(
+  difftime(
+    DataMultiTypes$colDate2,
+    DataMultiTypes$colDate1,
+    units = "days"),
+  0)
+```
+
+### With dplyr
+### With data.table
+
+### With polars
+
+```{r}
+#| label: read-csv-polars-benchmarking
+DataMultiTypes_pl <- pl$read_csv(path = "Datasets/DataMultiTypes.csv")
+```
+
+
+```{r}
+#| label: csv-polars-benchmarking
+
+# Creation of 2 columns (date) 
+DataMultiTypes_pl <- DataMultiTypes_pl$with_columns(
+  pl$col("colDate1")$str$strptime(pl$Date, "%F %T", strict = FALSE),
+  pl$col("colDate2")$str$strptime(pl$Date, "%F %T", strict = FALSE)
+  )
+
+# Creation of a diff column between 2 dates (in days)
+
+DataMultiTypes_pl <- DataMultiTypes_pl$with_columns(
+  (pl$col("colDate2") - pl$col("colDate1"))$alias("diff")
+  )
+
+DataMultiTypes_pl
+```

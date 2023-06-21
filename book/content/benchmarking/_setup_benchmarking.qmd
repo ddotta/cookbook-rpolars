@@ -10,16 +10,18 @@ Click to expand it! 👇
 library(polars)
 library(arrow)
 library(dplyr)
-library(fakir)
-library(tictoc)
 library(bench)
 
 # Creation the "Datasets" folder
 dir.create(normalizePath("Datasets"))
 
+set.seed(123)
+
 # Creation of large example R data.frame
 DataMultiTypes <- data.frame(
-  colInt = sample(1:2000000, 10000, replace = TRUE), 
+  colDate1 = as.POSIXct(sample(as.POSIXct("2023-01-01"):as.POSIXct("2023-06-30"),2000000),origin="1970-01-01"),
+  colDate2 = as.POSIXct(sample(as.POSIXct("2023-07-01"):as.POSIXct("2023-12-31"),2000000),origin="1970-01-01"),
+  colInt = sample(1:10000, 2000000, replace = TRUE), 
   colNum = runif(2000000), 
   colString = sample(c("A", "B", "C"), 2000000, replace = TRUE), 
   colFactor = factor(sample(c("Low", "Medium", "High"), 2000000, replace = TRUE))
@@ -27,12 +29,13 @@ DataMultiTypes <- data.frame(
 
 # Creation of large csv file
 write.csv(x = DataMultiTypes,
-          file = "Datasets/DataMultiTypes.csv")
+          file = "Datasets/DataMultiTypes.csv",
+          row.names=FALSE)
 
 # Creation of unique parquet file
 arrow::write_parquet(x = DataMultiTypes,
                      sink = "Datasets/DataMultiTypes.parquet")
-# Creation of partitionned parquet file
+# Creation of 6 parquet file
 arrow::write_dataset(dataset = DataMultiTypes,
                      path = "Datasets/DataMultiTypes",
                      format = c("parquet"),
