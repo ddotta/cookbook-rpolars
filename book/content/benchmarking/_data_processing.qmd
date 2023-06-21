@@ -3,7 +3,12 @@ with other syntaxes, in particular `R base`, `dplyr`, `dbplyr`, `SQL` and `data.
 
 This section is structured according to the **type of file format** used for the comparison.
 
-**Data processing**:
+::: {.callout-note}
+The data processing that is performed makes very little statistical sense, but it does strive to perform some of the operations most frequently used by data scientists.
+:::
 
-- 
+**Data processing steps**:
+
+- Convert of two columns to Date format;
+- Creation of a new column corresponding to the difference in number of days between the 2 dates;
 
