@@ -1,83 +1,141 @@
 ## From a csv file
 
-### With R base
+::: {.panel-tabset}
 
-
-```{r}
-#| label: read-csv-rbase-benchmarking
-DataMultiTypes <- read.csv("Datasets/DataMultiTypes.csv")
-```
-
-```{r}
-#| label: csv-rbase-benchmarking
-
-# Creation of 2 columns (date) 
-DataMultiTypes$colDate1 <- as.Date(DataMultiTypes$colDate1)
-DataMultiTypes$colDate2 <- as.Date(DataMultiTypes$colDate2)
-
-# Creation of a diff column between 2 dates (in days)
-DataMultiTypes$diff <- round(
-  difftime(
-    DataMultiTypes$colDate2,
-    DataMultiTypes$colDate1,
-    units = "days"),
-  0)
-```
-
-### With dplyr
-
-```{r}
-#| label: csv-dplyr-benchmarking
-
-# Creation of 2 columns (date) 
-DataMultiTypes <- DataMultiTypes |>
-  mutate(
-    colDate1 = as.Date(colDate1),
-    colDate2 = as.Date(colDate2)
-  )
-  
-# Creation of a diff column between 2 dates (in days)
-DataMultiTypes <- DataMultiTypes |> 
-  mutate(diff = round(difftime(colDate2, colDate1, units = "days")),0)
-```
-
-### With data.table
-
-```{r}
-#| label: csv-datatable-benchmarking
-
-# Conversion data.frame to data.table
-DataMultiTypes_dt <- as.data.table(DataMultiTypes)
-
-# Creation of 2 columns (date) 
-DataMultiTypes_dt[, `:=`(colDate1 = as.Date(colDate1),colDate2 = as.Date(colDate2))]
-  
-# Creation of a diff column between 2 dates (in days)
-DataMultiTypes_dt[, diff := difftime(colDate2, colDate1, units = "days")]
-```
-
-
-### With polars
-
-```{r}
-#| label: read-csv-polars-benchmarking
-DataMultiTypes_pl <- pl$read_csv(path = "Datasets/DataMultiTypes.csv")
-```
-
+## polars (eager)
 
 ```{r}
 #| label: csv-polars-benchmarking
 
-# Creation of 2 columns (date)
-DataMultiTypes_pl <- DataMultiTypes_pl$with_columns(
-  pl$col("colDate1")$str$strptime(pl$Date, "%F %T", strict = FALSE),
-  pl$col("colDate2")$str$strptime(pl$Date, "%F %T", strict = FALSE)
-)
+csv_polars <- function(variables) {
+  
+  # Reading the csv file (eager mode)
+  result_pl <- pl$read_csv(path = "Datasets/DataMultiTypes.csv")
+  
+  # Conversion of 2 columns to Date format
+  result_pl <- result_pl$with_columns(
+    pl$col("colDate1")$str$strptime(pl$Date, "%F %T", strict = FALSE),
+    pl$col("colDate2")$str$strptime(pl$Date, "%F %T", strict = FALSE)
+  )
+  
+  # Creation of a diff column between 2 dates (in days)
+  result_pl <- result_pl$with_columns(
+    (pl$col("colDate2") - pl$col("colDate1"))$dt$days()$alias("diff")
+  )
+  
+  return(result_pl)
+}
 
-# Creation of a diff column between 2 dates (in days)
-DataMultiTypes_pl <- DataMultiTypes_pl$with_columns(
-  difftime(pl$col("colDate2") - pl$col("colDate1"))$alias("diff")
-)
-
-DataMultiTypes_pl
+tic()
+res_polars <- csv_polars()
+toc()
 ```
+
+## R base
+
+```{r}
+#| label: csv-rbase-benchmarking
+
+csv_rbase <- function() {
+  
+  # Reading the csv file
+  result <- read.csv("Datasets/DataMultiTypes.csv")
+  
+  # Conversion of 2 columns to Date format
+  result$colDate1 <- as.Date(result$colDate1)
+  result$colDate2 <- as.Date(result$colDate2)
+  
+  # Creation of a diff column between 2 dates (in days)
+  result$diff <- round(
+    as.integer(
+      difftime(
+        result$colDate2,
+        result$colDate1,
+        units = "days")
+      ),
+    0)
+  
+  return(result)
+}
+
+tic()
+res_rbase <- csv_rbase()
+toc()
+```
+
+## dplyr
+
+```{r}
+#| label: csv-dplyr-benchmarking
+
+csv_dplyr <- function() {
+  
+  # Reading the csv file
+  result <- read.csv("Datasets/DataMultiTypes.csv")
+  
+  # Conversion of 2 columns to Date format
+  result <- result |>
+    mutate(
+      colDate1 = as.Date(colDate1),
+      colDate2 = as.Date(colDate2)
+    )
+  
+  # Creation of a diff column between 2 dates (in days)
+  result <- result |> 
+    mutate(diff = round(as.integer(difftime(colDate2, colDate1, units = "days")),0))
+  
+  return(result)
+}
+
+tic()
+res_dplyr <- csv_dplyr()
+toc()
+```
+
+## data.table
+
+```{r}
+#| label: csv-datatable-benchmarking
+
+csv_dt <- function(variables) {
+  
+  # Reading the csv file
+  result <- read.csv("Datasets/DataMultiTypes.csv")
+  
+  # Conversion data.frame to data.table
+  result_dt <- as.data.table(result)
+  
+  # Conversion of 2 columns to Date format
+  result_dt <- result_dt[, `:=`(colDate1 = as.Date(colDate1),colDate2 = as.Date(colDate2))]
+  
+  # Creation of a diff column between 2 dates (in days)
+  result_dt <- result_dt[, diff := as.integer(difftime(colDate2, colDate1, units = "days"))]
+  
+  return(result_dt)
+}
+
+tic()
+res_dt <- csv_dt()
+toc()
+```
+
+
+### Results
+
+```{r}
+#| label: csv-results-benchmarking
+#| message: false
+#| warning: false
+
+microbenchmark(
+  "R base" = csv_rbase(),
+  "dplyr" = csv_dplyr(),
+  "data.table" = as.data.frame(csv_dt()),
+  "polars" = csv_polars()$to_data_frame(),
+  times = 5
+ )
+```
+ 
+ 2 REMARQUES :
+ - Avec data.table, il y a 2 étapes supplémentaires (la conversion au format dt au début puis la conversion en data.frame à la fin)
+ - Avec polars, la conversion en data.frame
