@@ -22,6 +22,10 @@ nrow.DataFrame(mydf)
 ncol.DataFrame(mydf)
 # or
 mydf$height
+# To get the names of columns
+mydf$columns
+# To rename some columns
+mydf$columns <- c("colA","colB")
 ```
 
 ::: {.callout-caution title="Work in Progress"}
