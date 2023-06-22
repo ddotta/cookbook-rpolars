@@ -132,7 +132,8 @@ microbenchmark(
   "dplyr" = csv_dplyr(),
   "data.table" = as.data.frame(csv_dt()),
   "polars" = csv_polars()$to_data_frame(),
-  times = 5
+  times = 5,
+  units = "s"
  )
 ```
  
