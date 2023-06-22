@@ -138,7 +138,9 @@ microbenchmark(
 ```
  
  ::: {.callout-note title="2 comments on these results"}
-The processing performed is not entirely equivalent, since it includes :
+The data processing performed is not entirely equivalent, since it includes :
 - for `polars`, conversion to data.frame R at the end of processing
 - for `data.table`, conversion to dt format at the start, then conversion to data.frame R at the end of processing
 :::
+
+👉 The data processing is 56X faster with `polars`! 🏆
