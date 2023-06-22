@@ -1,5 +1,7 @@
 ## Remove columns
 
+### Removing by name
+
 To remove columns from a DataFrame, the `drop` expression must be used.  
 Here's an example with equivalent syntax:  
 
@@ -34,5 +36,49 @@ iris |>
 ```{r}
 #| label: remove-column-datatable
 iris_dt[, c("Petal.Width","Sepal.Length","Sepal.Width") := NULL][1:3,]
+```
+:::
+
+### Removing by name pattern
+
+To remove columns by name pattern from a DataFrame, the `drop` expression must be used.  
+Let's see an example where you want to drop columns whose names starts with "Petal" in `iris`.
+
+::: {.panel-tabset}  
+## polars
+
+```{r}
+#| label: remove-column-polars
+
+num_to_drop <- !grepl("^Petal",pl$DataFrame(iris)$columns)
+col_to_drop <- pl$DataFrame(iris)$columns[num_to_drop]
+
+pl$DataFrame(iris)$
+  drop(col_to_drop)$
+  head(3)
+```
+
+## R base
+
+```{r}
+#| label: remove-column-rbase
+iris[1:3,!grepl("^Petal",names(iris))]
+```
+
+## dplyr
+
+```{r}
+#| label: remove-column-dplyr
+iris |>
+  select(-starts_with("Petal")) |>
+  head(3)
+```
+
+## data.table
+
+```{r}
+#| label: remove-column-datatable
+#| warning: false
+iris_dt[, which(grepl("^Petal$", names(iris_dt))):=NULL][1:3,]
 ```
 :::
