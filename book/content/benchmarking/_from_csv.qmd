@@ -137,6 +137,8 @@ microbenchmark(
  )
 ```
  
- 2 REMARQUES :
- - Avec data.table, il y a 2 étapes supplémentaires (la conversion au format dt au début puis la conversion en data.frame à la fin)
- - Avec polars, la conversion en data.frame
+ ::: {.callout-note title="2 comments on these results"}
+The processing performed is not entirely equivalent, since it includes :
+- for `polars`, conversion to data.frame R at the end of processing
+- for `data.table`, conversion to dt format at the start, then conversion to data.frame R at the end of processing
+:::
