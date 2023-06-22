@@ -118,7 +118,7 @@ tic()
 res_dt <- csv_dt()
 toc()
 ```
-
+:::
 
 ### Results
 
@@ -132,15 +132,15 @@ microbenchmark(
   "dplyr" = csv_dplyr(),
   "data.table" = as.data.frame(csv_dt()),
   "polars" = csv_polars()$to_data_frame(),
-  times = 5,
-  units = "s"
+  times = 5
  )
 ```
  
- ::: {.callout-note title="2 comments on these results"}
-The data processing performed is not entirely equivalent, since it includes :
-- for `polars`, conversion to data.frame R at the end of processing
-- for `data.table`, conversion to dt format at the start, then conversion to data.frame R at the end of processing
+ 
+::: {.callout-note}
+**The data processing performed is not entirely equivalent, since it includes :**  
+- for `polars`, conversion to data.frame R at the end of processing  
+- for `data.table`, conversion to dt format at the start, then conversion to data.frame R at the end of processing  
 :::
 
 👉 The data processing is 56X faster with `polars`! 🏆
