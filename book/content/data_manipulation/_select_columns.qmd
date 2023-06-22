@@ -100,3 +100,7 @@ iris_dt[, .SD, .SDcols = is.factor]
 iris_dt[, .SD, .SDcols = is.numeric]
 ```
 :::
+
+::: {.callout-note}
+You can also select columns from a DataFrame using a name pattern. See [an example by removing a column](#removing-by-name-pattern)
+:::
