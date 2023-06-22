@@ -2,7 +2,7 @@
 
 ### Removing by name
 
-To remove columns from a DataFrame, the `drop` expression must be used.  
+To remove columns from a DataFrame, the `drop` method must be used.  
 Here's an example with equivalent syntax:  
 
 ```{r}
