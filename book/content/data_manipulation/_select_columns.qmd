@@ -1,5 +1,7 @@
 ## Select columns
 
+### Selecting by name
+
 The first option for selecting columns of a DataFrame is to use square brackets `[]`.  
 The second option is to use the `select()` method. In this case, it must be used with the `col()` method which allows to designate the columns to be selected.
 
@@ -43,4 +45,58 @@ iris_dt[1:3,.(Petal.Length,Petal.Width)]
 
 ::: {.callout-note}
 With Polars if you want to obtain a result in an R data.frame, you can simply add the method `to_data_frame()` at the end of the method chaining.
+:::
+
+
+### Selecting by data type
+
+To select columns by data type from a DataFrame, you can pass a data type to `pl$col` expression.
+For example:
+
+::: {.panel-tabset}
+## polars
+
+```{r}
+#| label: select-datatype-polars
+
+# Select only categorical columns
+pl$DataFrame(iris)$select(pl$col(pl$Categorical))$head(3) 
+# Select only Float64 columns
+pl$DataFrame(iris)$select(pl$col(pl$Float64))$head(3)
+```
+
+## R base
+
+```{r}
+#| label: select-datatype-rbase
+
+# Select only factor columns
+as.data.frame(iris[1:3, sapply(iris, is.factor)])
+# Select only numeric columns
+iris[1:3, sapply(iris, is.numeric)]
+```
+
+## dplyr
+
+```{r}
+#| label: select-datatype-dplyr
+
+# Select only factor columns
+iris %>% 
+  select_if(is.factor)
+# Select only numeric columns
+iris %>% 
+  select_if(is.numeric)
+```
+
+## data.table
+
+```{r}
+#| label: select-datatype-datatable
+
+# Select only factor columns
+iris_dt[, .SD, .SDcols = is.factor]
+# Select only numeric columns
+iris_dt[, .SD, .SDcols = is.numeric]
+```
 :::
