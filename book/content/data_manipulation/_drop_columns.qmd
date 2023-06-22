@@ -1,0 +1,38 @@
+## Remove columns
+
+To remove columns from a DataFrame, the `drop` expression must be used.  
+Here's an example with equivalent syntax:  
+
+::: {.panel-tabset}  
+## polars
+
+```{r}
+#| label: remove-column-polars
+pl$DataFrame(iris)$
+  drop(c("Petal.Width","Sepal.Length","Sepal.Width"))$
+  head(3)
+```
+
+## R base
+
+```{r}
+#| label: remove-column-rbase
+iris[1:3,!(names(iris) %in% c("Petal.Width","Sepal.Length","Sepal.Width"))]
+```
+
+## dplyr
+
+```{r}
+#| label: remove-column-dplyr
+iris |>
+  select(-c(Petal.Width,Sepal.Length,Sepal.Width)) |>
+  head(3)
+```
+
+## data.table
+
+```{r}
+#| label: remove-column-datatable
+iris_dt[, c("Petal.Width","Sepal.Length","Sepal.Width") := NULL][1:3,]
+```
+:::
