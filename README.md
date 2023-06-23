@@ -19,6 +19,9 @@ It contains a side-by-side comparison between Polars, R base and the two most po
 
 - [Benchmarking](https://ddotta.github.io/cookbook-rpolars/benchmarking.html)
 
+Coming soon:
+
+- Writing your own R function with polars. See [this issue](https://github.com/ddotta/cookbook-rpolars/issues/3).
 
 ### Contribution
 
