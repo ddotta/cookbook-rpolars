@@ -28,4 +28,6 @@
 
 {{< include content/data_manipulation/_dataframes_methods.qmd >}}
 
+{{< include content/data_manipulation/_strings_slice_methods.qmd >}}
+
 {{< include content/data_manipulation/_list_methods.qmd >}}

@@ -1,0 +1,73 @@
+## Strings methods
+
+In polars, a lot of **strings methods** are useful.
+To use them, simply prefix them with `str`.
+
+### Get substrings
+
+The `str$slice()` method can be used to create substrings of the string values 
+of a **Utf8 Series**.  
+
+`str$slice()` does not work like R base's `substr()` function for finding the substring of interest:
+- `substr()` takes two arguments: the first and last elements;
+- `str$slice()` takes two arguments: the first element and the extraction length.
+
+::: {.callout-important}
+With Polars, numeric default is 0! Thus the equivalent to `str$slice(0,3)` with Polars will be `substr(1,3)`.
+:::
+
+Two further comments:  
+
+- If the second argument `length` is not specified, the sub-character string of interest will default to the end of the character string. For example in a `DataFrame` if `mycol` is a string column of length 4, `pl.col("mycol").str.slice(1)` is equivalent to `substr(mycol,2,4)` in dplyr.
+
+- The first argument accepts negative values, which means that sub-strings can be considered starting from the end. For example in a `DataFrame` if `mycol` is a string column of length 4, `pl.col("mycol").str.slice(-2)` is equivalent to `substr(mycol,3,4)` in dplyr.
+
+Let's see an example:
+
+```{r}
+#| label: creation-mydf-slice
+
+mydf <- data.frame(
+  col1 = 1:4,
+  col2 = c("One_X","One_Y","Two_X","Two_Y")
+)
+```
+
+::: {.panel-tabset}
+## polars
+
+```{r}
+#| label: string-slice-polars
+pl$DataFrame(mydf)$with_columns(
+  pl$col("col2")$str$slice(0,length=3)$alias("level"),
+  pl$col("col2")$str$slice(-1)$alias("x_y"),
+  pl$col("col2")$str$slice(1)$alias("TT")
+)
+```
+
+## R base
+
+```{r}
+#| label: string-slice-rbase
+mydf$level <- substr(mydf$col2, 1, 3)
+mydf$x_y <- substr(mydf$col2, nchar(mydf$col2), nchar(mydf$col2))
+mydf
+```
+
+## dplyr
+
+```{r}
+#| label: string-slice-dplyr
+mydf |>
+  mutate(level = substr(col2, 1, 3),
+         x_y = substr(col2, nchar(col2), nchar(col2)))
+```
+
+## data.table
+
+```{r}
+#| label: string-slice-datatable
+mydt <- as.data.table(mydf) 
+mydt[, c("level", "x_y") := .(substr(col2, 1, 3), substr(col2, nchar(col2), nchar(col2)))]
+```
+:::
