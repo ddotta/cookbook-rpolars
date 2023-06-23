@@ -30,7 +30,7 @@
 
 {{< include content/data_manipulation/_strings_slice_methods.qmd >}}
 
-{{< include content/data_manipulation/_starts_with_methods.qmd >}}
+{{< include content/data_manipulation/_strings_starts_with_methods.qmd >}}
 
 {{< include content/data_manipulation/_strings_ends_with_methods.qmd >}}
 
