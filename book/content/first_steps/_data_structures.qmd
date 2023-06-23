@@ -17,7 +17,12 @@ To create a Polars Series from scratch:
 ```{r}
 #| label: series-polars
 mynumbers_serie <- pl$Series(1:3)
+mynumbers_serie
 myletters_serie <- pl$Series(c("a","b","c"))
+myletters_serie
+
+# To name a Series
+pl$Series(name = "myletters", c("a","b","c"))
 ```
 
 ## R base
@@ -25,7 +30,9 @@ myletters_serie <- pl$Series(c("a","b","c"))
 ```{r}
 #| label: vectors-rbase
 mynumbers_vector <- 1:3
+mynumbers_vector
 myletters_vector <- c("a","b","c")
+myletters_vector
 ```
 
 :::
