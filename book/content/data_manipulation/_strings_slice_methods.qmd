@@ -25,7 +25,7 @@ Two further comments:
 Let's see an example:
 
 ```{r}
-#| label: creation-mydf-slice
+#| label: creation-mydf-strings-example
 
 mydf <- data.frame(
   col1 = 1:4,
@@ -40,8 +40,7 @@ mydf <- data.frame(
 #| label: string-slice-polars
 pl$DataFrame(mydf)$with_columns(
   pl$col("col2")$str$slice(0,length=3)$alias("level"),
-  pl$col("col2")$str$slice(-1)$alias("x_y"),
-  pl$col("col2")$str$slice(1)$alias("TT")
+  pl$col("col2")$str$slice(-1)$alias("x_y")
 )
 ```
 
