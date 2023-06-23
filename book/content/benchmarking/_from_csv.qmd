@@ -7,7 +7,7 @@
 ```{r}
 #| label: csv-polars-benchmarking
 
-csv_polars <- function(variables) {
+csv_polars <- function() {
   
   # Reading the csv file (eager mode)
   result_pl <- pl$read_csv(path = "Datasets/DataMultiTypes.csv")
@@ -145,7 +145,7 @@ print(res_dplyr)
 ```{r}
 #| label: csv-datatable-benchmarking
 
-csv_dt <- function(variables) {
+csv_dt <- function() {
   
   # Reading the csv file
   result <- read.csv("Datasets/DataMultiTypes.csv")
@@ -182,7 +182,7 @@ print(res_dt)
 ```
 :::
 
-### Results
+### Results polars vs others
 
 ```{r}
 #| label: csv-results-benchmarking
@@ -206,3 +206,102 @@ microbenchmark(
 :::
 
 👉 The data processing is 56X faster with `polars`! 🏆
+
+::: {.callout-tip}
+**The data processing described above is not optimised.** For example, the intermediate result is stored at each stage, which is not good practice...
+:::
+
+Here's what the code would be like if we use either **eager mode** or **lazy mode**:
+
+::: {.panel-tabset}
+
+## Eager mode
+
+```{r}
+#| label: csv-eager-polars-benchmarking
+
+csv_eager_polars <- function() {
+# Reading the csv file (eager mode)
+result_agg <- pl$read_csv(path = "Datasets/DataMultiTypes.csv")$
+  # Conversion of 2 columns to Date format
+  with_columns(
+    pl$col("colDate1")$str$strptime(pl$Date, "%F %T", strict = FALSE),
+    pl$col("colDate2")$str$strptime(pl$Date, "%F %T", strict = FALSE)
+  )$
+  # Creation of a diff column between 2 dates (in days)
+  with_columns(
+    (pl$col("colDate2") - pl$col("colDate1"))$dt$days()$alias("diff")
+  )$
+  # Filter rows
+  filter(
+    pl$col("colInt")>2000 & pl$col("colInt")<8000
+  )$
+  # Grouping and aggregation
+  groupby(
+    "colString")$
+  agg(
+    pl$col("colInt")$min()$alias("min_colInt"),
+    pl$col("colInt")$mean()$alias("mean_colInt"),
+    pl$col("colInt")$max()$alias("max_colInt"),
+    pl$col("colNum")$min()$alias("min_colNum"),
+    pl$col("colNum")$mean()$alias("mean_colNum"),
+    pl$col("colNum")$max()$alias("max_colNum")
+  )
+  
+  return(result_agg)
+}
+```
+
+## Lazy mode
+
+```{r}
+#| label: csv-lazy-polars-benchmarking
+
+csv_lazy_polars <- function() {
+# Reading the csv file (eager mode)
+result_agg <- pl$lazy_csv_reader(path = "Datasets/DataMultiTypes.csv")$
+  # Conversion of 2 columns to Date format
+  with_columns(
+    pl$col("colDate1")$str$strptime(pl$Date, "%F %T", strict = FALSE),
+    pl$col("colDate2")$str$strptime(pl$Date, "%F %T", strict = FALSE)
+  )$
+  # Creation of a diff column between 2 dates (in days)
+  with_columns(
+    (pl$col("colDate2") - pl$col("colDate1"))$dt$days()$alias("diff")
+  )$
+  # Filter rows
+  filter(
+    pl$col("colInt")>2000 & pl$col("colInt")<8000
+  )$
+  # Grouping and aggregation
+  groupby(
+    "colString")$
+  agg(
+    pl$col("colInt")$min()$alias("min_colInt"),
+    pl$col("colInt")$mean()$alias("mean_colInt"),
+    pl$col("colInt")$max()$alias("max_colInt"),
+    pl$col("colNum")$min()$alias("min_colNum"),
+    pl$col("colNum")$mean()$alias("mean_colNum"),
+    pl$col("colNum")$max()$alias("max_colNum")
+  )
+  
+  return(result_agg)
+}
+```
+:::
+
+### Results eager vs lazy mode
+
+```{r}
+#| label: csv-results-eager-lazy-benchmarking
+#| message: false
+#| warning: false
+
+microbenchmark(
+  "eager mode" = csv_eager_polars(),
+  "lazy mode" = csv_lazy_polars(),
+  times = 5
+ )
+```
+
+👉 The data processing is 124X faster with **lazy mode** `polars`! 🏆🏆
