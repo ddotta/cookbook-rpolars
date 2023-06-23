@@ -1,4 +1,4 @@
-Below is the code used to create the fake data needed to compare the `eager` and `lazy` modes in this document.  
+Below is the code used to create the fake data needed for the data processing in this document.  
 Click to expand it! 👇
 
 ```{r}
