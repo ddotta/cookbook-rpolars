@@ -2,7 +2,7 @@
 
 The `str$starts_with()` method can be used to check if string values start with a substring. It returns a **Boolean**.
 
-Let's see an example:
+Let's see an example where we create new Boolean columns based on the start of a character string:
 
 ::: {.panel-tabset}
 ## polars

@@ -1,0 +1,39 @@
+### Check if string values end with a substring
+
+The `str$ends_with()` method can be used to check if string values start with a substring. It returns a **Boolean**.
+
+Let's see an example where we filter the lines of a `DataFrame` based on the start of a character string:
+
+::: {.panel-tabset}
+## polars
+
+```{r}
+#| label: string-ends_with-polars
+pl$DataFrame(mydf)$filter(
+  pl$col("col2")$str$ends_with("X")
+)
+```
+
+## R base
+
+```{r}
+#| label: string-ends_with-rbase
+mydf[substr(mydf$col2, nchar(mydf$col2), nchar(mydf$col2)) == "X", ]
+```
+
+## dplyr
+
+```{r}
+#| label: string-ends_with-dplyr
+mydf |>
+  filter(endsWith(col2, "X"))
+```
+
+## data.table
+
+```{r}
+#| label: string-ends_with-datatable
+mydt <- as.data.table(mydf) 
+mydt[substr(col2, nchar(col2), nchar(col2)) == "X"]
+```
+:::
