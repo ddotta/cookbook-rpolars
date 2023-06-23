@@ -1,6 +1,6 @@
 ## Strings methods
 
-In polars, a lot of **strings methods** are useful.
+In polars, a lot of **strings methods** are useful. [Here](https://pola-rs.github.io/polars/py-polars/html/reference/series/string.html) is the list.  
 To use them, simply prefix them with `str`.
 
 ### Get substrings

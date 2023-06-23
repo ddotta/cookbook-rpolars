@@ -137,3 +137,58 @@ iris_dt[, mygroups := case_when(
 iris_dt[c(1,2,59,150), .(Petal.Length, mygroups)]
 ```
 :::
+
+### Add a new column by group
+
+To add new columns by group, the `over` expression must be used.  
+This expression is similar to performing a groupby aggregation and joining the result back into the original dataframe.  
+Here's an example with equivalent syntax to help you understand:  
+
+```{r}
+#| label: creation-example-add-column-by-group
+
+df <- data.frame(
+  name = c("X","X","Y","Y","Z","Z"),
+  col2 = c(2L,4L,1L,3L,4L,2L),
+  col3 = c(5L,19L,17L,12L,11L,15L)
+)
+```
+
+
+::: {.panel-tabset}
+## polars
+
+```{r}
+#| label: add-column-by-group-polars
+pl$DataFrame(df)$with_columns(
+  pl$col("col3")$max()$over("name")$suffix("_max")
+)
+```
+
+## R base
+
+```{r}
+#| label: add-column-by-group-rbase
+result <- aggregate(col3 ~ name, data = df, FUN = max)
+colnames(result) <- c("name", "col3_max")
+merge(df, result, by = "name", all.x = TRUE)
+```
+
+## dplyr
+
+```{r}
+#| label: add-column-by-group-dplyr
+df |>
+  group_by(name) |> 
+  mutate(col3_max = max(col3))
+```
+
+## data.table
+
+```{r}
+#| label: add-column-by-group-datatable
+dt <- as.data.table(df)
+dt[, col3_max := max(col3), by = name]
+dt
+```
+:::
