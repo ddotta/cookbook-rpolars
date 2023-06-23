@@ -1,0 +1,44 @@
+### Check if string values start with a substring
+
+The `str$starts_with()` method can be used to check if string values start with a substring. It returns a **Boolean**.
+
+Let's see an example:
+
+::: {.panel-tabset}
+## polars
+
+```{r}
+#| label: string-starts_with-polars
+pl$DataFrame(mydf)$with_columns(
+  pl$col("col2")$str$starts_with("One")$alias("is_one"),
+  pl$col("col2")$str$starts_with("Two")$alias("is_two")
+)
+```
+
+## R base
+
+```{r}
+#| label: string-starts_with-rbase
+mydf$is_one <- grepl("^One", mydf$col2)
+mydf$is_two <- grepl("^Two", mydf$col2)
+mydf
+```
+
+## dplyr
+
+```{r}
+#| label: string-starts_with-dplyr
+mydf |>
+  mutate(level = substr(col2, 1, 3),
+         x_y = substr(col2, nchar(col2), nchar(col2)))
+```
+
+## data.table
+
+```{r}
+#| label: string-starts_with-datatable
+mydt <- as.data.table(mydf) 
+mydt[, c("is_one", "is_two") := .(grepl("^One", col2), grepl("^Two", col2))]
+mydt
+```
+:::

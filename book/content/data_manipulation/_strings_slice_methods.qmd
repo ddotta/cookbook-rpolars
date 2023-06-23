@@ -68,5 +68,6 @@ mydf |>
 #| label: string-slice-datatable
 mydt <- as.data.table(mydf) 
 mydt[, c("level", "x_y") := .(substr(col2, 1, 3), substr(col2, nchar(col2), nchar(col2)))]
+mydt
 ```
 :::
