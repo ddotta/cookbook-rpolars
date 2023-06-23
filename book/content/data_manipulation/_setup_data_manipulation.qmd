@@ -1,3 +1,6 @@
+Below is the code used to create the fake data needed to run code in this document.
+Click to expand it! 👇
+
 ```{r}
 #| label: load-packages-data-manipulation
 #| code-fold: true
