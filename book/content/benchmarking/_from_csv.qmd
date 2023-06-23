@@ -23,12 +23,30 @@ csv_polars <- function(variables) {
     (pl$col("colDate2") - pl$col("colDate1"))$dt$days()$alias("diff")
   )
   
-  return(result_pl)
+  # Filter rows
+  result_pl <- result_pl$filter(
+    pl$col("colInt")>2000 & pl$col("colInt")<8000
+  )
+  
+  # Grouping and aggregation
+  result_agg <- result_pl$groupby(
+    "colString"
+  )$agg(
+    pl$col("colInt")$min()$alias("min_colInt"),
+    pl$col("colInt")$mean()$alias("mean_colInt"),
+    pl$col("colInt")$max()$alias("max_colInt"),
+    pl$col("colNum")$min()$alias("min_colNum"),
+    pl$col("colNum")$mean()$alias("mean_colNum"),
+    pl$col("colNum")$max()$alias("max_colNum")
+  )
+  
+  return(result_agg)
 }
 
 tic()
 res_polars <- csv_polars()
 toc()
+print(res_polars)
 ```
 
 ## R base
@@ -55,12 +73,23 @@ csv_rbase <- function() {
       ),
     0)
   
-  return(result)
+  # Filter rows
+  result <- result[result$colInt>2000 & result$colInt<8000,]
+  
+  # Grouping and aggregation
+  result_agg <- aggregate(cbind(colInt, colNum) ~ colString, 
+                          data = result, 
+                          FUN = function(x) c(mean = mean(x), 
+                                              min = min(x), 
+                                              max = max(x)))
+  
+  return(result_agg)
 }
 
 tic()
 res_rbase <- csv_rbase()
 toc()
+print(res_rbase)
 ```
 
 ## dplyr
@@ -84,12 +113,31 @@ csv_dplyr <- function() {
   result <- result |> 
     mutate(diff = round(as.integer(difftime(colDate2, colDate1, units = "days")),0))
   
-  return(result)
+  # Filter rows
+  result <- result |>
+    filter(
+      colInt>2000 & colInt<8000
+      )
+  
+  # Grouping and aggregation
+  result_agg <- result |>
+    group_by(colString) |> 
+    summarise(
+      min_colInt = min(colInt),
+      mean_colInt = mean(colInt),
+      mas_colInt = max(colInt),
+      min_colNum = min(colNum),
+      mean_colNum = mean(colNum),
+      max_colNum = max(colNum)
+  )
+  
+  return(result_agg)
 }
 
 tic()
 res_dplyr <- csv_dplyr()
 toc()
+print(res_dplyr)
 ```
 
 ## data.table
@@ -111,12 +159,26 @@ csv_dt <- function(variables) {
   # Creation of a diff column between 2 dates (in days)
   result_dt <- result_dt[, diff := as.integer(difftime(colDate2, colDate1, units = "days"))]
   
-  return(result_dt)
+  # Filter rows
+  result_dt <- result_dt[result_dt$colInt>2000 & result$colInt<8000]
+  
+  # Grouping and aggregation
+  result_agg <- result_dt[, .(
+      min_colInt = min(colInt),
+      mean_colInt = mean(colInt),
+      mas_colInt = max(colInt),
+      min_colNum = min(colNum),
+      mean_colNum = mean(colNum),
+      max_colNum = max(colNum)
+    ), by = colString]
+  
+  return(result_agg)
 }
 
 tic()
 res_dt <- csv_dt()
 toc()
+print(res_dt)
 ```
 :::
 

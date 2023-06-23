@@ -11,4 +11,7 @@ The data processing that is performed **makes very little statistical sense**, b
 
 - Conversion of two columns to Date format;
 - Creation of a new column corresponding to the difference in number of days between the 2 dates;
+- Filter from a integer column which must be within a range of values.
+- Grouping by a string column
+- Aggregation with calculation of the mean, minimum and maximum over two columns.
 
