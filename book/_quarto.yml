@@ -33,3 +33,4 @@ format:
       light: cosmo
     code-fold: false
     css: custom.css
+    # mainfont: FiraCode
