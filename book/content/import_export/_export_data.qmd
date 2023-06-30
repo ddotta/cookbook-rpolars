@@ -1,7 +1,52 @@
-## Export data
+## Export data to Excel
 
-Unlike Python, the Polars R API does not yet contain native methods for **exporting to Excel format**.
+As with Python, there are no native method in Rust for **exporting to Excel format**.
 
-The best current solution is to use the [data.frame conversion method](#from-seriesdataframes-to-vectordata.frames) and then use the [{openxlsx}](https://ycphs.github.io/openxlsx/index.html) package or one of its [{tablexlsx}](https://ddotta.github.io/tablexlsx/) wrapper to export these DataFrames in xlsx format.  
+The **best current solution** is to use the [data.frame conversion method](#from-seriesdataframes-to-vectordata.frames) and then use the [{openxlsx}](https://ycphs.github.io/openxlsx/index.html) package or one of its [{tablexlsx}](https://ddotta.github.io/tablexlsx/) wrapper to export these DataFrames in xlsx format. The more recent[{openxlxs2}](https://github.com/JanMarvin/openxlsx2) package is also a great tool for exporting to xlsx files.
 
-Fortunately, the contributors to the R {polars} package are in full development and we hope soon to have methods for exporting to arrow or tibbles, for example! 💪
+Let's look at the syntax of a simple export with theses 3 packages:
+
+::: {.panel-tabset}
+
+## openxlsx
+
+```{r}
+#| label: export-openxlsx
+#| eval: false
+
+# install.packages("openxlsx")
+library(openxlsx)
+
+openxlsx::write.xlsx(
+    iris,
+    file = tempdir()
+)
+```
+
+## tablexlsx
+
+```{r}
+#| label: export-tablexlsx
+#| eval: false
+
+# install.packages("tablexlsx")
+library(tablexlsx)
+
+iris |> toxlsx(path = tempdir())
+```
+
+## openxlsx2
+
+```{r}
+#| label: export-openxlsx2
+#| eval: false
+
+# install.packages("openxlsx2")
+library(openxlsx2)
+
+openxlsx2::write_xlsx(
+    iris,
+    file = tempdir()
+)
+```
+:::
