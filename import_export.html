@@ -211,7 +211,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   <li><a href="#scan-a-csv-file" id="toc-scan-a-csv-file" class="nav-link" data-scroll-target="#scan-a-csv-file"><span class="header-section-number">3.1.2</span> Scan a csv file</a></li>
   <li><a href="#scan-a-parquet-file" id="toc-scan-a-parquet-file" class="nav-link" data-scroll-target="#scan-a-parquet-file"><span class="header-section-number">3.1.3</span> Scan a parquet file</a></li>
   </ul></li>
-  <li><a href="#export-data" id="toc-export-data" class="nav-link" data-scroll-target="#export-data"><span class="header-section-number">3.2</span> Export data</a></li>
+  <li><a href="#export-data-to-excel" id="toc-export-data-to-excel" class="nav-link" data-scroll-target="#export-data-to-excel"><span class="header-section-number">3.2</span> Export data to Excel</a></li>
   </ul>
 <div class="toc-actions"><div><i class="bi bi-github"></i></div><div class="action-links"><p><a href="https://github.com/ddotta/cookbook-rpolars/edit/main/book/import_export.qmd" class="toc-action">Edit this page</a></p><p><a href="https://github.com/ddotta/cookbook-rpolars/issues/new" class="toc-action">Report an issue</a></p><p><a href="https://github.com/ddotta/cookbook-rpolars/blob/main/book/import_export.qmd" class="toc-action">View source</a></p></div></div></nav>
     </div>
@@ -469,7 +469,7 @@ Important
 <div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>pl<span class="sc">$</span><span class="fu">read_csv</span>(<span class="st">"https://j.mp/iriscsv"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stderr">
 <pre><code>tmp file placed in 
- /tmp/RtmpUvvbDj/https...j.mp.iriscsv</code></pre>
+ /tmp/Rtmp235YDK/https...j.mp.iriscsv</code></pre>
 </div>
 <div class="cell-output cell-output-stdout">
 <pre><code>shape: (150, 5)
@@ -659,11 +659,46 @@ Important
 </section>
 </section>
 </section>
-<section id="export-data" class="level2" data-number="3.2">
-<h2 data-number="3.2" class="anchored" data-anchor-id="export-data"><span class="header-section-number">3.2</span> Export data</h2>
-<p>Unlike Python, the Polars R API does not yet contain native methods for <strong>exporting to Excel format</strong>.</p>
-<p>The best current solution is to use the <a href="data_manipulation.html#from-seriesdataframes-to-vectordata.frames">data.frame conversion method</a> and then use the <a href="https://ycphs.github.io/openxlsx/index.html">{openxlsx}</a> package or one of its <a href="https://ddotta.github.io/tablexlsx/">{tablexlsx}</a> wrapper to export these DataFrames in xlsx format.</p>
-<p>Fortunately, the contributors to the R {polars} package are in full development and we hope soon to have methods for exporting to arrow or tibbles, for example! 💪</p>
+<section id="export-data-to-excel" class="level2" data-number="3.2">
+<h2 data-number="3.2" class="anchored" data-anchor-id="export-data-to-excel"><span class="header-section-number">3.2</span> Export data to Excel</h2>
+<p>As with Python, there are no native method in Rust for <strong>exporting to Excel format</strong>.</p>
+<p>The <strong>best current solution</strong> is to use the <a href="data_manipulation.html#from-seriesdataframes-to-vectordata.frames">data.frame conversion method</a> and then use the <a href="https://ycphs.github.io/openxlsx/index.html">{openxlsx}</a> package or one of its <a href="https://ddotta.github.io/tablexlsx/">{tablexlsx}</a> wrapper to export these DataFrames in xlsx format. The more recent<a href="https://github.com/JanMarvin/openxlsx2">{openxlxs2}</a> package is also a great tool for exporting to xlsx files.</p>
+<p>Let’s look at the syntax of a simple export with theses 3 packages:</p>
+<div class="tabset-margin-container"></div><div class="panel-tabset">
+<ul class="nav nav-tabs" role="tablist"><li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-2-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-2-1" role="tab" aria-controls="tabset-2-1" aria-selected="true">openxlsx</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-2-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-2-2" role="tab" aria-controls="tabset-2-2" aria-selected="false">tablexlsx</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-2-3-tab" data-bs-toggle="tab" data-bs-target="#tabset-2-3" role="tab" aria-controls="tabset-2-3" aria-selected="false">openxlsx2</a></li></ul>
+<div class="tab-content">
+<div id="tabset-2-1" class="tab-pane active" role="tabpanel" aria-labelledby="tabset-2-1-tab">
+<div class="cell">
+<div class="sourceCode cell-code" id="cb20"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a><span class="co"># install.packages("openxlsx")</span></span>
+<span id="cb20-2"><a href="#cb20-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(openxlsx)</span>
+<span id="cb20-3"><a href="#cb20-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb20-4"><a href="#cb20-4" aria-hidden="true" tabindex="-1"></a>openxlsx<span class="sc">::</span><span class="fu">write.xlsx</span>(</span>
+<span id="cb20-5"><a href="#cb20-5" aria-hidden="true" tabindex="-1"></a>    iris,</span>
+<span id="cb20-6"><a href="#cb20-6" aria-hidden="true" tabindex="-1"></a>    <span class="at">file =</span> <span class="fu">tempdir</span>()</span>
+<span id="cb20-7"><a href="#cb20-7" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</div>
+<div id="tabset-2-2" class="tab-pane" role="tabpanel" aria-labelledby="tabset-2-2-tab">
+<div class="cell">
+<div class="sourceCode cell-code" id="cb21"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a><span class="co"># install.packages("tablexlsx")</span></span>
+<span id="cb21-2"><a href="#cb21-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tablexlsx)</span>
+<span id="cb21-3"><a href="#cb21-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb21-4"><a href="#cb21-4" aria-hidden="true" tabindex="-1"></a>iris <span class="sc">|&gt;</span> <span class="fu">toxlsx</span>(<span class="at">path =</span> <span class="fu">tempdir</span>())</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</div>
+<div id="tabset-2-3" class="tab-pane" role="tabpanel" aria-labelledby="tabset-2-3-tab">
+<div class="cell">
+<div class="sourceCode cell-code" id="cb22"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a><span class="co"># install.packages("openxlsx2")</span></span>
+<span id="cb22-2"><a href="#cb22-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(openxlsx2)</span>
+<span id="cb22-3"><a href="#cb22-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb22-4"><a href="#cb22-4" aria-hidden="true" tabindex="-1"></a>openxlsx2<span class="sc">::</span><span class="fu">write_xlsx</span>(</span>
+<span id="cb22-5"><a href="#cb22-5" aria-hidden="true" tabindex="-1"></a>    iris,</span>
+<span id="cb22-6"><a href="#cb22-6" aria-hidden="true" tabindex="-1"></a>    <span class="at">file =</span> <span class="fu">tempdir</span>()</span>
+<span id="cb22-7"><a href="#cb22-7" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</div>
+</div>
+</div>
 
 
 </section>
