@@ -15,6 +15,7 @@ library(DBI)
 library(duckdb)
 library(tictoc)
 library(microbenchmark)
+library(readr)
 
 # Creation the "Datasets" folder
 dir.create(normalizePath("Datasets"))
