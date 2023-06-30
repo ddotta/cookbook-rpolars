@@ -24,3 +24,10 @@ tbody tr:hover {background: rgba(66, 165, 245, 0.2);}
    background-color: #5f7ba7;
    color: #f0eded;
 } 
+
+/* To change Font
+@font-face {
+  font-family: "FiraCode";
+  src: url("font/FiraCode-Regular.ttf");
+}
+*/
