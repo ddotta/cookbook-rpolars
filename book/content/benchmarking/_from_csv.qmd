@@ -1,5 +1,13 @@
 ## From a csv file
 
+For this comparison, we will use :
+
+- For polars (eager), the `pl$read_csv()` method
+- For R base, the `read.csv()` method
+- For dplyr, the `readr::read_csv()` method
+- For data.table, the `data.table::fread()` method
+
+
 ::: {.panel-tabset}
 
 ## polars (eager)
@@ -100,7 +108,7 @@ print(res_rbase)
 csv_dplyr <- function() {
   
   # Reading the csv file
-  result <- read.csv("Datasets/DataMultiTypes.csv")
+  result <- readr::read_csv("Datasets/DataMultiTypes.csv")
   
   # Conversion of 2 columns to Date format
   result <- result |>
@@ -148,7 +156,7 @@ print(res_dplyr)
 csv_dt <- function() {
   
   # Reading the csv file
-  result <- read.csv("Datasets/DataMultiTypes.csv")
+  result <- data.table::fread("Datasets/DataMultiTypes.csv")
   
   # Conversion data.frame to data.table
   result_dt <- as.data.table(result)
@@ -182,7 +190,7 @@ print(res_dt)
 ```
 :::
 
-### Results polars vs others
+### Results polars vs others packages
 
 ```{r}
 #| label: csv-results-benchmarking
@@ -205,17 +213,46 @@ microbenchmark(
 - for `data.table`, conversion to dt format at the start, then conversion to data.frame R at the end of processing  
 :::
 
-👉 The data processing is 56X faster with `polars`! 🏆
+👉 At this point in the comparison, we can conclude that the 2 fastest ways of querying a csv file are to use `data.table` and `polars` with **eager mode** 🏆  
+In the following section, we will keep these two approaches, but introduce a new challenger : `polars` with **lazy mode**.
 
 ::: {.callout-tip}
 **The data processing described above is not optimised.** For example, the intermediate result is stored at each stage, which is not good practice...
 :::
 
-Here's what the code would be like if we use either **eager mode** or **lazy mode**:
+Here's what the code would be like:
 
 ::: {.panel-tabset}
 
-## Eager mode
+## data.table
+
+
+```{r}
+#| label: csv-datatable-optimised-benchmarking
+csv_dt <- function() {
+  
+  result_agg <- as.data.table(data.table::fread("Datasets/DataMultiTypes.csv"))[, `:=`(
+    
+  colDate1 = as.Date(colDate1),
+  colDate2 = as.Date(colDate2),
+  diff = as.integer(difftime(colDate2, colDate1, units = "days"))
+  
+)][colInt > 2000 & colInt < 8000, .(
+  
+  min_colInt = min(colInt),
+  mean_colInt = mean(colInt),
+  max_colInt = max(colInt),
+  min_colNum = min(colNum),
+  mean_colNum = mean(colNum),
+  max_colNum = max(colNum)
+  
+), by = colString]
+  
+  return(result_agg)
+}
+```
+
+## polars (eager)
 
 ```{r}
 #| label: csv-eager-polars-benchmarking
@@ -252,7 +289,7 @@ result_agg <- pl$read_csv(path = "Datasets/DataMultiTypes.csv")$
 }
 ```
 
-## Lazy mode
+## polars (lazy)
 
 ```{r}
 #| label: csv-lazy-polars-benchmarking
@@ -298,10 +335,11 @@ result_agg <- pl$lazy_csv_reader(path = "Datasets/DataMultiTypes.csv")$
 #| warning: false
 
 microbenchmark(
+  "data.table" = as.data.frame(csv_dt()),
   "eager mode" = csv_eager_polars(),
-  "lazy mode" = csv_lazy_polars(),
+  "lazy mode" = csv_lazy_polars()$collect(),
   times = 5
  )
 ```
 
-👉 The data processing is 124X faster with **lazy mode** `polars`! 🏆🏆
+👉 The data processing is at least twice as fast with **lazy mode** `polars`! 🏆🏆

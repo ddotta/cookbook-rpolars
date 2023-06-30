@@ -11,18 +11,3 @@
 {{< include content/benchmarking/_from_partitioned_parquet.qmd >}}
 
 {{< include content/benchmarking/_from_duckdb.qmd >}}
-
-
-
-<!-- PLAN : -->
-
-<!-- 2. A partir d'un fichier parquet unique, comparer :  -->
-<!--   i. dplyr -->
-<!--   ii. polars -->
-<!-- 3. A partir d'un fichier parquet partitionné, comparer :  -->
-<!--   i. dplyr -->
-<!--   ii. polars -->
-<!-- 4. La même comparaison à partir d'un fichier duckdb -->
-<!--   i. requête sql -->
-<!--   ii. dbplyr -->
-<!--   iii. polars -->
