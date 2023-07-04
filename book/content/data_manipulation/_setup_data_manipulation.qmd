@@ -12,6 +12,7 @@ library(dplyr)
 library(tidyr)
 library(data.table)
 library(arrow)
+library(microbenchmark)
 iris_dt <- as.data.table(iris)
 
 # Creation of Series

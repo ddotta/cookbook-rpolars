@@ -59,4 +59,22 @@ pl$DataFrame(
 ```
 :::
 
-Another reason for using the `filter()` method is that filter expressions can be optimised in [lazy mode](#introduction-to-lazy-mode) by the query optimiser. 
+Another reason for using the `filter()` method is that filter expressions can be optimised in [lazy mode](#introduction-to-lazy-mode) by the query optimiser.  
+
+::: {.callout-tip}
+There is another way **to speed up filter processing on rows**: tell polars that the column(s) used to filter rows are already sorted! To do this, you can use the `set_sorted()` method.   
+Here's an example:
+
+```{r}
+#| label: speed-up-filter-rows
+
+mydf <- pl$DataFrame(
+  col1 = pl$Series(sort(runif(10000000)))
+)
+
+microbenchmark(
+  "Without telling col1 is sorted" = mydf$filter(pl$col("col1") < 100),
+  "Telling col1 is sorted" = mydf$with_columns(pl$col("col1")$set_sorted())$filter(pl$col("col1") < 100)
+  )
+```
+:::
