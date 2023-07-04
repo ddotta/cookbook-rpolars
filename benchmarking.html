@@ -365,7 +365,7 @@ Note
 <span id="cb2-38"><a href="#cb2-38" aria-hidden="true" tabindex="-1"></a>res_polars <span class="ot">&lt;-</span> <span class="fu">csv_polars</span>()</span>
 <span id="cb2-39"><a href="#cb2-39" aria-hidden="true" tabindex="-1"></a><span class="fu">toc</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>0.238 sec elapsed</code></pre>
+<pre><code>0.271 sec elapsed</code></pre>
 </div>
 <div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(res_polars)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
@@ -420,7 +420,7 @@ Note
 <span id="cb6-34"><a href="#cb6-34" aria-hidden="true" tabindex="-1"></a>res_rbase <span class="ot">&lt;-</span> <span class="fu">csv_rbase</span>()</span>
 <span id="cb6-35"><a href="#cb6-35" aria-hidden="true" tabindex="-1"></a><span class="fu">toc</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>8.211 sec elapsed</code></pre>
+<pre><code>7.668 sec elapsed</code></pre>
 </div>
 <div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(res_rbase)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
@@ -489,7 +489,7 @@ dttm (2): colDate1, colDate2
 </div>
 <div class="sourceCode cell-code" id="cb12"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="fu">toc</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>0.695 sec elapsed</code></pre>
+<pre><code>0.848 sec elapsed</code></pre>
 </div>
 <div class="sourceCode cell-code" id="cb14"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(res_dplyr)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
@@ -538,7 +538,7 @@ dttm (2): colDate1, colDate2
 <span id="cb16-32"><a href="#cb16-32" aria-hidden="true" tabindex="-1"></a>res_dt <span class="ot">&lt;-</span> <span class="fu">csv_dt</span>()</span>
 <span id="cb16-33"><a href="#cb16-33" aria-hidden="true" tabindex="-1"></a><span class="fu">toc</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>0.305 sec elapsed</code></pre>
+<pre><code>0.388 sec elapsed</code></pre>
 </div>
 <div class="sourceCode cell-code" id="cb18"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(res_dt)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
@@ -568,10 +568,10 @@ dttm (2): colDate1, colDate2
 <div class="cell-output cell-output-stdout">
 <pre><code>Unit: milliseconds
        expr       min        lq      mean    median        uq       max neval
-     R base 7467.8682 7664.9793 7713.4079 7724.1792 7774.1647 7935.8480     5
-      dplyr  473.5507  476.9026  503.0224  484.1277  493.9349  586.5961     5
- data.table  207.3426  229.7512  262.4628  231.4577  320.1396  323.6230     5
-     polars  185.4534  189.1976  192.7460  191.2060  193.4201  204.4531     5</code></pre>
+     R base 7202.9603 7318.0118 7544.4337 7368.2829 7811.5817 8021.3317     5
+      dplyr  565.5656  576.0979  583.6842  589.9613  592.7375  594.0585     5
+ data.table  216.2132  236.8803  300.1974  247.9464  315.2026  484.7444     5
+     polars  221.6241  223.9986  229.1200  226.1561  232.4574  241.3640     5</code></pre>
 </div>
 </div>
 <div class="callout callout-style-default callout-note callout-titled">
@@ -715,10 +715,10 @@ Tip
 <span id="cb25-6"><a href="#cb25-6" aria-hidden="true" tabindex="-1"></a> )</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>Unit: milliseconds
-       expr      min       lq     mean   median       uq      max neval
- data.table 200.8741 210.0303 245.0658 211.3411 297.9275 305.1560     5
- eager mode 190.8728 195.1324 197.4138 195.8380 200.8423 204.3837     5
-  lazy mode  63.0400  63.6005  67.4357  64.7150  66.2503  79.5727     5</code></pre>
+       expr      min       lq      mean   median       uq      max neval
+ data.table 210.8425 225.7452 272.12200 227.7602 334.4394 361.8227     5
+ eager mode 228.4348 231.8965 236.74390 237.6695 242.0445 243.6742     5
+  lazy mode  68.7220  69.1372  72.50966  69.9058  70.4641  84.3192     5</code></pre>
 </div>
 </div>
 <p>👉 The data processing is at least twice as fast with <strong>lazy mode</strong> <code>polars</code>! 🏆🏆</p>
