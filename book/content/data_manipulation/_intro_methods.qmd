@@ -11,8 +11,8 @@ Some examples with `Series`:
 #| label: series-manipulation-method
 # To get a sum
 mynumbers_serie$sum()
-# To sort in descending order
-mynumbers_serie$sort(reverse = TRUE)
+# To sort
+mynumbers_serie$sort()
 ```
 
 Some examples with `DataFrame`:
