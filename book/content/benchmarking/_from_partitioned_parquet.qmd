@@ -1,6 +1,14 @@
 ## From a partitioned parquet file
 
-Let's now look at how to perform queries on partitioned files.
+Let's now look at how to perform queries on **partitioned files**.   
+
+The structure of partitioned files on the disk is as follows:
+
+```{r}
+#| label: viz-dir-tree
+
+fs::dir_tree(path = "Datasets/DataMultiTypes/")
+```
 
 For this comparison, we will use :
 

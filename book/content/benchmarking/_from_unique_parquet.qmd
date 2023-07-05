@@ -1,7 +1,7 @@
 ## From an unique parquet file
 
 
-For this comparison, we will use :
+For this comparison on **unique parquet file**, we will use :
 
 - For arrow (eager), the `arrow::read_parquet()` method
 - For arrow (lazy), the `arrow::open_dataset()` method
