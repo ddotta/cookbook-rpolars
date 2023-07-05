@@ -169,7 +169,7 @@ toc()
 ### Results for partitioned parquet files
 
 ```{r}
-#| label: unique-parquet-results-benchmarking
+#| label: duckdb-results-benchmarking
 #| message: false
 #| warning: false
 

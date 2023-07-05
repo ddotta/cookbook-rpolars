@@ -78,7 +78,7 @@ arrow_lazy <- function(variables) {
       min_colNum = min(colNum),
       mean_colNum = mean(colNum),
       max_colNum = max(colNum)
-    )
+  )
   
   return(result)
   

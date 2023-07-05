@@ -97,7 +97,7 @@ toc()
 ### Results for partitioned parquet files
 
 ```{r}
-#| label: unique-parquet-results-benchmarking
+#| label: partitionned-parquet-results-benchmarking
 #| message: false
 #| warning: false
 
