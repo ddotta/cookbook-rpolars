@@ -115,7 +115,7 @@ parquet_polars_lazy <- function(variables) {
 ```
 :::
 
-### Results
+### Results for unique parquet file
 
 ```{r}
 #| label: unique-parquet-results-benchmarking

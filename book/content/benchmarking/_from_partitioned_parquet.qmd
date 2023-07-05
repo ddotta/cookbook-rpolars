@@ -80,7 +80,7 @@ partitioned_parquet_polars_lazy <- function(variables) {
 ```
 :::
 
-### Results
+### Results for partitioned parquet files
 
 ```{r}
 #| label: unique-parquet-results-benchmarking
