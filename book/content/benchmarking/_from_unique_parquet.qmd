@@ -84,7 +84,7 @@ arrow_lazy <- function(variables) {
   
 }
 tic()
-arrow_lazy()
+arrow_lazy() |> collect()
 toc()
 ```
 
@@ -156,7 +156,7 @@ parquet_polars_lazy <- function(variables) {
   return(result)
 }
 tic()
-parquet_polars_lazy()
+parquet_polars_lazy()$collect()$to_data_frame()
 toc()
 ```
 :::
@@ -168,11 +168,11 @@ toc()
 #| message: false
 #| warning: false
 
-microbenchmark(
+unique_parquet_bmk <- microbenchmark(
   "arrow (eager)" = arrow_eager(),
   "arrow (lazy)" = arrow_lazy() |> collect(),
-  "polars (lazy)" = parquet_polars_lazy()$collect()$to_data_frame(),
   "Duckdb and SQL" = parquet_duckdb_sql(),
+  "polars (lazy)" = parquet_polars_lazy()$collect()$to_data_frame(),
   times = 5
  )
 ```

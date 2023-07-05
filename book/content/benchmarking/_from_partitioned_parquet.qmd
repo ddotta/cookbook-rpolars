@@ -101,7 +101,7 @@ toc()
 #| message: false
 #| warning: false
 
-microbenchmark(
+partitioned_parquet_bmk <- microbenchmark(
   "arrow (lazy)" = partitioned_parquet_arrow_lazy() |> collect(),
   "polars (lazy)" = partitioned_parquet_polars_lazy()$collect()$to_data_frame(),
   times = 5

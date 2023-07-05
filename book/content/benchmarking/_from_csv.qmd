@@ -3,6 +3,7 @@
 For this comparison, we will use :
 
 - For **polars (eager)**, the `pl$read_csv()` method
+- For **polars (lazy)**, the `pl$lazy_csv_reader()` method
 - For **R base**, the `read.csv()` method
 - For **dplyr**, the `readr::read_csv()` method
 - For **data.table**, the `data.table::fread()` method
@@ -13,33 +14,28 @@ For this comparison, we will use :
 ## polars (eager)
 
 ```{r}
-#| label: csv-polars-benchmarking
+#| label: csv-eager-polars-benchmarking
 
-csv_polars <- function() {
-  
-  # Reading the csv file (eager mode)
-  result_pl <- pl$read_csv(path = "Datasets/DataMultiTypes.csv")
-  
+csv_eager_polars <- function() {
+# Reading the csv file (eager mode)
+result_agg <- pl$read_csv(path = "Datasets/DataMultiTypes.csv")$
   # Conversion of 2 columns to Date format
-  result_pl <- result_pl$with_columns(
+  with_columns(
     pl$col("colDate1")$str$strptime(pl$Date, "%F %T", strict = FALSE),
     pl$col("colDate2")$str$strptime(pl$Date, "%F %T", strict = FALSE)
-  )
-  
+  )$
   # Creation of a diff column between 2 dates (in days)
-  result_pl <- result_pl$with_columns(
+  with_columns(
     (pl$col("colDate2") - pl$col("colDate1"))$dt$days()$alias("diff")
-  )
-  
+  )$
   # Filter rows
-  result_pl <- result_pl$filter(
+  filter(
     pl$col("colInt")>2000 & pl$col("colInt")<8000
-  )
-  
+  )$
   # Grouping and aggregation
-  result_agg <- result_pl$groupby(
-    "colString"
-  )$agg(
+  groupby(
+    "colString")$
+  agg(
     pl$col("colInt")$min()$alias("min_colInt"),
     pl$col("colInt")$mean()$alias("mean_colInt"),
     pl$col("colInt")$max()$alias("max_colInt"),
@@ -50,11 +46,43 @@ csv_polars <- function() {
   
   return(result_agg)
 }
+```
 
-tic()
-res_polars <- csv_polars()
-toc()
-print(res_polars)
+## polars (lazy)
+
+```{r}
+#| label: csv-lazy-polars-benchmarking
+
+csv_lazy_polars <- function() {
+# Reading the csv file (eager mode)
+result_agg <- pl$lazy_csv_reader(path = "Datasets/DataMultiTypes.csv")$
+  # Conversion of 2 columns to Date format
+  with_columns(
+    pl$col("colDate1")$str$strptime(pl$Date, "%F %T", strict = FALSE),
+    pl$col("colDate2")$str$strptime(pl$Date, "%F %T", strict = FALSE)
+  )$
+  # Creation of a diff column between 2 dates (in days)
+  with_columns(
+    (pl$col("colDate2") - pl$col("colDate1"))$dt$days()$alias("diff")
+  )$
+  # Filter rows
+  filter(
+    pl$col("colInt")>2000 & pl$col("colInt")<8000
+  )$
+  # Grouping and aggregation
+  groupby(
+    "colString")$
+  agg(
+    pl$col("colInt")$min()$alias("min_colInt"),
+    pl$col("colInt")$mean()$alias("mean_colInt"),
+    pl$col("colInt")$max()$alias("max_colInt"),
+    pl$col("colNum")$min()$alias("min_colNum"),
+    pl$col("colNum")$mean()$alias("mean_colNum"),
+    pl$col("colNum")$max()$alias("max_colNum")
+  )
+  
+  return(result_agg)
+}
 ```
 
 ## R base
@@ -151,82 +179,6 @@ print(res_dplyr)
 ## data.table
 
 ```{r}
-#| label: csv-datatable-benchmarking
-
-csv_dt <- function() {
-  
-  # Reading the csv file
-  result <- data.table::fread("Datasets/DataMultiTypes.csv")
-  
-  # Conversion data.frame to data.table
-  result_dt <- as.data.table(result)
-  
-  # Conversion of 2 columns to Date format
-  result_dt <- result_dt[, `:=`(colDate1 = as.Date(colDate1),colDate2 = as.Date(colDate2))]
-  
-  # Creation of a diff column between 2 dates (in days)
-  result_dt <- result_dt[, diff := as.integer(difftime(colDate2, colDate1, units = "days"))]
-  
-  # Filter rows
-  result_dt <- result_dt[result_dt$colInt>2000 & result$colInt<8000]
-  
-  # Grouping and aggregation
-  result_agg <- result_dt[, .(
-      min_colInt = min(colInt),
-      mean_colInt = mean(colInt),
-      mas_colInt = max(colInt),
-      min_colNum = min(colNum),
-      mean_colNum = mean(colNum),
-      max_colNum = max(colNum)
-    ), by = colString]
-  
-  return(result_agg)
-}
-
-tic()
-res_dt <- csv_dt()
-toc()
-print(res_dt)
-```
-:::
-
-### Results polars vs others packages
-
-```{r}
-#| label: csv-results-benchmarking
-#| message: false
-#| warning: false
-
-microbenchmark(
-  "R base" = csv_rbase(),
-  "dplyr" = csv_dplyr(),
-  "data.table" = as.data.frame(csv_dt()),
-  "polars" = csv_polars()$to_data_frame(),
-  times = 5
- )
-```
- 
- 
-::: {.callout-note}
-**The data processing performed is not entirely equivalent, since it includes in addition:**  
-- for `polars`, conversion to data.frame R at the end of processing  
-- for `data.table`, conversion to dt format at the start, then conversion to data.frame R at the end of processing  
-:::
-
-👉 At this point in the comparison, we can conclude that the 2 fastest ways of querying a csv file are to use `data.table` and `polars` with **eager mode** 🏆  
-In the following section, we will keep these two approaches, but introduce a new challenger : `polars` with **lazy mode**.
-
-::: {.callout-tip}
-**The data processing described above is not optimised.** For example, the intermediate result is stored at each stage, which is not good practice...
-:::
-
-Here's what the code would be like:
-
-::: {.panel-tabset}
-
-## data.table
-
-```{r}
 #| label: csv-datatable-optimised-benchmarking
 csv_dt <- function() {
   
@@ -250,80 +202,6 @@ csv_dt <- function() {
   return(result_agg)
 }
 ```
-
-## polars (eager)
-
-```{r}
-#| label: csv-eager-polars-benchmarking
-
-csv_eager_polars <- function() {
-# Reading the csv file (eager mode)
-result_agg <- pl$read_csv(path = "Datasets/DataMultiTypes.csv")$
-  # Conversion of 2 columns to Date format
-  with_columns(
-    pl$col("colDate1")$str$strptime(pl$Date, "%F %T", strict = FALSE),
-    pl$col("colDate2")$str$strptime(pl$Date, "%F %T", strict = FALSE)
-  )$
-  # Creation of a diff column between 2 dates (in days)
-  with_columns(
-    (pl$col("colDate2") - pl$col("colDate1"))$dt$days()$alias("diff")
-  )$
-  # Filter rows
-  filter(
-    pl$col("colInt")>2000 & pl$col("colInt")<8000
-  )$
-  # Grouping and aggregation
-  groupby(
-    "colString")$
-  agg(
-    pl$col("colInt")$min()$alias("min_colInt"),
-    pl$col("colInt")$mean()$alias("mean_colInt"),
-    pl$col("colInt")$max()$alias("max_colInt"),
-    pl$col("colNum")$min()$alias("min_colNum"),
-    pl$col("colNum")$mean()$alias("mean_colNum"),
-    pl$col("colNum")$max()$alias("max_colNum")
-  )
-  
-  return(result_agg)
-}
-```
-
-## polars (lazy)
-
-```{r}
-#| label: csv-lazy-polars-benchmarking
-
-csv_lazy_polars <- function() {
-# Reading the csv file (eager mode)
-result_agg <- pl$lazy_csv_reader(path = "Datasets/DataMultiTypes.csv")$
-  # Conversion of 2 columns to Date format
-  with_columns(
-    pl$col("colDate1")$str$strptime(pl$Date, "%F %T", strict = FALSE),
-    pl$col("colDate2")$str$strptime(pl$Date, "%F %T", strict = FALSE)
-  )$
-  # Creation of a diff column between 2 dates (in days)
-  with_columns(
-    (pl$col("colDate2") - pl$col("colDate1"))$dt$days()$alias("diff")
-  )$
-  # Filter rows
-  filter(
-    pl$col("colInt")>2000 & pl$col("colInt")<8000
-  )$
-  # Grouping and aggregation
-  groupby(
-    "colString")$
-  agg(
-    pl$col("colInt")$min()$alias("min_colInt"),
-    pl$col("colInt")$mean()$alias("mean_colInt"),
-    pl$col("colInt")$max()$alias("max_colInt"),
-    pl$col("colNum")$min()$alias("min_colNum"),
-    pl$col("colNum")$mean()$alias("mean_colNum"),
-    pl$col("colNum")$max()$alias("max_colNum")
-  )
-  
-  return(result_agg)
-}
-```
 :::
 
 ### Results eager vs lazy mode
@@ -333,7 +211,7 @@ result_agg <- pl$lazy_csv_reader(path = "Datasets/DataMultiTypes.csv")$
 #| message: false
 #| warning: false
 
-microbenchmark(
+csv_bmk <- microbenchmark(
   "data.table" = as.data.frame(csv_dt()),
   "eager mode" = csv_eager_polars(),
   "lazy mode" = csv_lazy_polars()$collect(),
@@ -341,4 +219,4 @@ microbenchmark(
  )
 ```
 
-👉 The data processing is at least twice as fast with **lazy mode** `polars`! 🏆🏆
+👉 The data processing is at least twice as fast with **lazy mode** `polars`! 🏆

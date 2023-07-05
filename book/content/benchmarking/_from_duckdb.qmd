@@ -173,10 +173,10 @@ toc()
 #| message: false
 #| warning: false
 
-microbenchmark(
+duckdb_bmk <- microbenchmark(
   "SQL" = duckdb_sql(),
   times = 5
  )
 ```
  
- 
+Note that the query withthe standard DBI methods is faster than those with dplyr verbs 🏆
