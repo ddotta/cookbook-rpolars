@@ -7,6 +7,9 @@ For this comparison, we will use :
 - For arrow (lazy), the `arrow::open_dataset()` method
 - For polars (lazy), the `polars::scan_parquet` method
 
+::: {.callout-note}
+With arrow, you can use the [following verbs from the tidyverse](https://arrow.apache.org/docs/dev/r/reference/acero.html) to do transformations on your tables.
+:::
 
 ::: {.panel-tabset}
 
@@ -81,7 +84,7 @@ arrow_lazy <- function(variables) {
 ## polars (lazy)
 
 ```{r}
-#| label: parquet-polars-lazy-benchmarking
+#| label: unique-parquet-polars-lazy-benchmarking
 
 parquet_polars_lazy <- function(variables) {
   

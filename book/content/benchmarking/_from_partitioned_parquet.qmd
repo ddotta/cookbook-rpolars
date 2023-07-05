@@ -1,1 +1,96 @@
 ## From a partitioned parquet file
+
+Let's now look at how to perform queries on partitioned files.
+
+For this comparison, we will use :
+
+- For arrow (lazy), the `arrow::open_dataset()` method
+- For polars (lazy), the `polars::scan_parquet` method
+
+
+::: {.panel-tabset}
+
+## arrow (lazy)
+
+```{r}
+#| label: partitioned-parquet-arrow-lazy-benchmarking
+
+partitioned_parquet_arrow_lazy <- function(variables) {
+  
+  result <- arrow::open_dataset(
+    "Datasets/DataMultiTypes/",
+    partitioning = arrow::schema(colFactor = arrow::utf8())) |>
+    
+    mutate(
+      # Conversion of 2 columns to Date format
+      colDate1 = as.Date(colDate1),
+      colDate2 = as.Date(colDate2)
+    ) |>
+    # Filter rows
+    filter(
+      colInt>2000 & colInt<8000
+    ) |>
+    # Grouping and aggregation
+    group_by(colString) |> 
+    summarise(
+      min_colInt = min(colInt),
+      mean_colInt = mean(colInt),
+      mas_colInt = max(colInt),
+      min_colNum = min(colNum),
+      mean_colNum = mean(colNum),
+      max_colNum = max(colNum)
+    )
+  
+  return(result)
+  
+}
+```
+
+## polars (lazy)
+
+```{r}
+#| label: partitioned-parquet-polars-lazy-benchmarking
+
+partitioned_parquet_polars_lazy <- function(variables) {
+  
+  result <- polars::scan_parquet(file = "Datasets/DataMultiTypes.parquet")$
+    # Conversion of 2 columns to Date format
+    with_columns(
+      pl$col("colDate1")$str$strptime(pl$Date, "%F %T", strict = FALSE),
+      pl$col("colDate2")$str$strptime(pl$Date, "%F %T", strict = FALSE)
+    )$
+    # Filter rows
+    filter(
+      pl$col("colInt")>2000 & pl$col("colInt")<8000
+    )$
+    # Grouping and aggregation
+    groupby(
+      "colString")$
+    agg(
+      pl$col("colInt")$min()$alias("min_colInt"),
+      pl$col("colInt")$mean()$alias("mean_colInt"),
+      pl$col("colInt")$max()$alias("max_colInt"),
+      pl$col("colNum")$min()$alias("min_colNum"),
+      pl$col("colNum")$mean()$alias("mean_colNum"),
+      pl$col("colNum")$max()$alias("max_colNum")
+    )
+  
+  return(result)
+}
+```
+:::
+
+### Results
+
+```{r}
+#| label: unique-parquet-results-benchmarking
+#| message: false
+#| warning: false
+
+microbenchmark(
+  "arrow (lazy)" = partitioned_parquet_arrow_lazy() |> collect(),
+  "polars (lazy)" = partitioned_parquet_polars_lazy()$collect()$to_data_frame(),
+  times = 5
+ )
+```
+ 
