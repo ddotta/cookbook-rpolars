@@ -46,7 +46,9 @@ arrow_eager <- function(variables) {
   return(result)
   
 }
+tic()
 arrow_eager()
+toc()
 ```
 
 ## arrow (lazy)
@@ -81,7 +83,9 @@ arrow_lazy <- function(variables) {
   return(result)
   
 }
+tic()
 arrow_lazy()
+toc()
 ```
 
 ## Duckdb and SQL
@@ -115,7 +119,9 @@ GROUP BY colString;")
   
   return(result)
 }
+tic()
 parquet_duckdb_sql()
+toc()
 ```
 
 ## polars (lazy)
@@ -149,7 +155,9 @@ parquet_polars_lazy <- function(variables) {
   
   return(result)
 }
+tic()
 parquet_polars_lazy()
+toc()
 ```
 :::
 

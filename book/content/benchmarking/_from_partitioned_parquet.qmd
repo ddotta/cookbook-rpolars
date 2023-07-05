@@ -12,8 +12,8 @@ fs::dir_tree(path = "Datasets/DataMultiTypes/")
 
 For this comparison, we will use :
 
-- For arrow (lazy), the `arrow::open_dataset()` method
-- For polars (lazy), the `polars::scan_parquet` method
+- For **arrow (lazy)**, the `arrow::open_dataset()` method
+- For **polars (lazy)**, the `polars::scan_parquet` method
 
 
 ::: {.panel-tabset}
@@ -52,6 +52,9 @@ partitioned_parquet_arrow_lazy <- function(variables) {
   return(result)
   
 }
+tic()
+partitioned_parquet_arrow_lazy()
+toc()
 ```
 
 ## polars (lazy)
@@ -85,6 +88,9 @@ partitioned_parquet_polars_lazy <- function(variables) {
   
   return(result)
 }
+tic()
+partitioned_parquet_polars_lazy()
+toc()
 ```
 :::
 
