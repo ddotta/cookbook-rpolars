@@ -47,13 +47,14 @@ partitioned_parquet_arrow_lazy <- function(variables) {
       min_colNum = min(colNum),
       mean_colNum = mean(colNum),
       max_colNum = max(colNum)
-    )
+    ) |> 
+    collect()
   
   return(result)
   
 }
 tic()
-partitioned_parquet_arrow_lazy()
+partitioned_parquet_arrow_lazy() 
 toc()
 ```
 
@@ -84,7 +85,7 @@ partitioned_parquet_polars_lazy <- function(variables) {
       pl$col("colNum")$min()$alias("min_colNum"),
       pl$col("colNum")$mean()$alias("mean_colNum"),
       pl$col("colNum")$max()$alias("max_colNum")
-    )
+    )$collect()
   
   return(result)
 }
@@ -102,9 +103,10 @@ toc()
 #| warning: false
 
 partitioned_parquet_bmk <- microbenchmark(
-  "arrow (lazy)" = partitioned_parquet_arrow_lazy() |> collect(),
-  "polars (lazy)" = partitioned_parquet_polars_lazy()$collect()$to_data_frame(),
+  "arrow (lazy) - from partitioned parquet file" = partitioned_parquet_arrow_lazy(),
+  "polars (lazy) - from partitioned parquet file" = partitioned_parquet_polars_lazy()$to_data_frame(),
   times = 5
  )
+print(partitioned_parquet_bmk)
 ```
  

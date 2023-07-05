@@ -46,6 +46,9 @@ result_agg <- pl$read_csv(path = "Datasets/DataMultiTypes.csv")$
   
   return(result_agg)
 }
+tic()
+csv_eager_polars()
+toc()
 ```
 
 ## polars (lazy)
@@ -83,6 +86,9 @@ result_agg <- pl$lazy_csv_reader(path = "Datasets/DataMultiTypes.csv")$
   
   return(result_agg)
 }
+tic()
+csv_lazy_polars()$collect()
+toc()
 ```
 
 ## R base
@@ -201,7 +207,16 @@ csv_dt <- function() {
   
   return(result_agg)
 }
+tic()
+csv_dt()
+toc()
 ```
+:::
+
+::: {.callout-note}
+**The data processing performed is not entirely equivalent, since it includes in addition:**  
+- for `polars (lazy mode)`, conversion to data.frame R at the end of processing  
+- for `data.table`, conversion to dt format at the start, then conversion to data.frame R at the end of processing  
 :::
 
 ### Results eager vs lazy mode
@@ -212,11 +227,14 @@ csv_dt <- function() {
 #| warning: false
 
 csv_bmk <- microbenchmark(
-  "data.table" = as.data.frame(csv_dt()),
-  "eager mode" = csv_eager_polars(),
-  "lazy mode" = csv_lazy_polars()$collect(),
+  "polars (eager mode) from csv file" = csv_eager_polars(),
+  "polars (lazy mode) from csv file" = csv_lazy_polars()$collect(),
+  "R base - from csv file" = csv_rbase(),
+  "dplyr - from csv file" = csv_dplyr(),
+  "data.table - from csv file" = as.data.frame(csv_dt()),
   times = 5
  )
+csv_bmk
 ```
 
 👉 The data processing is at least twice as fast with **lazy mode** `polars`! 🏆

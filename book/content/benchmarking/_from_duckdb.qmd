@@ -95,7 +95,7 @@ toc()
 :::
 
 ::: {.callout-tip}
-With the arrow::to_duckdb()` method, we see that the result is returned by mentioning “# Database: DuckDB”, it is indeed the DuckDB engine that was used.
+With the `arrow::to_duckdb()` method, we see that the result is returned by mentioning `#Database: DuckDB`, it is the DuckDB engine that was used.
 
 One of the advantages of using the DuckDB engine and dplyr may be **to use a feature implemented by DuckDB but not yet by Arrow**. We can do the opposite, and return to the Arrow engine with `arrow::to_arrow()`.
 
@@ -174,9 +174,10 @@ toc()
 #| warning: false
 
 duckdb_bmk <- microbenchmark(
-  "SQL" = duckdb_sql(),
+  "SQL from duckdb file" = duckdb_sql(),
   times = 5
  )
+duckdb_bmk
 ```
  
 Note that the query withthe standard DBI methods is faster than those with dplyr verbs 🏆

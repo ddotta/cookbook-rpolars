@@ -3,16 +3,52 @@
 
 For this comparison on **unique parquet file**, we will use :
 
+- For **polars (lazy)**, the `polars::scan_parquet` method
 - For **arrow (eager)**, the `arrow::read_parquet()` method
 - For **arrow (lazy)**, the `arrow::open_dataset()` method
 - For **Duckdb and SQL**, the `arrow::read_parquet()` and `DBI::dbGetQuery()` methods
-- For **polars (lazy)**, the `polars::scan_parquet` method
 
 ::: {.callout-note}
 With arrow, you can use the [following verbs from the tidyverse](https://arrow.apache.org/docs/dev/r/reference/acero.html) to do transformations on your tables.
 :::
 
 ::: {.panel-tabset}
+
+## polars (lazy)
+
+```{r}
+#| label: unique-parquet-polars-lazy-benchmarking
+
+parquet_polars_lazy <- function(variables) {
+  
+  result <- polars::scan_parquet(file = "Datasets/DataMultiTypes.parquet")$
+    # Conversion of 2 columns to Date format
+    with_columns(
+      pl$col("colDate1")$str$strptime(pl$Date, "%F %T", strict = FALSE),
+      pl$col("colDate2")$str$strptime(pl$Date, "%F %T", strict = FALSE)
+    )$
+    # Filter rows
+    filter(
+      pl$col("colInt")>2000 & pl$col("colInt")<8000
+    )$
+    # Grouping and aggregation
+    groupby(
+      "colString")$
+    agg(
+      pl$col("colInt")$min()$alias("min_colInt"),
+      pl$col("colInt")$mean()$alias("mean_colInt"),
+      pl$col("colInt")$max()$alias("max_colInt"),
+      pl$col("colNum")$min()$alias("min_colNum"),
+      pl$col("colNum")$mean()$alias("mean_colNum"),
+      pl$col("colNum")$max()$alias("max_colNum")
+    )
+  
+  return(result)
+}
+tic()
+parquet_polars_lazy()$collect()$to_data_frame()
+toc()
+```
 
 ## arrow (eager)
 
@@ -124,41 +160,7 @@ parquet_duckdb_sql()
 toc()
 ```
 
-## polars (lazy)
 
-```{r}
-#| label: unique-parquet-polars-lazy-benchmarking
-
-parquet_polars_lazy <- function(variables) {
-  
-  result <- polars::scan_parquet(file = "Datasets/DataMultiTypes.parquet")$
-    # Conversion of 2 columns to Date format
-    with_columns(
-      pl$col("colDate1")$str$strptime(pl$Date, "%F %T", strict = FALSE),
-      pl$col("colDate2")$str$strptime(pl$Date, "%F %T", strict = FALSE)
-    )$
-    # Filter rows
-    filter(
-      pl$col("colInt")>2000 & pl$col("colInt")<8000
-    )$
-    # Grouping and aggregation
-    groupby(
-      "colString")$
-    agg(
-      pl$col("colInt")$min()$alias("min_colInt"),
-      pl$col("colInt")$mean()$alias("mean_colInt"),
-      pl$col("colInt")$max()$alias("max_colInt"),
-      pl$col("colNum")$min()$alias("min_colNum"),
-      pl$col("colNum")$mean()$alias("mean_colNum"),
-      pl$col("colNum")$max()$alias("max_colNum")
-    )
-  
-  return(result)
-}
-tic()
-parquet_polars_lazy()$collect()$to_data_frame()
-toc()
-```
 :::
 
 ### Results for unique parquet file
@@ -169,10 +171,10 @@ toc()
 #| warning: false
 
 unique_parquet_bmk <- microbenchmark(
-  "arrow (eager)" = arrow_eager(),
-  "arrow (lazy)" = arrow_lazy() |> collect(),
-  "Duckdb and SQL" = parquet_duckdb_sql(),
-  "polars (lazy)" = parquet_polars_lazy()$collect()$to_data_frame(),
+  "polars (lazy) - from unique parquet file" = parquet_polars_lazy()$collect()$to_data_frame(),
+  "arrow (eager) - from unique parquet file" = arrow_eager(),
+  "arrow (lazy) - from unique parquet file" = arrow_lazy() |> collect(),
+  "Duckdb and SQL - from unique parquet file" = parquet_duckdb_sql(),
   times = 5
  )
 ```

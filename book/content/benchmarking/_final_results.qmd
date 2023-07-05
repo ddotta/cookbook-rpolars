@@ -8,18 +8,23 @@ Let's have a look! First, let's aggregate all the benchmark results:
 ```{r}
 #| label: final-results-rbind
 
+# Aggregation
 bmk_results <- rbind(
   csv_bmk,
   unique_parquet_bmk,
   partitioned_parquet_bmk,
   duckdb_bmk
 )
+# Sort the results
+bmk_results$expr <- reorder(bmk_results$expr, bmk_results$time, decreasing = TRUE)
 ```
 
 
 ```{r}
 #| label: final-results-plot
-autoplot(bmk_results)
+autoplot(bmk_results) +
+  labs(title = "polars ⚔️ others : Benchmark results!") +
+  theme(plot.title = element_text(hjust = 0.5))
 ```
 
 
