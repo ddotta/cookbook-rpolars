@@ -28,4 +28,12 @@ autoplot(bmk_results) +
 ```
 
 
+The first thing to note is that execution time is faster when working with **parquet files** than with csv files. 🏆  
+**With the exception of polars in lazy mode, execution time is systematically lower with parquet files.**
+
+The big winner of our benchmark is nevertheless **polars (lazy mode)**, which takes the top 3 places in our ranking. 🏆🏆🏆  
+ 
+This is followed by processing with arrow and then with SQL.   
+ 
+Not surprisingly, R base and dplyr are at the bottom of the ranking.
 

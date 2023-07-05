@@ -227,8 +227,8 @@ toc()
 #| warning: false
 
 csv_bmk <- microbenchmark(
-  "polars (eager mode) from csv file" = csv_eager_polars(),
-  "polars (lazy mode) from csv file" = csv_lazy_polars()$collect(),
+  "polars (eager) from csv file" = csv_eager_polars(),
+  "polars (lazy) from csv file" = csv_lazy_polars()$collect(),
   "R base - from csv file" = csv_rbase(),
   "dplyr - from csv file" = csv_dplyr(),
   "data.table - from csv file" = as.data.frame(csv_dt()),
