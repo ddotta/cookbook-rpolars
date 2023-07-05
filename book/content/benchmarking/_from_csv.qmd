@@ -2,10 +2,10 @@
 
 For this comparison, we will use :
 
-- For polars (eager), the `pl$read_csv()` method
-- For R base, the `read.csv()` method
-- For dplyr, the `readr::read_csv()` method
-- For data.table, the `data.table::fread()` method
+- For **polars (eager)**, the `pl$read_csv()` method
+- For **R base**, the `read.csv()` method
+- For **dplyr**, the `readr::read_csv()` method
+- For **data.table**, the `data.table::fread()` method
 
 
 ::: {.panel-tabset}
@@ -225,7 +225,6 @@ Here's what the code would be like:
 ::: {.panel-tabset}
 
 ## data.table
-
 
 ```{r}
 #| label: csv-datatable-optimised-benchmarking
