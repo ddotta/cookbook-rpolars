@@ -111,7 +111,7 @@ mystruc
 ```{r}
 #| label: to_struct-to-r
 mylist <- mystruc$to_r()
-mylist
+mylist[1:10]
 ```
 
 mylist is now a list where each element is a column of the initial DataFrame.
