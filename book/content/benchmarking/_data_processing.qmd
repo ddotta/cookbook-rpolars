@@ -14,4 +14,3 @@ The data processing that is performed **makes very little statistical sense**, b
 - Filter from a integer column which must be within a range of values.
 - Grouping by a string column
 - Aggregation with calculation of the mean, minimum and maximum over two columns.
-

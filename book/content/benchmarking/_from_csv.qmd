@@ -108,7 +108,7 @@ print(res_rbase)
 csv_dplyr <- function() {
   
   # Reading the csv file
-  result <- readr::read_csv("Datasets/DataMultiTypes.csv")
+  result <- readr::read_csv("Datasets/DataMultiTypes.csv", show_col_types = FALSE)
   
   # Conversion of 2 columns to Date format
   result <- result |>

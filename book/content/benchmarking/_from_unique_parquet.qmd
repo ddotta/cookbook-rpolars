@@ -1,1 +1,129 @@
 ## From an unique parquet file
+
+
+For this comparison, we will use :
+
+- For arrow (eager), the `arrow::read_parquet()` method
+- For arrow (lazy), the `arrow::open_dataset()` method
+- For polars (lazy), the `polars::scan_parquet` method
+
+
+::: {.panel-tabset}
+
+## arrow (eager)
+
+```{r}
+#| label: unique-parquet-arrow-eager-benchmarking
+
+arrow_eager <- function(variables) {
+  
+  result <- arrow::read_parquet("Datasets/DataMultiTypes.parquet") |>
+    
+    mutate(
+      # Conversion of 2 columns to Date format
+      colDate1 = as.Date(colDate1),
+      colDate2 = as.Date(colDate2)
+    ) |>
+    # Filter rows
+    filter(
+      colInt>2000 & colInt<8000
+    ) |>
+    # Grouping and aggregation
+    group_by(colString) |> 
+    summarise(
+      min_colInt = min(colInt),
+      mean_colInt = mean(colInt),
+      mas_colInt = max(colInt),
+      min_colNum = min(colNum),
+      mean_colNum = mean(colNum),
+      max_colNum = max(colNum)
+  )
+  
+  return(result)
+  
+}
+```
+
+## arrow (lazy)
+
+```{r}
+#| label: unique-parquet-arrow-lazy-benchmarking
+
+arrow_lazy <- function(variables) {
+  
+  result <- arrow::open_dataset("Datasets/DataMultiTypes.parquet") |>
+    
+    mutate(
+      # Conversion of 2 columns to Date format
+      colDate1 = as.Date(colDate1),
+      colDate2 = as.Date(colDate2)
+    ) |>
+    # Filter rows
+    filter(
+      colInt>2000 & colInt<8000
+    ) |>
+    # Grouping and aggregation
+    group_by(colString) |> 
+    summarise(
+      min_colInt = min(colInt),
+      mean_colInt = mean(colInt),
+      mas_colInt = max(colInt),
+      min_colNum = min(colNum),
+      mean_colNum = mean(colNum),
+      max_colNum = max(colNum)
+    )
+  
+  return(result)
+  
+}
+```
+
+## polars (lazy)
+
+```{r}
+#| label: parquet-polars-lazy-benchmarking
+
+parquet_polars_lazy <- function(variables) {
+  
+  result <- polars::scan_parquet(file = "Datasets/DataMultiTypes.parquet")$
+    # Conversion of 2 columns to Date format
+    with_columns(
+      pl$col("colDate1")$str$strptime(pl$Date, "%F %T", strict = FALSE),
+      pl$col("colDate2")$str$strptime(pl$Date, "%F %T", strict = FALSE)
+    )$
+    # Filter rows
+    filter(
+      pl$col("colInt")>2000 & pl$col("colInt")<8000
+    )$
+    # Grouping and aggregation
+    groupby(
+      "colString")$
+    agg(
+      pl$col("colInt")$min()$alias("min_colInt"),
+      pl$col("colInt")$mean()$alias("mean_colInt"),
+      pl$col("colInt")$max()$alias("max_colInt"),
+      pl$col("colNum")$min()$alias("min_colNum"),
+      pl$col("colNum")$mean()$alias("mean_colNum"),
+      pl$col("colNum")$max()$alias("max_colNum")
+    )
+  
+  return(result)
+}
+```
+:::
+
+### Results
+
+```{r}
+#| label: unique-parquet-results-benchmarking
+#| message: false
+#| warning: false
+
+microbenchmark(
+  "arrow (eager)" = arrow_eager(),
+  "arrow (lazy)" = arrow_lazy() |> collect(),
+  "polars (lazy)" = parquet_polars_lazy()$collect()$to_data_frame(),
+  times = 5
+ )
+```
+ 

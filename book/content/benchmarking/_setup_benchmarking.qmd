@@ -38,13 +38,15 @@ write.csv(x = DataMultiTypes,
           row.names=FALSE)
 
 # Creation of unique parquet file
-# arrow::write_parquet(x = DataMultiTypes,
-#                      sink = "Datasets/DataMultiTypes.parquet")
+arrow::write_parquet(x = DataMultiTypes,
+                     sink = "Datasets/DataMultiTypes.parquet")
+
 # Creation of 6 parquet file
-# arrow::write_dataset(dataset = DataMultiTypes,
-#                      path = "Datasets/DataMultiTypes",
-#                      format = c("parquet"),
-#                      partitioning = c("colFactor"))
+arrow::write_dataset(dataset = DataMultiTypes,
+                     path = "Datasets/DataMultiTypes",
+                     format = c("parquet"),
+                     partitioning = c("colFactor"))
+
 # Creation of duckdb file
 # con <- dbConnect(duckdb::duckdb(),
 #                  "Datasets/DataMultiTypes.duckdb")
