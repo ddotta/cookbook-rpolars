@@ -3,9 +3,10 @@
 
 For this comparison on **unique parquet file**, we will use :
 
-- For arrow (eager), the `arrow::read_parquet()` method
-- For arrow (lazy), the `arrow::open_dataset()` method
-- For polars (lazy), the `polars::scan_parquet` method
+- For **arrow (eager)**, the `arrow::read_parquet()` method
+- For **arrow (lazy)**, the `arrow::open_dataset()` method
+- For **Duckdb and SQL**, the `arrow::read_parquet()` and `DBI::dbGetQuery()` methods
+- For **polars (lazy)**, the `polars::scan_parquet` method
 
 ::: {.callout-note}
 With arrow, you can use the [following verbs from the tidyverse](https://arrow.apache.org/docs/dev/r/reference/acero.html) to do transformations on your tables.
@@ -45,6 +46,7 @@ arrow_eager <- function(variables) {
   return(result)
   
 }
+arrow_eager()
 ```
 
 ## arrow (lazy)
@@ -79,6 +81,41 @@ arrow_lazy <- function(variables) {
   return(result)
   
 }
+arrow_lazy()
+```
+
+## Duckdb and SQL
+
+```{r}
+#| label: unique-parquet-duckdb-benchmarking
+
+parquet_duckdb_sql <- function(variables) {
+  
+  con <- dbConnect(duckdb::duckdb())
+  
+  result <- dbGetQuery(
+    con, 
+    "SELECT colString,
+           MIN(colInt) AS min_colInt,
+           AVG(colInt) AS mean_colInt,
+           MAX(colInt) AS max_colInt,
+           MIN(colNum) AS min_colNum,
+           AVG(colNum) AS mean_colNum,
+           MAX(colNum) AS max_colNum
+    FROM (
+        SELECT colString,
+               colInt,
+               colNum
+        FROM read_parquet('Datasets/DataMultiTypes.parquet')
+        WHERE colInt > 2000 AND colInt < 8000
+) AS filtered_data
+GROUP BY colString;")
+  
+  dbDisconnect(con, shutdown=TRUE)
+  
+  return(result)
+}
+parquet_duckdb_sql()
 ```
 
 ## polars (lazy)
@@ -112,6 +149,7 @@ parquet_polars_lazy <- function(variables) {
   
   return(result)
 }
+parquet_polars_lazy()
 ```
 :::
 
@@ -126,6 +164,7 @@ microbenchmark(
   "arrow (eager)" = arrow_eager(),
   "arrow (lazy)" = arrow_lazy() |> collect(),
   "polars (lazy)" = parquet_polars_lazy()$collect()$to_data_frame(),
+  "Duckdb and SQL" = parquet_duckdb_sql(),
   times = 5
  )
 ```
