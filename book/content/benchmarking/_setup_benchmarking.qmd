@@ -17,6 +17,7 @@ library(tictoc)
 library(microbenchmark)
 library(readr)
 library(fs)
+library(ggplot2)
 
 # Creation the "Datasets" folder
 dir.create(normalizePath("Datasets"))

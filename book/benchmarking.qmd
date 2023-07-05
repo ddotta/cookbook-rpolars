@@ -11,3 +11,5 @@
 {{< include content/benchmarking/_from_partitioned_parquet.qmd >}}
 
 {{< include content/benchmarking/_from_duckdb.qmd >}}
+
+{{< include content/benchmarking/_final_results.qmd >}}

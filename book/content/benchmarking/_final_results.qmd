@@ -1,0 +1,26 @@
+## Final results
+
+So what can we conclude?  
+With which file format and which method is it fastest to execute the same request?  
+
+Let's have a look! First, let's aggregate all the benchmark results:
+
+```{r}
+#| label: final-results-rbind
+
+bmk_results <- rbind(
+  csv_bmk,
+  unique_parquet_bmk,
+  partitioned_parquet_bmk,
+  duckdb_bmk
+)
+```
+
+
+```{r}
+#| label: final-results-plot
+autoplot(bmk_results)
+```
+
+
+
