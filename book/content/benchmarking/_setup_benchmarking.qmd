@@ -48,11 +48,11 @@ arrow::write_dataset(dataset = DataMultiTypes,
                      partitioning = c("colFactor"))
 
 # Creation of duckdb file
-# con <- dbConnect(duckdb::duckdb(),
-#                  "Datasets/DataMultiTypes.duckdb")
-# duckdb::dbWriteTable(con,
-#                      "DataMultiTypes",
-#                      DataMultiTypes,
-#                      overwrite = TRUE)
-# dbDisconnect(con)
+con <- dbConnect(duckdb::duckdb(),
+                 "Datasets/DataMultiTypes.duckdb")
+duckdb::dbWriteTable(con,
+                     "DataMultiTypes",
+                     DataMultiTypes,
+                     overwrite = TRUE)
+dbDisconnect(con, shutdown=TRUE)
 ```
