@@ -58,6 +58,44 @@ partitioned_parquet_arrow_lazy()
 toc()
 ```
 
+## dplyr (duckdb)
+
+```{r}
+#| label: partitioned-parquet-duckdb-benchmarking
+
+partitioned_parquet_duckdb <- function(variables) {
+  con <- DBI::dbConnect(duckdb::duckdb())
+  result <- tbl(con, "read_parquet('Datasets/DataMultiTypes/*/*.parquet', hive_partitioning=1)") |>
+    
+    mutate(
+      # Conversion of 2 columns to Date format
+      colDate1 = as.Date(colDate1),
+      colDate2 = as.Date(colDate2)
+    ) |>
+    # Filter rows
+    filter(
+      colInt>2000 & colInt<8000
+    ) |>
+    # Grouping and aggregation
+    group_by(colString) |> 
+    summarise(
+      min_colInt = min(colInt, na.rm = TRUE),
+      mean_colInt = mean(colInt, na.rm = TRUE),
+      mas_colInt = max(colInt, na.rm = TRUE),
+      min_colNum = min(colNum, na.rm = TRUE),
+      mean_colNum = mean(colNum, na.rm = TRUE),
+      max_colNum = max(colNum, na.rm = TRUE)
+    ) |> 
+    collect()
+  
+  DBI::dbDisconnect(con)
+  return(result)
+}
+tic()
+partitioned_parquet_duckdb() 
+toc()
+```
+
 ## polars (lazy)
 
 ```{r}
