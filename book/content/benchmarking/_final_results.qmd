@@ -1,5 +1,7 @@
 ## Final results
 
+### Performance
+
 So what can we conclude?  
 With which file format and which method is it fastest to execute the same request?  
 
@@ -22,6 +24,7 @@ bmk_results$expr <- reorder(bmk_results$expr, bmk_results$time, decreasing = TRU
 
 ```{r}
 #| label: final-results-plot
+
 autoplot(bmk_results) +
   labs(title = "polars ⚔️ others : Benchmark results!") +
   theme(plot.title = element_text(hjust = 0.5))
@@ -37,3 +40,17 @@ This is followed by processing with arrow and then with SQL.
  
 Not surprisingly, R base and dplyr are at the bottom of the ranking.
 
+### Memory usage
+
+We've just analysed the performance of the various alternatives to Polars, but what about R's memory usage?  
+
+To do this, we're going to use `mem_change()` from {pryr} package. This method tells you how memory changes during code execution. Positive numbers represent an increase in the memory used by R, and negative numbers represent a decrease. 
+
+In the following section we will compare polars (lazy mode) from unique parquet file with SQL from duckdb file:
+
+```{r}
+#| label: memory-usage-results
+
+mem_change(duckdb_sql())
+mem_change(parquet_polars_lazy()$collect()$to_data_frame())
+```
