@@ -55,13 +55,6 @@ The `read_csv()` method also works with an URL:
 pl$read_csv("https://j.mp/iriscsv")
 ```
 
-If you want to use this method in [lazy mode](#lazy-executioin), it accepts a lazy boolean argument (FALSE by default but in this case, we prefer to use the `lazy_csv_reader()` method below.
-
-```{r}
-#| label: read_csv-from-file-lazy-polars
-pl$read_csv("examples/iris.csv", lazy = TRUE)
-```
-
 👉 For a complete list of arguments to use with the `read_csv()` method, see [this page](https://pola-rs.github.io/polars/py-polars/html/reference/api/polars.read_csv.html#polars.read_csv).
 
 
