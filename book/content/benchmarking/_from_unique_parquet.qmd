@@ -18,7 +18,6 @@ With arrow, you can use the [following verbs from the tidyverse](https://arrow.a
 
 ```{r}
 #| label: unique-parquet-polars-lazy-benchmarking
-#| eval: false
 
 parquet_polars_lazy <- function(variables) {
   
