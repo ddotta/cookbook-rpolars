@@ -46,11 +46,14 @@ We've just analysed the performance of the various alternatives to Polars, but w
 
 To do this, we're going to use `mem_change()` from {pryr} package. This method tells you how memory changes during code execution. Positive numbers represent an increase in the memory used by R, and negative numbers represent a decrease. 
 
-In the following section we will compare polars (lazy mode) from unique parquet file with SQL from duckdb file:
 
 ```{r}
 #| label: memory-usage-results
-
+gc()
+mem_change(csv_rbase())
+mem_change(csv_dplyr())
+mem_change(csv_dt())
 mem_change(duckdb_sql())
+mem_change(parquet_polars_lazy()$collect())
 mem_change(parquet_polars_lazy()$collect()$to_data_frame())
 ```

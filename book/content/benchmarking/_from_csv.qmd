@@ -3,7 +3,7 @@
 For this comparison, we will use :
 
 - For **polars (eager)**, the `pl$read_csv()` method
-- For **polars (lazy)**, the `pl$lazy_csv_reader()` method
+- For **polars (lazy)**, the `pl$scan_csv()` method
 - For **R base**, the `read.csv()` method
 - For **dplyr**, the `readr::read_csv()` method
 - For **data.table**, the `data.table::fread()` method
@@ -55,10 +55,11 @@ toc()
 
 ```{r}
 #| label: csv-lazy-polars-benchmarking
+#| eval: false
 
 csv_lazy_polars <- function() {
 # Reading the csv file (eager mode)
-result_agg <- pl$lazy_csv_reader(path = "Datasets/DataMultiTypes.csv")$
+result_agg <- pl$scan_csv(path = "Datasets/DataMultiTypes.csv")$
   # Conversion of 2 columns to Date format
   with_columns(
     pl$col("colDate1")$str$strptime(pl$Date, "%F %T", strict = FALSE),
@@ -228,7 +229,7 @@ toc()
 
 csv_bmk <- microbenchmark(
   "polars (eager) from csv file" = csv_eager_polars(),
-  "polars (lazy) from csv file" = csv_lazy_polars()$collect(),
+  #"polars (lazy) from csv file" = csv_lazy_polars()$collect(),
   "R base - from csv file" = csv_rbase(),
   "dplyr - from csv file" = csv_dplyr(),
   "data.table - from csv file" = as.data.frame(csv_dt()),

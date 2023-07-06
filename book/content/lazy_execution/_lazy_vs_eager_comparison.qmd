@@ -30,7 +30,9 @@ Here is the equivalent code using the lazy API. At the end of the query, don't f
 
 ```{r}
 #| label: lazy-query-steps
-pl$lazy_csv_reader("examples/iris.csv")$
+#| eval: false
+
+pl$scan_csv("examples/iris.csv")$
   filter(
     pl$col("Petal.Length") > 5)$
   groupby("Species")$

@@ -60,20 +60,22 @@ pl$read_csv("https://j.mp/iriscsv")
 
 ### Scan a csv file
 
-The `lazy_csv_reader()` method can be used to lazily read a csv file from a file.  
-`lazy_csv_reader()` returns a `LazyFrame`. 
+The `scan_csv()` method can be used to lazily read a csv file from a file.  
+`scan_csv()` returns a `LazyFrame`. 
 
 > This allows the query optimizer to push down predicates and projections to the scan level, thereby potentially reducing memory overhead.
 
 ```{r}
 #| label: lazy_csv-from-file-polars
-pl$lazy_csv_reader("examples/iris.csv")$ # lazy, don't do a thing
-  select(
+#| eval: false
+
+pl$scan_csv(
+  "examples/iris.csv")$select( # lazy, don't do a thing
     pl$col(c("Petal.Length","Petal.Width")) # select only 2 columns
   )$
   filter(
     pl$col("Petal.Length") > 4 # the filter is pushed down the scan, so less data is read into memory
-    )$collect() # <- don't forget collect() here!
+  )$collect() # <- don't forget collect() here!
 ```
 
 👉 For a complete list of arguments to use with the `lazy_csv_reader()` method, see [this page](https://rpolars.github.io/reference/lazy_csv_reader/).

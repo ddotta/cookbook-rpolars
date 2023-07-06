@@ -57,12 +57,14 @@ pl$read_csv("Datasets/fakir_file.csv", infer_schema_length=0)$
 toc()
 ```
 
-... while the `lazy` method is represented by the `lazy_csv_reader`:
+... while the `lazy` method is represented by the `scan_csv`:
 
 ```{r}
 #| label: fight-lazy_csv_reader
+#| eval: false
+
 tic()
-pl$lazy_csv_reader("Datasets/fakir_file.csv", infer_schema_length=0)$
+pl$scan_csv("Datasets/fakir_file.csv", infer_schema_length=0)$
   select(
     pl$col(c("region","departement","priority","age")))$
   with_columns(
