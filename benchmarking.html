@@ -206,12 +206,28 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   <ul>
   <li><a href="#from-a-csv-file" id="toc-from-a-csv-file" class="nav-link active" data-scroll-target="#from-a-csv-file"><span class="header-section-number">5.1</span> From a csv file</a>
   <ul class="collapse">
-  <li><a href="#results-polars-vs-others-packages" id="toc-results-polars-vs-others-packages" class="nav-link" data-scroll-target="#results-polars-vs-others-packages"><span class="header-section-number">5.1.1</span> Results polars vs others packages</a></li>
-  <li><a href="#results-eager-vs-lazy-mode" id="toc-results-eager-vs-lazy-mode" class="nav-link" data-scroll-target="#results-eager-vs-lazy-mode"><span class="header-section-number">5.1.2</span> Results eager vs lazy mode</a></li>
+  <li><a href="#results-eager-vs-lazy-mode" id="toc-results-eager-vs-lazy-mode" class="nav-link" data-scroll-target="#results-eager-vs-lazy-mode"><span class="header-section-number">5.1.1</span> Results eager vs lazy mode</a></li>
   </ul></li>
-  <li><a href="#from-an-unique-parquet-file" id="toc-from-an-unique-parquet-file" class="nav-link" data-scroll-target="#from-an-unique-parquet-file"><span class="header-section-number">5.2</span> From an unique parquet file</a></li>
-  <li><a href="#from-a-partitioned-parquet-file" id="toc-from-a-partitioned-parquet-file" class="nav-link" data-scroll-target="#from-a-partitioned-parquet-file"><span class="header-section-number">5.3</span> From a partitioned parquet file</a></li>
-  <li><a href="#from-a-duckdb-file" id="toc-from-a-duckdb-file" class="nav-link" data-scroll-target="#from-a-duckdb-file"><span class="header-section-number">5.4</span> From a duckdb file</a></li>
+  <li><a href="#from-an-unique-parquet-file" id="toc-from-an-unique-parquet-file" class="nav-link" data-scroll-target="#from-an-unique-parquet-file"><span class="header-section-number">5.2</span> From an unique parquet file</a>
+  <ul class="collapse">
+  <li><a href="#results-for-unique-parquet-file" id="toc-results-for-unique-parquet-file" class="nav-link" data-scroll-target="#results-for-unique-parquet-file"><span class="header-section-number">5.2.1</span> Results for unique parquet file</a></li>
+  </ul></li>
+  <li><a href="#from-a-partitioned-parquet-file" id="toc-from-a-partitioned-parquet-file" class="nav-link" data-scroll-target="#from-a-partitioned-parquet-file"><span class="header-section-number">5.3</span> From a partitioned parquet file</a>
+  <ul class="collapse">
+  <li><a href="#results-for-partitioned-parquet-files" id="toc-results-for-partitioned-parquet-files" class="nav-link" data-scroll-target="#results-for-partitioned-parquet-files"><span class="header-section-number">5.3.1</span> Results for partitioned parquet files</a></li>
+  </ul></li>
+  <li><a href="#from-a-duckdb-file" id="toc-from-a-duckdb-file" class="nav-link" data-scroll-target="#from-a-duckdb-file"><span class="header-section-number">5.4</span> From a DuckDb file</a>
+  <ul class="collapse">
+  <li><a href="#use-duckdb-engine-on-r-object" id="toc-use-duckdb-engine-on-r-object" class="nav-link" data-scroll-target="#use-duckdb-engine-on-r-object"><span class="header-section-number">5.4.1</span> Use DuckDB engine on R object</a></li>
+  <li><a href="#results-with-duckdb-engine" id="toc-results-with-duckdb-engine" class="nav-link" data-scroll-target="#results-with-duckdb-engine"><span class="header-section-number">5.4.2</span> Results with DuckDB engine</a></li>
+  <li><a href="#queries-on-duckdb-files" id="toc-queries-on-duckdb-files" class="nav-link" data-scroll-target="#queries-on-duckdb-files"><span class="header-section-number">5.4.3</span> Queries on Duckdb files</a></li>
+  <li><a href="#results-for-partitioned-parquet-files-1" id="toc-results-for-partitioned-parquet-files-1" class="nav-link" data-scroll-target="#results-for-partitioned-parquet-files-1"><span class="header-section-number">5.4.4</span> Results for partitioned parquet files</a></li>
+  </ul></li>
+  <li><a href="#final-results" id="toc-final-results" class="nav-link" data-scroll-target="#final-results"><span class="header-section-number">5.5</span> Final results</a>
+  <ul class="collapse">
+  <li><a href="#performance" id="toc-performance" class="nav-link" data-scroll-target="#performance"><span class="header-section-number">5.5.1</span> Performance</a></li>
+  <li><a href="#memory-usage" id="toc-memory-usage" class="nav-link" data-scroll-target="#memory-usage"><span class="header-section-number">5.5.2</span> Memory usage</a></li>
+  </ul></li>
   </ul>
 <div class="toc-actions"><div><i class="bi bi-github"></i></div><div class="action-links"><p><a href="https://github.com/ddotta/cookbook-rpolars/edit/main/book/benchmarking.qmd" class="toc-action">Edit this page</a></p><p><a href="https://github.com/ddotta/cookbook-rpolars/issues/new" class="toc-action">Report an issue</a></p><p><a href="https://github.com/ddotta/cookbook-rpolars/blob/main/book/benchmarking.qmd" class="toc-action">View source</a></p></div></div></nav>
     </div>
@@ -249,43 +265,48 @@ Click to expand it! 👇</p>
 <span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tictoc)</span>
 <span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(microbenchmark)</span>
 <span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(readr)</span>
-<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a><span class="co"># Creation the "Datasets" folder</span></span>
-<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a><span class="fu">dir.create</span>(<span class="fu">normalizePath</span>(<span class="st">"Datasets"</span>))</span>
+<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(fs)</span>
+<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ggplot2)</span>
+<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(pryr)</span>
 <span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-14"><a href="#cb1-14" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">123</span>)</span>
-<span id="cb1-15"><a href="#cb1-15" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-16"><a href="#cb1-16" aria-hidden="true" tabindex="-1"></a><span class="co"># Creation of large example R data.frame</span></span>
-<span id="cb1-17"><a href="#cb1-17" aria-hidden="true" tabindex="-1"></a>DataMultiTypes <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(</span>
-<span id="cb1-18"><a href="#cb1-18" aria-hidden="true" tabindex="-1"></a>  <span class="at">colDate1 =</span> <span class="fu">as.POSIXct</span>(<span class="fu">sample</span>(<span class="fu">as.POSIXct</span>(<span class="st">"2023-01-01"</span>)<span class="sc">:</span><span class="fu">as.POSIXct</span>(<span class="st">"2023-06-30"</span>),<span class="dv">500000</span>),<span class="at">origin=</span><span class="st">"1970-01-01"</span>),</span>
-<span id="cb1-19"><a href="#cb1-19" aria-hidden="true" tabindex="-1"></a>  <span class="at">colDate2 =</span> <span class="fu">as.POSIXct</span>(<span class="fu">sample</span>(<span class="fu">as.POSIXct</span>(<span class="st">"2023-07-01"</span>)<span class="sc">:</span><span class="fu">as.POSIXct</span>(<span class="st">"2023-12-31"</span>),<span class="dv">500000</span>),<span class="at">origin=</span><span class="st">"1970-01-01"</span>),</span>
-<span id="cb1-20"><a href="#cb1-20" aria-hidden="true" tabindex="-1"></a>  <span class="at">colInt =</span> <span class="fu">sample</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">10000</span>, <span class="dv">500000</span>, <span class="at">replace =</span> <span class="cn">TRUE</span>),</span>
-<span id="cb1-21"><a href="#cb1-21" aria-hidden="true" tabindex="-1"></a>  <span class="at">colNum =</span> <span class="fu">runif</span>(<span class="dv">500000</span>),</span>
-<span id="cb1-22"><a href="#cb1-22" aria-hidden="true" tabindex="-1"></a>  <span class="at">colString =</span> <span class="fu">sample</span>(<span class="fu">c</span>(<span class="st">"A"</span>, <span class="st">"B"</span>, <span class="st">"C"</span>), <span class="dv">500000</span>, <span class="at">replace =</span> <span class="cn">TRUE</span>),</span>
-<span id="cb1-23"><a href="#cb1-23" aria-hidden="true" tabindex="-1"></a>  <span class="at">colFactor =</span> <span class="fu">factor</span>(<span class="fu">sample</span>(<span class="fu">c</span>(<span class="st">"Low"</span>, <span class="st">"Medium"</span>, <span class="st">"High"</span>), <span class="dv">500000</span>, <span class="at">replace =</span> <span class="cn">TRUE</span>))</span>
-<span id="cb1-24"><a href="#cb1-24" aria-hidden="true" tabindex="-1"></a>)</span>
-<span id="cb1-25"><a href="#cb1-25" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-26"><a href="#cb1-26" aria-hidden="true" tabindex="-1"></a><span class="co"># Creation of large csv file</span></span>
-<span id="cb1-27"><a href="#cb1-27" aria-hidden="true" tabindex="-1"></a><span class="fu">write.csv</span>(<span class="at">x =</span> DataMultiTypes,</span>
-<span id="cb1-28"><a href="#cb1-28" aria-hidden="true" tabindex="-1"></a>          <span class="at">file =</span> <span class="st">"Datasets/DataMultiTypes.csv"</span>,</span>
-<span id="cb1-29"><a href="#cb1-29" aria-hidden="true" tabindex="-1"></a>          <span class="at">row.names=</span><span class="cn">FALSE</span>)</span>
-<span id="cb1-30"><a href="#cb1-30" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-31"><a href="#cb1-31" aria-hidden="true" tabindex="-1"></a><span class="co"># Creation of unique parquet file</span></span>
-<span id="cb1-32"><a href="#cb1-32" aria-hidden="true" tabindex="-1"></a><span class="co"># arrow::write_parquet(x = DataMultiTypes,</span></span>
-<span id="cb1-33"><a href="#cb1-33" aria-hidden="true" tabindex="-1"></a><span class="co">#                      sink = "Datasets/DataMultiTypes.parquet")</span></span>
-<span id="cb1-34"><a href="#cb1-34" aria-hidden="true" tabindex="-1"></a><span class="co"># Creation of 6 parquet file</span></span>
-<span id="cb1-35"><a href="#cb1-35" aria-hidden="true" tabindex="-1"></a><span class="co"># arrow::write_dataset(dataset = DataMultiTypes,</span></span>
-<span id="cb1-36"><a href="#cb1-36" aria-hidden="true" tabindex="-1"></a><span class="co">#                      path = "Datasets/DataMultiTypes",</span></span>
-<span id="cb1-37"><a href="#cb1-37" aria-hidden="true" tabindex="-1"></a><span class="co">#                      format = c("parquet"),</span></span>
-<span id="cb1-38"><a href="#cb1-38" aria-hidden="true" tabindex="-1"></a><span class="co">#                      partitioning = c("colFactor"))</span></span>
-<span id="cb1-39"><a href="#cb1-39" aria-hidden="true" tabindex="-1"></a><span class="co"># Creation of duckdb file</span></span>
-<span id="cb1-40"><a href="#cb1-40" aria-hidden="true" tabindex="-1"></a><span class="co"># con &lt;- dbConnect(duckdb::duckdb(),</span></span>
-<span id="cb1-41"><a href="#cb1-41" aria-hidden="true" tabindex="-1"></a><span class="co">#                  "Datasets/DataMultiTypes.duckdb")</span></span>
-<span id="cb1-42"><a href="#cb1-42" aria-hidden="true" tabindex="-1"></a><span class="co"># duckdb::dbWriteTable(con,</span></span>
-<span id="cb1-43"><a href="#cb1-43" aria-hidden="true" tabindex="-1"></a><span class="co">#                      "DataMultiTypes",</span></span>
-<span id="cb1-44"><a href="#cb1-44" aria-hidden="true" tabindex="-1"></a><span class="co">#                      DataMultiTypes,</span></span>
-<span id="cb1-45"><a href="#cb1-45" aria-hidden="true" tabindex="-1"></a><span class="co">#                      overwrite = TRUE)</span></span>
-<span id="cb1-46"><a href="#cb1-46" aria-hidden="true" tabindex="-1"></a><span class="co"># dbDisconnect(con)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb1-14"><a href="#cb1-14" aria-hidden="true" tabindex="-1"></a><span class="co"># Creation the "Datasets" folder</span></span>
+<span id="cb1-15"><a href="#cb1-15" aria-hidden="true" tabindex="-1"></a><span class="fu">dir.create</span>(<span class="fu">normalizePath</span>(<span class="st">"Datasets"</span>))</span>
+<span id="cb1-16"><a href="#cb1-16" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-17"><a href="#cb1-17" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">123</span>)</span>
+<span id="cb1-18"><a href="#cb1-18" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-19"><a href="#cb1-19" aria-hidden="true" tabindex="-1"></a><span class="co"># Creation of large example R data.frame</span></span>
+<span id="cb1-20"><a href="#cb1-20" aria-hidden="true" tabindex="-1"></a>DataMultiTypes <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(</span>
+<span id="cb1-21"><a href="#cb1-21" aria-hidden="true" tabindex="-1"></a>  <span class="at">colDate1 =</span> <span class="fu">as.POSIXct</span>(<span class="fu">sample</span>(<span class="fu">as.POSIXct</span>(<span class="st">"2023-01-01"</span>)<span class="sc">:</span><span class="fu">as.POSIXct</span>(<span class="st">"2023-06-30"</span>),<span class="dv">500000</span>),<span class="at">origin=</span><span class="st">"1970-01-01"</span>),</span>
+<span id="cb1-22"><a href="#cb1-22" aria-hidden="true" tabindex="-1"></a>  <span class="at">colDate2 =</span> <span class="fu">as.POSIXct</span>(<span class="fu">sample</span>(<span class="fu">as.POSIXct</span>(<span class="st">"2023-07-01"</span>)<span class="sc">:</span><span class="fu">as.POSIXct</span>(<span class="st">"2023-12-31"</span>),<span class="dv">500000</span>),<span class="at">origin=</span><span class="st">"1970-01-01"</span>),</span>
+<span id="cb1-23"><a href="#cb1-23" aria-hidden="true" tabindex="-1"></a>  <span class="at">colInt =</span> <span class="fu">sample</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">10000</span>, <span class="dv">500000</span>, <span class="at">replace =</span> <span class="cn">TRUE</span>),</span>
+<span id="cb1-24"><a href="#cb1-24" aria-hidden="true" tabindex="-1"></a>  <span class="at">colNum =</span> <span class="fu">runif</span>(<span class="dv">500000</span>),</span>
+<span id="cb1-25"><a href="#cb1-25" aria-hidden="true" tabindex="-1"></a>  <span class="at">colString =</span> <span class="fu">sample</span>(<span class="fu">c</span>(<span class="st">"A"</span>, <span class="st">"B"</span>, <span class="st">"C"</span>), <span class="dv">500000</span>, <span class="at">replace =</span> <span class="cn">TRUE</span>),</span>
+<span id="cb1-26"><a href="#cb1-26" aria-hidden="true" tabindex="-1"></a>  <span class="at">colFactor =</span> <span class="fu">factor</span>(<span class="fu">sample</span>(<span class="fu">c</span>(<span class="st">"Low"</span>, <span class="st">"Medium"</span>, <span class="st">"High"</span>), <span class="dv">500000</span>, <span class="at">replace =</span> <span class="cn">TRUE</span>))</span>
+<span id="cb1-27"><a href="#cb1-27" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb1-28"><a href="#cb1-28" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-29"><a href="#cb1-29" aria-hidden="true" tabindex="-1"></a><span class="co"># Creation of large csv file</span></span>
+<span id="cb1-30"><a href="#cb1-30" aria-hidden="true" tabindex="-1"></a><span class="fu">write.csv</span>(<span class="at">x =</span> DataMultiTypes,</span>
+<span id="cb1-31"><a href="#cb1-31" aria-hidden="true" tabindex="-1"></a>          <span class="at">file =</span> <span class="st">"Datasets/DataMultiTypes.csv"</span>,</span>
+<span id="cb1-32"><a href="#cb1-32" aria-hidden="true" tabindex="-1"></a>          <span class="at">row.names=</span><span class="cn">FALSE</span>)</span>
+<span id="cb1-33"><a href="#cb1-33" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-34"><a href="#cb1-34" aria-hidden="true" tabindex="-1"></a><span class="co"># Creation of unique parquet file</span></span>
+<span id="cb1-35"><a href="#cb1-35" aria-hidden="true" tabindex="-1"></a>arrow<span class="sc">::</span><span class="fu">write_parquet</span>(<span class="at">x =</span> DataMultiTypes,</span>
+<span id="cb1-36"><a href="#cb1-36" aria-hidden="true" tabindex="-1"></a>                     <span class="at">sink =</span> <span class="st">"Datasets/DataMultiTypes.parquet"</span>)</span>
+<span id="cb1-37"><a href="#cb1-37" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-38"><a href="#cb1-38" aria-hidden="true" tabindex="-1"></a><span class="co"># Creation of 6 parquet file</span></span>
+<span id="cb1-39"><a href="#cb1-39" aria-hidden="true" tabindex="-1"></a>arrow<span class="sc">::</span><span class="fu">write_dataset</span>(<span class="at">dataset =</span> DataMultiTypes,</span>
+<span id="cb1-40"><a href="#cb1-40" aria-hidden="true" tabindex="-1"></a>                     <span class="at">path =</span> <span class="st">"Datasets/DataMultiTypes"</span>,</span>
+<span id="cb1-41"><a href="#cb1-41" aria-hidden="true" tabindex="-1"></a>                     <span class="at">format =</span> <span class="fu">c</span>(<span class="st">"parquet"</span>),</span>
+<span id="cb1-42"><a href="#cb1-42" aria-hidden="true" tabindex="-1"></a>                     <span class="at">partitioning =</span> <span class="fu">c</span>(<span class="st">"colFactor"</span>))</span>
+<span id="cb1-43"><a href="#cb1-43" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-44"><a href="#cb1-44" aria-hidden="true" tabindex="-1"></a><span class="co"># Creation of duckdb file</span></span>
+<span id="cb1-45"><a href="#cb1-45" aria-hidden="true" tabindex="-1"></a>con <span class="ot">&lt;-</span> <span class="fu">dbConnect</span>(duckdb<span class="sc">::</span><span class="fu">duckdb</span>(),</span>
+<span id="cb1-46"><a href="#cb1-46" aria-hidden="true" tabindex="-1"></a>                 <span class="st">"Datasets/DataMultiTypes.duckdb"</span>)</span>
+<span id="cb1-47"><a href="#cb1-47" aria-hidden="true" tabindex="-1"></a>duckdb<span class="sc">::</span><span class="fu">dbWriteTable</span>(con,</span>
+<span id="cb1-48"><a href="#cb1-48" aria-hidden="true" tabindex="-1"></a>                     <span class="st">"DataMultiTypes"</span>,</span>
+<span id="cb1-49"><a href="#cb1-49" aria-hidden="true" tabindex="-1"></a>                     DataMultiTypes,</span>
+<span id="cb1-50"><a href="#cb1-50" aria-hidden="true" tabindex="-1"></a>                     <span class="at">overwrite =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb1-51"><a href="#cb1-51" aria-hidden="true" tabindex="-1"></a><span class="fu">dbDisconnect</span>(con, <span class="at">shutdown=</span><span class="cn">TRUE</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 </div>
 <p>In this part of the book we will compare the performance of <code>polars</code> by comparing with other syntaxes, in particular <code>R base</code>, <code>dplyr</code>, <code>dbplyr</code>, <code>SQL</code> and <code>data.table</code>.</p>
@@ -306,7 +327,6 @@ Note
 <p><strong>Data processing steps</strong>:</p>
 <ul>
 <li>Conversion of two columns to Date format;</li>
-<li>Creation of a new column corresponding to the difference in number of days between the 2 dates;</li>
 <li>Filter from a integer column which must be within a range of values.</li>
 <li>Grouping by a string column</li>
 <li>Aggregation with calculation of the mean, minimum and maximum over two columns.</li>
@@ -315,59 +335,49 @@ Note
 <h2 data-number="5.1" class="anchored" data-anchor-id="from-a-csv-file"><span class="header-section-number">5.1</span> From a csv file</h2>
 <p>For this comparison, we will use :</p>
 <ul>
-<li>For polars (eager), the <code>pl$read_csv()</code> method</li>
-<li>For R base, the <code>read.csv()</code> method</li>
-<li>For dplyr, the <code>readr::read_csv()</code> method</li>
-<li>For data.table, the <code>data.table::fread()</code> method</li>
+<li>For <strong>polars (eager)</strong>, the <code>pl$read_csv()</code> method</li>
+<li>For <strong>polars (lazy)</strong>, the <code>pl$scan_csv()</code> method</li>
+<li>For <strong>R base</strong>, the <code>read.csv()</code> method</li>
+<li>For <strong>dplyr</strong>, the <code>readr::read_csv()</code> method</li>
+<li>For <strong>data.table</strong>, the <code>data.table::fread()</code> method</li>
 </ul>
 <div class="tabset-margin-container"></div><div class="panel-tabset">
-<ul class="nav nav-tabs" role="tablist"><li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-1-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-1-1" role="tab" aria-controls="tabset-1-1" aria-selected="true">polars (eager)</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-1-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-1-2" role="tab" aria-controls="tabset-1-2" aria-selected="false">R base</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-1-3-tab" data-bs-toggle="tab" data-bs-target="#tabset-1-3" role="tab" aria-controls="tabset-1-3" aria-selected="false">dplyr</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-1-4-tab" data-bs-toggle="tab" data-bs-target="#tabset-1-4" role="tab" aria-controls="tabset-1-4" aria-selected="false">data.table</a></li></ul>
+<ul class="nav nav-tabs" role="tablist"><li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-1-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-1-1" role="tab" aria-controls="tabset-1-1" aria-selected="true">polars (eager)</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-1-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-1-2" role="tab" aria-controls="tabset-1-2" aria-selected="false">polars (lazy)</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-1-3-tab" data-bs-toggle="tab" data-bs-target="#tabset-1-3" role="tab" aria-controls="tabset-1-3" aria-selected="false">R base</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-1-4-tab" data-bs-toggle="tab" data-bs-target="#tabset-1-4" role="tab" aria-controls="tabset-1-4" aria-selected="false">dplyr</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-1-5-tab" data-bs-toggle="tab" data-bs-target="#tabset-1-5" role="tab" aria-controls="tabset-1-5" aria-selected="false">data.table</a></li></ul>
 <div class="tab-content">
 <div id="tabset-1-1" class="tab-pane active" role="tabpanel" aria-labelledby="tabset-1-1-tab">
 <div class="cell">
-<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>csv_polars <span class="ot">&lt;-</span> <span class="cf">function</span>() {</span>
-<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>  </span>
-<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Reading the csv file (eager mode)</span></span>
-<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>  result_pl <span class="ot">&lt;-</span> pl<span class="sc">$</span><span class="fu">read_csv</span>(<span class="at">path =</span> <span class="st">"Datasets/DataMultiTypes.csv"</span>)</span>
-<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a>  </span>
-<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Conversion of 2 columns to Date format</span></span>
-<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a>  result_pl <span class="ot">&lt;-</span> result_pl<span class="sc">$</span><span class="fu">with_columns</span>(</span>
-<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a>    pl<span class="sc">$</span><span class="fu">col</span>(<span class="st">"colDate1"</span>)<span class="sc">$</span>str<span class="sc">$</span><span class="fu">strptime</span>(pl<span class="sc">$</span>Date, <span class="st">"%F %T"</span>, <span class="at">strict =</span> <span class="cn">FALSE</span>),</span>
-<span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a>    pl<span class="sc">$</span><span class="fu">col</span>(<span class="st">"colDate2"</span>)<span class="sc">$</span>str<span class="sc">$</span><span class="fu">strptime</span>(pl<span class="sc">$</span>Date, <span class="st">"%F %T"</span>, <span class="at">strict =</span> <span class="cn">FALSE</span>)</span>
-<span id="cb2-10"><a href="#cb2-10" aria-hidden="true" tabindex="-1"></a>  )</span>
-<span id="cb2-11"><a href="#cb2-11" aria-hidden="true" tabindex="-1"></a>  </span>
-<span id="cb2-12"><a href="#cb2-12" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Creation of a diff column between 2 dates (in days)</span></span>
-<span id="cb2-13"><a href="#cb2-13" aria-hidden="true" tabindex="-1"></a>  result_pl <span class="ot">&lt;-</span> result_pl<span class="sc">$</span><span class="fu">with_columns</span>(</span>
-<span id="cb2-14"><a href="#cb2-14" aria-hidden="true" tabindex="-1"></a>    (pl<span class="sc">$</span><span class="fu">col</span>(<span class="st">"colDate2"</span>) <span class="sc">-</span> pl<span class="sc">$</span><span class="fu">col</span>(<span class="st">"colDate1"</span>))<span class="sc">$</span>dt<span class="sc">$</span><span class="fu">days</span>()<span class="sc">$</span><span class="fu">alias</span>(<span class="st">"diff"</span>)</span>
-<span id="cb2-15"><a href="#cb2-15" aria-hidden="true" tabindex="-1"></a>  )</span>
-<span id="cb2-16"><a href="#cb2-16" aria-hidden="true" tabindex="-1"></a>  </span>
-<span id="cb2-17"><a href="#cb2-17" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Filter rows</span></span>
-<span id="cb2-18"><a href="#cb2-18" aria-hidden="true" tabindex="-1"></a>  result_pl <span class="ot">&lt;-</span> result_pl<span class="sc">$</span><span class="fu">filter</span>(</span>
-<span id="cb2-19"><a href="#cb2-19" aria-hidden="true" tabindex="-1"></a>    pl<span class="sc">$</span><span class="fu">col</span>(<span class="st">"colInt"</span>)<span class="sc">&gt;</span><span class="dv">2000</span> <span class="sc">&amp;</span> pl<span class="sc">$</span><span class="fu">col</span>(<span class="st">"colInt"</span>)<span class="sc">&lt;</span><span class="dv">8000</span></span>
-<span id="cb2-20"><a href="#cb2-20" aria-hidden="true" tabindex="-1"></a>  )</span>
-<span id="cb2-21"><a href="#cb2-21" aria-hidden="true" tabindex="-1"></a>  </span>
-<span id="cb2-22"><a href="#cb2-22" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Grouping and aggregation</span></span>
-<span id="cb2-23"><a href="#cb2-23" aria-hidden="true" tabindex="-1"></a>  result_agg <span class="ot">&lt;-</span> result_pl<span class="sc">$</span><span class="fu">groupby</span>(</span>
-<span id="cb2-24"><a href="#cb2-24" aria-hidden="true" tabindex="-1"></a>    <span class="st">"colString"</span></span>
-<span id="cb2-25"><a href="#cb2-25" aria-hidden="true" tabindex="-1"></a>  )<span class="sc">$</span><span class="fu">agg</span>(</span>
-<span id="cb2-26"><a href="#cb2-26" aria-hidden="true" tabindex="-1"></a>    pl<span class="sc">$</span><span class="fu">col</span>(<span class="st">"colInt"</span>)<span class="sc">$</span><span class="fu">min</span>()<span class="sc">$</span><span class="fu">alias</span>(<span class="st">"min_colInt"</span>),</span>
-<span id="cb2-27"><a href="#cb2-27" aria-hidden="true" tabindex="-1"></a>    pl<span class="sc">$</span><span class="fu">col</span>(<span class="st">"colInt"</span>)<span class="sc">$</span><span class="fu">mean</span>()<span class="sc">$</span><span class="fu">alias</span>(<span class="st">"mean_colInt"</span>),</span>
-<span id="cb2-28"><a href="#cb2-28" aria-hidden="true" tabindex="-1"></a>    pl<span class="sc">$</span><span class="fu">col</span>(<span class="st">"colInt"</span>)<span class="sc">$</span><span class="fu">max</span>()<span class="sc">$</span><span class="fu">alias</span>(<span class="st">"max_colInt"</span>),</span>
-<span id="cb2-29"><a href="#cb2-29" aria-hidden="true" tabindex="-1"></a>    pl<span class="sc">$</span><span class="fu">col</span>(<span class="st">"colNum"</span>)<span class="sc">$</span><span class="fu">min</span>()<span class="sc">$</span><span class="fu">alias</span>(<span class="st">"min_colNum"</span>),</span>
-<span id="cb2-30"><a href="#cb2-30" aria-hidden="true" tabindex="-1"></a>    pl<span class="sc">$</span><span class="fu">col</span>(<span class="st">"colNum"</span>)<span class="sc">$</span><span class="fu">mean</span>()<span class="sc">$</span><span class="fu">alias</span>(<span class="st">"mean_colNum"</span>),</span>
-<span id="cb2-31"><a href="#cb2-31" aria-hidden="true" tabindex="-1"></a>    pl<span class="sc">$</span><span class="fu">col</span>(<span class="st">"colNum"</span>)<span class="sc">$</span><span class="fu">max</span>()<span class="sc">$</span><span class="fu">alias</span>(<span class="st">"max_colNum"</span>)</span>
-<span id="cb2-32"><a href="#cb2-32" aria-hidden="true" tabindex="-1"></a>  )</span>
-<span id="cb2-33"><a href="#cb2-33" aria-hidden="true" tabindex="-1"></a>  </span>
-<span id="cb2-34"><a href="#cb2-34" aria-hidden="true" tabindex="-1"></a>  <span class="fu">return</span>(result_agg)</span>
-<span id="cb2-35"><a href="#cb2-35" aria-hidden="true" tabindex="-1"></a>}</span>
-<span id="cb2-36"><a href="#cb2-36" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-37"><a href="#cb2-37" aria-hidden="true" tabindex="-1"></a><span class="fu">tic</span>()</span>
-<span id="cb2-38"><a href="#cb2-38" aria-hidden="true" tabindex="-1"></a>res_polars <span class="ot">&lt;-</span> <span class="fu">csv_polars</span>()</span>
-<span id="cb2-39"><a href="#cb2-39" aria-hidden="true" tabindex="-1"></a><span class="fu">toc</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>0.271 sec elapsed</code></pre>
-</div>
-<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(res_polars)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>csv_eager_polars <span class="ot">&lt;-</span> <span class="cf">function</span>() {</span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="co"># Reading the csv file (eager mode)</span></span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>result_agg <span class="ot">&lt;-</span> pl<span class="sc">$</span><span class="fu">read_csv</span>(<span class="at">path =</span> <span class="st">"Datasets/DataMultiTypes.csv"</span>)<span class="sc">$</span></span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Conversion of 2 columns to Date format</span></span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">with_columns</span>(</span>
+<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a>    pl<span class="sc">$</span><span class="fu">col</span>(<span class="st">"colDate1"</span>)<span class="sc">$</span>str<span class="sc">$</span><span class="fu">strptime</span>(pl<span class="sc">$</span>Date, <span class="st">"%F %T"</span>, <span class="at">strict =</span> <span class="cn">FALSE</span>),</span>
+<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a>    pl<span class="sc">$</span><span class="fu">col</span>(<span class="st">"colDate2"</span>)<span class="sc">$</span>str<span class="sc">$</span><span class="fu">strptime</span>(pl<span class="sc">$</span>Date, <span class="st">"%F %T"</span>, <span class="at">strict =</span> <span class="cn">FALSE</span>)</span>
+<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a>  )<span class="sc">$</span></span>
+<span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Creation of a diff column between 2 dates (in days)</span></span>
+<span id="cb2-10"><a href="#cb2-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">with_columns</span>(</span>
+<span id="cb2-11"><a href="#cb2-11" aria-hidden="true" tabindex="-1"></a>    (pl<span class="sc">$</span><span class="fu">col</span>(<span class="st">"colDate2"</span>) <span class="sc">-</span> pl<span class="sc">$</span><span class="fu">col</span>(<span class="st">"colDate1"</span>))<span class="sc">$</span>dt<span class="sc">$</span><span class="fu">days</span>()<span class="sc">$</span><span class="fu">alias</span>(<span class="st">"diff"</span>)</span>
+<span id="cb2-12"><a href="#cb2-12" aria-hidden="true" tabindex="-1"></a>  )<span class="sc">$</span></span>
+<span id="cb2-13"><a href="#cb2-13" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Filter rows</span></span>
+<span id="cb2-14"><a href="#cb2-14" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(</span>
+<span id="cb2-15"><a href="#cb2-15" aria-hidden="true" tabindex="-1"></a>    pl<span class="sc">$</span><span class="fu">col</span>(<span class="st">"colInt"</span>)<span class="sc">&gt;</span><span class="dv">2000</span> <span class="sc">&amp;</span> pl<span class="sc">$</span><span class="fu">col</span>(<span class="st">"colInt"</span>)<span class="sc">&lt;</span><span class="dv">8000</span></span>
+<span id="cb2-16"><a href="#cb2-16" aria-hidden="true" tabindex="-1"></a>  )<span class="sc">$</span></span>
+<span id="cb2-17"><a href="#cb2-17" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Grouping and aggregation</span></span>
+<span id="cb2-18"><a href="#cb2-18" aria-hidden="true" tabindex="-1"></a>  <span class="fu">groupby</span>(</span>
+<span id="cb2-19"><a href="#cb2-19" aria-hidden="true" tabindex="-1"></a>    <span class="st">"colString"</span>)<span class="sc">$</span></span>
+<span id="cb2-20"><a href="#cb2-20" aria-hidden="true" tabindex="-1"></a>  <span class="fu">agg</span>(</span>
+<span id="cb2-21"><a href="#cb2-21" aria-hidden="true" tabindex="-1"></a>    pl<span class="sc">$</span><span class="fu">col</span>(<span class="st">"colInt"</span>)<span class="sc">$</span><span class="fu">min</span>()<span class="sc">$</span><span class="fu">alias</span>(<span class="st">"min_colInt"</span>),</span>
+<span id="cb2-22"><a href="#cb2-22" aria-hidden="true" tabindex="-1"></a>    pl<span class="sc">$</span><span class="fu">col</span>(<span class="st">"colInt"</span>)<span class="sc">$</span><span class="fu">mean</span>()<span class="sc">$</span><span class="fu">alias</span>(<span class="st">"mean_colInt"</span>),</span>
+<span id="cb2-23"><a href="#cb2-23" aria-hidden="true" tabindex="-1"></a>    pl<span class="sc">$</span><span class="fu">col</span>(<span class="st">"colInt"</span>)<span class="sc">$</span><span class="fu">max</span>()<span class="sc">$</span><span class="fu">alias</span>(<span class="st">"max_colInt"</span>),</span>
+<span id="cb2-24"><a href="#cb2-24" aria-hidden="true" tabindex="-1"></a>    pl<span class="sc">$</span><span class="fu">col</span>(<span class="st">"colNum"</span>)<span class="sc">$</span><span class="fu">min</span>()<span class="sc">$</span><span class="fu">alias</span>(<span class="st">"min_colNum"</span>),</span>
+<span id="cb2-25"><a href="#cb2-25" aria-hidden="true" tabindex="-1"></a>    pl<span class="sc">$</span><span class="fu">col</span>(<span class="st">"colNum"</span>)<span class="sc">$</span><span class="fu">mean</span>()<span class="sc">$</span><span class="fu">alias</span>(<span class="st">"mean_colNum"</span>),</span>
+<span id="cb2-26"><a href="#cb2-26" aria-hidden="true" tabindex="-1"></a>    pl<span class="sc">$</span><span class="fu">col</span>(<span class="st">"colNum"</span>)<span class="sc">$</span><span class="fu">max</span>()<span class="sc">$</span><span class="fu">alias</span>(<span class="st">"max_colNum"</span>)</span>
+<span id="cb2-27"><a href="#cb2-27" aria-hidden="true" tabindex="-1"></a>  )</span>
+<span id="cb2-28"><a href="#cb2-28" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb2-29"><a href="#cb2-29" aria-hidden="true" tabindex="-1"></a>  <span class="fu">return</span>(result_agg)</span>
+<span id="cb2-30"><a href="#cb2-30" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb2-31"><a href="#cb2-31" aria-hidden="true" tabindex="-1"></a><span class="fu">tic</span>()</span>
+<span id="cb2-32"><a href="#cb2-32" aria-hidden="true" tabindex="-1"></a><span class="fu">csv_eager_polars</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>shape: (3, 7)
 ┌───────────┬────────────┬─────────────┬────────────┬────────────┬─────────────┬────────────┐
@@ -376,53 +386,94 @@ Note
 │ str       ┆ i64        ┆ f64         ┆ i64        ┆ f64        ┆ f64         ┆ f64        │
 ╞═══════════╪════════════╪═════════════╪════════════╪════════════╪═════════════╪════════════╡
 │ A         ┆ 2001       ┆ 4998.624945 ┆ 7999       ┆ 0.000038   ┆ 0.498445    ┆ 0.999988   │
-│ B         ┆ 2001       ┆ 5004.31148  ┆ 7999       ┆ 0.000034   ┆ 0.500546    ┆ 0.999986   │
 │ C         ┆ 2001       ┆ 5001.243285 ┆ 7999       ┆ 0.00003    ┆ 0.501472    ┆ 0.999992   │
+│ B         ┆ 2001       ┆ 5004.31148  ┆ 7999       ┆ 0.000034   ┆ 0.500546    ┆ 0.999986   │
 └───────────┴────────────┴─────────────┴────────────┴────────────┴─────────────┴────────────┘</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="fu">toc</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>0.326 sec elapsed</code></pre>
 </div>
 </div>
 </div>
 <div id="tabset-1-2" class="tab-pane" role="tabpanel" aria-labelledby="tabset-1-2-tab">
 <div class="cell">
-<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>csv_rbase <span class="ot">&lt;-</span> <span class="cf">function</span>() {</span>
-<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>  </span>
-<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Reading the csv file</span></span>
-<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a>  result <span class="ot">&lt;-</span> <span class="fu">read.csv</span>(<span class="st">"Datasets/DataMultiTypes.csv"</span>)</span>
-<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a>  </span>
-<span id="cb6-6"><a href="#cb6-6" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Conversion of 2 columns to Date format</span></span>
-<span id="cb6-7"><a href="#cb6-7" aria-hidden="true" tabindex="-1"></a>  result<span class="sc">$</span>colDate1 <span class="ot">&lt;-</span> <span class="fu">as.Date</span>(result<span class="sc">$</span>colDate1)</span>
-<span id="cb6-8"><a href="#cb6-8" aria-hidden="true" tabindex="-1"></a>  result<span class="sc">$</span>colDate2 <span class="ot">&lt;-</span> <span class="fu">as.Date</span>(result<span class="sc">$</span>colDate2)</span>
-<span id="cb6-9"><a href="#cb6-9" aria-hidden="true" tabindex="-1"></a>  </span>
-<span id="cb6-10"><a href="#cb6-10" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Creation of a diff column between 2 dates (in days)</span></span>
-<span id="cb6-11"><a href="#cb6-11" aria-hidden="true" tabindex="-1"></a>  result<span class="sc">$</span>diff <span class="ot">&lt;-</span> <span class="fu">round</span>(</span>
-<span id="cb6-12"><a href="#cb6-12" aria-hidden="true" tabindex="-1"></a>    <span class="fu">as.integer</span>(</span>
-<span id="cb6-13"><a href="#cb6-13" aria-hidden="true" tabindex="-1"></a>      <span class="fu">difftime</span>(</span>
-<span id="cb6-14"><a href="#cb6-14" aria-hidden="true" tabindex="-1"></a>        result<span class="sc">$</span>colDate2,</span>
-<span id="cb6-15"><a href="#cb6-15" aria-hidden="true" tabindex="-1"></a>        result<span class="sc">$</span>colDate1,</span>
-<span id="cb6-16"><a href="#cb6-16" aria-hidden="true" tabindex="-1"></a>        <span class="at">units =</span> <span class="st">"days"</span>)</span>
-<span id="cb6-17"><a href="#cb6-17" aria-hidden="true" tabindex="-1"></a>      ),</span>
-<span id="cb6-18"><a href="#cb6-18" aria-hidden="true" tabindex="-1"></a>    <span class="dv">0</span>)</span>
-<span id="cb6-19"><a href="#cb6-19" aria-hidden="true" tabindex="-1"></a>  </span>
-<span id="cb6-20"><a href="#cb6-20" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Filter rows</span></span>
-<span id="cb6-21"><a href="#cb6-21" aria-hidden="true" tabindex="-1"></a>  result <span class="ot">&lt;-</span> result[result<span class="sc">$</span>colInt<span class="sc">&gt;</span><span class="dv">2000</span> <span class="sc">&amp;</span> result<span class="sc">$</span>colInt<span class="sc">&lt;</span><span class="dv">8000</span>,]</span>
-<span id="cb6-22"><a href="#cb6-22" aria-hidden="true" tabindex="-1"></a>  </span>
-<span id="cb6-23"><a href="#cb6-23" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Grouping and aggregation</span></span>
-<span id="cb6-24"><a href="#cb6-24" aria-hidden="true" tabindex="-1"></a>  result_agg <span class="ot">&lt;-</span> <span class="fu">aggregate</span>(<span class="fu">cbind</span>(colInt, colNum) <span class="sc">~</span> colString, </span>
-<span id="cb6-25"><a href="#cb6-25" aria-hidden="true" tabindex="-1"></a>                          <span class="at">data =</span> result, </span>
-<span id="cb6-26"><a href="#cb6-26" aria-hidden="true" tabindex="-1"></a>                          <span class="at">FUN =</span> <span class="cf">function</span>(x) <span class="fu">c</span>(<span class="at">mean =</span> <span class="fu">mean</span>(x), </span>
-<span id="cb6-27"><a href="#cb6-27" aria-hidden="true" tabindex="-1"></a>                                              <span class="at">min =</span> <span class="fu">min</span>(x), </span>
-<span id="cb6-28"><a href="#cb6-28" aria-hidden="true" tabindex="-1"></a>                                              <span class="at">max =</span> <span class="fu">max</span>(x)))</span>
-<span id="cb6-29"><a href="#cb6-29" aria-hidden="true" tabindex="-1"></a>  </span>
-<span id="cb6-30"><a href="#cb6-30" aria-hidden="true" tabindex="-1"></a>  <span class="fu">return</span>(result_agg)</span>
-<span id="cb6-31"><a href="#cb6-31" aria-hidden="true" tabindex="-1"></a>}</span>
-<span id="cb6-32"><a href="#cb6-32" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-33"><a href="#cb6-33" aria-hidden="true" tabindex="-1"></a><span class="fu">tic</span>()</span>
-<span id="cb6-34"><a href="#cb6-34" aria-hidden="true" tabindex="-1"></a>res_rbase <span class="ot">&lt;-</span> <span class="fu">csv_rbase</span>()</span>
-<span id="cb6-35"><a href="#cb6-35" aria-hidden="true" tabindex="-1"></a><span class="fu">toc</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>7.668 sec elapsed</code></pre>
+<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>csv_lazy_polars <span class="ot">&lt;-</span> <span class="cf">function</span>() {</span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a><span class="co"># Reading the csv file (eager mode)</span></span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a>result_agg <span class="ot">&lt;-</span> pl<span class="sc">$</span><span class="fu">scan_csv</span>(<span class="at">path =</span> <span class="st">"Datasets/DataMultiTypes.csv"</span>)<span class="sc">$</span></span>
+<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Conversion of 2 columns to Date format</span></span>
+<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">with_columns</span>(</span>
+<span id="cb6-6"><a href="#cb6-6" aria-hidden="true" tabindex="-1"></a>    pl<span class="sc">$</span><span class="fu">col</span>(<span class="st">"colDate1"</span>)<span class="sc">$</span>str<span class="sc">$</span><span class="fu">strptime</span>(pl<span class="sc">$</span>Date, <span class="st">"%F %T"</span>, <span class="at">strict =</span> <span class="cn">FALSE</span>),</span>
+<span id="cb6-7"><a href="#cb6-7" aria-hidden="true" tabindex="-1"></a>    pl<span class="sc">$</span><span class="fu">col</span>(<span class="st">"colDate2"</span>)<span class="sc">$</span>str<span class="sc">$</span><span class="fu">strptime</span>(pl<span class="sc">$</span>Date, <span class="st">"%F %T"</span>, <span class="at">strict =</span> <span class="cn">FALSE</span>)</span>
+<span id="cb6-8"><a href="#cb6-8" aria-hidden="true" tabindex="-1"></a>  )<span class="sc">$</span></span>
+<span id="cb6-9"><a href="#cb6-9" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Creation of a diff column between 2 dates (in days)</span></span>
+<span id="cb6-10"><a href="#cb6-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">with_columns</span>(</span>
+<span id="cb6-11"><a href="#cb6-11" aria-hidden="true" tabindex="-1"></a>    (pl<span class="sc">$</span><span class="fu">col</span>(<span class="st">"colDate2"</span>) <span class="sc">-</span> pl<span class="sc">$</span><span class="fu">col</span>(<span class="st">"colDate1"</span>))<span class="sc">$</span>dt<span class="sc">$</span><span class="fu">days</span>()<span class="sc">$</span><span class="fu">alias</span>(<span class="st">"diff"</span>)</span>
+<span id="cb6-12"><a href="#cb6-12" aria-hidden="true" tabindex="-1"></a>  )<span class="sc">$</span></span>
+<span id="cb6-13"><a href="#cb6-13" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Filter rows</span></span>
+<span id="cb6-14"><a href="#cb6-14" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(</span>
+<span id="cb6-15"><a href="#cb6-15" aria-hidden="true" tabindex="-1"></a>    pl<span class="sc">$</span><span class="fu">col</span>(<span class="st">"colInt"</span>)<span class="sc">&gt;</span><span class="dv">2000</span> <span class="sc">&amp;</span> pl<span class="sc">$</span><span class="fu">col</span>(<span class="st">"colInt"</span>)<span class="sc">&lt;</span><span class="dv">8000</span></span>
+<span id="cb6-16"><a href="#cb6-16" aria-hidden="true" tabindex="-1"></a>  )<span class="sc">$</span></span>
+<span id="cb6-17"><a href="#cb6-17" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Grouping and aggregation</span></span>
+<span id="cb6-18"><a href="#cb6-18" aria-hidden="true" tabindex="-1"></a>  <span class="fu">groupby</span>(</span>
+<span id="cb6-19"><a href="#cb6-19" aria-hidden="true" tabindex="-1"></a>    <span class="st">"colString"</span>)<span class="sc">$</span></span>
+<span id="cb6-20"><a href="#cb6-20" aria-hidden="true" tabindex="-1"></a>  <span class="fu">agg</span>(</span>
+<span id="cb6-21"><a href="#cb6-21" aria-hidden="true" tabindex="-1"></a>    pl<span class="sc">$</span><span class="fu">col</span>(<span class="st">"colInt"</span>)<span class="sc">$</span><span class="fu">min</span>()<span class="sc">$</span><span class="fu">alias</span>(<span class="st">"min_colInt"</span>),</span>
+<span id="cb6-22"><a href="#cb6-22" aria-hidden="true" tabindex="-1"></a>    pl<span class="sc">$</span><span class="fu">col</span>(<span class="st">"colInt"</span>)<span class="sc">$</span><span class="fu">mean</span>()<span class="sc">$</span><span class="fu">alias</span>(<span class="st">"mean_colInt"</span>),</span>
+<span id="cb6-23"><a href="#cb6-23" aria-hidden="true" tabindex="-1"></a>    pl<span class="sc">$</span><span class="fu">col</span>(<span class="st">"colInt"</span>)<span class="sc">$</span><span class="fu">max</span>()<span class="sc">$</span><span class="fu">alias</span>(<span class="st">"max_colInt"</span>),</span>
+<span id="cb6-24"><a href="#cb6-24" aria-hidden="true" tabindex="-1"></a>    pl<span class="sc">$</span><span class="fu">col</span>(<span class="st">"colNum"</span>)<span class="sc">$</span><span class="fu">min</span>()<span class="sc">$</span><span class="fu">alias</span>(<span class="st">"min_colNum"</span>),</span>
+<span id="cb6-25"><a href="#cb6-25" aria-hidden="true" tabindex="-1"></a>    pl<span class="sc">$</span><span class="fu">col</span>(<span class="st">"colNum"</span>)<span class="sc">$</span><span class="fu">mean</span>()<span class="sc">$</span><span class="fu">alias</span>(<span class="st">"mean_colNum"</span>),</span>
+<span id="cb6-26"><a href="#cb6-26" aria-hidden="true" tabindex="-1"></a>    pl<span class="sc">$</span><span class="fu">col</span>(<span class="st">"colNum"</span>)<span class="sc">$</span><span class="fu">max</span>()<span class="sc">$</span><span class="fu">alias</span>(<span class="st">"max_colNum"</span>)</span>
+<span id="cb6-27"><a href="#cb6-27" aria-hidden="true" tabindex="-1"></a>  )</span>
+<span id="cb6-28"><a href="#cb6-28" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb6-29"><a href="#cb6-29" aria-hidden="true" tabindex="-1"></a>  <span class="fu">return</span>(result_agg)</span>
+<span id="cb6-30"><a href="#cb6-30" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb6-31"><a href="#cb6-31" aria-hidden="true" tabindex="-1"></a><span class="fu">tic</span>()</span>
+<span id="cb6-32"><a href="#cb6-32" aria-hidden="true" tabindex="-1"></a><span class="fu">csv_lazy_polars</span>()<span class="sc">$</span><span class="fu">collect</span>()</span>
+<span id="cb6-33"><a href="#cb6-33" aria-hidden="true" tabindex="-1"></a><span class="fu">toc</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(res_rbase)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div id="tabset-1-3" class="tab-pane" role="tabpanel" aria-labelledby="tabset-1-3-tab">
+<div class="cell">
+<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>csv_rbase <span class="ot">&lt;-</span> <span class="cf">function</span>() {</span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Reading the csv file</span></span>
+<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a>  result <span class="ot">&lt;-</span> <span class="fu">read.csv</span>(<span class="st">"Datasets/DataMultiTypes.csv"</span>)</span>
+<span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb7-6"><a href="#cb7-6" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Conversion of 2 columns to Date format</span></span>
+<span id="cb7-7"><a href="#cb7-7" aria-hidden="true" tabindex="-1"></a>  result<span class="sc">$</span>colDate1 <span class="ot">&lt;-</span> <span class="fu">as.Date</span>(result<span class="sc">$</span>colDate1)</span>
+<span id="cb7-8"><a href="#cb7-8" aria-hidden="true" tabindex="-1"></a>  result<span class="sc">$</span>colDate2 <span class="ot">&lt;-</span> <span class="fu">as.Date</span>(result<span class="sc">$</span>colDate2)</span>
+<span id="cb7-9"><a href="#cb7-9" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb7-10"><a href="#cb7-10" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Creation of a diff column between 2 dates (in days)</span></span>
+<span id="cb7-11"><a href="#cb7-11" aria-hidden="true" tabindex="-1"></a>  result<span class="sc">$</span>diff <span class="ot">&lt;-</span> <span class="fu">round</span>(</span>
+<span id="cb7-12"><a href="#cb7-12" aria-hidden="true" tabindex="-1"></a>    <span class="fu">as.integer</span>(</span>
+<span id="cb7-13"><a href="#cb7-13" aria-hidden="true" tabindex="-1"></a>      <span class="fu">difftime</span>(</span>
+<span id="cb7-14"><a href="#cb7-14" aria-hidden="true" tabindex="-1"></a>        result<span class="sc">$</span>colDate2,</span>
+<span id="cb7-15"><a href="#cb7-15" aria-hidden="true" tabindex="-1"></a>        result<span class="sc">$</span>colDate1,</span>
+<span id="cb7-16"><a href="#cb7-16" aria-hidden="true" tabindex="-1"></a>        <span class="at">units =</span> <span class="st">"days"</span>)</span>
+<span id="cb7-17"><a href="#cb7-17" aria-hidden="true" tabindex="-1"></a>      ),</span>
+<span id="cb7-18"><a href="#cb7-18" aria-hidden="true" tabindex="-1"></a>    <span class="dv">0</span>)</span>
+<span id="cb7-19"><a href="#cb7-19" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb7-20"><a href="#cb7-20" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Filter rows</span></span>
+<span id="cb7-21"><a href="#cb7-21" aria-hidden="true" tabindex="-1"></a>  result <span class="ot">&lt;-</span> result[result<span class="sc">$</span>colInt<span class="sc">&gt;</span><span class="dv">2000</span> <span class="sc">&amp;</span> result<span class="sc">$</span>colInt<span class="sc">&lt;</span><span class="dv">8000</span>,]</span>
+<span id="cb7-22"><a href="#cb7-22" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb7-23"><a href="#cb7-23" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Grouping and aggregation</span></span>
+<span id="cb7-24"><a href="#cb7-24" aria-hidden="true" tabindex="-1"></a>  result_agg <span class="ot">&lt;-</span> <span class="fu">aggregate</span>(<span class="fu">cbind</span>(colInt, colNum) <span class="sc">~</span> colString, </span>
+<span id="cb7-25"><a href="#cb7-25" aria-hidden="true" tabindex="-1"></a>                          <span class="at">data =</span> result, </span>
+<span id="cb7-26"><a href="#cb7-26" aria-hidden="true" tabindex="-1"></a>                          <span class="at">FUN =</span> <span class="cf">function</span>(x) <span class="fu">c</span>(<span class="at">mean =</span> <span class="fu">mean</span>(x), </span>
+<span id="cb7-27"><a href="#cb7-27" aria-hidden="true" tabindex="-1"></a>                                              <span class="at">min =</span> <span class="fu">min</span>(x), </span>
+<span id="cb7-28"><a href="#cb7-28" aria-hidden="true" tabindex="-1"></a>                                              <span class="at">max =</span> <span class="fu">max</span>(x)))</span>
+<span id="cb7-29"><a href="#cb7-29" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb7-30"><a href="#cb7-30" aria-hidden="true" tabindex="-1"></a>  <span class="fu">return</span>(result_agg)</span>
+<span id="cb7-31"><a href="#cb7-31" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb7-32"><a href="#cb7-32" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-33"><a href="#cb7-33" aria-hidden="true" tabindex="-1"></a><span class="fu">tic</span>()</span>
+<span id="cb7-34"><a href="#cb7-34" aria-hidden="true" tabindex="-1"></a>res_rbase <span class="ot">&lt;-</span> <span class="fu">csv_rbase</span>()</span>
+<span id="cb7-35"><a href="#cb7-35" aria-hidden="true" tabindex="-1"></a><span class="fu">toc</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>9.592 sec elapsed</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(res_rbase)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>  colString colInt.mean colInt.min colInt.max  colNum.mean   colNum.min
 1         A    4998.625   2001.000   7999.000 4.984446e-01 3.794138e-05
@@ -435,63 +486,52 @@ Note
 </div>
 </div>
 </div>
-<div id="tabset-1-3" class="tab-pane" role="tabpanel" aria-labelledby="tabset-1-3-tab">
+<div id="tabset-1-4" class="tab-pane" role="tabpanel" aria-labelledby="tabset-1-4-tab">
 <div class="cell">
-<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a>csv_dplyr <span class="ot">&lt;-</span> <span class="cf">function</span>() {</span>
-<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a>  </span>
-<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Reading the csv file</span></span>
-<span id="cb10-4"><a href="#cb10-4" aria-hidden="true" tabindex="-1"></a>  result <span class="ot">&lt;-</span> readr<span class="sc">::</span><span class="fu">read_csv</span>(<span class="st">"Datasets/DataMultiTypes.csv"</span>)</span>
-<span id="cb10-5"><a href="#cb10-5" aria-hidden="true" tabindex="-1"></a>  </span>
-<span id="cb10-6"><a href="#cb10-6" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Conversion of 2 columns to Date format</span></span>
-<span id="cb10-7"><a href="#cb10-7" aria-hidden="true" tabindex="-1"></a>  result <span class="ot">&lt;-</span> result <span class="sc">|&gt;</span></span>
-<span id="cb10-8"><a href="#cb10-8" aria-hidden="true" tabindex="-1"></a>    <span class="fu">mutate</span>(</span>
-<span id="cb10-9"><a href="#cb10-9" aria-hidden="true" tabindex="-1"></a>      <span class="at">colDate1 =</span> <span class="fu">as.Date</span>(colDate1),</span>
-<span id="cb10-10"><a href="#cb10-10" aria-hidden="true" tabindex="-1"></a>      <span class="at">colDate2 =</span> <span class="fu">as.Date</span>(colDate2)</span>
-<span id="cb10-11"><a href="#cb10-11" aria-hidden="true" tabindex="-1"></a>    )</span>
-<span id="cb10-12"><a href="#cb10-12" aria-hidden="true" tabindex="-1"></a>  </span>
-<span id="cb10-13"><a href="#cb10-13" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Creation of a diff column between 2 dates (in days)</span></span>
-<span id="cb10-14"><a href="#cb10-14" aria-hidden="true" tabindex="-1"></a>  result <span class="ot">&lt;-</span> result <span class="sc">|&gt;</span> </span>
-<span id="cb10-15"><a href="#cb10-15" aria-hidden="true" tabindex="-1"></a>    <span class="fu">mutate</span>(<span class="at">diff =</span> <span class="fu">round</span>(<span class="fu">as.integer</span>(<span class="fu">difftime</span>(colDate2, colDate1, <span class="at">units =</span> <span class="st">"days"</span>)),<span class="dv">0</span>))</span>
-<span id="cb10-16"><a href="#cb10-16" aria-hidden="true" tabindex="-1"></a>  </span>
-<span id="cb10-17"><a href="#cb10-17" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Filter rows</span></span>
-<span id="cb10-18"><a href="#cb10-18" aria-hidden="true" tabindex="-1"></a>  result <span class="ot">&lt;-</span> result <span class="sc">|&gt;</span></span>
-<span id="cb10-19"><a href="#cb10-19" aria-hidden="true" tabindex="-1"></a>    <span class="fu">filter</span>(</span>
-<span id="cb10-20"><a href="#cb10-20" aria-hidden="true" tabindex="-1"></a>      colInt<span class="sc">&gt;</span><span class="dv">2000</span> <span class="sc">&amp;</span> colInt<span class="sc">&lt;</span><span class="dv">8000</span></span>
-<span id="cb10-21"><a href="#cb10-21" aria-hidden="true" tabindex="-1"></a>      )</span>
-<span id="cb10-22"><a href="#cb10-22" aria-hidden="true" tabindex="-1"></a>  </span>
-<span id="cb10-23"><a href="#cb10-23" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Grouping and aggregation</span></span>
-<span id="cb10-24"><a href="#cb10-24" aria-hidden="true" tabindex="-1"></a>  result_agg <span class="ot">&lt;-</span> result <span class="sc">|&gt;</span></span>
-<span id="cb10-25"><a href="#cb10-25" aria-hidden="true" tabindex="-1"></a>    <span class="fu">group_by</span>(colString) <span class="sc">|&gt;</span> </span>
-<span id="cb10-26"><a href="#cb10-26" aria-hidden="true" tabindex="-1"></a>    <span class="fu">summarise</span>(</span>
-<span id="cb10-27"><a href="#cb10-27" aria-hidden="true" tabindex="-1"></a>      <span class="at">min_colInt =</span> <span class="fu">min</span>(colInt),</span>
-<span id="cb10-28"><a href="#cb10-28" aria-hidden="true" tabindex="-1"></a>      <span class="at">mean_colInt =</span> <span class="fu">mean</span>(colInt),</span>
-<span id="cb10-29"><a href="#cb10-29" aria-hidden="true" tabindex="-1"></a>      <span class="at">mas_colInt =</span> <span class="fu">max</span>(colInt),</span>
-<span id="cb10-30"><a href="#cb10-30" aria-hidden="true" tabindex="-1"></a>      <span class="at">min_colNum =</span> <span class="fu">min</span>(colNum),</span>
-<span id="cb10-31"><a href="#cb10-31" aria-hidden="true" tabindex="-1"></a>      <span class="at">mean_colNum =</span> <span class="fu">mean</span>(colNum),</span>
-<span id="cb10-32"><a href="#cb10-32" aria-hidden="true" tabindex="-1"></a>      <span class="at">max_colNum =</span> <span class="fu">max</span>(colNum)</span>
-<span id="cb10-33"><a href="#cb10-33" aria-hidden="true" tabindex="-1"></a>  )</span>
-<span id="cb10-34"><a href="#cb10-34" aria-hidden="true" tabindex="-1"></a>  </span>
-<span id="cb10-35"><a href="#cb10-35" aria-hidden="true" tabindex="-1"></a>  <span class="fu">return</span>(result_agg)</span>
-<span id="cb10-36"><a href="#cb10-36" aria-hidden="true" tabindex="-1"></a>}</span>
-<span id="cb10-37"><a href="#cb10-37" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb10-38"><a href="#cb10-38" aria-hidden="true" tabindex="-1"></a><span class="fu">tic</span>()</span>
-<span id="cb10-39"><a href="#cb10-39" aria-hidden="true" tabindex="-1"></a>res_dplyr <span class="ot">&lt;-</span> <span class="fu">csv_dplyr</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stderr">
-<pre><code>Rows: 500000 Columns: 6
-── Column specification ────────────────────────────────────────────────────────
-Delimiter: ","
-chr  (2): colString, colFactor
-dbl  (2): colInt, colNum
-dttm (2): colDate1, colDate2
-
-ℹ Use `spec()` to retrieve the full column specification for this data.
-ℹ Specify the column types or set `show_col_types = FALSE` to quiet this message.</code></pre>
-</div>
-<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="fu">toc</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a>csv_dplyr <span class="ot">&lt;-</span> <span class="cf">function</span>() {</span>
+<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Reading the csv file</span></span>
+<span id="cb11-4"><a href="#cb11-4" aria-hidden="true" tabindex="-1"></a>  result <span class="ot">&lt;-</span> readr<span class="sc">::</span><span class="fu">read_csv</span>(<span class="st">"Datasets/DataMultiTypes.csv"</span>, <span class="at">show_col_types =</span> <span class="cn">FALSE</span>)</span>
+<span id="cb11-5"><a href="#cb11-5" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb11-6"><a href="#cb11-6" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Conversion of 2 columns to Date format</span></span>
+<span id="cb11-7"><a href="#cb11-7" aria-hidden="true" tabindex="-1"></a>  result <span class="ot">&lt;-</span> result <span class="sc">|&gt;</span></span>
+<span id="cb11-8"><a href="#cb11-8" aria-hidden="true" tabindex="-1"></a>    <span class="fu">mutate</span>(</span>
+<span id="cb11-9"><a href="#cb11-9" aria-hidden="true" tabindex="-1"></a>      <span class="at">colDate1 =</span> <span class="fu">as.Date</span>(colDate1),</span>
+<span id="cb11-10"><a href="#cb11-10" aria-hidden="true" tabindex="-1"></a>      <span class="at">colDate2 =</span> <span class="fu">as.Date</span>(colDate2)</span>
+<span id="cb11-11"><a href="#cb11-11" aria-hidden="true" tabindex="-1"></a>    )</span>
+<span id="cb11-12"><a href="#cb11-12" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb11-13"><a href="#cb11-13" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Creation of a diff column between 2 dates (in days)</span></span>
+<span id="cb11-14"><a href="#cb11-14" aria-hidden="true" tabindex="-1"></a>  result <span class="ot">&lt;-</span> result <span class="sc">|&gt;</span> </span>
+<span id="cb11-15"><a href="#cb11-15" aria-hidden="true" tabindex="-1"></a>    <span class="fu">mutate</span>(<span class="at">diff =</span> <span class="fu">round</span>(<span class="fu">as.integer</span>(<span class="fu">difftime</span>(colDate2, colDate1, <span class="at">units =</span> <span class="st">"days"</span>)),<span class="dv">0</span>))</span>
+<span id="cb11-16"><a href="#cb11-16" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb11-17"><a href="#cb11-17" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Filter rows</span></span>
+<span id="cb11-18"><a href="#cb11-18" aria-hidden="true" tabindex="-1"></a>  result <span class="ot">&lt;-</span> result <span class="sc">|&gt;</span></span>
+<span id="cb11-19"><a href="#cb11-19" aria-hidden="true" tabindex="-1"></a>    <span class="fu">filter</span>(</span>
+<span id="cb11-20"><a href="#cb11-20" aria-hidden="true" tabindex="-1"></a>      colInt<span class="sc">&gt;</span><span class="dv">2000</span> <span class="sc">&amp;</span> colInt<span class="sc">&lt;</span><span class="dv">8000</span></span>
+<span id="cb11-21"><a href="#cb11-21" aria-hidden="true" tabindex="-1"></a>      )</span>
+<span id="cb11-22"><a href="#cb11-22" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb11-23"><a href="#cb11-23" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Grouping and aggregation</span></span>
+<span id="cb11-24"><a href="#cb11-24" aria-hidden="true" tabindex="-1"></a>  result_agg <span class="ot">&lt;-</span> result <span class="sc">|&gt;</span></span>
+<span id="cb11-25"><a href="#cb11-25" aria-hidden="true" tabindex="-1"></a>    <span class="fu">group_by</span>(colString) <span class="sc">|&gt;</span> </span>
+<span id="cb11-26"><a href="#cb11-26" aria-hidden="true" tabindex="-1"></a>    <span class="fu">summarise</span>(</span>
+<span id="cb11-27"><a href="#cb11-27" aria-hidden="true" tabindex="-1"></a>      <span class="at">min_colInt =</span> <span class="fu">min</span>(colInt),</span>
+<span id="cb11-28"><a href="#cb11-28" aria-hidden="true" tabindex="-1"></a>      <span class="at">mean_colInt =</span> <span class="fu">mean</span>(colInt),</span>
+<span id="cb11-29"><a href="#cb11-29" aria-hidden="true" tabindex="-1"></a>      <span class="at">mas_colInt =</span> <span class="fu">max</span>(colInt),</span>
+<span id="cb11-30"><a href="#cb11-30" aria-hidden="true" tabindex="-1"></a>      <span class="at">min_colNum =</span> <span class="fu">min</span>(colNum),</span>
+<span id="cb11-31"><a href="#cb11-31" aria-hidden="true" tabindex="-1"></a>      <span class="at">mean_colNum =</span> <span class="fu">mean</span>(colNum),</span>
+<span id="cb11-32"><a href="#cb11-32" aria-hidden="true" tabindex="-1"></a>      <span class="at">max_colNum =</span> <span class="fu">max</span>(colNum)</span>
+<span id="cb11-33"><a href="#cb11-33" aria-hidden="true" tabindex="-1"></a>  )</span>
+<span id="cb11-34"><a href="#cb11-34" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb11-35"><a href="#cb11-35" aria-hidden="true" tabindex="-1"></a>  <span class="fu">return</span>(result_agg)</span>
+<span id="cb11-36"><a href="#cb11-36" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb11-37"><a href="#cb11-37" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-38"><a href="#cb11-38" aria-hidden="true" tabindex="-1"></a><span class="fu">tic</span>()</span>
+<span id="cb11-39"><a href="#cb11-39" aria-hidden="true" tabindex="-1"></a>res_dplyr <span class="ot">&lt;-</span> <span class="fu">csv_dplyr</span>()</span>
+<span id="cb11-40"><a href="#cb11-40" aria-hidden="true" tabindex="-1"></a><span class="fu">toc</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>0.848 sec elapsed</code></pre>
+<pre><code>1.291 sec elapsed</code></pre>
 </div>
-<div class="sourceCode cell-code" id="cb14"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(res_dplyr)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(res_dplyr)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 3 × 7
   colString min_colInt mean_colInt mas_colInt min_colNum mean_colNum max_colNum
@@ -502,47 +542,33 @@ dttm (2): colDate1, colDate2
 </div>
 </div>
 </div>
-<div id="tabset-1-4" class="tab-pane" role="tabpanel" aria-labelledby="tabset-1-4-tab">
+<div id="tabset-1-5" class="tab-pane" role="tabpanel" aria-labelledby="tabset-1-5-tab">
 <div class="cell">
-<div class="sourceCode cell-code" id="cb16"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a>csv_dt <span class="ot">&lt;-</span> <span class="cf">function</span>() {</span>
-<span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a>  </span>
-<span id="cb16-3"><a href="#cb16-3" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Reading the csv file</span></span>
-<span id="cb16-4"><a href="#cb16-4" aria-hidden="true" tabindex="-1"></a>  result <span class="ot">&lt;-</span> data.table<span class="sc">::</span><span class="fu">fread</span>(<span class="st">"Datasets/DataMultiTypes.csv"</span>)</span>
-<span id="cb16-5"><a href="#cb16-5" aria-hidden="true" tabindex="-1"></a>  </span>
-<span id="cb16-6"><a href="#cb16-6" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Conversion data.frame to data.table</span></span>
-<span id="cb16-7"><a href="#cb16-7" aria-hidden="true" tabindex="-1"></a>  result_dt <span class="ot">&lt;-</span> <span class="fu">as.data.table</span>(result)</span>
-<span id="cb16-8"><a href="#cb16-8" aria-hidden="true" tabindex="-1"></a>  </span>
-<span id="cb16-9"><a href="#cb16-9" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Conversion of 2 columns to Date format</span></span>
-<span id="cb16-10"><a href="#cb16-10" aria-hidden="true" tabindex="-1"></a>  result_dt <span class="ot">&lt;-</span> result_dt[, <span class="st">`</span><span class="at">:=</span><span class="st">`</span>(<span class="at">colDate1 =</span> <span class="fu">as.Date</span>(colDate1),<span class="at">colDate2 =</span> <span class="fu">as.Date</span>(colDate2))]</span>
-<span id="cb16-11"><a href="#cb16-11" aria-hidden="true" tabindex="-1"></a>  </span>
-<span id="cb16-12"><a href="#cb16-12" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Creation of a diff column between 2 dates (in days)</span></span>
-<span id="cb16-13"><a href="#cb16-13" aria-hidden="true" tabindex="-1"></a>  result_dt <span class="ot">&lt;-</span> result_dt[, diff <span class="sc">:</span><span class="er">=</span> <span class="fu">as.integer</span>(<span class="fu">difftime</span>(colDate2, colDate1, <span class="at">units =</span> <span class="st">"days"</span>))]</span>
-<span id="cb16-14"><a href="#cb16-14" aria-hidden="true" tabindex="-1"></a>  </span>
-<span id="cb16-15"><a href="#cb16-15" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Filter rows</span></span>
-<span id="cb16-16"><a href="#cb16-16" aria-hidden="true" tabindex="-1"></a>  result_dt <span class="ot">&lt;-</span> result_dt[result_dt<span class="sc">$</span>colInt<span class="sc">&gt;</span><span class="dv">2000</span> <span class="sc">&amp;</span> result<span class="sc">$</span>colInt<span class="sc">&lt;</span><span class="dv">8000</span>]</span>
-<span id="cb16-17"><a href="#cb16-17" aria-hidden="true" tabindex="-1"></a>  </span>
-<span id="cb16-18"><a href="#cb16-18" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Grouping and aggregation</span></span>
-<span id="cb16-19"><a href="#cb16-19" aria-hidden="true" tabindex="-1"></a>  result_agg <span class="ot">&lt;-</span> result_dt[, .(</span>
-<span id="cb16-20"><a href="#cb16-20" aria-hidden="true" tabindex="-1"></a>      <span class="at">min_colInt =</span> <span class="fu">min</span>(colInt),</span>
-<span id="cb16-21"><a href="#cb16-21" aria-hidden="true" tabindex="-1"></a>      <span class="at">mean_colInt =</span> <span class="fu">mean</span>(colInt),</span>
-<span id="cb16-22"><a href="#cb16-22" aria-hidden="true" tabindex="-1"></a>      <span class="at">mas_colInt =</span> <span class="fu">max</span>(colInt),</span>
-<span id="cb16-23"><a href="#cb16-23" aria-hidden="true" tabindex="-1"></a>      <span class="at">min_colNum =</span> <span class="fu">min</span>(colNum),</span>
-<span id="cb16-24"><a href="#cb16-24" aria-hidden="true" tabindex="-1"></a>      <span class="at">mean_colNum =</span> <span class="fu">mean</span>(colNum),</span>
-<span id="cb16-25"><a href="#cb16-25" aria-hidden="true" tabindex="-1"></a>      <span class="at">max_colNum =</span> <span class="fu">max</span>(colNum)</span>
-<span id="cb16-26"><a href="#cb16-26" aria-hidden="true" tabindex="-1"></a>    ), by <span class="ot">=</span> colString]</span>
-<span id="cb16-27"><a href="#cb16-27" aria-hidden="true" tabindex="-1"></a>  </span>
-<span id="cb16-28"><a href="#cb16-28" aria-hidden="true" tabindex="-1"></a>  <span class="fu">return</span>(result_agg)</span>
-<span id="cb16-29"><a href="#cb16-29" aria-hidden="true" tabindex="-1"></a>}</span>
-<span id="cb16-30"><a href="#cb16-30" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb16-31"><a href="#cb16-31" aria-hidden="true" tabindex="-1"></a><span class="fu">tic</span>()</span>
-<span id="cb16-32"><a href="#cb16-32" aria-hidden="true" tabindex="-1"></a>res_dt <span class="ot">&lt;-</span> <span class="fu">csv_dt</span>()</span>
-<span id="cb16-33"><a href="#cb16-33" aria-hidden="true" tabindex="-1"></a><span class="fu">toc</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb15"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a>csv_dt <span class="ot">&lt;-</span> <span class="cf">function</span>() {</span>
+<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a>  result_agg <span class="ot">&lt;-</span> <span class="fu">as.data.table</span>(data.table<span class="sc">::</span><span class="fu">fread</span>(<span class="st">"Datasets/DataMultiTypes.csv"</span>))[, <span class="st">`</span><span class="at">:=</span><span class="st">`</span>(</span>
+<span id="cb15-4"><a href="#cb15-4" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb15-5"><a href="#cb15-5" aria-hidden="true" tabindex="-1"></a>  <span class="at">colDate1 =</span> <span class="fu">as.Date</span>(colDate1),</span>
+<span id="cb15-6"><a href="#cb15-6" aria-hidden="true" tabindex="-1"></a>  <span class="at">colDate2 =</span> <span class="fu">as.Date</span>(colDate2),</span>
+<span id="cb15-7"><a href="#cb15-7" aria-hidden="true" tabindex="-1"></a>  <span class="at">diff =</span> <span class="fu">as.integer</span>(<span class="fu">difftime</span>(colDate2, colDate1, <span class="at">units =</span> <span class="st">"days"</span>))</span>
+<span id="cb15-8"><a href="#cb15-8" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb15-9"><a href="#cb15-9" aria-hidden="true" tabindex="-1"></a>)][colInt <span class="sc">&gt;</span> <span class="dv">2000</span> <span class="sc">&amp;</span> colInt <span class="sc">&lt;</span> <span class="dv">8000</span>, .(</span>
+<span id="cb15-10"><a href="#cb15-10" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb15-11"><a href="#cb15-11" aria-hidden="true" tabindex="-1"></a>  <span class="at">min_colInt =</span> <span class="fu">min</span>(colInt),</span>
+<span id="cb15-12"><a href="#cb15-12" aria-hidden="true" tabindex="-1"></a>  <span class="at">mean_colInt =</span> <span class="fu">mean</span>(colInt),</span>
+<span id="cb15-13"><a href="#cb15-13" aria-hidden="true" tabindex="-1"></a>  <span class="at">max_colInt =</span> <span class="fu">max</span>(colInt),</span>
+<span id="cb15-14"><a href="#cb15-14" aria-hidden="true" tabindex="-1"></a>  <span class="at">min_colNum =</span> <span class="fu">min</span>(colNum),</span>
+<span id="cb15-15"><a href="#cb15-15" aria-hidden="true" tabindex="-1"></a>  <span class="at">mean_colNum =</span> <span class="fu">mean</span>(colNum),</span>
+<span id="cb15-16"><a href="#cb15-16" aria-hidden="true" tabindex="-1"></a>  <span class="at">max_colNum =</span> <span class="fu">max</span>(colNum)</span>
+<span id="cb15-17"><a href="#cb15-17" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb15-18"><a href="#cb15-18" aria-hidden="true" tabindex="-1"></a>), by <span class="ot">=</span> colString]</span>
+<span id="cb15-19"><a href="#cb15-19" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb15-20"><a href="#cb15-20" aria-hidden="true" tabindex="-1"></a>  <span class="fu">return</span>(result_agg)</span>
+<span id="cb15-21"><a href="#cb15-21" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb15-22"><a href="#cb15-22" aria-hidden="true" tabindex="-1"></a><span class="fu">tic</span>()</span>
+<span id="cb15-23"><a href="#cb15-23" aria-hidden="true" tabindex="-1"></a><span class="fu">csv_dt</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>0.388 sec elapsed</code></pre>
-</div>
-<div class="sourceCode cell-code" id="cb18"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(res_dt)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>   colString min_colInt mean_colInt mas_colInt   min_colNum mean_colNum
+<pre><code>   colString min_colInt mean_colInt max_colInt   min_colNum mean_colNum
 1:         B       2001    5004.311       7999 3.385660e-05   0.5005457
 2:         C       2001    5001.243       7999 3.045052e-05   0.5014723
 3:         A       2001    4998.625       7999 3.794138e-05   0.4984446
@@ -551,27 +577,12 @@ dttm (2): colDate1, colDate2
 2:  0.9999921
 3:  0.9999879</code></pre>
 </div>
-</div>
-</div>
-</div>
-</div>
-<section id="results-polars-vs-others-packages" class="level3" data-number="5.1.1">
-<h3 data-number="5.1.1" class="anchored" data-anchor-id="results-polars-vs-others-packages"><span class="header-section-number">5.1.1</span> Results polars vs others packages</h3>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb20"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a><span class="fu">microbenchmark</span>(</span>
-<span id="cb20-2"><a href="#cb20-2" aria-hidden="true" tabindex="-1"></a>  <span class="st">"R base"</span> <span class="ot">=</span> <span class="fu">csv_rbase</span>(),</span>
-<span id="cb20-3"><a href="#cb20-3" aria-hidden="true" tabindex="-1"></a>  <span class="st">"dplyr"</span> <span class="ot">=</span> <span class="fu">csv_dplyr</span>(),</span>
-<span id="cb20-4"><a href="#cb20-4" aria-hidden="true" tabindex="-1"></a>  <span class="st">"data.table"</span> <span class="ot">=</span> <span class="fu">as.data.frame</span>(<span class="fu">csv_dt</span>()),</span>
-<span id="cb20-5"><a href="#cb20-5" aria-hidden="true" tabindex="-1"></a>  <span class="st">"polars"</span> <span class="ot">=</span> <span class="fu">csv_polars</span>()<span class="sc">$</span><span class="fu">to_data_frame</span>(),</span>
-<span id="cb20-6"><a href="#cb20-6" aria-hidden="true" tabindex="-1"></a>  <span class="at">times =</span> <span class="dv">5</span></span>
-<span id="cb20-7"><a href="#cb20-7" aria-hidden="true" tabindex="-1"></a> )</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb17"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="fu">toc</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>Unit: milliseconds
-       expr       min        lq      mean    median        uq       max neval
-     R base 7202.9603 7318.0118 7544.4337 7368.2829 7811.5817 8021.3317     5
-      dplyr  565.5656  576.0979  583.6842  589.9613  592.7375  594.0585     5
- data.table  216.2132  236.8803  300.1974  247.9464  315.2026  484.7444     5
-     polars  221.6241  223.9986  229.1200  226.1561  232.4574  241.3640     5</code></pre>
+<pre><code>0.307 sec elapsed</code></pre>
+</div>
+</div>
+</div>
 </div>
 </div>
 <div class="callout callout-style-default callout-note callout-titled">
@@ -585,12 +596,517 @@ Note
 </div>
 <div class="callout-body-container callout-body">
 <p><strong>The data processing performed is not entirely equivalent, since it includes in addition:</strong><br>
-- for <code>polars</code>, conversion to data.frame R at the end of processing<br>
+- for <code>polars (lazy mode)</code>, conversion to data.frame R at the end of processing<br>
 - for <code>data.table</code>, conversion to dt format at the start, then conversion to data.frame R at the end of processing</p>
 </div>
 </div>
-<p>👉 At this point in the comparison, we can conclude that the 2 fastest ways of querying a csv file are to use <code>data.table</code> and <code>polars</code> with <strong>eager mode</strong> 🏆<br>
-In the following section, we will keep these two approaches, but introduce a new challenger : <code>polars</code> with <strong>lazy mode</strong>.</p>
+<section id="results-eager-vs-lazy-mode" class="level3" data-number="5.1.1">
+<h3 data-number="5.1.1" class="anchored" data-anchor-id="results-eager-vs-lazy-mode"><span class="header-section-number">5.1.1</span> Results eager vs lazy mode</h3>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb19"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a>csv_bmk <span class="ot">&lt;-</span> <span class="fu">microbenchmark</span>(</span>
+<span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a>  <span class="st">"polars (eager) from csv file"</span> <span class="ot">=</span> <span class="fu">csv_eager_polars</span>(),</span>
+<span id="cb19-3"><a href="#cb19-3" aria-hidden="true" tabindex="-1"></a>  <span class="co">#"polars (lazy) from csv file" = csv_lazy_polars()$collect(),</span></span>
+<span id="cb19-4"><a href="#cb19-4" aria-hidden="true" tabindex="-1"></a>  <span class="st">"R base - from csv file"</span> <span class="ot">=</span> <span class="fu">csv_rbase</span>(),</span>
+<span id="cb19-5"><a href="#cb19-5" aria-hidden="true" tabindex="-1"></a>  <span class="st">"dplyr - from csv file"</span> <span class="ot">=</span> <span class="fu">csv_dplyr</span>(),</span>
+<span id="cb19-6"><a href="#cb19-6" aria-hidden="true" tabindex="-1"></a>  <span class="st">"data.table - from csv file"</span> <span class="ot">=</span> <span class="fu">as.data.frame</span>(<span class="fu">csv_dt</span>()),</span>
+<span id="cb19-7"><a href="#cb19-7" aria-hidden="true" tabindex="-1"></a>  <span class="at">times =</span> <span class="dv">5</span></span>
+<span id="cb19-8"><a href="#cb19-8" aria-hidden="true" tabindex="-1"></a> )</span>
+<span id="cb19-9"><a href="#cb19-9" aria-hidden="true" tabindex="-1"></a>csv_bmk</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Unit: milliseconds
+                         expr       min        lq      mean    median        uq
+ polars (eager) from csv file  274.7602  309.8320  309.5637  310.6163  322.7427
+       R base - from csv file 8753.3133 9179.3793 9433.8860 9313.7476 9798.9495
+        dplyr - from csv file  676.0451  859.6934  871.9814  864.3717  970.6825
+   data.table - from csv file  265.9834  269.1113  319.2773  312.9807  318.0917
+        max neval
+   329.8675     5
+ 10124.0402     5
+   989.1142     5
+   430.2196     5</code></pre>
+</div>
+</div>
+<p>👉 The data processing is at least twice as fast with <strong>lazy mode</strong> <code>polars</code>! 🏆</p>
+</section>
+</section>
+<section id="from-an-unique-parquet-file" class="level2" data-number="5.2">
+<h2 data-number="5.2" class="anchored" data-anchor-id="from-an-unique-parquet-file"><span class="header-section-number">5.2</span> From an unique parquet file</h2>
+<p>For this comparison on <strong>unique parquet file</strong>, we will use :</p>
+<ul>
+<li>For <strong>polars (lazy)</strong>, the <code>pl$scan_parquet()</code> method</li>
+<li>For <strong>arrow (eager)</strong>, the <code>arrow::read_parquet()</code> method</li>
+<li>For <strong>arrow (lazy)</strong>, the <code>arrow::open_dataset()</code> method</li>
+<li>For <strong>Duckdb and SQL</strong>, the <code>arrow::read_parquet()</code> and <code>DBI::dbGetQuery()</code> methods</li>
+</ul>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Note
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>With arrow, you can use the <a href="https://arrow.apache.org/docs/dev/r/reference/acero.html">following verbs from the tidyverse</a> to do transformations on your tables.</p>
+</div>
+</div>
+<div class="tabset-margin-container"></div><div class="panel-tabset">
+<ul class="nav nav-tabs" role="tablist"><li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-2-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-2-1" role="tab" aria-controls="tabset-2-1" aria-selected="true">polars (lazy)</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-2-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-2-2" role="tab" aria-controls="tabset-2-2" aria-selected="false">arrow (eager)</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-2-3-tab" data-bs-toggle="tab" data-bs-target="#tabset-2-3" role="tab" aria-controls="tabset-2-3" aria-selected="false">arrow (lazy)</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-2-4-tab" data-bs-toggle="tab" data-bs-target="#tabset-2-4" role="tab" aria-controls="tabset-2-4" aria-selected="false">Duckdb and SQL</a></li></ul>
+<div class="tab-content">
+<div id="tabset-2-1" class="tab-pane active" role="tabpanel" aria-labelledby="tabset-2-1-tab">
+<div class="cell">
+<div class="sourceCode cell-code" id="cb21"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a>parquet_polars_lazy <span class="ot">&lt;-</span> <span class="cf">function</span>(variables) {</span>
+<span id="cb21-2"><a href="#cb21-2" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb21-3"><a href="#cb21-3" aria-hidden="true" tabindex="-1"></a>  result <span class="ot">&lt;-</span> pl<span class="sc">$</span><span class="fu">scan_parquet</span>(<span class="at">file =</span> <span class="st">"Datasets/DataMultiTypes.parquet"</span>)<span class="sc">$</span></span>
+<span id="cb21-4"><a href="#cb21-4" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Conversion of 2 columns to Date format</span></span>
+<span id="cb21-5"><a href="#cb21-5" aria-hidden="true" tabindex="-1"></a>    <span class="fu">with_columns</span>(</span>
+<span id="cb21-6"><a href="#cb21-6" aria-hidden="true" tabindex="-1"></a>      pl<span class="sc">$</span><span class="fu">col</span>(<span class="st">"colDate1"</span>)<span class="sc">$</span>str<span class="sc">$</span><span class="fu">strptime</span>(pl<span class="sc">$</span>Date, <span class="st">"%F %T"</span>, <span class="at">strict =</span> <span class="cn">FALSE</span>),</span>
+<span id="cb21-7"><a href="#cb21-7" aria-hidden="true" tabindex="-1"></a>      pl<span class="sc">$</span><span class="fu">col</span>(<span class="st">"colDate2"</span>)<span class="sc">$</span>str<span class="sc">$</span><span class="fu">strptime</span>(pl<span class="sc">$</span>Date, <span class="st">"%F %T"</span>, <span class="at">strict =</span> <span class="cn">FALSE</span>)</span>
+<span id="cb21-8"><a href="#cb21-8" aria-hidden="true" tabindex="-1"></a>    )<span class="sc">$</span></span>
+<span id="cb21-9"><a href="#cb21-9" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Filter rows</span></span>
+<span id="cb21-10"><a href="#cb21-10" aria-hidden="true" tabindex="-1"></a>    <span class="fu">filter</span>(</span>
+<span id="cb21-11"><a href="#cb21-11" aria-hidden="true" tabindex="-1"></a>      pl<span class="sc">$</span><span class="fu">col</span>(<span class="st">"colInt"</span>)<span class="sc">&gt;</span><span class="dv">2000</span> <span class="sc">&amp;</span> pl<span class="sc">$</span><span class="fu">col</span>(<span class="st">"colInt"</span>)<span class="sc">&lt;</span><span class="dv">8000</span></span>
+<span id="cb21-12"><a href="#cb21-12" aria-hidden="true" tabindex="-1"></a>    )<span class="sc">$</span></span>
+<span id="cb21-13"><a href="#cb21-13" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Grouping and aggregation</span></span>
+<span id="cb21-14"><a href="#cb21-14" aria-hidden="true" tabindex="-1"></a>    <span class="fu">groupby</span>(</span>
+<span id="cb21-15"><a href="#cb21-15" aria-hidden="true" tabindex="-1"></a>      <span class="st">"colString"</span>)<span class="sc">$</span></span>
+<span id="cb21-16"><a href="#cb21-16" aria-hidden="true" tabindex="-1"></a>    <span class="fu">agg</span>(</span>
+<span id="cb21-17"><a href="#cb21-17" aria-hidden="true" tabindex="-1"></a>      pl<span class="sc">$</span><span class="fu">col</span>(<span class="st">"colInt"</span>)<span class="sc">$</span><span class="fu">min</span>()<span class="sc">$</span><span class="fu">alias</span>(<span class="st">"min_colInt"</span>),</span>
+<span id="cb21-18"><a href="#cb21-18" aria-hidden="true" tabindex="-1"></a>      pl<span class="sc">$</span><span class="fu">col</span>(<span class="st">"colInt"</span>)<span class="sc">$</span><span class="fu">mean</span>()<span class="sc">$</span><span class="fu">alias</span>(<span class="st">"mean_colInt"</span>),</span>
+<span id="cb21-19"><a href="#cb21-19" aria-hidden="true" tabindex="-1"></a>      pl<span class="sc">$</span><span class="fu">col</span>(<span class="st">"colInt"</span>)<span class="sc">$</span><span class="fu">max</span>()<span class="sc">$</span><span class="fu">alias</span>(<span class="st">"max_colInt"</span>),</span>
+<span id="cb21-20"><a href="#cb21-20" aria-hidden="true" tabindex="-1"></a>      pl<span class="sc">$</span><span class="fu">col</span>(<span class="st">"colNum"</span>)<span class="sc">$</span><span class="fu">min</span>()<span class="sc">$</span><span class="fu">alias</span>(<span class="st">"min_colNum"</span>),</span>
+<span id="cb21-21"><a href="#cb21-21" aria-hidden="true" tabindex="-1"></a>      pl<span class="sc">$</span><span class="fu">col</span>(<span class="st">"colNum"</span>)<span class="sc">$</span><span class="fu">mean</span>()<span class="sc">$</span><span class="fu">alias</span>(<span class="st">"mean_colNum"</span>),</span>
+<span id="cb21-22"><a href="#cb21-22" aria-hidden="true" tabindex="-1"></a>      pl<span class="sc">$</span><span class="fu">col</span>(<span class="st">"colNum"</span>)<span class="sc">$</span><span class="fu">max</span>()<span class="sc">$</span><span class="fu">alias</span>(<span class="st">"max_colNum"</span>)</span>
+<span id="cb21-23"><a href="#cb21-23" aria-hidden="true" tabindex="-1"></a>    )</span>
+<span id="cb21-24"><a href="#cb21-24" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb21-25"><a href="#cb21-25" aria-hidden="true" tabindex="-1"></a>  <span class="fu">return</span>(result)</span>
+<span id="cb21-26"><a href="#cb21-26" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb21-27"><a href="#cb21-27" aria-hidden="true" tabindex="-1"></a><span class="fu">tic</span>()</span>
+<span id="cb21-28"><a href="#cb21-28" aria-hidden="true" tabindex="-1"></a><span class="fu">parquet_polars_lazy</span>()<span class="sc">$</span><span class="fu">collect</span>()<span class="sc">$</span><span class="fu">to_data_frame</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>  colString min_colInt mean_colInt max_colInt   min_colNum mean_colNum
+1         C       2001    5001.243       7999 3.045052e-05   0.5014723
+2         A       2001    4998.625       7999 3.794138e-05   0.4984446
+3         B       2001    5004.311       7999 3.385660e-05   0.5005457
+  max_colNum
+1  0.9999921
+2  0.9999879
+3  0.9999863</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb23"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a><span class="fu">toc</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>0.063 sec elapsed</code></pre>
+</div>
+</div>
+</div>
+<div id="tabset-2-2" class="tab-pane" role="tabpanel" aria-labelledby="tabset-2-2-tab">
+<div class="cell">
+<div class="sourceCode cell-code" id="cb25"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a>arrow_eager <span class="ot">&lt;-</span> <span class="cf">function</span>(variables) {</span>
+<span id="cb25-2"><a href="#cb25-2" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb25-3"><a href="#cb25-3" aria-hidden="true" tabindex="-1"></a>  result <span class="ot">&lt;-</span> arrow<span class="sc">::</span><span class="fu">read_parquet</span>(<span class="st">"Datasets/DataMultiTypes.parquet"</span>) <span class="sc">|&gt;</span></span>
+<span id="cb25-4"><a href="#cb25-4" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb25-5"><a href="#cb25-5" aria-hidden="true" tabindex="-1"></a>    <span class="fu">mutate</span>(</span>
+<span id="cb25-6"><a href="#cb25-6" aria-hidden="true" tabindex="-1"></a>      <span class="co"># Conversion of 2 columns to Date format</span></span>
+<span id="cb25-7"><a href="#cb25-7" aria-hidden="true" tabindex="-1"></a>      <span class="at">colDate1 =</span> <span class="fu">as.Date</span>(colDate1),</span>
+<span id="cb25-8"><a href="#cb25-8" aria-hidden="true" tabindex="-1"></a>      <span class="at">colDate2 =</span> <span class="fu">as.Date</span>(colDate2)</span>
+<span id="cb25-9"><a href="#cb25-9" aria-hidden="true" tabindex="-1"></a>    ) <span class="sc">|&gt;</span></span>
+<span id="cb25-10"><a href="#cb25-10" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Filter rows</span></span>
+<span id="cb25-11"><a href="#cb25-11" aria-hidden="true" tabindex="-1"></a>    <span class="fu">filter</span>(</span>
+<span id="cb25-12"><a href="#cb25-12" aria-hidden="true" tabindex="-1"></a>      colInt<span class="sc">&gt;</span><span class="dv">2000</span> <span class="sc">&amp;</span> colInt<span class="sc">&lt;</span><span class="dv">8000</span></span>
+<span id="cb25-13"><a href="#cb25-13" aria-hidden="true" tabindex="-1"></a>    ) <span class="sc">|&gt;</span></span>
+<span id="cb25-14"><a href="#cb25-14" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Grouping and aggregation</span></span>
+<span id="cb25-15"><a href="#cb25-15" aria-hidden="true" tabindex="-1"></a>    <span class="fu">group_by</span>(colString) <span class="sc">|&gt;</span> </span>
+<span id="cb25-16"><a href="#cb25-16" aria-hidden="true" tabindex="-1"></a>    <span class="fu">summarise</span>(</span>
+<span id="cb25-17"><a href="#cb25-17" aria-hidden="true" tabindex="-1"></a>      <span class="at">min_colInt =</span> <span class="fu">min</span>(colInt),</span>
+<span id="cb25-18"><a href="#cb25-18" aria-hidden="true" tabindex="-1"></a>      <span class="at">mean_colInt =</span> <span class="fu">mean</span>(colInt),</span>
+<span id="cb25-19"><a href="#cb25-19" aria-hidden="true" tabindex="-1"></a>      <span class="at">mas_colInt =</span> <span class="fu">max</span>(colInt),</span>
+<span id="cb25-20"><a href="#cb25-20" aria-hidden="true" tabindex="-1"></a>      <span class="at">min_colNum =</span> <span class="fu">min</span>(colNum),</span>
+<span id="cb25-21"><a href="#cb25-21" aria-hidden="true" tabindex="-1"></a>      <span class="at">mean_colNum =</span> <span class="fu">mean</span>(colNum),</span>
+<span id="cb25-22"><a href="#cb25-22" aria-hidden="true" tabindex="-1"></a>      <span class="at">max_colNum =</span> <span class="fu">max</span>(colNum)</span>
+<span id="cb25-23"><a href="#cb25-23" aria-hidden="true" tabindex="-1"></a>  )</span>
+<span id="cb25-24"><a href="#cb25-24" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb25-25"><a href="#cb25-25" aria-hidden="true" tabindex="-1"></a>  <span class="fu">return</span>(result)</span>
+<span id="cb25-26"><a href="#cb25-26" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb25-27"><a href="#cb25-27" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb25-28"><a href="#cb25-28" aria-hidden="true" tabindex="-1"></a><span class="fu">tic</span>()</span>
+<span id="cb25-29"><a href="#cb25-29" aria-hidden="true" tabindex="-1"></a><span class="fu">arrow_eager</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 3 × 7
+  colString min_colInt mean_colInt mas_colInt min_colNum mean_colNum max_colNum
+  &lt;chr&gt;          &lt;int&gt;       &lt;dbl&gt;      &lt;int&gt;      &lt;dbl&gt;       &lt;dbl&gt;      &lt;dbl&gt;
+1 A               2001       4999.       7999  0.0000379       0.498       1.00
+2 B               2001       5004.       7999  0.0000339       0.501       1.00
+3 C               2001       5001.       7999  0.0000305       0.501       1.00</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb27"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a><span class="fu">toc</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>0.19 sec elapsed</code></pre>
+</div>
+</div>
+</div>
+<div id="tabset-2-3" class="tab-pane" role="tabpanel" aria-labelledby="tabset-2-3-tab">
+<div class="cell">
+<div class="sourceCode cell-code" id="cb29"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true" tabindex="-1"></a>arrow_lazy <span class="ot">&lt;-</span> <span class="cf">function</span>(variables) {</span>
+<span id="cb29-2"><a href="#cb29-2" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb29-3"><a href="#cb29-3" aria-hidden="true" tabindex="-1"></a>  result <span class="ot">&lt;-</span> arrow<span class="sc">::</span><span class="fu">open_dataset</span>(<span class="st">"Datasets/DataMultiTypes.parquet"</span>) <span class="sc">|&gt;</span></span>
+<span id="cb29-4"><a href="#cb29-4" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb29-5"><a href="#cb29-5" aria-hidden="true" tabindex="-1"></a>    <span class="fu">mutate</span>(</span>
+<span id="cb29-6"><a href="#cb29-6" aria-hidden="true" tabindex="-1"></a>      <span class="co"># Conversion of 2 columns to Date format</span></span>
+<span id="cb29-7"><a href="#cb29-7" aria-hidden="true" tabindex="-1"></a>      <span class="at">colDate1 =</span> <span class="fu">as.Date</span>(colDate1),</span>
+<span id="cb29-8"><a href="#cb29-8" aria-hidden="true" tabindex="-1"></a>      <span class="at">colDate2 =</span> <span class="fu">as.Date</span>(colDate2)</span>
+<span id="cb29-9"><a href="#cb29-9" aria-hidden="true" tabindex="-1"></a>    ) <span class="sc">|&gt;</span></span>
+<span id="cb29-10"><a href="#cb29-10" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Filter rows</span></span>
+<span id="cb29-11"><a href="#cb29-11" aria-hidden="true" tabindex="-1"></a>    <span class="fu">filter</span>(</span>
+<span id="cb29-12"><a href="#cb29-12" aria-hidden="true" tabindex="-1"></a>      colInt<span class="sc">&gt;</span><span class="dv">2000</span> <span class="sc">&amp;</span> colInt<span class="sc">&lt;</span><span class="dv">8000</span></span>
+<span id="cb29-13"><a href="#cb29-13" aria-hidden="true" tabindex="-1"></a>    ) <span class="sc">|&gt;</span></span>
+<span id="cb29-14"><a href="#cb29-14" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Grouping and aggregation</span></span>
+<span id="cb29-15"><a href="#cb29-15" aria-hidden="true" tabindex="-1"></a>    <span class="fu">group_by</span>(colString) <span class="sc">|&gt;</span> </span>
+<span id="cb29-16"><a href="#cb29-16" aria-hidden="true" tabindex="-1"></a>    <span class="fu">summarise</span>(</span>
+<span id="cb29-17"><a href="#cb29-17" aria-hidden="true" tabindex="-1"></a>      <span class="at">min_colInt =</span> <span class="fu">min</span>(colInt),</span>
+<span id="cb29-18"><a href="#cb29-18" aria-hidden="true" tabindex="-1"></a>      <span class="at">mean_colInt =</span> <span class="fu">mean</span>(colInt),</span>
+<span id="cb29-19"><a href="#cb29-19" aria-hidden="true" tabindex="-1"></a>      <span class="at">mas_colInt =</span> <span class="fu">max</span>(colInt),</span>
+<span id="cb29-20"><a href="#cb29-20" aria-hidden="true" tabindex="-1"></a>      <span class="at">min_colNum =</span> <span class="fu">min</span>(colNum),</span>
+<span id="cb29-21"><a href="#cb29-21" aria-hidden="true" tabindex="-1"></a>      <span class="at">mean_colNum =</span> <span class="fu">mean</span>(colNum),</span>
+<span id="cb29-22"><a href="#cb29-22" aria-hidden="true" tabindex="-1"></a>      <span class="at">max_colNum =</span> <span class="fu">max</span>(colNum)</span>
+<span id="cb29-23"><a href="#cb29-23" aria-hidden="true" tabindex="-1"></a>  )</span>
+<span id="cb29-24"><a href="#cb29-24" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb29-25"><a href="#cb29-25" aria-hidden="true" tabindex="-1"></a>  <span class="fu">return</span>(result)</span>
+<span id="cb29-26"><a href="#cb29-26" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb29-27"><a href="#cb29-27" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb29-28"><a href="#cb29-28" aria-hidden="true" tabindex="-1"></a><span class="fu">tic</span>()</span>
+<span id="cb29-29"><a href="#cb29-29" aria-hidden="true" tabindex="-1"></a><span class="fu">arrow_lazy</span>() <span class="sc">|&gt;</span> <span class="fu">collect</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 3 × 7
+  colString min_colInt mean_colInt mas_colInt min_colNum mean_colNum max_colNum
+  &lt;chr&gt;          &lt;int&gt;       &lt;dbl&gt;      &lt;int&gt;      &lt;dbl&gt;       &lt;dbl&gt;      &lt;dbl&gt;
+1 B               2001       5004.       7999  0.0000339       0.501       1.00
+2 C               2001       5001.       7999  0.0000305       0.501       1.00
+3 A               2001       4999.       7999  0.0000379       0.498       1.00</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb31"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb31-1"><a href="#cb31-1" aria-hidden="true" tabindex="-1"></a><span class="fu">toc</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>0.322 sec elapsed</code></pre>
+</div>
+</div>
+</div>
+<div id="tabset-2-4" class="tab-pane" role="tabpanel" aria-labelledby="tabset-2-4-tab">
+<div class="cell">
+<div class="sourceCode cell-code" id="cb33"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb33-1"><a href="#cb33-1" aria-hidden="true" tabindex="-1"></a>parquet_duckdb_sql <span class="ot">&lt;-</span> <span class="cf">function</span>(variables) {</span>
+<span id="cb33-2"><a href="#cb33-2" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb33-3"><a href="#cb33-3" aria-hidden="true" tabindex="-1"></a>  con <span class="ot">&lt;-</span> <span class="fu">dbConnect</span>(duckdb<span class="sc">::</span><span class="fu">duckdb</span>())</span>
+<span id="cb33-4"><a href="#cb33-4" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb33-5"><a href="#cb33-5" aria-hidden="true" tabindex="-1"></a>  result <span class="ot">&lt;-</span> <span class="fu">dbGetQuery</span>(</span>
+<span id="cb33-6"><a href="#cb33-6" aria-hidden="true" tabindex="-1"></a>    con, </span>
+<span id="cb33-7"><a href="#cb33-7" aria-hidden="true" tabindex="-1"></a>    <span class="st">"SELECT colString,</span></span>
+<span id="cb33-8"><a href="#cb33-8" aria-hidden="true" tabindex="-1"></a><span class="st">           MIN(colInt) AS min_colInt,</span></span>
+<span id="cb33-9"><a href="#cb33-9" aria-hidden="true" tabindex="-1"></a><span class="st">           AVG(colInt) AS mean_colInt,</span></span>
+<span id="cb33-10"><a href="#cb33-10" aria-hidden="true" tabindex="-1"></a><span class="st">           MAX(colInt) AS max_colInt,</span></span>
+<span id="cb33-11"><a href="#cb33-11" aria-hidden="true" tabindex="-1"></a><span class="st">           MIN(colNum) AS min_colNum,</span></span>
+<span id="cb33-12"><a href="#cb33-12" aria-hidden="true" tabindex="-1"></a><span class="st">           AVG(colNum) AS mean_colNum,</span></span>
+<span id="cb33-13"><a href="#cb33-13" aria-hidden="true" tabindex="-1"></a><span class="st">           MAX(colNum) AS max_colNum</span></span>
+<span id="cb33-14"><a href="#cb33-14" aria-hidden="true" tabindex="-1"></a><span class="st">    FROM (</span></span>
+<span id="cb33-15"><a href="#cb33-15" aria-hidden="true" tabindex="-1"></a><span class="st">        SELECT colString,</span></span>
+<span id="cb33-16"><a href="#cb33-16" aria-hidden="true" tabindex="-1"></a><span class="st">               colInt,</span></span>
+<span id="cb33-17"><a href="#cb33-17" aria-hidden="true" tabindex="-1"></a><span class="st">               colNum</span></span>
+<span id="cb33-18"><a href="#cb33-18" aria-hidden="true" tabindex="-1"></a><span class="st">        FROM read_parquet('Datasets/DataMultiTypes.parquet')</span></span>
+<span id="cb33-19"><a href="#cb33-19" aria-hidden="true" tabindex="-1"></a><span class="st">        WHERE colInt &gt; 2000 AND colInt &lt; 8000</span></span>
+<span id="cb33-20"><a href="#cb33-20" aria-hidden="true" tabindex="-1"></a><span class="st">) AS filtered_data</span></span>
+<span id="cb33-21"><a href="#cb33-21" aria-hidden="true" tabindex="-1"></a><span class="st">GROUP BY colString;"</span>)</span>
+<span id="cb33-22"><a href="#cb33-22" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb33-23"><a href="#cb33-23" aria-hidden="true" tabindex="-1"></a>  <span class="fu">dbDisconnect</span>(con, <span class="at">shutdown=</span><span class="cn">TRUE</span>)</span>
+<span id="cb33-24"><a href="#cb33-24" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb33-25"><a href="#cb33-25" aria-hidden="true" tabindex="-1"></a>  <span class="fu">return</span>(result)</span>
+<span id="cb33-26"><a href="#cb33-26" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb33-27"><a href="#cb33-27" aria-hidden="true" tabindex="-1"></a><span class="fu">tic</span>()</span>
+<span id="cb33-28"><a href="#cb33-28" aria-hidden="true" tabindex="-1"></a><span class="fu">parquet_duckdb_sql</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>  colString min_colInt mean_colInt max_colInt   min_colNum mean_colNum
+1         B       2001    5004.311       7999 3.385660e-05   0.5005457
+2         C       2001    5001.243       7999 3.045052e-05   0.5014723
+3         A       2001    4998.625       7999 3.794138e-05   0.4984446
+  max_colNum
+1  0.9999863
+2  0.9999921
+3  0.9999879</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb35"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb35-1"><a href="#cb35-1" aria-hidden="true" tabindex="-1"></a><span class="fu">toc</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>0.105 sec elapsed</code></pre>
+</div>
+</div>
+</div>
+</div>
+</div>
+<section id="results-for-unique-parquet-file" class="level3" data-number="5.2.1">
+<h3 data-number="5.2.1" class="anchored" data-anchor-id="results-for-unique-parquet-file"><span class="header-section-number">5.2.1</span> Results for unique parquet file</h3>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb37"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb37-1"><a href="#cb37-1" aria-hidden="true" tabindex="-1"></a>unique_parquet_bmk <span class="ot">&lt;-</span> <span class="fu">microbenchmark</span>(</span>
+<span id="cb37-2"><a href="#cb37-2" aria-hidden="true" tabindex="-1"></a>  <span class="st">"polars (lazy) - from unique parquet file"</span> <span class="ot">=</span> <span class="fu">parquet_polars_lazy</span>()<span class="sc">$</span><span class="fu">collect</span>()<span class="sc">$</span><span class="fu">to_data_frame</span>(),</span>
+<span id="cb37-3"><a href="#cb37-3" aria-hidden="true" tabindex="-1"></a>  <span class="st">"arrow (eager) - from unique parquet file"</span> <span class="ot">=</span> <span class="fu">arrow_eager</span>(),</span>
+<span id="cb37-4"><a href="#cb37-4" aria-hidden="true" tabindex="-1"></a>  <span class="st">"arrow (lazy) - from unique parquet file"</span> <span class="ot">=</span> <span class="fu">arrow_lazy</span>() <span class="sc">|&gt;</span> <span class="fu">collect</span>(),</span>
+<span id="cb37-5"><a href="#cb37-5" aria-hidden="true" tabindex="-1"></a>  <span class="st">"Duckdb and SQL - from unique parquet file"</span> <span class="ot">=</span> <span class="fu">parquet_duckdb_sql</span>(),</span>
+<span id="cb37-6"><a href="#cb37-6" aria-hidden="true" tabindex="-1"></a>  <span class="at">times =</span> <span class="dv">5</span></span>
+<span id="cb37-7"><a href="#cb37-7" aria-hidden="true" tabindex="-1"></a> )</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+</section>
+<section id="from-a-partitioned-parquet-file" class="level2" data-number="5.3">
+<h2 data-number="5.3" class="anchored" data-anchor-id="from-a-partitioned-parquet-file"><span class="header-section-number">5.3</span> From a partitioned parquet file</h2>
+<p>Let’s now look at how to perform queries on <strong>partitioned files</strong>.</p>
+<p>The structure of partitioned files on the disk is as follows:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb38"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb38-1"><a href="#cb38-1" aria-hidden="true" tabindex="-1"></a>fs<span class="sc">::</span><span class="fu">dir_tree</span>(<span class="at">path =</span> <span class="st">"Datasets/DataMultiTypes/"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Datasets/DataMultiTypes/
+├── colFactor=High
+│   └── part-0.parquet
+├── colFactor=Low
+│   └── part-0.parquet
+└── colFactor=Medium
+    └── part-0.parquet</code></pre>
+</div>
+</div>
+<p>For this comparison, we will use :</p>
+<ul>
+<li>For <strong>arrow (lazy)</strong>, the <code>arrow::open_dataset()</code> method</li>
+<li>For <strong>polars (lazy)</strong>, the <code>pl$scan_parquet()</code> method</li>
+</ul>
+<div class="tabset-margin-container"></div><div class="panel-tabset">
+<ul class="nav nav-tabs" role="tablist"><li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-3-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-3-1" role="tab" aria-controls="tabset-3-1" aria-selected="true">arrow (lazy)</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-3-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-3-2" role="tab" aria-controls="tabset-3-2" aria-selected="false">polars (lazy)</a></li></ul>
+<div class="tab-content">
+<div id="tabset-3-1" class="tab-pane active" role="tabpanel" aria-labelledby="tabset-3-1-tab">
+<div class="cell">
+<div class="sourceCode cell-code" id="cb40"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb40-1"><a href="#cb40-1" aria-hidden="true" tabindex="-1"></a>partitioned_parquet_arrow_lazy <span class="ot">&lt;-</span> <span class="cf">function</span>(variables) {</span>
+<span id="cb40-2"><a href="#cb40-2" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb40-3"><a href="#cb40-3" aria-hidden="true" tabindex="-1"></a>  result <span class="ot">&lt;-</span> arrow<span class="sc">::</span><span class="fu">open_dataset</span>(</span>
+<span id="cb40-4"><a href="#cb40-4" aria-hidden="true" tabindex="-1"></a>    <span class="st">"Datasets/DataMultiTypes/"</span>,</span>
+<span id="cb40-5"><a href="#cb40-5" aria-hidden="true" tabindex="-1"></a>    <span class="at">partitioning =</span> arrow<span class="sc">::</span><span class="fu">schema</span>(<span class="at">colFactor =</span> arrow<span class="sc">::</span><span class="fu">utf8</span>())) <span class="sc">|&gt;</span></span>
+<span id="cb40-6"><a href="#cb40-6" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb40-7"><a href="#cb40-7" aria-hidden="true" tabindex="-1"></a>    <span class="fu">mutate</span>(</span>
+<span id="cb40-8"><a href="#cb40-8" aria-hidden="true" tabindex="-1"></a>      <span class="co"># Conversion of 2 columns to Date format</span></span>
+<span id="cb40-9"><a href="#cb40-9" aria-hidden="true" tabindex="-1"></a>      <span class="at">colDate1 =</span> <span class="fu">as.Date</span>(colDate1),</span>
+<span id="cb40-10"><a href="#cb40-10" aria-hidden="true" tabindex="-1"></a>      <span class="at">colDate2 =</span> <span class="fu">as.Date</span>(colDate2)</span>
+<span id="cb40-11"><a href="#cb40-11" aria-hidden="true" tabindex="-1"></a>    ) <span class="sc">|&gt;</span></span>
+<span id="cb40-12"><a href="#cb40-12" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Filter rows</span></span>
+<span id="cb40-13"><a href="#cb40-13" aria-hidden="true" tabindex="-1"></a>    <span class="fu">filter</span>(</span>
+<span id="cb40-14"><a href="#cb40-14" aria-hidden="true" tabindex="-1"></a>      colInt<span class="sc">&gt;</span><span class="dv">2000</span> <span class="sc">&amp;</span> colInt<span class="sc">&lt;</span><span class="dv">8000</span></span>
+<span id="cb40-15"><a href="#cb40-15" aria-hidden="true" tabindex="-1"></a>    ) <span class="sc">|&gt;</span></span>
+<span id="cb40-16"><a href="#cb40-16" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Grouping and aggregation</span></span>
+<span id="cb40-17"><a href="#cb40-17" aria-hidden="true" tabindex="-1"></a>    <span class="fu">group_by</span>(colString) <span class="sc">|&gt;</span> </span>
+<span id="cb40-18"><a href="#cb40-18" aria-hidden="true" tabindex="-1"></a>    <span class="fu">summarise</span>(</span>
+<span id="cb40-19"><a href="#cb40-19" aria-hidden="true" tabindex="-1"></a>      <span class="at">min_colInt =</span> <span class="fu">min</span>(colInt),</span>
+<span id="cb40-20"><a href="#cb40-20" aria-hidden="true" tabindex="-1"></a>      <span class="at">mean_colInt =</span> <span class="fu">mean</span>(colInt),</span>
+<span id="cb40-21"><a href="#cb40-21" aria-hidden="true" tabindex="-1"></a>      <span class="at">mas_colInt =</span> <span class="fu">max</span>(colInt),</span>
+<span id="cb40-22"><a href="#cb40-22" aria-hidden="true" tabindex="-1"></a>      <span class="at">min_colNum =</span> <span class="fu">min</span>(colNum),</span>
+<span id="cb40-23"><a href="#cb40-23" aria-hidden="true" tabindex="-1"></a>      <span class="at">mean_colNum =</span> <span class="fu">mean</span>(colNum),</span>
+<span id="cb40-24"><a href="#cb40-24" aria-hidden="true" tabindex="-1"></a>      <span class="at">max_colNum =</span> <span class="fu">max</span>(colNum)</span>
+<span id="cb40-25"><a href="#cb40-25" aria-hidden="true" tabindex="-1"></a>    ) <span class="sc">|&gt;</span> </span>
+<span id="cb40-26"><a href="#cb40-26" aria-hidden="true" tabindex="-1"></a>    <span class="fu">collect</span>()</span>
+<span id="cb40-27"><a href="#cb40-27" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb40-28"><a href="#cb40-28" aria-hidden="true" tabindex="-1"></a>  <span class="fu">return</span>(result)</span>
+<span id="cb40-29"><a href="#cb40-29" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb40-30"><a href="#cb40-30" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb40-31"><a href="#cb40-31" aria-hidden="true" tabindex="-1"></a><span class="fu">tic</span>()</span>
+<span id="cb40-32"><a href="#cb40-32" aria-hidden="true" tabindex="-1"></a><span class="fu">partitioned_parquet_arrow_lazy</span>() </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 3 × 7
+  colString min_colInt mean_colInt mas_colInt min_colNum mean_colNum max_colNum
+  &lt;chr&gt;          &lt;int&gt;       &lt;dbl&gt;      &lt;int&gt;      &lt;dbl&gt;       &lt;dbl&gt;      &lt;dbl&gt;
+1 C               2001       5001.       7999  0.0000305       0.501       1.00
+2 B               2001       5004.       7999  0.0000339       0.501       1.00
+3 A               2001       4999.       7999  0.0000379       0.498       1.00</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb42"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb42-1"><a href="#cb42-1" aria-hidden="true" tabindex="-1"></a><span class="fu">toc</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>0.241 sec elapsed</code></pre>
+</div>
+</div>
+</div>
+<div id="tabset-3-2" class="tab-pane" role="tabpanel" aria-labelledby="tabset-3-2-tab">
+<div class="cell">
+<div class="sourceCode cell-code" id="cb44"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb44-1"><a href="#cb44-1" aria-hidden="true" tabindex="-1"></a>partitioned_parquet_polars_lazy <span class="ot">&lt;-</span> <span class="cf">function</span>(variables) {</span>
+<span id="cb44-2"><a href="#cb44-2" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb44-3"><a href="#cb44-3" aria-hidden="true" tabindex="-1"></a>  result <span class="ot">&lt;-</span> pl<span class="sc">$</span><span class="fu">scan_parquet</span>(<span class="at">file =</span> <span class="st">"Datasets/DataMultiTypes.parquet"</span>)<span class="sc">$</span></span>
+<span id="cb44-4"><a href="#cb44-4" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Conversion of 2 columns to Date format</span></span>
+<span id="cb44-5"><a href="#cb44-5" aria-hidden="true" tabindex="-1"></a>    <span class="fu">with_columns</span>(</span>
+<span id="cb44-6"><a href="#cb44-6" aria-hidden="true" tabindex="-1"></a>      pl<span class="sc">$</span><span class="fu">col</span>(<span class="st">"colDate1"</span>)<span class="sc">$</span>str<span class="sc">$</span><span class="fu">strptime</span>(pl<span class="sc">$</span>Date, <span class="st">"%F %T"</span>, <span class="at">strict =</span> <span class="cn">FALSE</span>),</span>
+<span id="cb44-7"><a href="#cb44-7" aria-hidden="true" tabindex="-1"></a>      pl<span class="sc">$</span><span class="fu">col</span>(<span class="st">"colDate2"</span>)<span class="sc">$</span>str<span class="sc">$</span><span class="fu">strptime</span>(pl<span class="sc">$</span>Date, <span class="st">"%F %T"</span>, <span class="at">strict =</span> <span class="cn">FALSE</span>)</span>
+<span id="cb44-8"><a href="#cb44-8" aria-hidden="true" tabindex="-1"></a>    )<span class="sc">$</span></span>
+<span id="cb44-9"><a href="#cb44-9" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Filter rows</span></span>
+<span id="cb44-10"><a href="#cb44-10" aria-hidden="true" tabindex="-1"></a>    <span class="fu">filter</span>(</span>
+<span id="cb44-11"><a href="#cb44-11" aria-hidden="true" tabindex="-1"></a>      pl<span class="sc">$</span><span class="fu">col</span>(<span class="st">"colInt"</span>)<span class="sc">&gt;</span><span class="dv">2000</span> <span class="sc">&amp;</span> pl<span class="sc">$</span><span class="fu">col</span>(<span class="st">"colInt"</span>)<span class="sc">&lt;</span><span class="dv">8000</span></span>
+<span id="cb44-12"><a href="#cb44-12" aria-hidden="true" tabindex="-1"></a>    )<span class="sc">$</span></span>
+<span id="cb44-13"><a href="#cb44-13" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Grouping and aggregation</span></span>
+<span id="cb44-14"><a href="#cb44-14" aria-hidden="true" tabindex="-1"></a>    <span class="fu">groupby</span>(</span>
+<span id="cb44-15"><a href="#cb44-15" aria-hidden="true" tabindex="-1"></a>      <span class="st">"colString"</span>)<span class="sc">$</span></span>
+<span id="cb44-16"><a href="#cb44-16" aria-hidden="true" tabindex="-1"></a>    <span class="fu">agg</span>(</span>
+<span id="cb44-17"><a href="#cb44-17" aria-hidden="true" tabindex="-1"></a>      pl<span class="sc">$</span><span class="fu">col</span>(<span class="st">"colInt"</span>)<span class="sc">$</span><span class="fu">min</span>()<span class="sc">$</span><span class="fu">alias</span>(<span class="st">"min_colInt"</span>),</span>
+<span id="cb44-18"><a href="#cb44-18" aria-hidden="true" tabindex="-1"></a>      pl<span class="sc">$</span><span class="fu">col</span>(<span class="st">"colInt"</span>)<span class="sc">$</span><span class="fu">mean</span>()<span class="sc">$</span><span class="fu">alias</span>(<span class="st">"mean_colInt"</span>),</span>
+<span id="cb44-19"><a href="#cb44-19" aria-hidden="true" tabindex="-1"></a>      pl<span class="sc">$</span><span class="fu">col</span>(<span class="st">"colInt"</span>)<span class="sc">$</span><span class="fu">max</span>()<span class="sc">$</span><span class="fu">alias</span>(<span class="st">"max_colInt"</span>),</span>
+<span id="cb44-20"><a href="#cb44-20" aria-hidden="true" tabindex="-1"></a>      pl<span class="sc">$</span><span class="fu">col</span>(<span class="st">"colNum"</span>)<span class="sc">$</span><span class="fu">min</span>()<span class="sc">$</span><span class="fu">alias</span>(<span class="st">"min_colNum"</span>),</span>
+<span id="cb44-21"><a href="#cb44-21" aria-hidden="true" tabindex="-1"></a>      pl<span class="sc">$</span><span class="fu">col</span>(<span class="st">"colNum"</span>)<span class="sc">$</span><span class="fu">mean</span>()<span class="sc">$</span><span class="fu">alias</span>(<span class="st">"mean_colNum"</span>),</span>
+<span id="cb44-22"><a href="#cb44-22" aria-hidden="true" tabindex="-1"></a>      pl<span class="sc">$</span><span class="fu">col</span>(<span class="st">"colNum"</span>)<span class="sc">$</span><span class="fu">max</span>()<span class="sc">$</span><span class="fu">alias</span>(<span class="st">"max_colNum"</span>)</span>
+<span id="cb44-23"><a href="#cb44-23" aria-hidden="true" tabindex="-1"></a>    )<span class="sc">$</span><span class="fu">collect</span>()</span>
+<span id="cb44-24"><a href="#cb44-24" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb44-25"><a href="#cb44-25" aria-hidden="true" tabindex="-1"></a>  <span class="fu">return</span>(result)</span>
+<span id="cb44-26"><a href="#cb44-26" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb44-27"><a href="#cb44-27" aria-hidden="true" tabindex="-1"></a><span class="fu">tic</span>()</span>
+<span id="cb44-28"><a href="#cb44-28" aria-hidden="true" tabindex="-1"></a><span class="fu">partitioned_parquet_polars_lazy</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>shape: (3, 7)
+┌───────────┬────────────┬─────────────┬────────────┬────────────┬─────────────┬────────────┐
+│ colString ┆ min_colInt ┆ mean_colInt ┆ max_colInt ┆ min_colNum ┆ mean_colNum ┆ max_colNum │
+│ ---       ┆ ---        ┆ ---         ┆ ---        ┆ ---        ┆ ---         ┆ ---        │
+│ str       ┆ i32        ┆ f64         ┆ i32        ┆ f64        ┆ f64         ┆ f64        │
+╞═══════════╪════════════╪═════════════╪════════════╪════════════╪═════════════╪════════════╡
+│ A         ┆ 2001       ┆ 4998.624945 ┆ 7999       ┆ 0.000038   ┆ 0.498445    ┆ 0.999988   │
+│ B         ┆ 2001       ┆ 5004.31148  ┆ 7999       ┆ 0.000034   ┆ 0.500546    ┆ 0.999986   │
+│ C         ┆ 2001       ┆ 5001.243285 ┆ 7999       ┆ 0.00003    ┆ 0.501472    ┆ 0.999992   │
+└───────────┴────────────┴─────────────┴────────────┴────────────┴─────────────┴────────────┘</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb46"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb46-1"><a href="#cb46-1" aria-hidden="true" tabindex="-1"></a><span class="fu">toc</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>0.041 sec elapsed</code></pre>
+</div>
+</div>
+</div>
+</div>
+</div>
+<section id="results-for-partitioned-parquet-files" class="level3" data-number="5.3.1">
+<h3 data-number="5.3.1" class="anchored" data-anchor-id="results-for-partitioned-parquet-files"><span class="header-section-number">5.3.1</span> Results for partitioned parquet files</h3>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb48"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb48-1"><a href="#cb48-1" aria-hidden="true" tabindex="-1"></a>partitioned_parquet_bmk <span class="ot">&lt;-</span> <span class="fu">microbenchmark</span>(</span>
+<span id="cb48-2"><a href="#cb48-2" aria-hidden="true" tabindex="-1"></a>  <span class="st">"arrow (lazy) - from partitioned parquet file"</span> <span class="ot">=</span> <span class="fu">partitioned_parquet_arrow_lazy</span>(),</span>
+<span id="cb48-3"><a href="#cb48-3" aria-hidden="true" tabindex="-1"></a>  <span class="st">"polars (lazy) - from partitioned parquet file"</span> <span class="ot">=</span> <span class="fu">partitioned_parquet_polars_lazy</span>()<span class="sc">$</span><span class="fu">to_data_frame</span>(),</span>
+<span id="cb48-4"><a href="#cb48-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">times =</span> <span class="dv">5</span></span>
+<span id="cb48-5"><a href="#cb48-5" aria-hidden="true" tabindex="-1"></a> )</span>
+<span id="cb48-6"><a href="#cb48-6" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(partitioned_parquet_bmk)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Unit: milliseconds
+                                          expr      min       lq      mean
+  arrow (lazy) - from partitioned parquet file 158.2357 160.2575 168.62272
+ polars (lazy) - from partitioned parquet file  37.2005  38.1714  43.37208
+   median       uq      max neval
+ 161.0752 166.5800 196.9652     5
+  38.3072  42.3139  60.8674     5</code></pre>
+</div>
+</div>
+</section>
+</section>
+<section id="from-a-duckdb-file" class="level2" data-number="5.4">
+<h2 data-number="5.4" class="anchored" data-anchor-id="from-a-duckdb-file"><span class="header-section-number">5.4</span> From a DuckDb file</h2>
+<section id="use-duckdb-engine-on-r-object" class="level3" data-number="5.4.1">
+<h3 data-number="5.4.1" class="anchored" data-anchor-id="use-duckdb-engine-on-r-object"><span class="header-section-number">5.4.1</span> Use DuckDB engine on R object</h3>
+<p>Let’s start by looking at how to use the DuckDb engine on R objects.<br>
+There are two main possibilities:</p>
+<ol type="1">
+<li><p>To use the DuckDB engine to query a R object with <strong>dplyr</strong>, you can use the <code>arrow::to_duckdb()</code> method (<strong>arrow/dplyr/DuckDB engine</strong>)</p></li>
+<li><p>To use the DuckDB engine to query a R object with <strong>the standard DBI methods</strong>, you can use the <code>arrow::to_duckdb()</code> and <code>DBI::dbGetQuery()</code> methods (<strong>arrow/SQL/DuckDB engine</strong>). In the following example, we save the R data.frame as a DuckDb virtual table, giving it a name that will be used in the SQL query, finally we execute the query.</p></li>
+</ol>
+<div class="tabset-margin-container"></div><div class="panel-tabset">
+<ul class="nav nav-tabs" role="tablist"><li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-4-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-4-1" role="tab" aria-controls="tabset-4-1" aria-selected="true">arrow/dplyr/DuckDB</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-4-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-4-2" role="tab" aria-controls="tabset-4-2" aria-selected="false">arrow/SQL/DuckDB</a></li></ul>
+<div class="tab-content">
+<div id="tabset-4-1" class="tab-pane active" role="tabpanel" aria-labelledby="tabset-4-1-tab">
+<div class="cell">
+<div class="sourceCode cell-code" id="cb50"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb50-1"><a href="#cb50-1" aria-hidden="true" tabindex="-1"></a>duckdb_arrow_dplyr <span class="ot">&lt;-</span> <span class="cf">function</span>(variables) {</span>
+<span id="cb50-2"><a href="#cb50-2" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb50-3"><a href="#cb50-3" aria-hidden="true" tabindex="-1"></a>  result <span class="ot">&lt;-</span> DataMultiTypes <span class="sc">|&gt;</span></span>
+<span id="cb50-4"><a href="#cb50-4" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb50-5"><a href="#cb50-5" aria-hidden="true" tabindex="-1"></a>    <span class="fu">to_duckdb</span>() <span class="sc">|&gt;</span></span>
+<span id="cb50-6"><a href="#cb50-6" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb50-7"><a href="#cb50-7" aria-hidden="true" tabindex="-1"></a>    <span class="fu">mutate</span>(</span>
+<span id="cb50-8"><a href="#cb50-8" aria-hidden="true" tabindex="-1"></a>      <span class="co"># Conversion of 2 columns to Date format</span></span>
+<span id="cb50-9"><a href="#cb50-9" aria-hidden="true" tabindex="-1"></a>      <span class="at">colDate1 =</span> <span class="fu">as.Date</span>(colDate1),</span>
+<span id="cb50-10"><a href="#cb50-10" aria-hidden="true" tabindex="-1"></a>      <span class="at">colDate2 =</span> <span class="fu">as.Date</span>(colDate2)</span>
+<span id="cb50-11"><a href="#cb50-11" aria-hidden="true" tabindex="-1"></a>    ) <span class="sc">|&gt;</span></span>
+<span id="cb50-12"><a href="#cb50-12" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Filter rows</span></span>
+<span id="cb50-13"><a href="#cb50-13" aria-hidden="true" tabindex="-1"></a>    <span class="fu">filter</span>(</span>
+<span id="cb50-14"><a href="#cb50-14" aria-hidden="true" tabindex="-1"></a>      colInt<span class="sc">&gt;</span><span class="dv">2000</span> <span class="sc">&amp;</span> colInt<span class="sc">&lt;</span><span class="dv">8000</span></span>
+<span id="cb50-15"><a href="#cb50-15" aria-hidden="true" tabindex="-1"></a>    ) <span class="sc">|&gt;</span></span>
+<span id="cb50-16"><a href="#cb50-16" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Grouping and aggregation</span></span>
+<span id="cb50-17"><a href="#cb50-17" aria-hidden="true" tabindex="-1"></a>    <span class="fu">group_by</span>(colString) <span class="sc">|&gt;</span> </span>
+<span id="cb50-18"><a href="#cb50-18" aria-hidden="true" tabindex="-1"></a>    <span class="fu">summarise</span>(</span>
+<span id="cb50-19"><a href="#cb50-19" aria-hidden="true" tabindex="-1"></a>      <span class="at">min_colInt =</span> <span class="fu">min</span>(colInt, <span class="at">na.rm =</span> <span class="cn">TRUE</span>),</span>
+<span id="cb50-20"><a href="#cb50-20" aria-hidden="true" tabindex="-1"></a>      <span class="at">mean_colInt =</span> <span class="fu">mean</span>(colInt, <span class="at">na.rm =</span> <span class="cn">TRUE</span>),</span>
+<span id="cb50-21"><a href="#cb50-21" aria-hidden="true" tabindex="-1"></a>      <span class="at">mas_colInt =</span> <span class="fu">max</span>(colInt, <span class="at">na.rm =</span> <span class="cn">TRUE</span>),</span>
+<span id="cb50-22"><a href="#cb50-22" aria-hidden="true" tabindex="-1"></a>      <span class="at">min_colNum =</span> <span class="fu">min</span>(colNum, <span class="at">na.rm =</span> <span class="cn">TRUE</span>),</span>
+<span id="cb50-23"><a href="#cb50-23" aria-hidden="true" tabindex="-1"></a>      <span class="at">mean_colNum =</span> <span class="fu">mean</span>(colNum, <span class="at">na.rm =</span> <span class="cn">TRUE</span>),</span>
+<span id="cb50-24"><a href="#cb50-24" aria-hidden="true" tabindex="-1"></a>      <span class="at">max_colNum =</span> <span class="fu">max</span>(colNum, <span class="at">na.rm =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb50-25"><a href="#cb50-25" aria-hidden="true" tabindex="-1"></a>    )</span>
+<span id="cb50-26"><a href="#cb50-26" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb50-27"><a href="#cb50-27" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb50-28"><a href="#cb50-28" aria-hidden="true" tabindex="-1"></a>  <span class="fu">return</span>(result)</span>
+<span id="cb50-29"><a href="#cb50-29" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb50-30"><a href="#cb50-30" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb50-31"><a href="#cb50-31" aria-hidden="true" tabindex="-1"></a><span class="fu">tic</span>()</span>
+<span id="cb50-32"><a href="#cb50-32" aria-hidden="true" tabindex="-1"></a><span class="fu">duckdb_arrow_dplyr</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># Source:   SQL [3 x 7]
+# Database: DuckDB 0.8.1 [unknown@Linux 5.15.0-1041-azure:R 4.3.1/:memory:]
+  colString min_colInt mean_colInt mas_colInt min_colNum mean_colNum max_colNum
+  &lt;chr&gt;          &lt;int&gt;       &lt;dbl&gt;      &lt;int&gt;      &lt;dbl&gt;       &lt;dbl&gt;      &lt;dbl&gt;
+1 B               2001       5004.       7999  0.0000339       0.501       1.00
+2 C               2001       5001.       7999  0.0000305       0.501       1.00
+3 A               2001       4999.       7999  0.0000379       0.498       1.00</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb52"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb52-1"><a href="#cb52-1" aria-hidden="true" tabindex="-1"></a><span class="fu">toc</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>0.905 sec elapsed</code></pre>
+</div>
+</div>
+</div>
+<div id="tabset-4-2" class="tab-pane" role="tabpanel" aria-labelledby="tabset-4-2-tab">
+<div class="cell">
+<div class="sourceCode cell-code" id="cb54"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb54-1"><a href="#cb54-1" aria-hidden="true" tabindex="-1"></a>duckdb_arrow_sql <span class="ot">&lt;-</span> <span class="cf">function</span>(variables) {</span>
+<span id="cb54-2"><a href="#cb54-2" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb54-3"><a href="#cb54-3" aria-hidden="true" tabindex="-1"></a>  con <span class="ot">&lt;-</span> <span class="fu">dbConnect</span>(duckdb<span class="sc">::</span><span class="fu">duckdb</span>())</span>
+<span id="cb54-4"><a href="#cb54-4" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb54-5"><a href="#cb54-5" aria-hidden="true" tabindex="-1"></a>  arrow<span class="sc">::</span><span class="fu">to_duckdb</span>(DataMultiTypes, <span class="at">table_name =</span> <span class="st">"DataMultiTypes_duckdb"</span>, <span class="at">con =</span> con)</span>
+<span id="cb54-6"><a href="#cb54-6" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb54-7"><a href="#cb54-7" aria-hidden="true" tabindex="-1"></a>  result <span class="ot">&lt;-</span> <span class="fu">dbGetQuery</span>(</span>
+<span id="cb54-8"><a href="#cb54-8" aria-hidden="true" tabindex="-1"></a>    con, </span>
+<span id="cb54-9"><a href="#cb54-9" aria-hidden="true" tabindex="-1"></a>    <span class="st">"SELECT colString,</span></span>
+<span id="cb54-10"><a href="#cb54-10" aria-hidden="true" tabindex="-1"></a><span class="st">           MIN(colInt) AS min_colInt,</span></span>
+<span id="cb54-11"><a href="#cb54-11" aria-hidden="true" tabindex="-1"></a><span class="st">           AVG(colInt) AS mean_colInt,</span></span>
+<span id="cb54-12"><a href="#cb54-12" aria-hidden="true" tabindex="-1"></a><span class="st">           MAX(colInt) AS max_colInt,</span></span>
+<span id="cb54-13"><a href="#cb54-13" aria-hidden="true" tabindex="-1"></a><span class="st">           MIN(colNum) AS min_colNum,</span></span>
+<span id="cb54-14"><a href="#cb54-14" aria-hidden="true" tabindex="-1"></a><span class="st">           AVG(colNum) AS mean_colNum,</span></span>
+<span id="cb54-15"><a href="#cb54-15" aria-hidden="true" tabindex="-1"></a><span class="st">           MAX(colNum) AS max_colNum</span></span>
+<span id="cb54-16"><a href="#cb54-16" aria-hidden="true" tabindex="-1"></a><span class="st">    FROM (</span></span>
+<span id="cb54-17"><a href="#cb54-17" aria-hidden="true" tabindex="-1"></a><span class="st">        SELECT colString,</span></span>
+<span id="cb54-18"><a href="#cb54-18" aria-hidden="true" tabindex="-1"></a><span class="st">               colInt,</span></span>
+<span id="cb54-19"><a href="#cb54-19" aria-hidden="true" tabindex="-1"></a><span class="st">               colNum</span></span>
+<span id="cb54-20"><a href="#cb54-20" aria-hidden="true" tabindex="-1"></a><span class="st">        FROM DataMultiTypes_duckdb</span></span>
+<span id="cb54-21"><a href="#cb54-21" aria-hidden="true" tabindex="-1"></a><span class="st">        WHERE colInt &gt; 2000 AND colInt &lt; 8000</span></span>
+<span id="cb54-22"><a href="#cb54-22" aria-hidden="true" tabindex="-1"></a><span class="st">) AS filtered_data</span></span>
+<span id="cb54-23"><a href="#cb54-23" aria-hidden="true" tabindex="-1"></a><span class="st">GROUP BY colString;"</span>)</span>
+<span id="cb54-24"><a href="#cb54-24" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb54-25"><a href="#cb54-25" aria-hidden="true" tabindex="-1"></a>  <span class="fu">dbDisconnect</span>(con, <span class="at">shutdown=</span><span class="cn">TRUE</span>)</span>
+<span id="cb54-26"><a href="#cb54-26" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb54-27"><a href="#cb54-27" aria-hidden="true" tabindex="-1"></a>  <span class="fu">return</span>(result)</span>
+<span id="cb54-28"><a href="#cb54-28" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb54-29"><a href="#cb54-29" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb54-30"><a href="#cb54-30" aria-hidden="true" tabindex="-1"></a><span class="fu">tic</span>()</span>
+<span id="cb54-31"><a href="#cb54-31" aria-hidden="true" tabindex="-1"></a><span class="fu">duckdb_arrow_sql</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>  colString min_colInt mean_colInt max_colInt   min_colNum mean_colNum
+1         B       2001    5004.311       7999 3.385660e-05   0.5005457
+2         C       2001    5001.243       7999 3.045052e-05   0.5014723
+3         A       2001    4998.625       7999 3.794138e-05   0.4984446
+  max_colNum
+1  0.9999863
+2  0.9999921
+3  0.9999879</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb56"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb56-1"><a href="#cb56-1" aria-hidden="true" tabindex="-1"></a><span class="fu">toc</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>0.194 sec elapsed</code></pre>
+</div>
+</div>
+</div>
+</div>
+</div>
 <div class="callout callout-style-default callout-tip callout-titled">
 <div class="callout-header d-flex align-content-center">
 <div class="callout-icon-container">
@@ -601,139 +1117,177 @@ Tip
 </div>
 </div>
 <div class="callout-body-container callout-body">
-<p><strong>The data processing described above is not optimised.</strong> For example, the intermediate result is stored at each stage, which is not good practice…</p>
-</div>
-</div>
-<p>Here’s what the code would be like:</p>
-<div class="tabset-margin-container"></div><div class="panel-tabset">
-<ul class="nav nav-tabs" role="tablist"><li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-2-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-2-1" role="tab" aria-controls="tabset-2-1" aria-selected="true">data.table</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-2-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-2-2" role="tab" aria-controls="tabset-2-2" aria-selected="false">polars (eager)</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-2-3-tab" data-bs-toggle="tab" data-bs-target="#tabset-2-3" role="tab" aria-controls="tabset-2-3" aria-selected="false">polars (lazy)</a></li></ul>
-<div class="tab-content">
-<div id="tabset-2-1" class="tab-pane active" role="tabpanel" aria-labelledby="tabset-2-1-tab">
-<div class="cell">
-<div class="sourceCode cell-code" id="cb22"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a>csv_dt <span class="ot">&lt;-</span> <span class="cf">function</span>() {</span>
-<span id="cb22-2"><a href="#cb22-2" aria-hidden="true" tabindex="-1"></a>  </span>
-<span id="cb22-3"><a href="#cb22-3" aria-hidden="true" tabindex="-1"></a>  result_agg <span class="ot">&lt;-</span> <span class="fu">as.data.table</span>(data.table<span class="sc">::</span><span class="fu">fread</span>(<span class="st">"Datasets/DataMultiTypes.csv"</span>))[, <span class="st">`</span><span class="at">:=</span><span class="st">`</span>(</span>
-<span id="cb22-4"><a href="#cb22-4" aria-hidden="true" tabindex="-1"></a>    </span>
-<span id="cb22-5"><a href="#cb22-5" aria-hidden="true" tabindex="-1"></a>  <span class="at">colDate1 =</span> <span class="fu">as.Date</span>(colDate1),</span>
-<span id="cb22-6"><a href="#cb22-6" aria-hidden="true" tabindex="-1"></a>  <span class="at">colDate2 =</span> <span class="fu">as.Date</span>(colDate2),</span>
-<span id="cb22-7"><a href="#cb22-7" aria-hidden="true" tabindex="-1"></a>  <span class="at">diff =</span> <span class="fu">as.integer</span>(<span class="fu">difftime</span>(colDate2, colDate1, <span class="at">units =</span> <span class="st">"days"</span>))</span>
-<span id="cb22-8"><a href="#cb22-8" aria-hidden="true" tabindex="-1"></a>  </span>
-<span id="cb22-9"><a href="#cb22-9" aria-hidden="true" tabindex="-1"></a>)][colInt <span class="sc">&gt;</span> <span class="dv">2000</span> <span class="sc">&amp;</span> colInt <span class="sc">&lt;</span> <span class="dv">8000</span>, .(</span>
-<span id="cb22-10"><a href="#cb22-10" aria-hidden="true" tabindex="-1"></a>  </span>
-<span id="cb22-11"><a href="#cb22-11" aria-hidden="true" tabindex="-1"></a>  <span class="at">min_colInt =</span> <span class="fu">min</span>(colInt),</span>
-<span id="cb22-12"><a href="#cb22-12" aria-hidden="true" tabindex="-1"></a>  <span class="at">mean_colInt =</span> <span class="fu">mean</span>(colInt),</span>
-<span id="cb22-13"><a href="#cb22-13" aria-hidden="true" tabindex="-1"></a>  <span class="at">max_colInt =</span> <span class="fu">max</span>(colInt),</span>
-<span id="cb22-14"><a href="#cb22-14" aria-hidden="true" tabindex="-1"></a>  <span class="at">min_colNum =</span> <span class="fu">min</span>(colNum),</span>
-<span id="cb22-15"><a href="#cb22-15" aria-hidden="true" tabindex="-1"></a>  <span class="at">mean_colNum =</span> <span class="fu">mean</span>(colNum),</span>
-<span id="cb22-16"><a href="#cb22-16" aria-hidden="true" tabindex="-1"></a>  <span class="at">max_colNum =</span> <span class="fu">max</span>(colNum)</span>
-<span id="cb22-17"><a href="#cb22-17" aria-hidden="true" tabindex="-1"></a>  </span>
-<span id="cb22-18"><a href="#cb22-18" aria-hidden="true" tabindex="-1"></a>), by <span class="ot">=</span> colString]</span>
-<span id="cb22-19"><a href="#cb22-19" aria-hidden="true" tabindex="-1"></a>  </span>
-<span id="cb22-20"><a href="#cb22-20" aria-hidden="true" tabindex="-1"></a>  <span class="fu">return</span>(result_agg)</span>
-<span id="cb22-21"><a href="#cb22-21" aria-hidden="true" tabindex="-1"></a>}</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</div>
-</div>
-<div id="tabset-2-2" class="tab-pane" role="tabpanel" aria-labelledby="tabset-2-2-tab">
-<div class="cell">
-<div class="sourceCode cell-code" id="cb23"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a>csv_eager_polars <span class="ot">&lt;-</span> <span class="cf">function</span>() {</span>
-<span id="cb23-2"><a href="#cb23-2" aria-hidden="true" tabindex="-1"></a><span class="co"># Reading the csv file (eager mode)</span></span>
-<span id="cb23-3"><a href="#cb23-3" aria-hidden="true" tabindex="-1"></a>result_agg <span class="ot">&lt;-</span> pl<span class="sc">$</span><span class="fu">read_csv</span>(<span class="at">path =</span> <span class="st">"Datasets/DataMultiTypes.csv"</span>)<span class="sc">$</span></span>
-<span id="cb23-4"><a href="#cb23-4" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Conversion of 2 columns to Date format</span></span>
-<span id="cb23-5"><a href="#cb23-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">with_columns</span>(</span>
-<span id="cb23-6"><a href="#cb23-6" aria-hidden="true" tabindex="-1"></a>    pl<span class="sc">$</span><span class="fu">col</span>(<span class="st">"colDate1"</span>)<span class="sc">$</span>str<span class="sc">$</span><span class="fu">strptime</span>(pl<span class="sc">$</span>Date, <span class="st">"%F %T"</span>, <span class="at">strict =</span> <span class="cn">FALSE</span>),</span>
-<span id="cb23-7"><a href="#cb23-7" aria-hidden="true" tabindex="-1"></a>    pl<span class="sc">$</span><span class="fu">col</span>(<span class="st">"colDate2"</span>)<span class="sc">$</span>str<span class="sc">$</span><span class="fu">strptime</span>(pl<span class="sc">$</span>Date, <span class="st">"%F %T"</span>, <span class="at">strict =</span> <span class="cn">FALSE</span>)</span>
-<span id="cb23-8"><a href="#cb23-8" aria-hidden="true" tabindex="-1"></a>  )<span class="sc">$</span></span>
-<span id="cb23-9"><a href="#cb23-9" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Creation of a diff column between 2 dates (in days)</span></span>
-<span id="cb23-10"><a href="#cb23-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">with_columns</span>(</span>
-<span id="cb23-11"><a href="#cb23-11" aria-hidden="true" tabindex="-1"></a>    (pl<span class="sc">$</span><span class="fu">col</span>(<span class="st">"colDate2"</span>) <span class="sc">-</span> pl<span class="sc">$</span><span class="fu">col</span>(<span class="st">"colDate1"</span>))<span class="sc">$</span>dt<span class="sc">$</span><span class="fu">days</span>()<span class="sc">$</span><span class="fu">alias</span>(<span class="st">"diff"</span>)</span>
-<span id="cb23-12"><a href="#cb23-12" aria-hidden="true" tabindex="-1"></a>  )<span class="sc">$</span></span>
-<span id="cb23-13"><a href="#cb23-13" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Filter rows</span></span>
-<span id="cb23-14"><a href="#cb23-14" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(</span>
-<span id="cb23-15"><a href="#cb23-15" aria-hidden="true" tabindex="-1"></a>    pl<span class="sc">$</span><span class="fu">col</span>(<span class="st">"colInt"</span>)<span class="sc">&gt;</span><span class="dv">2000</span> <span class="sc">&amp;</span> pl<span class="sc">$</span><span class="fu">col</span>(<span class="st">"colInt"</span>)<span class="sc">&lt;</span><span class="dv">8000</span></span>
-<span id="cb23-16"><a href="#cb23-16" aria-hidden="true" tabindex="-1"></a>  )<span class="sc">$</span></span>
-<span id="cb23-17"><a href="#cb23-17" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Grouping and aggregation</span></span>
-<span id="cb23-18"><a href="#cb23-18" aria-hidden="true" tabindex="-1"></a>  <span class="fu">groupby</span>(</span>
-<span id="cb23-19"><a href="#cb23-19" aria-hidden="true" tabindex="-1"></a>    <span class="st">"colString"</span>)<span class="sc">$</span></span>
-<span id="cb23-20"><a href="#cb23-20" aria-hidden="true" tabindex="-1"></a>  <span class="fu">agg</span>(</span>
-<span id="cb23-21"><a href="#cb23-21" aria-hidden="true" tabindex="-1"></a>    pl<span class="sc">$</span><span class="fu">col</span>(<span class="st">"colInt"</span>)<span class="sc">$</span><span class="fu">min</span>()<span class="sc">$</span><span class="fu">alias</span>(<span class="st">"min_colInt"</span>),</span>
-<span id="cb23-22"><a href="#cb23-22" aria-hidden="true" tabindex="-1"></a>    pl<span class="sc">$</span><span class="fu">col</span>(<span class="st">"colInt"</span>)<span class="sc">$</span><span class="fu">mean</span>()<span class="sc">$</span><span class="fu">alias</span>(<span class="st">"mean_colInt"</span>),</span>
-<span id="cb23-23"><a href="#cb23-23" aria-hidden="true" tabindex="-1"></a>    pl<span class="sc">$</span><span class="fu">col</span>(<span class="st">"colInt"</span>)<span class="sc">$</span><span class="fu">max</span>()<span class="sc">$</span><span class="fu">alias</span>(<span class="st">"max_colInt"</span>),</span>
-<span id="cb23-24"><a href="#cb23-24" aria-hidden="true" tabindex="-1"></a>    pl<span class="sc">$</span><span class="fu">col</span>(<span class="st">"colNum"</span>)<span class="sc">$</span><span class="fu">min</span>()<span class="sc">$</span><span class="fu">alias</span>(<span class="st">"min_colNum"</span>),</span>
-<span id="cb23-25"><a href="#cb23-25" aria-hidden="true" tabindex="-1"></a>    pl<span class="sc">$</span><span class="fu">col</span>(<span class="st">"colNum"</span>)<span class="sc">$</span><span class="fu">mean</span>()<span class="sc">$</span><span class="fu">alias</span>(<span class="st">"mean_colNum"</span>),</span>
-<span id="cb23-26"><a href="#cb23-26" aria-hidden="true" tabindex="-1"></a>    pl<span class="sc">$</span><span class="fu">col</span>(<span class="st">"colNum"</span>)<span class="sc">$</span><span class="fu">max</span>()<span class="sc">$</span><span class="fu">alias</span>(<span class="st">"max_colNum"</span>)</span>
-<span id="cb23-27"><a href="#cb23-27" aria-hidden="true" tabindex="-1"></a>  )</span>
-<span id="cb23-28"><a href="#cb23-28" aria-hidden="true" tabindex="-1"></a>  </span>
-<span id="cb23-29"><a href="#cb23-29" aria-hidden="true" tabindex="-1"></a>  <span class="fu">return</span>(result_agg)</span>
-<span id="cb23-30"><a href="#cb23-30" aria-hidden="true" tabindex="-1"></a>}</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</div>
-</div>
-<div id="tabset-2-3" class="tab-pane" role="tabpanel" aria-labelledby="tabset-2-3-tab">
-<div class="cell">
-<div class="sourceCode cell-code" id="cb24"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a>csv_lazy_polars <span class="ot">&lt;-</span> <span class="cf">function</span>() {</span>
-<span id="cb24-2"><a href="#cb24-2" aria-hidden="true" tabindex="-1"></a><span class="co"># Reading the csv file (eager mode)</span></span>
-<span id="cb24-3"><a href="#cb24-3" aria-hidden="true" tabindex="-1"></a>result_agg <span class="ot">&lt;-</span> pl<span class="sc">$</span><span class="fu">lazy_csv_reader</span>(<span class="at">path =</span> <span class="st">"Datasets/DataMultiTypes.csv"</span>)<span class="sc">$</span></span>
-<span id="cb24-4"><a href="#cb24-4" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Conversion of 2 columns to Date format</span></span>
-<span id="cb24-5"><a href="#cb24-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">with_columns</span>(</span>
-<span id="cb24-6"><a href="#cb24-6" aria-hidden="true" tabindex="-1"></a>    pl<span class="sc">$</span><span class="fu">col</span>(<span class="st">"colDate1"</span>)<span class="sc">$</span>str<span class="sc">$</span><span class="fu">strptime</span>(pl<span class="sc">$</span>Date, <span class="st">"%F %T"</span>, <span class="at">strict =</span> <span class="cn">FALSE</span>),</span>
-<span id="cb24-7"><a href="#cb24-7" aria-hidden="true" tabindex="-1"></a>    pl<span class="sc">$</span><span class="fu">col</span>(<span class="st">"colDate2"</span>)<span class="sc">$</span>str<span class="sc">$</span><span class="fu">strptime</span>(pl<span class="sc">$</span>Date, <span class="st">"%F %T"</span>, <span class="at">strict =</span> <span class="cn">FALSE</span>)</span>
-<span id="cb24-8"><a href="#cb24-8" aria-hidden="true" tabindex="-1"></a>  )<span class="sc">$</span></span>
-<span id="cb24-9"><a href="#cb24-9" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Creation of a diff column between 2 dates (in days)</span></span>
-<span id="cb24-10"><a href="#cb24-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">with_columns</span>(</span>
-<span id="cb24-11"><a href="#cb24-11" aria-hidden="true" tabindex="-1"></a>    (pl<span class="sc">$</span><span class="fu">col</span>(<span class="st">"colDate2"</span>) <span class="sc">-</span> pl<span class="sc">$</span><span class="fu">col</span>(<span class="st">"colDate1"</span>))<span class="sc">$</span>dt<span class="sc">$</span><span class="fu">days</span>()<span class="sc">$</span><span class="fu">alias</span>(<span class="st">"diff"</span>)</span>
-<span id="cb24-12"><a href="#cb24-12" aria-hidden="true" tabindex="-1"></a>  )<span class="sc">$</span></span>
-<span id="cb24-13"><a href="#cb24-13" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Filter rows</span></span>
-<span id="cb24-14"><a href="#cb24-14" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(</span>
-<span id="cb24-15"><a href="#cb24-15" aria-hidden="true" tabindex="-1"></a>    pl<span class="sc">$</span><span class="fu">col</span>(<span class="st">"colInt"</span>)<span class="sc">&gt;</span><span class="dv">2000</span> <span class="sc">&amp;</span> pl<span class="sc">$</span><span class="fu">col</span>(<span class="st">"colInt"</span>)<span class="sc">&lt;</span><span class="dv">8000</span></span>
-<span id="cb24-16"><a href="#cb24-16" aria-hidden="true" tabindex="-1"></a>  )<span class="sc">$</span></span>
-<span id="cb24-17"><a href="#cb24-17" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Grouping and aggregation</span></span>
-<span id="cb24-18"><a href="#cb24-18" aria-hidden="true" tabindex="-1"></a>  <span class="fu">groupby</span>(</span>
-<span id="cb24-19"><a href="#cb24-19" aria-hidden="true" tabindex="-1"></a>    <span class="st">"colString"</span>)<span class="sc">$</span></span>
-<span id="cb24-20"><a href="#cb24-20" aria-hidden="true" tabindex="-1"></a>  <span class="fu">agg</span>(</span>
-<span id="cb24-21"><a href="#cb24-21" aria-hidden="true" tabindex="-1"></a>    pl<span class="sc">$</span><span class="fu">col</span>(<span class="st">"colInt"</span>)<span class="sc">$</span><span class="fu">min</span>()<span class="sc">$</span><span class="fu">alias</span>(<span class="st">"min_colInt"</span>),</span>
-<span id="cb24-22"><a href="#cb24-22" aria-hidden="true" tabindex="-1"></a>    pl<span class="sc">$</span><span class="fu">col</span>(<span class="st">"colInt"</span>)<span class="sc">$</span><span class="fu">mean</span>()<span class="sc">$</span><span class="fu">alias</span>(<span class="st">"mean_colInt"</span>),</span>
-<span id="cb24-23"><a href="#cb24-23" aria-hidden="true" tabindex="-1"></a>    pl<span class="sc">$</span><span class="fu">col</span>(<span class="st">"colInt"</span>)<span class="sc">$</span><span class="fu">max</span>()<span class="sc">$</span><span class="fu">alias</span>(<span class="st">"max_colInt"</span>),</span>
-<span id="cb24-24"><a href="#cb24-24" aria-hidden="true" tabindex="-1"></a>    pl<span class="sc">$</span><span class="fu">col</span>(<span class="st">"colNum"</span>)<span class="sc">$</span><span class="fu">min</span>()<span class="sc">$</span><span class="fu">alias</span>(<span class="st">"min_colNum"</span>),</span>
-<span id="cb24-25"><a href="#cb24-25" aria-hidden="true" tabindex="-1"></a>    pl<span class="sc">$</span><span class="fu">col</span>(<span class="st">"colNum"</span>)<span class="sc">$</span><span class="fu">mean</span>()<span class="sc">$</span><span class="fu">alias</span>(<span class="st">"mean_colNum"</span>),</span>
-<span id="cb24-26"><a href="#cb24-26" aria-hidden="true" tabindex="-1"></a>    pl<span class="sc">$</span><span class="fu">col</span>(<span class="st">"colNum"</span>)<span class="sc">$</span><span class="fu">max</span>()<span class="sc">$</span><span class="fu">alias</span>(<span class="st">"max_colNum"</span>)</span>
-<span id="cb24-27"><a href="#cb24-27" aria-hidden="true" tabindex="-1"></a>  )</span>
-<span id="cb24-28"><a href="#cb24-28" aria-hidden="true" tabindex="-1"></a>  </span>
-<span id="cb24-29"><a href="#cb24-29" aria-hidden="true" tabindex="-1"></a>  <span class="fu">return</span>(result_agg)</span>
-<span id="cb24-30"><a href="#cb24-30" aria-hidden="true" tabindex="-1"></a>}</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</div>
-</div>
+<p>With the <code>arrow::to_duckdb()</code> method, we see that the result is returned by mentioning <code>#Database: DuckDB</code>, it is the DuckDB engine that was used.</p>
+<p>One of the advantages of using the DuckDB engine and dplyr may be <strong>to use a feature implemented by DuckDB but not yet by Arrow</strong>. We can do the opposite, and return to the Arrow engine with <code>arrow::to_arrow()</code>.</p>
+<p><strong>The interoperability between Arrow, DuckDB and dplyr is very easy to use and brings a lot of flexibility for data processing.</strong></p>
 </div>
 </div>
 </section>
-<section id="results-eager-vs-lazy-mode" class="level3" data-number="5.1.2">
-<h3 data-number="5.1.2" class="anchored" data-anchor-id="results-eager-vs-lazy-mode"><span class="header-section-number">5.1.2</span> Results eager vs lazy mode</h3>
+<section id="results-with-duckdb-engine" class="level3" data-number="5.4.2">
+<h3 data-number="5.4.2" class="anchored" data-anchor-id="results-with-duckdb-engine"><span class="header-section-number">5.4.2</span> Results with DuckDB engine</h3>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb25"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a><span class="fu">microbenchmark</span>(</span>
-<span id="cb25-2"><a href="#cb25-2" aria-hidden="true" tabindex="-1"></a>  <span class="st">"data.table"</span> <span class="ot">=</span> <span class="fu">as.data.frame</span>(<span class="fu">csv_dt</span>()),</span>
-<span id="cb25-3"><a href="#cb25-3" aria-hidden="true" tabindex="-1"></a>  <span class="st">"eager mode"</span> <span class="ot">=</span> <span class="fu">csv_eager_polars</span>(),</span>
-<span id="cb25-4"><a href="#cb25-4" aria-hidden="true" tabindex="-1"></a>  <span class="st">"lazy mode"</span> <span class="ot">=</span> <span class="fu">csv_lazy_polars</span>()<span class="sc">$</span><span class="fu">collect</span>(),</span>
-<span id="cb25-5"><a href="#cb25-5" aria-hidden="true" tabindex="-1"></a>  <span class="at">times =</span> <span class="dv">5</span></span>
-<span id="cb25-6"><a href="#cb25-6" aria-hidden="true" tabindex="-1"></a> )</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb58"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb58-1"><a href="#cb58-1" aria-hidden="true" tabindex="-1"></a><span class="fu">microbenchmark</span>(</span>
+<span id="cb58-2"><a href="#cb58-2" aria-hidden="true" tabindex="-1"></a>  <span class="st">"arrow/dplyr/DuckDB"</span> <span class="ot">=</span> <span class="fu">duckdb_arrow_dplyr</span>(),</span>
+<span id="cb58-3"><a href="#cb58-3" aria-hidden="true" tabindex="-1"></a>  <span class="st">"arrow/SQL/DuckDB"</span> <span class="ot">=</span> <span class="fu">duckdb_arrow_sql</span>(),</span>
+<span id="cb58-4"><a href="#cb58-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">times =</span> <span class="dv">5</span></span>
+<span id="cb58-5"><a href="#cb58-5" aria-hidden="true" tabindex="-1"></a> )</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>Unit: milliseconds
-       expr      min       lq      mean   median       uq      max neval
- data.table 210.8425 225.7452 272.12200 227.7602 334.4394 361.8227     5
- eager mode 228.4348 231.8965 236.74390 237.6695 242.0445 243.6742     5
-  lazy mode  68.7220  69.1372  72.50966  69.9058  70.4641  84.3192     5</code></pre>
+               expr      min       lq     mean   median       uq      max neval
+ arrow/dplyr/DuckDB 311.8294 317.4268 332.8039 335.5322 337.6347 361.5966     5
+   arrow/SQL/DuckDB 161.4319 167.2897 168.1654 169.4422 169.6347 173.0287     5</code></pre>
 </div>
 </div>
-<p>👉 The data processing is at least twice as fast with <strong>lazy mode</strong> <code>polars</code>! 🏆🏆</p>
+</section>
+<section id="queries-on-duckdb-files" class="level3" data-number="5.4.3">
+<h3 data-number="5.4.3" class="anchored" data-anchor-id="queries-on-duckdb-files"><span class="header-section-number">5.4.3</span> Queries on Duckdb files</h3>
+<p>Let’s now look at how to perform queries on duckdb files.</p>
+<p>For this comparison, we will use :</p>
+<ul>
+<li>For <strong>SQL</strong>, the <code>DBI::dbGetQuery()</code> method. In this way, we use the standard DBI methods to work from a DuckDb file.</li>
+</ul>
+<div class="tabset-margin-container"></div><div class="panel-tabset">
+<ul class="nav nav-tabs" role="tablist"><li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-5-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-5-1" role="tab" aria-controls="tabset-5-1" aria-selected="true">arrow/SQL</a></li></ul>
+<div class="tab-content">
+<div id="tabset-5-1" class="tab-pane active" role="tabpanel" aria-labelledby="tabset-5-1-tab">
+<div class="cell">
+<div class="sourceCode cell-code" id="cb60"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb60-1"><a href="#cb60-1" aria-hidden="true" tabindex="-1"></a>duckdb_sql <span class="ot">&lt;-</span> <span class="cf">function</span>(variables) {</span>
+<span id="cb60-2"><a href="#cb60-2" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb60-3"><a href="#cb60-3" aria-hidden="true" tabindex="-1"></a>  con <span class="ot">&lt;-</span> <span class="fu">dbConnect</span>(duckdb<span class="sc">::</span><span class="fu">duckdb</span>(),</span>
+<span id="cb60-4"><a href="#cb60-4" aria-hidden="true" tabindex="-1"></a>                 <span class="st">"Datasets/DataMultiTypes.duckdb"</span>)</span>
+<span id="cb60-5"><a href="#cb60-5" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb60-6"><a href="#cb60-6" aria-hidden="true" tabindex="-1"></a>  result <span class="ot">&lt;-</span> <span class="fu">dbGetQuery</span>(</span>
+<span id="cb60-7"><a href="#cb60-7" aria-hidden="true" tabindex="-1"></a>    con, </span>
+<span id="cb60-8"><a href="#cb60-8" aria-hidden="true" tabindex="-1"></a>    <span class="st">"SELECT colString,</span></span>
+<span id="cb60-9"><a href="#cb60-9" aria-hidden="true" tabindex="-1"></a><span class="st">           MIN(colInt) AS min_colInt,</span></span>
+<span id="cb60-10"><a href="#cb60-10" aria-hidden="true" tabindex="-1"></a><span class="st">           AVG(colInt) AS mean_colInt,</span></span>
+<span id="cb60-11"><a href="#cb60-11" aria-hidden="true" tabindex="-1"></a><span class="st">           MAX(colInt) AS max_colInt,</span></span>
+<span id="cb60-12"><a href="#cb60-12" aria-hidden="true" tabindex="-1"></a><span class="st">           MIN(colNum) AS min_colNum,</span></span>
+<span id="cb60-13"><a href="#cb60-13" aria-hidden="true" tabindex="-1"></a><span class="st">           AVG(colNum) AS mean_colNum,</span></span>
+<span id="cb60-14"><a href="#cb60-14" aria-hidden="true" tabindex="-1"></a><span class="st">           MAX(colNum) AS max_colNum</span></span>
+<span id="cb60-15"><a href="#cb60-15" aria-hidden="true" tabindex="-1"></a><span class="st">    FROM (</span></span>
+<span id="cb60-16"><a href="#cb60-16" aria-hidden="true" tabindex="-1"></a><span class="st">        SELECT colString,</span></span>
+<span id="cb60-17"><a href="#cb60-17" aria-hidden="true" tabindex="-1"></a><span class="st">               colInt,</span></span>
+<span id="cb60-18"><a href="#cb60-18" aria-hidden="true" tabindex="-1"></a><span class="st">               colNum</span></span>
+<span id="cb60-19"><a href="#cb60-19" aria-hidden="true" tabindex="-1"></a><span class="st">        FROM DataMultiTypes</span></span>
+<span id="cb60-20"><a href="#cb60-20" aria-hidden="true" tabindex="-1"></a><span class="st">        WHERE colInt &gt; 2000 AND colInt &lt; 8000</span></span>
+<span id="cb60-21"><a href="#cb60-21" aria-hidden="true" tabindex="-1"></a><span class="st">) AS filtered_data</span></span>
+<span id="cb60-22"><a href="#cb60-22" aria-hidden="true" tabindex="-1"></a><span class="st">GROUP BY colString;"</span>)</span>
+<span id="cb60-23"><a href="#cb60-23" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb60-24"><a href="#cb60-24" aria-hidden="true" tabindex="-1"></a>  <span class="fu">dbDisconnect</span>(con, <span class="at">shutdown=</span><span class="cn">TRUE</span>)</span>
+<span id="cb60-25"><a href="#cb60-25" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb60-26"><a href="#cb60-26" aria-hidden="true" tabindex="-1"></a>  <span class="fu">return</span>(result)</span>
+<span id="cb60-27"><a href="#cb60-27" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb60-28"><a href="#cb60-28" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb60-29"><a href="#cb60-29" aria-hidden="true" tabindex="-1"></a><span class="fu">tic</span>()</span>
+<span id="cb60-30"><a href="#cb60-30" aria-hidden="true" tabindex="-1"></a><span class="fu">duckdb_sql</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>  colString min_colInt mean_colInt max_colInt   min_colNum mean_colNum
+1         B       2001    5004.311       7999 3.385660e-05   0.5005457
+2         C       2001    5001.243       7999 3.045052e-05   0.5014723
+3         A       2001    4998.625       7999 3.794138e-05   0.4984446
+  max_colNum
+1  0.9999863
+2  0.9999921
+3  0.9999879</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb62"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb62-1"><a href="#cb62-1" aria-hidden="true" tabindex="-1"></a><span class="fu">toc</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>0.087 sec elapsed</code></pre>
+</div>
+</div>
+</div>
+</div>
+</div>
+</section>
+<section id="results-for-partitioned-parquet-files-1" class="level3" data-number="5.4.4">
+<h3 data-number="5.4.4" class="anchored" data-anchor-id="results-for-partitioned-parquet-files-1"><span class="header-section-number">5.4.4</span> Results for partitioned parquet files</h3>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb64"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb64-1"><a href="#cb64-1" aria-hidden="true" tabindex="-1"></a>duckdb_bmk <span class="ot">&lt;-</span> <span class="fu">microbenchmark</span>(</span>
+<span id="cb64-2"><a href="#cb64-2" aria-hidden="true" tabindex="-1"></a>  <span class="st">"SQL from duckdb file"</span> <span class="ot">=</span> <span class="fu">duckdb_sql</span>(),</span>
+<span id="cb64-3"><a href="#cb64-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">times =</span> <span class="dv">5</span></span>
+<span id="cb64-4"><a href="#cb64-4" aria-hidden="true" tabindex="-1"></a> )</span>
+<span id="cb64-5"><a href="#cb64-5" aria-hidden="true" tabindex="-1"></a>duckdb_bmk</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Unit: milliseconds
+                 expr     min      lq     mean  median      uq     max neval
+ SQL from duckdb file 75.8175 76.5068 78.96098 77.0844 80.9136 84.4826     5</code></pre>
+</div>
+</div>
+<p>Note that the query withthe standard DBI methods is faster than those with dplyr verbs 🏆</p>
 </section>
 </section>
-<section id="from-an-unique-parquet-file" class="level2" data-number="5.2">
-<h2 data-number="5.2" class="anchored" data-anchor-id="from-an-unique-parquet-file"><span class="header-section-number">5.2</span> From an unique parquet file</h2>
+<section id="final-results" class="level2" data-number="5.5">
+<h2 data-number="5.5" class="anchored" data-anchor-id="final-results"><span class="header-section-number">5.5</span> Final results</h2>
+<section id="performance" class="level3" data-number="5.5.1">
+<h3 data-number="5.5.1" class="anchored" data-anchor-id="performance"><span class="header-section-number">5.5.1</span> Performance</h3>
+<p>So what can we conclude?<br>
+With which file format and which method is it fastest to execute the same request?</p>
+<p>Let’s have a look! First, let’s aggregate all the benchmark results:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb66"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb66-1"><a href="#cb66-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Aggregation</span></span>
+<span id="cb66-2"><a href="#cb66-2" aria-hidden="true" tabindex="-1"></a>bmk_results <span class="ot">&lt;-</span> <span class="fu">rbind</span>(</span>
+<span id="cb66-3"><a href="#cb66-3" aria-hidden="true" tabindex="-1"></a>  csv_bmk,</span>
+<span id="cb66-4"><a href="#cb66-4" aria-hidden="true" tabindex="-1"></a>  unique_parquet_bmk,</span>
+<span id="cb66-5"><a href="#cb66-5" aria-hidden="true" tabindex="-1"></a>  partitioned_parquet_bmk,</span>
+<span id="cb66-6"><a href="#cb66-6" aria-hidden="true" tabindex="-1"></a>  duckdb_bmk</span>
+<span id="cb66-7"><a href="#cb66-7" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb66-8"><a href="#cb66-8" aria-hidden="true" tabindex="-1"></a><span class="co"># Sort the results</span></span>
+<span id="cb66-9"><a href="#cb66-9" aria-hidden="true" tabindex="-1"></a>bmk_results<span class="sc">$</span>expr <span class="ot">&lt;-</span> <span class="fu">reorder</span>(bmk_results<span class="sc">$</span>expr, bmk_results<span class="sc">$</span>time, <span class="at">decreasing =</span> <span class="cn">TRUE</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb67"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb67-1"><a href="#cb67-1" aria-hidden="true" tabindex="-1"></a><span class="fu">autoplot</span>(bmk_results) <span class="sc">+</span></span>
+<span id="cb67-2"><a href="#cb67-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">"polars ⚔️ others : Benchmark results!"</span>) <span class="sc">+</span></span>
+<span id="cb67-3"><a href="#cb67-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">plot.title =</span> <span class="fu">element_text</span>(<span class="at">hjust =</span> <span class="fl">0.5</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img src="benchmarking_files/figure-html/final-results-plot-1.png" class="img-fluid" width="672"></p>
+</div>
+</div>
+<p>The first thing to note is that execution time is faster when working with <strong>parquet files</strong> than with csv files. 🏆<br>
+<strong>With the exception of polars in lazy mode, execution time is systematically lower with parquet files.</strong></p>
+<p>The big winner of our benchmark is nevertheless <strong>polars (lazy mode)</strong>, which takes the top 3 places in our ranking. 🏆🏆🏆</p>
+<p>This is followed by processing with arrow and then with SQL.</p>
+<p>Not surprisingly, R base and dplyr are at the bottom of the ranking.</p>
 </section>
-<section id="from-a-partitioned-parquet-file" class="level2" data-number="5.3">
-<h2 data-number="5.3" class="anchored" data-anchor-id="from-a-partitioned-parquet-file"><span class="header-section-number">5.3</span> From a partitioned parquet file</h2>
-</section>
-<section id="from-a-duckdb-file" class="level2" data-number="5.4">
-<h2 data-number="5.4" class="anchored" data-anchor-id="from-a-duckdb-file"><span class="header-section-number">5.4</span> From a duckdb file</h2>
+<section id="memory-usage" class="level3" data-number="5.5.2">
+<h3 data-number="5.5.2" class="anchored" data-anchor-id="memory-usage"><span class="header-section-number">5.5.2</span> Memory usage</h3>
+<p>We’ve just analysed the performance of the various alternatives to Polars, but what about R’s memory usage?</p>
+<p>To do this, we’re going to use <code>mem_change()</code> from {pryr} package. This method tells you how memory changes during code execution. Positive numbers represent an increase in the memory used by R, and negative numbers represent a decrease.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb68"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb68-1"><a href="#cb68-1" aria-hidden="true" tabindex="-1"></a><span class="fu">gc</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>          used  (Mb) gc trigger  (Mb) max used  (Mb)
+Ncells 2160833 115.5    4589451 245.2  4589451 245.2
+Vcells 7529261  57.5   28583052 218.1 35709288 272.5</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb70"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb70-1"><a href="#cb70-1" aria-hidden="true" tabindex="-1"></a><span class="fu">mem_change</span>(<span class="fu">csv_rbase</span>())</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>5.26 kB</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb72"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb72-1"><a href="#cb72-1" aria-hidden="true" tabindex="-1"></a><span class="fu">mem_change</span>(<span class="fu">csv_dplyr</span>())</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>1.33 kB</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb74"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb74-1"><a href="#cb74-1" aria-hidden="true" tabindex="-1"></a><span class="fu">mem_change</span>(<span class="fu">csv_dt</span>())</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>136 kB</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb76"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb76-1"><a href="#cb76-1" aria-hidden="true" tabindex="-1"></a><span class="fu">mem_change</span>(<span class="fu">duckdb_sql</span>())</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>4.06 kB</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb78"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb78-1"><a href="#cb78-1" aria-hidden="true" tabindex="-1"></a><span class="fu">mem_change</span>(<span class="fu">parquet_polars_lazy</span>()<span class="sc">$</span><span class="fu">collect</span>())</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>16.4 kB</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb80"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb80-1"><a href="#cb80-1" aria-hidden="true" tabindex="-1"></a><span class="fu">mem_change</span>(<span class="fu">parquet_polars_lazy</span>()<span class="sc">$</span><span class="fu">collect</span>()<span class="sc">$</span><span class="fu">to_data_frame</span>())</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>16.3 kB</code></pre>
+</div>
+</div>
 
 
+</section>
 </section>
 
 </main> <!-- /main -->

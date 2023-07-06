@@ -469,7 +469,7 @@ Important
 <div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>pl<span class="sc">$</span><span class="fu">read_csv</span>(<span class="st">"https://j.mp/iriscsv"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stderr">
 <pre><code>tmp file placed in 
- /tmp/RtmpM17MsH/https...j.mp.iriscsv</code></pre>
+ /tmp/RtmpsEAAlN/https...j.mp.iriscsv</code></pre>
 </div>
 <div class="cell-output cell-output-stdout">
 <pre><code>shape: (150, 5)
@@ -490,52 +490,24 @@ Important
 └──────────────┴─────────────┴──────────────┴─────────────┴───────────┘</code></pre>
 </div>
 </div>
-<p>If you want to use this method in <a href="#lazy-executioin">lazy mode</a>, it accepts a lazy boolean argument (FALSE by default but in this case, we prefer to use the <code>lazy_csv_reader()</code> method below.</p>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a>pl<span class="sc">$</span><span class="fu">read_csv</span>(<span class="st">"examples/iris.csv"</span>, <span class="at">lazy =</span> <span class="cn">TRUE</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>[1] "polars LazyFrame naive plan: (run ldf$describe_optimized_plan() to see the optimized plan)"
-
-  CSV SCAN examples/iris.csv
-  PROJECT */5 COLUMNS</code></pre>
-</div>
-</div>
 <p>👉 For a complete list of arguments to use with the <code>read_csv()</code> method, see <a href="https://pola-rs.github.io/polars/py-polars/html/reference/api/polars.read_csv.html#polars.read_csv">this page</a>.</p>
 </section>
 </section>
 <section id="scan-a-csv-file" class="level3" data-number="3.1.2">
 <h3 data-number="3.1.2" class="anchored" data-anchor-id="scan-a-csv-file"><span class="header-section-number">3.1.2</span> Scan a csv file</h3>
-<p>The <code>lazy_csv_reader()</code> method can be used to lazily read a csv file from a file.<br>
-<code>lazy_csv_reader()</code> returns a <code>LazyFrame</code>.</p>
+<p>The <code>pl$scan_csv()</code> method can be used to lazily read a csv file from a file.<br>
+<code>pl$scan_csv()</code> returns a <code>LazyFrame</code>.</p>
 <blockquote class="blockquote">
 <p>This allows the query optimizer to push down predicates and projections to the scan level, thereby potentially reducing memory overhead.</p>
 </blockquote>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a>pl<span class="sc">$</span><span class="fu">lazy_csv_reader</span>(<span class="st">"examples/iris.csv"</span>)<span class="sc">$</span> <span class="co"># lazy, don't do a thing</span></span>
-<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(</span>
-<span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a>    pl<span class="sc">$</span><span class="fu">col</span>(<span class="fu">c</span>(<span class="st">"Petal.Length"</span>,<span class="st">"Petal.Width"</span>)) <span class="co"># select only 2 columns</span></span>
-<span id="cb12-4"><a href="#cb12-4" aria-hidden="true" tabindex="-1"></a>  )<span class="sc">$</span></span>
-<span id="cb12-5"><a href="#cb12-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(</span>
-<span id="cb12-6"><a href="#cb12-6" aria-hidden="true" tabindex="-1"></a>    pl<span class="sc">$</span><span class="fu">col</span>(<span class="st">"Petal.Length"</span>) <span class="sc">&gt;</span> <span class="dv">4</span> <span class="co"># the filter is pushed down the scan, so less data is read into memory</span></span>
-<span id="cb12-7"><a href="#cb12-7" aria-hidden="true" tabindex="-1"></a>    )<span class="sc">$</span><span class="fu">collect</span>() <span class="co"># &lt;- don't forget collect() here!</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>shape: (84, 2)
-┌──────────────┬─────────────┐
-│ Petal.Length ┆ Petal.Width │
-│ ---          ┆ ---         │
-│ f64          ┆ f64         │
-╞══════════════╪═════════════╡
-│ 4.7          ┆ 1.4         │
-│ 4.5          ┆ 1.5         │
-│ 4.9          ┆ 1.5         │
-│ 4.6          ┆ 1.5         │
-│ …            ┆ …           │
-│ 5.0          ┆ 1.9         │
-│ 5.2          ┆ 2.0         │
-│ 5.4          ┆ 2.3         │
-│ 5.1          ┆ 1.8         │
-└──────────────┴─────────────┘</code></pre>
-</div>
+<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a>pl<span class="sc">$</span><span class="fu">scan_csv</span>(</span>
+<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a>  <span class="st">"examples/iris.csv"</span>)<span class="sc">$</span><span class="fu">select</span>( <span class="co"># lazy, don't do a thing</span></span>
+<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a>    pl<span class="sc">$</span><span class="fu">col</span>(<span class="fu">c</span>(<span class="st">"Petal.Length"</span>,<span class="st">"Petal.Width"</span>)) <span class="co"># select only 2 columns</span></span>
+<span id="cb10-4"><a href="#cb10-4" aria-hidden="true" tabindex="-1"></a>  )<span class="sc">$</span></span>
+<span id="cb10-5"><a href="#cb10-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(</span>
+<span id="cb10-6"><a href="#cb10-6" aria-hidden="true" tabindex="-1"></a>    pl<span class="sc">$</span><span class="fu">col</span>(<span class="st">"Petal.Length"</span>) <span class="sc">&gt;</span> <span class="dv">4</span> <span class="co"># the filter is pushed down the scan, so less data is read into memory</span></span>
+<span id="cb10-7"><a href="#cb10-7" aria-hidden="true" tabindex="-1"></a>  )<span class="sc">$</span><span class="fu">collect</span>() <span class="co"># &lt;- don't forget collect() here!</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>👉 For a complete list of arguments to use with the <code>lazy_csv_reader()</code> method, see <a href="https://rpolars.github.io/reference/lazy_csv_reader/">this page</a>.</p>
 <div class="callout callout-style-default callout-important callout-titled">
@@ -556,10 +528,10 @@ Important
 <h3 data-number="3.1.3" class="anchored" data-anchor-id="scan-a-parquet-file"><span class="header-section-number">3.1.3</span> Scan a parquet file</h3>
 <section id="from-a-single-file" class="level4" data-number="3.1.3.1">
 <h4 data-number="3.1.3.1" class="anchored" data-anchor-id="from-a-single-file"><span class="header-section-number">3.1.3.1</span> From a single file</h4>
-<p>The <code>scan_parquet()</code> method can be used to lazily read a parquet file from a file.<br>
-Scanning delays the actual parsing of the file and <code>scan_parquet()</code> returns a <code>LazyFrame</code>.</p>
+<p>The <code>pl$scan_parquet()</code> method can be used to lazily read a parquet file from a file.<br>
+Scanning delays the actual parsing of the file and <code>pl$scan_parquet()</code> returns a <code>LazyFrame</code>.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb14"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="fu">scan_parquet</span>(<span class="st">"examples/iris.parquet"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a>pl<span class="sc">$</span><span class="fu">scan_parquet</span>(<span class="st">"examples/iris.parquet"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] "polars LazyFrame naive plan: (run ldf$describe_optimized_plan() to see the optimized plan)"
 
@@ -570,8 +542,8 @@ Scanning delays the actual parsing of the file and <code>scan_parquet()</code> r
 <p>👉 For a complete list of arguments to use with the <code>scan_parquet()</code> method, see <a href="https://rpolars.github.io/reference/scan_parquet/">this page</a>.</p>
 <p>At the end of the query, don’t forget to use the <code>collect()</code> method to inform Polars that you want to execute it.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb16"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="fu">scan_parquet</span>(<span class="st">"examples/iris.parquet"</span>)<span class="sc">$</span></span>
-<span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">collect</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a>pl<span class="sc">$</span><span class="fu">scan_parquet</span>(<span class="st">"examples/iris.parquet"</span>)<span class="sc">$</span></span>
+<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">collect</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>shape: (150, 5)
 ┌──────────────┬─────────────┬──────────────┬─────────────┬───────────┐
@@ -607,16 +579,16 @@ Caution
 </section>
 <section id="from-multiple-files-1" class="level4" data-number="3.1.3.2">
 <h4 data-number="3.1.3.2" class="anchored" data-anchor-id="from-multiple-files-1"><span class="header-section-number">3.1.3.2</span> From multiple files</h4>
-<p>The <code>scan_parquet()</code> method can also be used to lazily read multiple parquet files in the same folder.<br>
+<p>The <code>pl$scan_parquet()</code> method can also be used to lazily read multiple parquet files in the same folder.<br>
 This is particularly useful for partitioned files! For example:</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb18"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Write multiple parquet files in examples folder</span></span>
-<span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a>arrow<span class="sc">::</span><span class="fu">write_dataset</span>(<span class="at">dataset =</span> iris,</span>
-<span id="cb18-3"><a href="#cb18-3" aria-hidden="true" tabindex="-1"></a>                     <span class="at">path =</span> <span class="st">"examples"</span>,</span>
-<span id="cb18-4"><a href="#cb18-4" aria-hidden="true" tabindex="-1"></a>                     <span class="at">partitioning =</span> <span class="st">"Species"</span>)</span>
-<span id="cb18-5"><a href="#cb18-5" aria-hidden="true" tabindex="-1"></a><span class="co"># Reading all parquet files in the example folder and its subfolders</span></span>
-<span id="cb18-6"><a href="#cb18-6" aria-hidden="true" tabindex="-1"></a><span class="fu">scan_parquet</span>(<span class="st">"examples/*/*.parquet"</span>)<span class="sc">$</span></span>
-<span id="cb18-7"><a href="#cb18-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">collect</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb15"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Write multiple parquet files in examples folder</span></span>
+<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a>arrow<span class="sc">::</span><span class="fu">write_dataset</span>(<span class="at">dataset =</span> iris,</span>
+<span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a>                     <span class="at">path =</span> <span class="st">"examples"</span>,</span>
+<span id="cb15-4"><a href="#cb15-4" aria-hidden="true" tabindex="-1"></a>                     <span class="at">partitioning =</span> <span class="st">"Species"</span>)</span>
+<span id="cb15-5"><a href="#cb15-5" aria-hidden="true" tabindex="-1"></a><span class="co"># Reading all parquet files in the example folder and its subfolders</span></span>
+<span id="cb15-6"><a href="#cb15-6" aria-hidden="true" tabindex="-1"></a>pl<span class="sc">$</span><span class="fu">scan_parquet</span>(<span class="st">"examples/*/*.parquet"</span>)<span class="sc">$</span></span>
+<span id="cb15-7"><a href="#cb15-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">collect</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>shape: (150, 4)
 ┌──────────────┬─────────────┬──────────────┬─────────────┐
@@ -655,7 +627,7 @@ Important
 <p>In this case, note that the <code>Species</code> column which been used for partitioning <strong>is missing</strong></p>
 </div>
 </div>
-<p>Of course, the advantage of using <code>scan_parquet()</code> is that you can query several partitioned files and retrieve the result of the query in R. See an example <a href="lazy_execution.html#from-a-parquet-file">here</a>.</p>
+<p>Of course, the advantage of using <code>pl$scan_parquet()</code> is that you can query several partitioned files and retrieve the result of the query in R. See an example <a href="lazy_execution.html#from-a-parquet-file">here</a>.</p>
 </section>
 </section>
 </section>
@@ -669,32 +641,32 @@ Important
 <div class="tab-content">
 <div id="tabset-2-1" class="tab-pane active" role="tabpanel" aria-labelledby="tabset-2-1-tab">
 <div class="cell">
-<div class="sourceCode cell-code" id="cb20"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a><span class="co"># install.packages("openxlsx")</span></span>
-<span id="cb20-2"><a href="#cb20-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(openxlsx)</span>
-<span id="cb20-3"><a href="#cb20-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb20-4"><a href="#cb20-4" aria-hidden="true" tabindex="-1"></a>openxlsx<span class="sc">::</span><span class="fu">write.xlsx</span>(</span>
-<span id="cb20-5"><a href="#cb20-5" aria-hidden="true" tabindex="-1"></a>    iris,</span>
-<span id="cb20-6"><a href="#cb20-6" aria-hidden="true" tabindex="-1"></a>    <span class="at">file =</span> <span class="fu">tempdir</span>()</span>
-<span id="cb20-7"><a href="#cb20-7" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb17"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="co"># install.packages("openxlsx")</span></span>
+<span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(openxlsx)</span>
+<span id="cb17-3"><a href="#cb17-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-4"><a href="#cb17-4" aria-hidden="true" tabindex="-1"></a>openxlsx<span class="sc">::</span><span class="fu">write.xlsx</span>(</span>
+<span id="cb17-5"><a href="#cb17-5" aria-hidden="true" tabindex="-1"></a>    iris,</span>
+<span id="cb17-6"><a href="#cb17-6" aria-hidden="true" tabindex="-1"></a>    <span class="at">file =</span> <span class="fu">tempdir</span>()</span>
+<span id="cb17-7"><a href="#cb17-7" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </div>
 <div id="tabset-2-2" class="tab-pane" role="tabpanel" aria-labelledby="tabset-2-2-tab">
 <div class="cell">
-<div class="sourceCode cell-code" id="cb21"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a><span class="co"># install.packages("tablexlsx")</span></span>
-<span id="cb21-2"><a href="#cb21-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tablexlsx)</span>
-<span id="cb21-3"><a href="#cb21-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb21-4"><a href="#cb21-4" aria-hidden="true" tabindex="-1"></a>iris <span class="sc">|&gt;</span> <span class="fu">toxlsx</span>(<span class="at">path =</span> <span class="fu">tempdir</span>())</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb18"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a><span class="co"># install.packages("tablexlsx")</span></span>
+<span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tablexlsx)</span>
+<span id="cb18-3"><a href="#cb18-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb18-4"><a href="#cb18-4" aria-hidden="true" tabindex="-1"></a>iris <span class="sc">|&gt;</span> <span class="fu">toxlsx</span>(<span class="at">path =</span> <span class="fu">tempdir</span>())</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </div>
 <div id="tabset-2-3" class="tab-pane" role="tabpanel" aria-labelledby="tabset-2-3-tab">
 <div class="cell">
-<div class="sourceCode cell-code" id="cb22"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a><span class="co"># install.packages("openxlsx2")</span></span>
-<span id="cb22-2"><a href="#cb22-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(openxlsx2)</span>
-<span id="cb22-3"><a href="#cb22-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb22-4"><a href="#cb22-4" aria-hidden="true" tabindex="-1"></a>openxlsx2<span class="sc">::</span><span class="fu">write_xlsx</span>(</span>
-<span id="cb22-5"><a href="#cb22-5" aria-hidden="true" tabindex="-1"></a>    iris,</span>
-<span id="cb22-6"><a href="#cb22-6" aria-hidden="true" tabindex="-1"></a>    <span class="at">file =</span> <span class="fu">tempdir</span>()</span>
-<span id="cb22-7"><a href="#cb22-7" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb19"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a><span class="co"># install.packages("openxlsx2")</span></span>
+<span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(openxlsx2)</span>
+<span id="cb19-3"><a href="#cb19-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb19-4"><a href="#cb19-4" aria-hidden="true" tabindex="-1"></a>openxlsx2<span class="sc">::</span><span class="fu">write_xlsx</span>(</span>
+<span id="cb19-5"><a href="#cb19-5" aria-hidden="true" tabindex="-1"></a>    iris,</span>
+<span id="cb19-6"><a href="#cb19-6" aria-hidden="true" tabindex="-1"></a>    <span class="at">file =</span> <span class="fu">tempdir</span>()</span>
+<span id="cb19-7"><a href="#cb19-7" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </div>
 </div>
