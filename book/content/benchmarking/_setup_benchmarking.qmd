@@ -18,6 +18,7 @@ library(microbenchmark)
 library(readr)
 library(fs)
 library(ggplot2)
+library(pryr)
 
 # Creation the "Datasets" folder
 dir.create(normalizePath("Datasets"))
