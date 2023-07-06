@@ -2,28 +2,31 @@
 
 ### Use DuckDB engine on R object
 
-Let's start by looking at how to use the DuckDb engine on R objects.  
-There are two main possibilities:  
+<!-- TODO: rewrite -->
+
+<!-- Let's start by looking at how to use the DuckDb engine on R objects.  
+There are two main possibilities:   -->
 
 
-1. To use the DuckDB engine to query a R object with **dplyr**, you can use the `arrow::to_duckdb()` method (**arrow/dplyr/DuckDB engine**) 
+<!-- 1. To use the DuckDB engine to query a R object with **dplyr**, you can use the `arrow::to_duckdb()` method (**arrow/dplyr/DuckDB engine**) 
 
 2. To use the DuckDB engine to query a R object with **the standard DBI methods**, you can use the `arrow::to_duckdb()` and `DBI::dbGetQuery()` methods (**arrow/SQL/DuckDB engine**).
-In the following example, we save the R data.frame as a DuckDb virtual table, giving it a name that will be used in the SQL query, finally we execute the query.
+In the following example, we save the R data.frame as a DuckDb virtual table, giving it a name that will be used in the SQL query, finally we execute the query. -->
 
 
 ::: {.panel-tabset}
 
-## arrow/dplyr/DuckDB
+## dplyr/DuckDB
 
 ```{r}
-#| label: duckdb-arrow-dplyr-benchmarking
+#| label: duckdb-dplyr-benchmarking
 
-duckdb_arrow_dplyr <- function(variables) {
-  
-  result <- DataMultiTypes |>
-    
-    to_duckdb() |>
+duckdb_dplyr <- function(variables) {
+  con <- DBI::dbConnect(duckdb::duckdb())
+
+  duckdb::duckdb_register(con, "DataMultiTypes", DataMultiTypes)
+
+  result <- tbl(con, "DataMultiTypes") |>
     
     mutate(
       # Conversion of 2 columns to Date format
@@ -43,29 +46,31 @@ duckdb_arrow_dplyr <- function(variables) {
       min_colNum = min(colNum, na.rm = TRUE),
       mean_colNum = mean(colNum, na.rm = TRUE),
       max_colNum = max(colNum, na.rm = TRUE)
-    )
+    ) |>
+    collect()
   
-  
+  DBI::dbDisconnect(con, shutdown=TRUE)
+
   return(result)
   
 }
 tic()
-duckdb_arrow_dplyr()
+duckdb_dplyr()
 toc()
 ```
 
 ## arrow/SQL/DuckDB
 
 ```{r}
-#| label: duckdb-arrow-sql-benchmarking
+#| label: duckdb-sql-benchmarking
 
-duckdb_arrow_sql <- function(variables) {
+duckdb_sql <- function(variables) {
   
-  con <- dbConnect(duckdb::duckdb())
-  
-  arrow::to_duckdb(DataMultiTypes, table_name = "DataMultiTypes_duckdb", con = con)
-  
-  result <- dbGetQuery(
+  con <- DBI::dbConnect(duckdb::duckdb())
+
+  duckdb::duckdb_register(con, "DataMultiTypes", DataMultiTypes)
+
+  result <- DBI::dbGetQuery(
     con, 
     "SELECT colString,
            MIN(colInt) AS min_colInt,
@@ -78,12 +83,12 @@ duckdb_arrow_sql <- function(variables) {
         SELECT colString,
                colInt,
                colNum
-        FROM DataMultiTypes_duckdb
+        FROM DataMultiTypes
         WHERE colInt > 2000 AND colInt < 8000
 ) AS filtered_data
 GROUP BY colString;")
   
-  dbDisconnect(con, shutdown=TRUE)
+  DBI::dbDisconnect(con, shutdown=TRUE)
   
   return(result)
   
@@ -111,8 +116,8 @@ One of the advantages of using the DuckDB engine and dplyr may be **to use a fea
 #| warning: false
 
 microbenchmark(
-  "arrow/dplyr/DuckDB" = duckdb_arrow_dplyr(),
-  "arrow/SQL/DuckDB" = duckdb_arrow_sql(),
+  "dplyr/DuckDB" = duckdb_dplyr(),
+  "SQL/DuckDB" = duckdb_sql(),
   times = 5
  )
 ```
@@ -127,12 +132,12 @@ For this comparison, we will use :
 
 ::: {.panel-tabset}
 
-## arrow/SQL
+## SQL
 
 ```{r}
-#| label: duckdb-sql-benchmarking
+#| label: duckdb-dbfile-sql-benchmarking
 
-duckdb_sql <- function(variables) {
+duckdb_dbfile_sql <- function(variables) {
   
   con <- dbConnect(duckdb::duckdb(),
                  "Datasets/DataMultiTypes.duckdb")
@@ -166,7 +171,7 @@ toc()
 ```
 :::
 
-### Results for partitioned parquet files
+### Results for DuckDB file
 
 ```{r}
 #| label: duckdb-results-benchmarking
@@ -174,7 +179,7 @@ toc()
 #| warning: false
 
 duckdb_bmk <- microbenchmark(
-  "SQL from duckdb file" = duckdb_sql(),
+  "SQL from duckdb file" = duckdb_dbfile_sql(),
   times = 5
  )
 duckdb_bmk
