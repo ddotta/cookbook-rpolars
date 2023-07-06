@@ -57,7 +57,7 @@ pl$read_csv("Datasets/fakir_file.csv", infer_schema_length=0)$
 toc()
 ```
 
-... while the `lazy` method is represented by the `scan_csv`:
+... while the `lazy` method is represented by the `pl$scan_csv()`:
 
 ```{r}
 #| label: fight-lazy_csv_reader
@@ -82,7 +82,7 @@ We can clearly see that we save a lot of time when executing the `lazy` version 
 
 ### From a parquet file
 
-The `read_parquet()` method has not been implemented in the R Polars package, but for this fight we will use `arrow::read_parquet()` and {dplyr} syntax, which will compete with `polars::scan_parquet()`.
+The `read_parquet()` method has not been implemented in the R Polars package, but for this fight we will use `arrow::read_parquet()` and {dplyr} syntax, which will compete with `pl$scan_parquet()`.
 
 
 ```{r}
@@ -101,7 +101,7 @@ toc()
 ```{r}
 #| label: fight-lazy-scan-parquet
 tic()
-scan_parquet("Datasets/fakir_file.parquet")$
+pl$scan_parquet("Datasets/fakir_file.parquet")$
   filter( 
     pl$col("region") == "Bretagne")$
   groupby(c("departement","priority"))$

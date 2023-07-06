@@ -13,7 +13,7 @@ fs::dir_tree(path = "Datasets/DataMultiTypes/")
 For this comparison, we will use :
 
 - For **arrow (lazy)**, the `arrow::open_dataset()` method
-- For **polars (lazy)**, the `polars::scan_parquet` method
+- For **polars (lazy)**, the `pl$scan_parquet()` method
 
 
 ::: {.panel-tabset}
@@ -65,7 +65,7 @@ toc()
 
 partitioned_parquet_polars_lazy <- function(variables) {
   
-  result <- polars::scan_parquet(file = "Datasets/DataMultiTypes.parquet")$
+  result <- pl$scan_parquet(file = "Datasets/DataMultiTypes.parquet")$
     # Conversion of 2 columns to Date format
     with_columns(
       pl$col("colDate1")$str$strptime(pl$Date, "%F %T", strict = FALSE),

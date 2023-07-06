@@ -60,8 +60,8 @@ pl$read_csv("https://j.mp/iriscsv")
 
 ### Scan a csv file
 
-The `scan_csv()` method can be used to lazily read a csv file from a file.  
-`scan_csv()` returns a `LazyFrame`. 
+The `pl$scan_csv()` method can be used to lazily read a csv file from a file.  
+`pl$scan_csv()` returns a `LazyFrame`. 
 
 > This allows the query optimizer to push down predicates and projections to the scan level, thereby potentially reducing memory overhead.
 
@@ -89,12 +89,12 @@ June 2023: arguments available in Python `eol_char` and `with_column_names` not 
 
 #### From a single file
 
-The `scan_parquet()` method can be used to lazily read a parquet file from a file.  
-Scanning delays the actual parsing of the file and `scan_parquet()` returns a `LazyFrame`. 
+The `pl$scan_parquet()` method can be used to lazily read a parquet file from a file.  
+Scanning delays the actual parsing of the file and `pl$scan_parquet()` returns a `LazyFrame`. 
 
 ```{r}
 #| label: scan-parquet-polars
-scan_parquet("examples/iris.parquet")
+pl$scan_parquet("examples/iris.parquet")
 ```
 
 👉 For a complete list of arguments to use with the `scan_parquet()` method, see [this page](https://rpolars.github.io/reference/scan_parquet/).
@@ -103,7 +103,7 @@ At the end of the query, don't forget to use the `collect()` method to inform Po
 
 ```{r}
 #| label: scan-parquet-collect-polars
-scan_parquet("examples/iris.parquet")$
+pl$scan_parquet("examples/iris.parquet")$
   collect()
 ```
 
@@ -114,7 +114,7 @@ June 2023 : Export methods have not yet been implemented in R. This methods star
 
 #### From multiple files
 
-The `scan_parquet()` method can also be used to lazily read multiple parquet files in the same folder.  
+The `pl$scan_parquet()` method can also be used to lazily read multiple parquet files in the same folder.  
 This is particularly useful for partitioned files!
 For example:
 
@@ -125,7 +125,7 @@ arrow::write_dataset(dataset = iris,
                      path = "examples",
                      partitioning = "Species")
 # Reading all parquet files in the example folder and its subfolders
-scan_parquet("examples/*/*.parquet")$
+pl$scan_parquet("examples/*/*.parquet")$
   collect()
 ```
 
@@ -138,4 +138,4 @@ In the code above:
 In this case, note that the `Species` column which been used for partitioning **is missing**
 :::
 
-Of course, the advantage of using `scan_parquet()` is that you can query several partitioned files and retrieve the result of the query in R. See an example [here](#from-a-parquet-file).
+Of course, the advantage of using `pl$scan_parquet()` is that you can query several partitioned files and retrieve the result of the query in R. See an example [here](#from-a-parquet-file).
