@@ -13,6 +13,7 @@ fs::dir_tree(path = "Datasets/DataMultiTypes/")
 For this comparison, we will use :
 
 - For **arrow (lazy)**, the `arrow::open_dataset()` method
+- For **dplyr (duckdb)**, the ` DBI::dbConnect`, `dplyr::tbl()` and `arrow::read_parquet()` methods
 - For **polars (lazy)**, the `pl$scan_parquet()` method
 
 
@@ -63,8 +64,10 @@ toc()
 ```{r}
 #| label: partitioned-parquet-duckdb-benchmarking
 
-partitioned_parquet_duckdb <- function(variables) {
+partitioned_parquet_dplyr_duckdb <- function(variables) {
+  
   con <- DBI::dbConnect(duckdb::duckdb())
+  
   result <- tbl(con, "read_parquet('Datasets/DataMultiTypes/*/*.parquet', hive_partitioning=1)") |>
     
     mutate(
@@ -92,7 +95,7 @@ partitioned_parquet_duckdb <- function(variables) {
   return(result)
 }
 tic()
-partitioned_parquet_duckdb() 
+partitioned_parquet_dplyr_duckdb() 
 toc()
 ```
 
@@ -142,6 +145,7 @@ toc()
 
 partitioned_parquet_bmk <- microbenchmark(
   "arrow (lazy) - from partitioned parquet file" = partitioned_parquet_arrow_lazy(),
+  "dplyr (duckdb) - from partitioned parquet file" = partitioned_parquet_dplyr_duckdb(),
   "polars (lazy) - from partitioned parquet file" = partitioned_parquet_polars_lazy()$to_data_frame(),
   times = 5
  )
