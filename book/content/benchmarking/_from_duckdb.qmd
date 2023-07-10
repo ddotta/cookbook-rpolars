@@ -98,7 +98,7 @@ toc()
 ## arrow/dplyr/DuckDB
 
 ```{r}
-#| label: duckdb-dplyr-benchmarking
+#| label: duckdb-dplyr-arrow-benchmarking
 
 duckdb_arrow_dplyr <- function(variables) {
           
