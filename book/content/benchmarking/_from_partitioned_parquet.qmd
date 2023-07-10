@@ -13,6 +13,7 @@ fs::dir_tree(path = "Datasets/DataMultiTypes/")
 For this comparison, we will use :
 
 - For **arrow (lazy)**, the `arrow::open_dataset()` method
+- For **dplyr (duckdb)**, the ` DBI::dbConnect`, `dplyr::tbl()` and `arrow::read_parquet()` methods
 - For **polars (lazy)**, the `pl$scan_parquet()` method
 
 
@@ -55,6 +56,46 @@ partitioned_parquet_arrow_lazy <- function(variables) {
 }
 tic()
 partitioned_parquet_arrow_lazy() 
+toc()
+```
+
+## dplyr (duckdb)
+
+```{r}
+#| label: partitioned-parquet-duckdb-benchmarking
+
+partitioned_parquet_dplyr_duckdb <- function(variables) {
+  
+  con <- DBI::dbConnect(duckdb::duckdb())
+  
+  result <- tbl(con, "read_parquet('Datasets/DataMultiTypes/*/*.parquet', hive_partitioning=1)") |>
+    
+    mutate(
+      # Conversion of 2 columns to Date format
+      colDate1 = as.Date(colDate1),
+      colDate2 = as.Date(colDate2)
+    ) |>
+    # Filter rows
+    filter(
+      colInt>2000 & colInt<8000
+    ) |>
+    # Grouping and aggregation
+    group_by(colString) |> 
+    summarise(
+      min_colInt = min(colInt, na.rm = TRUE),
+      mean_colInt = mean(colInt, na.rm = TRUE),
+      mas_colInt = max(colInt, na.rm = TRUE),
+      min_colNum = min(colNum, na.rm = TRUE),
+      mean_colNum = mean(colNum, na.rm = TRUE),
+      max_colNum = max(colNum, na.rm = TRUE)
+    ) |> 
+    collect()
+  
+  DBI::dbDisconnect(con)
+  return(result)
+}
+tic()
+partitioned_parquet_dplyr_duckdb() 
 toc()
 ```
 
@@ -104,6 +145,7 @@ toc()
 
 partitioned_parquet_bmk <- microbenchmark(
   "arrow (lazy) - from partitioned parquet file" = partitioned_parquet_arrow_lazy(),
+  "dplyr (duckdb) - from partitioned parquet file" = partitioned_parquet_dplyr_duckdb(),
   "polars (lazy) - from partitioned parquet file" = partitioned_parquet_polars_lazy()$to_data_frame(),
   times = 5
  )

@@ -183,6 +183,56 @@ toc()
 print(res_dplyr)
 ```
 
+## dplyr (Acero)
+
+```{r}
+#| label: csv-arrow-benchmarking
+
+csv_arrow <- function() {
+  
+  # Reading the csv file
+  result <- arrow::read_csv_arrow("Datasets/DataMultiTypes.csv", as_data_frame = FALSE)
+  
+  # Conversion of 2 columns to Date format
+  result <- result |>
+    mutate(
+      colDate1 = as.Date(colDate1),
+      colDate2 = as.Date(colDate2)
+    )
+  
+  # Creation of a diff column between 2 dates (in days)
+  result <- result |>
+    # difftime(unit = "days") is not supported in arrow yet
+    mutate(diff = round(as.integer64(difftime(colDate2, colDate1)) %/% (60 * 60 * 24), 0))
+  
+  # Filter rows
+  result <- result |>
+    filter(
+      colInt>2000 & colInt<8000
+      )
+  
+  # Grouping and aggregation
+  result_agg <- result |>
+    group_by(colString) |> 
+    summarise(
+      min_colInt = min(colInt),
+      mean_colInt = mean(colInt),
+      mas_colInt = max(colInt),
+      min_colNum = min(colNum),
+      mean_colNum = mean(colNum),
+      max_colNum = max(colNum)
+  ) |>
+    collect()
+
+  return(result_agg)
+}
+
+tic()
+res_arrow <- csv_arrow()
+toc()
+print(res_arrow)
+```
+
 ## data.table
 
 ```{r}
@@ -232,6 +282,7 @@ csv_bmk <- microbenchmark(
   #"polars (lazy) from csv file" = csv_lazy_polars()$collect(),
   "R base - from csv file" = csv_rbase(),
   "dplyr - from csv file" = csv_dplyr(),
+  "dplyr (Acero) - from csv file" = csv_arrow(),
   "data.table - from csv file" = as.data.frame(csv_dt()),
   times = 5
  )
