@@ -39,32 +39,22 @@ mydf$dtype_strings()
 
 A `DataFrame` has a `width` attribute which returns the width of the `DataFrame`.  
 
-Alternatively, the `nrow.DataFrame()` method can be used to get the width of a 
-`DataFrame`.
-
 ```{r}
 #| label: get-rows-number
 
 # With width attribute
 mydf$width
-# With nrow.DataFrame() method
-nrow.DataFrame(mydf)
 ```
 
 ### Get the columns number
 
 A `DataFrame` has a `height` attribute which returns the width of the `DataFrame`.  
 
-Alternatively, the `ncol.DataFrame()` method can be used to get the height of a 
-`DataFrame`.
-
 ```{r}
 #| label: get-columns-number
 
 # With height attribute
 mydf$height
-# With ncol.DataFrame() method
-ncol.DataFrame(mydf)
 ```
 
 ### Get the columns names
