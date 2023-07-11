@@ -17,8 +17,36 @@ bmk_results <- rbind(
   partitioned_parquet_bmk,
   duckdb_bmk
 )
+```
+
+Let's do a few basic data manipulation before plotting the results :
+
+```{r}
+#| label: data-manipulation-before-plotting
+#| code-fold: true
+#| message: false
+#| warning: false
+#| results: 'hide'
+
 # Sort the results
 bmk_results$expr <- reorder(bmk_results$expr, bmk_results$time, decreasing = TRUE)
+
+# Define a function to get different colors
+get_label_color <- function(label) {
+  if (endsWith(label, "partitioned parquet file")) {
+    "red"
+  } else if (endsWith(label, "unique parquet file")) {
+    "orange"
+  } else if (endsWith(label, "csv file")) {
+    "blue"
+  } else if (endsWith(label, "duckdb file")) {
+    "green"
+  } else {
+    "black" 
+  }
+}
+# Define colors for the plot in bmk_results
+bmk_results$mycolor <- sapply(as.character(bmk_results$expr),get_label_color)
 ```
 
 
@@ -26,7 +54,9 @@ bmk_results$expr <- reorder(bmk_results$expr, bmk_results$time, decreasing = TRU
 #| label: final-results-plot
 
 autoplot(bmk_results) +
-  labs(title = "polars ⚔️ others : Benchmark results!") +
+    aes(color = bmk_results$mycolor) +
+  labs(title = "polars ⚔️ others : Benchmark results!",
+       subtitle = "🔎 Right-click on the plot to open it wide in a new tab") +
   theme(plot.title = element_text(hjust = 0.5))
 ```
 
