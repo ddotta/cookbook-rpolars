@@ -54,10 +54,17 @@ bmk_results$mycolor <- sapply(as.character(bmk_results$expr),get_label_color)
 #| label: final-results-plot
 
 autoplot(bmk_results) +
-    aes(color = bmk_results$mycolor) +
+  aes(color = expr) +
+  scale_color_manual(
+    values = setNames(
+      bmk_results$mycolor,
+      as.character(bmk_results$expr)
+    )
+  ) +
   labs(title = "polars ⚔️ others : Benchmark results!",
        subtitle = "🔎 Right-click on the plot to open it wide in a new tab") +
-  theme(plot.title = element_text(hjust = 0.5))
+  theme(plot.title = element_text(hjust = 0.5),
+        legend.position = "none")
 ```
 
 ::: {.callout-important title="Final conclusion"}
