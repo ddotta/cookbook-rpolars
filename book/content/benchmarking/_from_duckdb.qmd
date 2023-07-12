@@ -19,6 +19,7 @@ There are 3 main possibilities:
 #| label: duckdb-dplyr-benchmarking
 
 duckdb_dplyr <- function(variables) {
+  
   con <- DBI::dbConnect(duckdb::duckdb())
 
   duckdb::duckdb_register(con, "DataMultiTypes", DataMultiTypes)
