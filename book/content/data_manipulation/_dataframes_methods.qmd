@@ -102,7 +102,7 @@ The `to_struct()` method can be used to get a structure from a `DataFrame`.
 
 ```{r}
 #| label: to_struct-dataframe-polars
-mystruc <- mydf$to_struct()
+mystruc <- pl$DataFrame(iris)$to_struct()
 mystruc
 ```
 
@@ -111,7 +111,7 @@ mystruc
 ```{r}
 #| label: to_struct-to-r
 mylist <- mystruc$to_r()
-mylist[1:10]
+str(mylist)
 ```
 
 mylist is now a list where each element is a column of the initial DataFrame.
