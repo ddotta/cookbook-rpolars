@@ -64,6 +64,8 @@ toc()
 ```{r}
 #| label: partitioned-parquet-duckdb-benchmarking
 
+# library(dbplyr)
+
 partitioned_parquet_dplyr_duckdb <- function(variables) {
   
   con <- DBI::dbConnect(duckdb::duckdb())

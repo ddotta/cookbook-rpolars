@@ -20,7 +20,7 @@ jobs:
 
       - name: Install packages
         run: | 
-          Rscript -e 'install.packages(c("rmarkdown","dplyr","tidyr","arrow","data.table","fakir","tictoc","duckdb","DBI","microbenchmark","readr","fs","ggplot2","pryr"))'
+          Rscript -e 'install.packages(c("rmarkdown","dplyr","tidyr","arrow","data.table","fakir","tictoc","duckdb","DBI","microbenchmark","readr","fs","ggplot2","pryr","dbplyr"))'
           Rscript -e 'install.packages("polars", repos = "https://rpolars.r-universe.dev")'
 
       - name: Render Quarto Project
