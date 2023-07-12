@@ -1,6 +1,6 @@
-## From a DuckDb file
+## From an R object
 
-### Use DuckDB engine on R object
+This section analyses the different methods for making a query **from an R object already loaded in memory**.
 
 Let's start by looking at how to use the DuckDb engine on R objects.  
 There are **3 main possibilities**:  
@@ -157,68 +157,3 @@ microbenchmark(
   times = 5
  )
 ```
-
-### Queries on Duckdb files
-
-Let's now look at how to perform queries on duckdb files.
-
-For this comparison, we will use :
-
-- For **SQL**, the `DBI::dbGetQuery()` method. In this way, we use the standard DBI methods to work from a DuckDb file.  
-
-::: {.panel-tabset}
-
-## SQL
-
-```{r}
-#| label: duckdb-dbfile-sql-benchmarking
-
-duckdb_dbfile_sql <- function(variables) {
-  
-  con <- dbConnect(duckdb::duckdb(),
-                 "Datasets/DataMultiTypes.duckdb")
-  
-  result <- dbGetQuery(
-    con, 
-    "SELECT colString,
-           MIN(colInt) AS min_colInt,
-           AVG(colInt) AS mean_colInt,
-           MAX(colInt) AS max_colInt,
-           MIN(colNum) AS min_colNum,
-           AVG(colNum) AS mean_colNum,
-           MAX(colNum) AS max_colNum
-    FROM (
-        SELECT colString,
-               colInt,
-               colNum
-        FROM DataMultiTypes
-        WHERE colInt > 2000 AND colInt < 8000
-) AS filtered_data
-GROUP BY colString;")
-  
-  dbDisconnect(con, shutdown=TRUE)
-  
-  return(result)
-  
-}
-tic()
-duckdb_sql()
-toc()
-```
-:::
-
-### Results for DuckDB file
-
-```{r}
-#| label: duckdb-results-benchmarking
-#| message: false
-#| warning: false
-
-duckdb_bmk <- microbenchmark(
-  "SQL from duckdb file" = duckdb_dbfile_sql(),
-  times = 5
- )
-duckdb_bmk
-```
- 
-Note that the query with the standard DBI methods is faster than those with dplyr verbs 🏆

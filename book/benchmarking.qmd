@@ -4,6 +4,8 @@
 
 {{< include content/benchmarking/_data_processing.qmd >}}
 
+{{< include content/benchmarking/_from_r_object.qmd >}}
+
 {{< include content/benchmarking/_from_csv.qmd >}}
 
 {{< include content/benchmarking/_from_unique_parquet.qmd >}}
