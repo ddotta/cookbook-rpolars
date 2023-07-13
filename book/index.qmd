@@ -8,9 +8,14 @@ It is structured around side-by-side comparisons between [polars](https://rpolar
 
 This book is not a substitute for the official documentation of the [rpolars project](https://rpolars.github.io/) which is the definitive reference on the subject. It is simply intended to illustrate my use of Polars with R and can be a complementary to the official Polars documentation.
 
-::: callout-note
-Most of the code in these pages can be copied and pasted into the R command window if you want to see them in action.
-:::
+## Run the code from this book
+
+This cookbook's website is built by GitHub Actions, which runs the code every time we make a change, ensuring code correctness and reproducibility.
+The current build status as follows:
+
+[![](https://github.com/ddotta/cookbook-rpolars/actions/workflows/quarto-render-publish.yml/badge.svg)](https://github.com/ddotta/cookbook-rpolars/actions/workflows/quarto-render-publish.yml)
+
+**To run this cookbook's code**, you can copied and pasted the code into the R command window if you want to see them in action.  
 
 ## What is Polars ?
 
