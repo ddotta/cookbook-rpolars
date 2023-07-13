@@ -173,6 +173,7 @@ ul.task-list li input[type="checkbox"] {
   <ul>
   <li><a href="#preface" id="toc-preface" class="nav-link active" data-scroll-target="#preface">Preface</a>
   <ul class="collapse">
+  <li><a href="#run-the-code-from-this-book" id="toc-run-the-code-from-this-book" class="nav-link" data-scroll-target="#run-the-code-from-this-book">Run the code from this book</a></li>
   <li><a href="#what-is-polars" id="toc-what-is-polars" class="nav-link" data-scroll-target="#what-is-polars">What is Polars ?</a></li>
   <li><a href="#who-is-this-for" id="toc-who-is-this-for" class="nav-link" data-scroll-target="#who-is-this-for">Who is this for?</a></li>
   <li><a href="#contributing" id="toc-contributing" class="nav-link" data-scroll-target="#contributing">Contributing</a></li>
@@ -221,19 +222,16 @@ ul.task-list li input[type="checkbox"] {
 </figure>
 </div>
 <p>This book is not a substitute for the official documentation of the <a href="https://rpolars.github.io/">rpolars project</a> which is the definitive reference on the subject. It is simply intended to illustrate my use of Polars with R and can be a complementary to the official Polars documentation.</p>
-<div class="callout callout-style-default callout-note callout-titled">
-<div class="callout-header d-flex align-content-center">
-<div class="callout-icon-container">
-<i class="callout-icon"></i>
+<section id="run-the-code-from-this-book" class="level2">
+<h2 class="anchored" data-anchor-id="run-the-code-from-this-book">Run the code from this book</h2>
+<p>This cookbook’s website is built by GitHub Actions, which runs the code every time we make a change, ensuring code correctness and reproducibility. The current build status as follows:</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><a href="https://github.com/ddotta/cookbook-rpolars/actions/workflows/quarto-render-publish.yml"><img src="https://github.com/ddotta/cookbook-rpolars/actions/workflows/quarto-render-publish.yml/badge.svg" class="img-fluid figure-img"></a></p>
+</figure>
 </div>
-<div class="callout-title-container flex-fill">
-Note
-</div>
-</div>
-<div class="callout-body-container callout-body">
-<p>Most of the code in these pages can be copied and pasted into the R command window if you want to see them in action.</p>
-</div>
-</div>
+<p><strong>To run this cookbook’s code</strong>, you can copied and pasted the code into the R command window if you want to see them in action.</p>
+</section>
 <section id="what-is-polars" class="level2">
 <h2 class="anchored" data-anchor-id="what-is-polars">What is Polars ?</h2>
 <p>Polars is a very fast and elegant dataframe library that does the same sort of thing as the main data manipulation packages in R including <a href="https://dplyr.tidyverse.org/">dplyr</a> and <a href="https://rdatatable.gitlab.io/data.table/">data.table</a>.</p>
