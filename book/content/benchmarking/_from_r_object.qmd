@@ -2,7 +2,7 @@
 
 This section analyses the different methods for making a query **from an R object already loaded in memory**.
 
-Let's start by looking at how to use the DuckDb engine on R objects.  
+Now let's look at how to use the DuckDb engine on R objects.  
 There are **3 main possibilities**:  
 
 1. To use the DuckDB engine to query a R object with **dplyr**, you can use the `duckdb::duckdb_register()` method and then the `dplyr::tbl()` method to pass your dplyr instructions (**dplyr/DuckDB**). 
