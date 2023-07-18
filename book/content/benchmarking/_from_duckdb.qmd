@@ -42,7 +42,7 @@ GROUP BY colString;")
   
 }
 tic()
-duckdb_sql()
+duckdb_dbfile_sql()
 toc()
 ```
 :::
