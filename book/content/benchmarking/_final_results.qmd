@@ -52,6 +52,7 @@ bmk_results$mycolor <- sapply(as.character(bmk_results$expr),get_label_color)
 
 ```{r}
 #| label: final-results-plot
+#| echo: false
 
 autoplot(bmk_results) +
   aes(color = expr) +
