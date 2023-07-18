@@ -2,7 +2,106 @@
 
 This section analyses the different methods for making a query **from an R object already loaded in memory**.
 
-Now let's look at how to use the DuckDb engine on R objects.  
+Let's start by comparing polars with R base, dplyr and data.table.
+
+::: {.panel-tabset}
+
+## polars
+
+```{r}
+#| label: rboject-polars-benchmarking
+
+robject_polars <- function() {
+  
+  pl$DataFrame(DataMultiTypes)$
+    # Filter rows
+    filter(
+      pl$col("colInt")>2000 & pl$col("colInt")<8000
+    )$
+    # Grouping and aggregation
+    groupby(
+      "colString")$
+    agg(
+      pl$col("colInt")$min()$alias("min_colInt"),
+      pl$col("colInt")$mean()$alias("mean_colInt"),
+      pl$col("colInt")$max()$alias("max_colInt"),
+      pl$col("colNum")$min()$alias("min_colNum"),
+      pl$col("colNum")$mean()$alias("mean_colNum"),
+      pl$col("colNum")$max()$alias("max_colNum")
+    )
+}
+```
+
+## R base
+
+```{r}
+#| label: rboject-rbase-benchmarking
+
+robject_rbase <- function() {
+  
+  # Grouping and aggregation from data filtered
+  aggregate(cbind(colInt, colNum) ~ colString, 
+            data = DataMultiTypes[DataMultiTypes$colInt>2000 & DataMultiTypes$colInt<8000,], 
+            FUN = function(x) c(mean = mean(x), 
+                                min = min(x), 
+                                max = max(x)))
+  
+}
+```
+
+## dplyr
+
+```{r}
+#| label: rboject-dplyr-benchmarking
+
+robject_dplyr <- function() {
+  
+  DataMultiTypes |>
+    
+   # Filter rows
+    filter(
+      colInt>2000 & colInt<8000
+      ) |>
+    
+    # Grouping and aggregation
+    group_by(colString) |> 
+    
+    summarise(
+      min_colInt = min(colInt),
+      mean_colInt = mean(colInt),
+      mas_colInt = max(colInt),
+      min_colNum = min(colNum),
+      mean_colNum = mean(colNum),
+      max_colNum = max(colNum)
+  )
+
+}
+```
+
+## data.table
+
+```{r}
+#| label: rboject-datatable-benchmarking
+robject_dt <- function() {
+  
+  as.data.table(DataMultiTypes)[
+    
+    colInt > 2000 & colInt < 8000
+    
+  ][, .(min_colInt = min(colInt),
+        mean_colInt = mean(colInt),
+        mas_colInt = max(colInt),
+        min_colNum = min(colNum),
+        mean_colNum = mean(colNum),
+        max_colNum = max(colNum)),
+    
+    by = colString
+  ]
+}
+```
+:::
+
+Now let's look at how to use the **DuckDb engine** on R objects.  
 There are **3 main possibilities**:  
 
 1. To use the DuckDB engine to query a R object with **dplyr**, you can use the `duckdb::duckdb_register()` method and then the `dplyr::tbl()` method to pass your dplyr instructions (**dplyr/DuckDB**). 
@@ -16,15 +115,15 @@ There are **3 main possibilities**:
 ## dplyr/DuckDB
 
 ```{r}
-#| label: duckdb-dplyr-benchmarking
+#| label: robject-duckdb-dplyr-benchmarking
 
-duckdb_dplyr <- function(variables) {
+robject_duckdb_dplyr <- function(variables) {
   
   con <- DBI::dbConnect(duckdb::duckdb())
 
   duckdb::duckdb_register(con, "DataMultiTypes", DataMultiTypes)
 
-  result <- tbl(con, "DataMultiTypes") |>
+  tbl(con, "DataMultiTypes") |>
     
     # Filter rows
     filter(
@@ -43,27 +142,22 @@ duckdb_dplyr <- function(variables) {
     collect()
   
   DBI::dbDisconnect(con, shutdown=TRUE)
-
-  return(result)
   
 }
-tic()
-duckdb_dplyr()
-toc()
 ```
 
 ## SQL/DuckDB
 
 ```{r}
-#| label: duckdb-sql-benchmarking
+#| label: robject-duckdb-sql-benchmarking
 
-duckdb_sql <- function(variables) {
+robject_duckdb_sql <- function(variables) {
   
   con <- DBI::dbConnect(duckdb::duckdb())
 
   duckdb::duckdb_register(con, "DataMultiTypes", DataMultiTypes)
 
-  result <- DBI::dbGetQuery(
+  DBI::dbGetQuery(
     con, 
     "SELECT colString,
            MIN(colInt) AS min_colInt,
@@ -83,22 +177,17 @@ GROUP BY colString;")
   
   DBI::dbDisconnect(con, shutdown=TRUE)
   
-  return(result)
-  
 }
-tic()
-duckdb_sql()
-toc()
 ```
 
 ## dplyr/arrow/DuckDB
 
 ```{r}
-#| label: duckdb-dplyr-arrow-benchmarking
+#| label: robject-duckdb-dplyr-arrow-benchmarking
 
-duckdb_arrow_dplyr <- function(variables) {
+robject_duckdb_arrow_dplyr <- function(variables) {
           
-  result <- DataMultiTypes |>
+  DataMultiTypes |>
     
     to_duckdb() |>
     
@@ -108,6 +197,7 @@ duckdb_arrow_dplyr <- function(variables) {
     ) |>
     # Grouping and aggregation
     group_by(colString) |> 
+    
     summarise(
       min_colInt = min(colInt, na.rm = TRUE),
       mean_colInt = mean(colInt, na.rm = TRUE),
@@ -120,9 +210,6 @@ duckdb_arrow_dplyr <- function(variables) {
   return(result)
   
 }
-tic()
-duckdb_arrow_dplyr()
-toc()
 ```
 :::
 
@@ -133,17 +220,21 @@ However, the benchmark results are clear: SQL queries are by far the fastest! ðŸ
 :::
 
 
-### Results with DuckDB engine
+### Results with a R object
 
 ```{r}
-#| label: duckdb-engine-results-benchmarking
+#| label: from-robject-results-benchmarking
 #| message: false
 #| warning: false
 
 microbenchmark(
-  "dplyr/DuckDB" = duckdb_dplyr(),
-  "SQL/DuckDB" = duckdb_sql(),
-  "dplyr/arrow/DuckDB" = duckdb_arrow_dplyr(),
+  robject_polars(),
+  robject_rbase(),
+  robject_dplyr(),
+  robject_dt(),
+  robject_duckdb_dplyr(),
+  robject_duckdb_sql(),
+  robject_duckdb_arrow_dplyr(),
   times = 5
  )
 ```
