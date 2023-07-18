@@ -26,11 +26,6 @@ duckdb_dplyr <- function(variables) {
 
   result <- tbl(con, "DataMultiTypes") |>
     
-    mutate(
-      # Conversion of 2 columns to Date format
-      colDate1 = as.Date(colDate1),
-      colDate2 = as.Date(colDate2)
-    ) |>
     # Filter rows
     filter(
       colInt>2000 & colInt<8000
@@ -107,11 +102,6 @@ duckdb_arrow_dplyr <- function(variables) {
     
     to_duckdb() |>
     
-    mutate(
-      # Conversion of 2 columns to Date format
-      colDate1 = as.Date(colDate1),
-      colDate2 = as.Date(colDate2)
-    ) |>
     # Filter rows
     filter(
       colInt>2000 & colInt<8000
