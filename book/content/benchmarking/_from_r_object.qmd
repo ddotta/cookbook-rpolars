@@ -207,8 +207,6 @@ robject_duckdb_arrow_dplyr <- function(variables) {
       max_colNum = max(colNum, na.rm = TRUE)
     ) 
   
-  return(result)
-  
 }
 ```
 :::
