@@ -108,7 +108,7 @@ memory_usage_df <- data.frame(
              mem_change(partitioned_parquet_arrow_lazy()),mem_change(partitioned_parquet_dplyr_duckdb()),
              mem_change(partitioned_parquet_polars_lazy()),mem_change(parquet_polars_lazy()$collect()),
              mem_change(parquet_polars_lazy()$collect()$to_data_frame()))
-)[order(-memory_usage_df$change), ]
+) |> arrange(desc(change))
 
 # Création du graphique avec ggplot2
 ggplot(memory_usage_df, aes(x = change, y = functions)) +
