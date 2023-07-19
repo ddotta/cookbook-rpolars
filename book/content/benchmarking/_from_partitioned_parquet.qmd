@@ -154,3 +154,4 @@ partitioned_parquet_bmk <- microbenchmark(
 print(partitioned_parquet_bmk)
 ```
  
+👉 **Conclusion** of this little benchmark based **on partitioned parquet files**: as for unique parquet files, the big winner is `polars (lazy mode)` !  🏆🏆🏆 

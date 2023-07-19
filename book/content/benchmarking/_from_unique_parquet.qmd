@@ -180,4 +180,4 @@ unique_parquet_bmk <- microbenchmark(
 print(unique_parquet_bmk)
 ```
  
-👉 **Conclusion** of this little benchmark based **on unique parquet files**: the big winners is `polars (lazy mode)` !  🏆🏆🏆 
+👉 **Conclusion** of this little benchmark based **on unique parquet files**: the big winner is `polars (lazy mode)` !  🏆🏆🏆 
