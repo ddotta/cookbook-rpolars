@@ -13,7 +13,7 @@ Let's start by comparing polars with R base, dplyr and data.table.
 
 robject_polars <- function() {
   
-  pl$DataFrame(DataMultiTypes)$
+  DataMultiTypes_pl$
     # Filter rows
     filter(
       pl$col("colInt")>2000 & pl$col("colInt")<8000
@@ -234,5 +234,8 @@ microbenchmark(
   robject_duckdb_sql(),
   robject_duckdb_arrow_dplyr(),
   times = 5
- )
+ ) 
 ```
+
+**Conclusion** of this little benchmark **using R objects already loaded in memory**: the fastest to run are `polars` and `dplyr` followed closely by `data.table`.  
+The worst performer is surprisingly **duckdb with the dplyr syntax**, while **duckdb with the SQL language** does very well and comes 4th in this ranking.

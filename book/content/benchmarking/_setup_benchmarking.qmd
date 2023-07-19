@@ -36,6 +36,8 @@ DataMultiTypes <- data.frame(
   colFactor = factor(sample(c("Low", "Medium", "High"), 500000, replace = TRUE))
 )
 
+DataMultiTypes_pl <- pl$DataFrame(DataMultiTypes)
+
 # Creation of large csv file
 write.csv(x = DataMultiTypes,
           file = "Datasets/DataMultiTypes.csv",
