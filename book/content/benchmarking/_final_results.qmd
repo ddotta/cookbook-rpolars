@@ -89,11 +89,30 @@ To do this, we're going to use `mem_change()` from {pryr} package. This method t
 
 ```{r}
 #| label: memory-usage-results
+#| echo: false
+
 gc()
-mem_change(csv_rbase())
-mem_change(csv_dplyr())
-mem_change(csv_dt())
-mem_change(duckdb_sql())
-mem_change(parquet_polars_lazy()$collect())
-mem_change(parquet_polars_lazy()$collect()$to_data_frame())
+
+memory_usage_df <- data.frame(
+  functions = c("csv_rbase()","csv_dplyr()","csv_dt()",
+                "csv_eager_polars()","csv_arrow",
+                "arrow_lazy |> collect()","arrow_eager()",
+                "parquet_duckdb_sql()","parquet_polars_lazy()$collect()$to_data_frame()",
+                "partitioned_parquet_arrow_lazy()","partitioned_parquet_dplyr_duckdb()",
+                "partitioned_parquet_polars_lazy()","parquet_polars_lazy()$collect()",
+                "parquet_polars_lazy()$collect()$to_data_frame()"),
+  change = c(mem_change(csv_rbase()),mem_change(csv_dplyr()),mem_change(csv_dt()),
+             mem_change(csv_eager_polars()),mem_change(csv_arrow()),
+             mem_change(arrow_lazy() |> collect()),mem_change(arrow_eager()),
+             mem_change(parquet_duckdb_sql()),mem_change(parquet_polars_lazy()$collect()$to_data_frame()),
+             mem_change(partitioned_parquet_arrow_lazy()),mem_change(partitioned_parquet_dplyr_duckdb()),
+             mem_change(partitioned_parquet_polars_lazy()),mem_change(parquet_polars_lazy()$collect()),
+             mem_change(parquet_polars_lazy()$collect()$to_data_frame()))
+)[order(-memory_usage_df$change), ]
+
+# Création du graphique avec ggplot2
+ggplot(memory_usage_df, aes(x = change, y = functions)) +
+  geom_col(fill = "blue") +
+  labs(title = "Memory consumption according to functions used", x = "Memory consumption", y = "Functions")
+
 ```
