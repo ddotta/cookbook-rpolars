@@ -177,5 +177,7 @@ unique_parquet_bmk <- microbenchmark(
   "Duckdb and SQL - from unique parquet file" = parquet_duckdb_sql(),
   times = 5
  )
+print(unique_parquet_bmk)
 ```
  
+👉 **Conclusion** of this little benchmark based **on unique parquet files**: the big winners is `polars (lazy mode)` !  🏆🏆🏆 

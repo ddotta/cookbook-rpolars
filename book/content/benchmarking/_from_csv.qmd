@@ -289,5 +289,5 @@ csv_bmk <- microbenchmark(
 csv_bmk
 ```
 
-👉 **Conclusion** of this little benchmark based **on csv files**: the big winners are `polars (eager mode)` and `dplyr with {arrow}`. The results will undoubtedly be even better with `polars (lazy mode)`...  
+👉 **Conclusion** of this little benchmark based **on csv files**: the big winners are `polars (eager mode)` and `dplyr with {arrow}`. The results will undoubtedly be even better with `polars (lazy mode)`... 🏆🏆🏆    
 TO DO !!!
