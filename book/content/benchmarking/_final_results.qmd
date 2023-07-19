@@ -116,3 +116,13 @@ ggplot(memory_usage_df, aes(x = change, y = functions)) +
   labs(title = "Memory consumption according to functions used", x = "Memory consumption", y = "Functions")
 
 ```
+
+::: {.callout-important title="Final conclusions"}
+
+👉 **A few conclusions can be drawn from this section on benchmarking:**  
+
+:one: It is **more efficient** to work **from a parquet or duckdb file**;
+:two: In terms of **execution speed**, there is **no great difference between a single parquet file and several partitioned parquet files** (although the gap will undoubtedly widen in favour of partitioned files if the size of the initial work file is increased);
+:three: **Lazy evaluation of polars performs best, followed by SQL queries executed directly on a duckdb file.** 🏆🏆🏆 
+
+:::
