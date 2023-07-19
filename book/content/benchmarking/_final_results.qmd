@@ -67,6 +67,7 @@ To do this, we're going to use `mem_change()` from `{pryr}` package. This method
 
 ```{r}
 #| label: garbage-collection
+#| echo: false
 gc()
 ```
 
