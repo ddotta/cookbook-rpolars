@@ -30,23 +30,6 @@ Let's do a few basic data manipulation before plotting the results :
 
 # Sort the results
 bmk_results$expr <- reorder(bmk_results$expr, bmk_results$time, decreasing = TRUE)
-
-# Define a function to get different colors
-get_label_color <- function(label) {
-  if (endsWith(label, "partitioned parquet file")) {
-    "red"
-  } else if (endsWith(label, "unique parquet file")) {
-    "orange"
-  } else if (endsWith(label, "csv file")) {
-    "blue"
-  } else if (endsWith(label, "duckdb file")) {
-    "green"
-  } else {
-    "black" 
-  }
-}
-# Define colors for the plot in bmk_results
-bmk_results$mycolor <- sapply(as.character(bmk_results$expr),get_label_color)
 ```
 
 
@@ -55,17 +38,15 @@ bmk_results$mycolor <- sapply(as.character(bmk_results$expr),get_label_color)
 #| echo: false
 
 autoplot(bmk_results) +
-  aes(color = expr) +
-  scale_color_manual(
-    values = setNames(
-      bmk_results$mycolor,
-      as.character(bmk_results$expr)
-    )
-  ) +
   labs(title = "polars ⚔️ others : Benchmark results!",
        subtitle = "🔎 Right-click on the plot to open it wide in a new tab") +
   theme(plot.title = element_text(hjust = 0.5),
-        legend.position = "none")
+        legend.position = "none") +
+  theme(axis.text.y = element_text(color = c('blue', 'red', 'green', 'blue', 'blue', 'blue',
+                                             'red', 'orange','orange', 'orange', 'red', 'orange','orange'))) +
+  aes(color = expr) +
+  scale_color_manual('Functions', values = c('blue', 'red', 'green', 'blue', 'blue', 'blue',
+                                             'red', 'orange','orange', 'orange', 'red', 'orange','orange'))
 ```
 
 ::: {.callout-important title="Final conclusions"}
@@ -82,36 +63,54 @@ autoplot(bmk_results) +
 
 We've just analysed the performance of the various alternatives to Polars, but what about R's memory usage?  
 
-To do this, we're going to use `mem_change()` from {pryr} package. This method tells you how memory changes during code execution. Positive numbers represent an increase in the memory used by R, and negative numbers represent a decrease. 
+To do this, we're going to use `mem_change()` from `{pryr}` package. This method tells you how memory changes during code execution. Positive numbers represent an increase in the memory used by R, and negative numbers represent a decrease. 
 
+```{r}
+#| label: garbage-collection
+gc()
+```
 
 ```{r}
 #| label: memory-usage-results
 #| echo: false
 
-gc()
-
 memory_usage_df <- data.frame(
-  functions = c("csv_rbase()","csv_dplyr()","csv_dt()",
-                "csv_eager_polars()","csv_arrow",
-                "arrow_lazy |> collect()","arrow_eager()",
-                "parquet_duckdb_sql()","parquet_polars_lazy()$collect()$to_data_frame()",
-                "partitioned_parquet_arrow_lazy()","partitioned_parquet_dplyr_duckdb()",
-                "partitioned_parquet_polars_lazy()","parquet_polars_lazy()$collect()",
-                "parquet_polars_lazy()$collect()$to_data_frame()"),
-  change = c(mem_change(csv_rbase()),mem_change(csv_dplyr()),mem_change(csv_dt()),
-             mem_change(csv_eager_polars()),mem_change(csv_arrow()),
-             mem_change(arrow_lazy() |> collect()),mem_change(arrow_eager()),
-             mem_change(parquet_duckdb_sql()),mem_change(parquet_polars_lazy()$collect()$to_data_frame()),
-             mem_change(partitioned_parquet_arrow_lazy()),mem_change(partitioned_parquet_dplyr_duckdb()),
-             mem_change(partitioned_parquet_polars_lazy()),mem_change(parquet_polars_lazy()$collect()),
-             mem_change(parquet_polars_lazy()$collect()$to_data_frame()))
-) |> arrange(desc(change))
+  functions = c("polars (lazy) - from unique parquet file",
+                "polars (lazy) - from partitioned parquet file",
+                "SQL from duckdb file",
+                "Duckdb and SQL - from unique parquet file",
+                "arrow (eager) - from unique parquet file",
+                "arrow (lazy) - from unique parquet file",
+                "arrow (lazy) - from partitioned parquet file",
+                "dplyr (Acero) - from csv file",
+                "polars (eager) from csv file",
+                "data.table - from csv file",
+                "dplyr (duckdb) - from partitioned parquet file",
+                "dplyr - from csv file",
+                "R base - from csv file"),
+  change = c(mem_change(parquet_polars_lazy()$collect()$to_data_frame()),
+             mem_change(partitioned_parquet_polars_lazy()$to_data_frame()),
+             mem_change(duckdb_dbfile_sql()),
+             mem_change(parquet_duckdb_sql()),
+             mem_change(arrow_eager()),
+             mem_change(arrow_lazy() |> collect()),
+             mem_change(partitioned_parquet_arrow_lazy()),
+             mem_change(csv_arrow()),
+             mem_change(csv_eager_polars()),
+             mem_change(csv_dt()),
+             mem_change(partitioned_parquet_dplyr_duckdb()),
+             mem_change(csv_dplyr()),
+             mem_change(csv_rbase()))
+)
 
+  
 # Création du graphique avec ggplot2
 ggplot(memory_usage_df, aes(x = change, y = functions)) +
-  geom_col(fill = "blue") +
-  labs(title = "Memory consumption according to functions used", x = "Memory consumption", y = "Functions")
+  geom_col(fill =  c('blue', 'red', 'green', 'blue', 'blue', 'blue',
+                     'red', 'orange','orange', 'orange', 'red', 'orange','orange')) +
+  labs(title = "Memory consumption according to functions used",
+       subtitle = "🔎 Right-click on the plot to open it wide in a new tab",
+       x = "Memory consumption", y = "Functions")
 
 ```
 

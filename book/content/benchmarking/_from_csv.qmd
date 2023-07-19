@@ -283,7 +283,7 @@ csv_bmk <- microbenchmark(
   "R base - from csv file" = csv_rbase(),
   "dplyr - from csv file" = csv_dplyr(),
   "dplyr (Acero) - from csv file" = csv_arrow(),
-  "data.table - from csv file" = as.data.frame(csv_dt()),
+  "data.table - from csv file" = csv_dt(),
   times = 5
  )
 csv_bmk
