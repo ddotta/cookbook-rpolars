@@ -8,7 +8,7 @@ First of all we need to install all the packages and create an big random datase
 #| results: 'hide'
 
 # Installation of packages for cookbook-rpolars
-packages <- c('dplyr','data.table','tidyr','arrow','DBI','fakir','tictoc','duckdb','microbenchmark','readr','fs','ggplot2','pryr','dbplyr','forcats')
+packages <- c('dplyr','data.table','tidyr','arrow','DBI','fakir','tictoc','duckdb','microbenchmark','readr','fs','ggplot2','pryr','dbplyr','forcats','patchwork')
 installed_packages <- packages %in% rownames(installed.packages())
 if (any(installed_packages == FALSE)) {
   install.packages(packages[!installed_packages], dependencies = TRUE)
