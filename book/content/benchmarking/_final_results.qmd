@@ -115,34 +115,27 @@ mem_plot <- ggplot(memory_usage_df,
                    aes(x = change,
                        y = fct_relevel(
                          functions,
-                         "polars (lazy) - from unique parquet file",
-                         "polars (lazy) - from partitioned parquet file",
-                         "SQL from duckdb file",
-                         "Duckdb and SQL - from unique parquet file",
-                         "arrow (eager) - from unique parquet file",
-                         "arrow (lazy) - from unique parquet file",
-                         "arrow (lazy) - from partitioned parquet file",
-                         "dplyr (Acero) - from csv file",
-                         "polars (eager) from csv file",
-                         "data.table - from csv file",
+                          "R base - from csv file",
+                         "dplyr - from csv file",                         
                          "dplyr (duckdb) - from partitioned parquet file",
-                         "dplyr - from csv file",
-                         "R base - from csv file"))) +
+                         "data.table - from csv file",                    
+                         "polars (eager) from csv file" ,                 
+                         "dplyr (Acero) - from csv file",                 
+                         "arrow (lazy) - from partitioned parquet file", 
+                         "arrow (lazy) - from unique parquet file",     
+                         "arrow (eager) - from unique parquet file",      
+                         "Duckdb and SQL - from unique parquet file",     
+                         "SQL from duckdb file",                          
+                         "polars (lazy) - from partitioned parquet file" ,
+                         "polars (lazy) - from unique parquet file"))) +
   geom_col(fill = c("orange","orange","red","orange",
                             "orange","orange","red","blue",
                             "blue","blue","green","red","blue")) +
                               labs(title = "Memory consumption according to functions used",
                                    subtitle = "🔎 Right-click on the plot to open it wide in a new tab",
-                                   x = "Memory consumption", y = "Functions")
+                                   x = "Memory consumption", y = "Functions") +
+  scale_color_manual('Functions', values = c("orange","orange","red","orange",
+                                             "orange","orange","red","blue",
+                                             "blue","blue","green","red","blue"))
 mem_plot
 ```
-
-Now let's combine the two plots by placing them side by side:
-
-```{r}
-#| label: combining-plots
-
-speed_plot + mem_plot +
-  plot_annotation("🔎 Right-click on the plot to open it wide in a new tab")
-```
-
