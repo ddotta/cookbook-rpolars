@@ -270,47 +270,49 @@ Click to expand it! 👇</p>
 <span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ggplot2)</span>
 <span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(pryr)</span>
 <span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(dbplyr)</span>
-<span id="cb1-14"><a href="#cb1-14" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-15"><a href="#cb1-15" aria-hidden="true" tabindex="-1"></a><span class="co"># Creation the "Datasets" folder</span></span>
-<span id="cb1-16"><a href="#cb1-16" aria-hidden="true" tabindex="-1"></a><span class="fu">dir.create</span>(<span class="fu">normalizePath</span>(<span class="st">"Datasets"</span>))</span>
-<span id="cb1-17"><a href="#cb1-17" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-18"><a href="#cb1-18" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">123</span>)</span>
+<span id="cb1-14"><a href="#cb1-14" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(forcats)</span>
+<span id="cb1-15"><a href="#cb1-15" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(patchwork)</span>
+<span id="cb1-16"><a href="#cb1-16" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-17"><a href="#cb1-17" aria-hidden="true" tabindex="-1"></a><span class="co"># Creation the "Datasets" folder</span></span>
+<span id="cb1-18"><a href="#cb1-18" aria-hidden="true" tabindex="-1"></a><span class="fu">dir.create</span>(<span class="fu">normalizePath</span>(<span class="st">"Datasets"</span>))</span>
 <span id="cb1-19"><a href="#cb1-19" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-20"><a href="#cb1-20" aria-hidden="true" tabindex="-1"></a><span class="co"># Creation of large example R data.frame</span></span>
-<span id="cb1-21"><a href="#cb1-21" aria-hidden="true" tabindex="-1"></a>DataMultiTypes <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(</span>
-<span id="cb1-22"><a href="#cb1-22" aria-hidden="true" tabindex="-1"></a>  <span class="at">colDate1 =</span> <span class="fu">as.POSIXct</span>(<span class="fu">sample</span>(<span class="fu">as.POSIXct</span>(<span class="st">"2023-01-01"</span>)<span class="sc">:</span><span class="fu">as.POSIXct</span>(<span class="st">"2023-06-30"</span>),<span class="dv">500000</span>),<span class="at">origin=</span><span class="st">"1970-01-01"</span>),</span>
-<span id="cb1-23"><a href="#cb1-23" aria-hidden="true" tabindex="-1"></a>  <span class="at">colDate2 =</span> <span class="fu">as.POSIXct</span>(<span class="fu">sample</span>(<span class="fu">as.POSIXct</span>(<span class="st">"2023-07-01"</span>)<span class="sc">:</span><span class="fu">as.POSIXct</span>(<span class="st">"2023-12-31"</span>),<span class="dv">500000</span>),<span class="at">origin=</span><span class="st">"1970-01-01"</span>),</span>
-<span id="cb1-24"><a href="#cb1-24" aria-hidden="true" tabindex="-1"></a>  <span class="at">colInt =</span> <span class="fu">sample</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">10000</span>, <span class="dv">500000</span>, <span class="at">replace =</span> <span class="cn">TRUE</span>),</span>
-<span id="cb1-25"><a href="#cb1-25" aria-hidden="true" tabindex="-1"></a>  <span class="at">colNum =</span> <span class="fu">runif</span>(<span class="dv">500000</span>),</span>
-<span id="cb1-26"><a href="#cb1-26" aria-hidden="true" tabindex="-1"></a>  <span class="at">colString =</span> <span class="fu">sample</span>(<span class="fu">c</span>(<span class="st">"A"</span>, <span class="st">"B"</span>, <span class="st">"C"</span>), <span class="dv">500000</span>, <span class="at">replace =</span> <span class="cn">TRUE</span>),</span>
-<span id="cb1-27"><a href="#cb1-27" aria-hidden="true" tabindex="-1"></a>  <span class="at">colFactor =</span> <span class="fu">factor</span>(<span class="fu">sample</span>(<span class="fu">c</span>(<span class="st">"Low"</span>, <span class="st">"Medium"</span>, <span class="st">"High"</span>), <span class="dv">500000</span>, <span class="at">replace =</span> <span class="cn">TRUE</span>))</span>
-<span id="cb1-28"><a href="#cb1-28" aria-hidden="true" tabindex="-1"></a>)</span>
-<span id="cb1-29"><a href="#cb1-29" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-30"><a href="#cb1-30" aria-hidden="true" tabindex="-1"></a>DataMultiTypes_pl <span class="ot">&lt;-</span> pl<span class="sc">$</span><span class="fu">DataFrame</span>(DataMultiTypes)</span>
+<span id="cb1-20"><a href="#cb1-20" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">123</span>)</span>
+<span id="cb1-21"><a href="#cb1-21" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-22"><a href="#cb1-22" aria-hidden="true" tabindex="-1"></a><span class="co"># Creation of large example R data.frame</span></span>
+<span id="cb1-23"><a href="#cb1-23" aria-hidden="true" tabindex="-1"></a>DataMultiTypes <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(</span>
+<span id="cb1-24"><a href="#cb1-24" aria-hidden="true" tabindex="-1"></a>  <span class="at">colDate1 =</span> <span class="fu">as.POSIXct</span>(<span class="fu">sample</span>(<span class="fu">as.POSIXct</span>(<span class="st">"2023-01-01"</span>)<span class="sc">:</span><span class="fu">as.POSIXct</span>(<span class="st">"2023-06-30"</span>),<span class="dv">500000</span>),<span class="at">origin=</span><span class="st">"1970-01-01"</span>),</span>
+<span id="cb1-25"><a href="#cb1-25" aria-hidden="true" tabindex="-1"></a>  <span class="at">colDate2 =</span> <span class="fu">as.POSIXct</span>(<span class="fu">sample</span>(<span class="fu">as.POSIXct</span>(<span class="st">"2023-07-01"</span>)<span class="sc">:</span><span class="fu">as.POSIXct</span>(<span class="st">"2023-12-31"</span>),<span class="dv">500000</span>),<span class="at">origin=</span><span class="st">"1970-01-01"</span>),</span>
+<span id="cb1-26"><a href="#cb1-26" aria-hidden="true" tabindex="-1"></a>  <span class="at">colInt =</span> <span class="fu">sample</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">10000</span>, <span class="dv">500000</span>, <span class="at">replace =</span> <span class="cn">TRUE</span>),</span>
+<span id="cb1-27"><a href="#cb1-27" aria-hidden="true" tabindex="-1"></a>  <span class="at">colNum =</span> <span class="fu">runif</span>(<span class="dv">500000</span>),</span>
+<span id="cb1-28"><a href="#cb1-28" aria-hidden="true" tabindex="-1"></a>  <span class="at">colString =</span> <span class="fu">sample</span>(<span class="fu">c</span>(<span class="st">"A"</span>, <span class="st">"B"</span>, <span class="st">"C"</span>), <span class="dv">500000</span>, <span class="at">replace =</span> <span class="cn">TRUE</span>),</span>
+<span id="cb1-29"><a href="#cb1-29" aria-hidden="true" tabindex="-1"></a>  <span class="at">colFactor =</span> <span class="fu">factor</span>(<span class="fu">sample</span>(<span class="fu">c</span>(<span class="st">"Low"</span>, <span class="st">"Medium"</span>, <span class="st">"High"</span>), <span class="dv">500000</span>, <span class="at">replace =</span> <span class="cn">TRUE</span>))</span>
+<span id="cb1-30"><a href="#cb1-30" aria-hidden="true" tabindex="-1"></a>)</span>
 <span id="cb1-31"><a href="#cb1-31" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-32"><a href="#cb1-32" aria-hidden="true" tabindex="-1"></a><span class="co"># Creation of large csv file</span></span>
-<span id="cb1-33"><a href="#cb1-33" aria-hidden="true" tabindex="-1"></a><span class="fu">write.csv</span>(<span class="at">x =</span> DataMultiTypes,</span>
-<span id="cb1-34"><a href="#cb1-34" aria-hidden="true" tabindex="-1"></a>          <span class="at">file =</span> <span class="st">"Datasets/DataMultiTypes.csv"</span>,</span>
-<span id="cb1-35"><a href="#cb1-35" aria-hidden="true" tabindex="-1"></a>          <span class="at">row.names=</span><span class="cn">FALSE</span>)</span>
-<span id="cb1-36"><a href="#cb1-36" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-37"><a href="#cb1-37" aria-hidden="true" tabindex="-1"></a><span class="co"># Creation of unique parquet file</span></span>
-<span id="cb1-38"><a href="#cb1-38" aria-hidden="true" tabindex="-1"></a>arrow<span class="sc">::</span><span class="fu">write_parquet</span>(<span class="at">x =</span> DataMultiTypes,</span>
-<span id="cb1-39"><a href="#cb1-39" aria-hidden="true" tabindex="-1"></a>                     <span class="at">sink =</span> <span class="st">"Datasets/DataMultiTypes.parquet"</span>)</span>
-<span id="cb1-40"><a href="#cb1-40" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-41"><a href="#cb1-41" aria-hidden="true" tabindex="-1"></a><span class="co"># Creation of 6 parquet file</span></span>
-<span id="cb1-42"><a href="#cb1-42" aria-hidden="true" tabindex="-1"></a>arrow<span class="sc">::</span><span class="fu">write_dataset</span>(<span class="at">dataset =</span> DataMultiTypes,</span>
-<span id="cb1-43"><a href="#cb1-43" aria-hidden="true" tabindex="-1"></a>                     <span class="at">path =</span> <span class="st">"Datasets/DataMultiTypes"</span>,</span>
-<span id="cb1-44"><a href="#cb1-44" aria-hidden="true" tabindex="-1"></a>                     <span class="at">format =</span> <span class="fu">c</span>(<span class="st">"parquet"</span>),</span>
-<span id="cb1-45"><a href="#cb1-45" aria-hidden="true" tabindex="-1"></a>                     <span class="at">partitioning =</span> <span class="fu">c</span>(<span class="st">"colFactor"</span>))</span>
-<span id="cb1-46"><a href="#cb1-46" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-47"><a href="#cb1-47" aria-hidden="true" tabindex="-1"></a><span class="co"># Creation of duckdb file</span></span>
-<span id="cb1-48"><a href="#cb1-48" aria-hidden="true" tabindex="-1"></a>con <span class="ot">&lt;-</span> <span class="fu">dbConnect</span>(duckdb<span class="sc">::</span><span class="fu">duckdb</span>(),</span>
-<span id="cb1-49"><a href="#cb1-49" aria-hidden="true" tabindex="-1"></a>                 <span class="st">"Datasets/DataMultiTypes.duckdb"</span>)</span>
-<span id="cb1-50"><a href="#cb1-50" aria-hidden="true" tabindex="-1"></a>duckdb<span class="sc">::</span><span class="fu">dbWriteTable</span>(con,</span>
-<span id="cb1-51"><a href="#cb1-51" aria-hidden="true" tabindex="-1"></a>                     <span class="st">"DataMultiTypes"</span>,</span>
-<span id="cb1-52"><a href="#cb1-52" aria-hidden="true" tabindex="-1"></a>                     DataMultiTypes,</span>
-<span id="cb1-53"><a href="#cb1-53" aria-hidden="true" tabindex="-1"></a>                     <span class="at">overwrite =</span> <span class="cn">TRUE</span>)</span>
-<span id="cb1-54"><a href="#cb1-54" aria-hidden="true" tabindex="-1"></a><span class="fu">dbDisconnect</span>(con, <span class="at">shutdown=</span><span class="cn">TRUE</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb1-32"><a href="#cb1-32" aria-hidden="true" tabindex="-1"></a>DataMultiTypes_pl <span class="ot">&lt;-</span> pl<span class="sc">$</span><span class="fu">DataFrame</span>(DataMultiTypes)</span>
+<span id="cb1-33"><a href="#cb1-33" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-34"><a href="#cb1-34" aria-hidden="true" tabindex="-1"></a><span class="co"># Creation of large csv file</span></span>
+<span id="cb1-35"><a href="#cb1-35" aria-hidden="true" tabindex="-1"></a><span class="fu">write.csv</span>(<span class="at">x =</span> DataMultiTypes,</span>
+<span id="cb1-36"><a href="#cb1-36" aria-hidden="true" tabindex="-1"></a>          <span class="at">file =</span> <span class="st">"Datasets/DataMultiTypes.csv"</span>,</span>
+<span id="cb1-37"><a href="#cb1-37" aria-hidden="true" tabindex="-1"></a>          <span class="at">row.names=</span><span class="cn">FALSE</span>)</span>
+<span id="cb1-38"><a href="#cb1-38" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-39"><a href="#cb1-39" aria-hidden="true" tabindex="-1"></a><span class="co"># Creation of unique parquet file</span></span>
+<span id="cb1-40"><a href="#cb1-40" aria-hidden="true" tabindex="-1"></a>arrow<span class="sc">::</span><span class="fu">write_parquet</span>(<span class="at">x =</span> DataMultiTypes,</span>
+<span id="cb1-41"><a href="#cb1-41" aria-hidden="true" tabindex="-1"></a>                     <span class="at">sink =</span> <span class="st">"Datasets/DataMultiTypes.parquet"</span>)</span>
+<span id="cb1-42"><a href="#cb1-42" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-43"><a href="#cb1-43" aria-hidden="true" tabindex="-1"></a><span class="co"># Creation of 6 parquet file</span></span>
+<span id="cb1-44"><a href="#cb1-44" aria-hidden="true" tabindex="-1"></a>arrow<span class="sc">::</span><span class="fu">write_dataset</span>(<span class="at">dataset =</span> DataMultiTypes,</span>
+<span id="cb1-45"><a href="#cb1-45" aria-hidden="true" tabindex="-1"></a>                     <span class="at">path =</span> <span class="st">"Datasets/DataMultiTypes"</span>,</span>
+<span id="cb1-46"><a href="#cb1-46" aria-hidden="true" tabindex="-1"></a>                     <span class="at">format =</span> <span class="fu">c</span>(<span class="st">"parquet"</span>),</span>
+<span id="cb1-47"><a href="#cb1-47" aria-hidden="true" tabindex="-1"></a>                     <span class="at">partitioning =</span> <span class="fu">c</span>(<span class="st">"colFactor"</span>))</span>
+<span id="cb1-48"><a href="#cb1-48" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-49"><a href="#cb1-49" aria-hidden="true" tabindex="-1"></a><span class="co"># Creation of duckdb file</span></span>
+<span id="cb1-50"><a href="#cb1-50" aria-hidden="true" tabindex="-1"></a>con <span class="ot">&lt;-</span> <span class="fu">dbConnect</span>(duckdb<span class="sc">::</span><span class="fu">duckdb</span>(),</span>
+<span id="cb1-51"><a href="#cb1-51" aria-hidden="true" tabindex="-1"></a>                 <span class="st">"Datasets/DataMultiTypes.duckdb"</span>)</span>
+<span id="cb1-52"><a href="#cb1-52" aria-hidden="true" tabindex="-1"></a>duckdb<span class="sc">::</span><span class="fu">dbWriteTable</span>(con,</span>
+<span id="cb1-53"><a href="#cb1-53" aria-hidden="true" tabindex="-1"></a>                     <span class="st">"DataMultiTypes"</span>,</span>
+<span id="cb1-54"><a href="#cb1-54" aria-hidden="true" tabindex="-1"></a>                     DataMultiTypes,</span>
+<span id="cb1-55"><a href="#cb1-55" aria-hidden="true" tabindex="-1"></a>                     <span class="at">overwrite =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb1-56"><a href="#cb1-56" aria-hidden="true" tabindex="-1"></a><span class="fu">dbDisconnect</span>(con, <span class="at">shutdown=</span><span class="cn">TRUE</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 </div>
 <p>In this part of the book we will compare the performance of <code>polars</code> by comparing with other syntaxes, in particular <code>R base</code>, <code>dplyr</code>, <code>dbplyr</code>, <code>SQL</code> and <code>data.table</code>.</p>
@@ -558,21 +560,21 @@ Tip
 <div class="cell-output cell-output-stdout">
 <pre><code>Unit: milliseconds
                          expr      min       lq      mean   median       uq
-             robject_polars()  19.2310  21.4656  25.17728  21.4714  31.5152
-              robject_rbase() 189.9648 210.4898 215.12078 215.2012 228.4456
-              robject_dplyr()  28.9480  28.9987  39.01818  39.5904  48.6967
-                 robject_dt()  40.0471  40.5004  51.85240  47.2636  61.0994
-       robject_duckdb_dplyr() 293.4386 294.8566 304.09634 303.4498 309.2567
-         robject_duckdb_sql()  68.9621  70.0410  74.48052  72.4364  79.4527
- robject_duckdb_arrow_dplyr() 222.1147 230.4831 246.24462 234.5563 240.6795
+             robject_polars()  19.4463  22.2110  25.61930  23.9896  30.3864
+              robject_rbase() 200.3816 222.5459 226.41732 231.3713 237.1188
+              robject_dplyr()  29.1421  30.5965  40.38658  40.6038  50.7131
+                 robject_dt()  40.1266  40.9421  52.11518  48.0248  59.9204
+       robject_duckdb_dplyr() 299.0601 300.3248 310.32782 309.7558 320.7746
+         robject_duckdb_sql()  70.1182  70.3911  75.79646  74.1974  82.0757
+ robject_duckdb_arrow_dplyr() 227.7426 236.6022 252.27238 239.6412 240.8305
       max neval
-  32.2032     5
- 231.5025     5
-  48.8571     5
-  70.3515     5
- 319.4800     5
-  81.5104     5
- 303.3895     5</code></pre>
+  32.0632     5
+ 240.6690     5
+  50.8774     5
+  71.5620     5
+ 321.7238     5
+  82.1999     5
+ 316.5454     5</code></pre>
 </div>
 </div>
 <p>👉 <strong>Conclusion</strong> of this little benchmark <strong>using R objects already loaded in memory</strong>: the fastest to run are <code>polars</code> and <code>dplyr</code> followed closely by <code>data.table</code>. 🏆🏆🏆<br>
@@ -633,14 +635,14 @@ The worst performer is surprisingly <strong>duckdb with the dplyr syntax</strong
 │ ---       ┆ ---        ┆ ---         ┆ ---        ┆ ---        ┆ ---         ┆ ---        │
 │ str       ┆ i64        ┆ f64         ┆ i64        ┆ f64        ┆ f64         ┆ f64        │
 ╞═══════════╪════════════╪═════════════╪════════════╪════════════╪═════════════╪════════════╡
-│ A         ┆ 2001       ┆ 4998.624945 ┆ 7999       ┆ 0.000038   ┆ 0.498445    ┆ 0.999988   │
 │ B         ┆ 2001       ┆ 5004.31148  ┆ 7999       ┆ 0.000034   ┆ 0.500546    ┆ 0.999986   │
+│ A         ┆ 2001       ┆ 4998.624945 ┆ 7999       ┆ 0.000038   ┆ 0.498445    ┆ 0.999988   │
 │ C         ┆ 2001       ┆ 5001.243285 ┆ 7999       ┆ 0.00003    ┆ 0.501472    ┆ 0.999992   │
 └───────────┴────────────┴─────────────┴────────────┴────────────┴─────────────┴────────────┘</code></pre>
 </div>
 <div class="sourceCode cell-code" id="cb13"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="fu">toc</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>0.259 sec elapsed</code></pre>
+<pre><code>0.279 sec elapsed</code></pre>
 </div>
 </div>
 </div>
@@ -719,7 +721,7 @@ The worst performer is surprisingly <strong>duckdb with the dplyr syntax</strong
 <span id="cb16-34"><a href="#cb16-34" aria-hidden="true" tabindex="-1"></a>res_rbase <span class="ot">&lt;-</span> <span class="fu">csv_rbase</span>()</span>
 <span id="cb16-35"><a href="#cb16-35" aria-hidden="true" tabindex="-1"></a><span class="fu">toc</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>8.487 sec elapsed</code></pre>
+<pre><code>8.571 sec elapsed</code></pre>
 </div>
 <div class="sourceCode cell-code" id="cb18"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(res_rbase)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
@@ -777,7 +779,7 @@ The worst performer is surprisingly <strong>duckdb with the dplyr syntax</strong
 <span id="cb20-39"><a href="#cb20-39" aria-hidden="true" tabindex="-1"></a>res_dplyr <span class="ot">&lt;-</span> <span class="fu">csv_dplyr</span>()</span>
 <span id="cb20-40"><a href="#cb20-40" aria-hidden="true" tabindex="-1"></a><span class="fu">toc</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>0.619 sec elapsed</code></pre>
+<pre><code>0.595 sec elapsed</code></pre>
 </div>
 <div class="sourceCode cell-code" id="cb22"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(res_dplyr)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
@@ -835,7 +837,7 @@ The worst performer is surprisingly <strong>duckdb with the dplyr syntax</strong
 <span id="cb24-41"><a href="#cb24-41" aria-hidden="true" tabindex="-1"></a>res_arrow <span class="ot">&lt;-</span> <span class="fu">csv_arrow</span>()</span>
 <span id="cb24-42"><a href="#cb24-42" aria-hidden="true" tabindex="-1"></a><span class="fu">toc</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>0.318 sec elapsed</code></pre>
+<pre><code>0.312 sec elapsed</code></pre>
 </div>
 <div class="sourceCode cell-code" id="cb26"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(res_arrow)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
@@ -885,7 +887,7 @@ The worst performer is surprisingly <strong>duckdb with the dplyr syntax</strong
 </div>
 <div class="sourceCode cell-code" id="cb30"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb30-1"><a href="#cb30-1" aria-hidden="true" tabindex="-1"></a><span class="fu">toc</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>0.308 sec elapsed</code></pre>
+<pre><code>0.285 sec elapsed</code></pre>
 </div>
 </div>
 </div>
@@ -922,17 +924,17 @@ Note
 <div class="cell-output cell-output-stdout">
 <pre><code>Unit: milliseconds
                           expr       min        lq      mean    median
-  polars (eager) from csv file  239.1024  250.6042  257.5839  252.4574
-        R base - from csv file 7123.2235 7279.7829 7571.6262 7666.3633
-         dplyr - from csv file  543.3835  544.7822  649.9709  562.4463
- dplyr (Acero) - from csv file  185.3777  191.7877  195.9165  199.3480
-    data.table - from csv file  230.6913  232.2181  300.8560  240.2044
+  polars (eager) from csv file  236.3419  237.6432  246.9057  243.4705
+        R base - from csv file 6614.3329 6754.4693 7092.1031 7249.5413
+         dplyr - from csv file  442.6420  503.5911  612.3496  521.4242
+ dplyr (Acero) - from csv file  172.2198  179.3911  183.4036  183.3145
+    data.table - from csv file  207.5724  209.3413  280.7299  219.8942
         uq       max neval
-  272.3392  273.4164     5
- 7815.7526 7973.0087     5
-  708.9241  890.3186     5
-  199.7759  203.2933     5
-  302.0531  499.1132     5</code></pre>
+  245.8546  271.2183     5
+ 7362.7616 7479.4103     5
+  717.3660  876.7247     5
+  189.5322  192.5605     5
+  279.4114  487.4300     5</code></pre>
 </div>
 </div>
 <p>👉 <strong>Conclusion</strong> of this little benchmark based <strong>on csv files</strong>: the big winners are <code>polars (eager mode)</code> and <code>dplyr with {arrow}</code>. The results will undoubtedly be even better with <code>polars (lazy mode)</code>… 🏆🏆🏆<br>
@@ -996,17 +998,17 @@ Note
 <span id="cb34-28"><a href="#cb34-28" aria-hidden="true" tabindex="-1"></a><span class="fu">parquet_polars_lazy</span>()<span class="sc">$</span><span class="fu">collect</span>()<span class="sc">$</span><span class="fu">to_data_frame</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>  colString min_colInt mean_colInt max_colInt   min_colNum mean_colNum
-1         A       2001    4998.625       7999 3.794138e-05   0.4984446
-2         B       2001    5004.311       7999 3.385660e-05   0.5005457
-3         C       2001    5001.243       7999 3.045052e-05   0.5014723
+1         B       2001    5004.311       7999 3.385660e-05   0.5005457
+2         C       2001    5001.243       7999 3.045052e-05   0.5014723
+3         A       2001    4998.625       7999 3.794138e-05   0.4984446
   max_colNum
-1  0.9999879
-2  0.9999863
-3  0.9999921</code></pre>
+1  0.9999863
+2  0.9999921
+3  0.9999879</code></pre>
 </div>
 <div class="sourceCode cell-code" id="cb36"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb36-1"><a href="#cb36-1" aria-hidden="true" tabindex="-1"></a><span class="fu">toc</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>0.038 sec elapsed</code></pre>
+<pre><code>0.036 sec elapsed</code></pre>
 </div>
 </div>
 </div>
@@ -1051,7 +1053,7 @@ Note
 </div>
 <div class="sourceCode cell-code" id="cb40"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb40-1"><a href="#cb40-1" aria-hidden="true" tabindex="-1"></a><span class="fu">toc</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>0.15 sec elapsed</code></pre>
+<pre><code>0.134 sec elapsed</code></pre>
 </div>
 </div>
 </div>
@@ -1096,7 +1098,7 @@ Note
 </div>
 <div class="sourceCode cell-code" id="cb44"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb44-1"><a href="#cb44-1" aria-hidden="true" tabindex="-1"></a><span class="fu">toc</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>0.148 sec elapsed</code></pre>
+<pre><code>0.138 sec elapsed</code></pre>
 </div>
 </div>
 </div>
@@ -1142,7 +1144,7 @@ Note
 </div>
 <div class="sourceCode cell-code" id="cb48"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb48-1"><a href="#cb48-1" aria-hidden="true" tabindex="-1"></a><span class="fu">toc</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>0.081 sec elapsed</code></pre>
+<pre><code>0.074 sec elapsed</code></pre>
 </div>
 </div>
 </div>
@@ -1162,15 +1164,15 @@ Note
 <div class="cell-output cell-output-stdout">
 <pre><code>Unit: milliseconds
                                       expr      min       lq      mean   median
-  polars (lazy) - from unique parquet file  32.3105  33.1805  35.90128  33.2223
-  arrow (eager) - from unique parquet file  88.6887  89.8080  96.13132  92.3720
-   arrow (lazy) - from unique parquet file 105.9446 107.2392 112.28946 108.7378
- Duckdb and SQL - from unique parquet file  77.9730  78.3686  79.10470  78.5284
+  polars (lazy) - from unique parquet file  29.5479  30.9986  34.28784  32.9695
+  arrow (eager) - from unique parquet file  81.9471  89.0315  93.59280  89.0654
+   arrow (lazy) - from unique parquet file 104.0021 107.4470 110.15478 111.0755
+ Duckdb and SQL - from unique parquet file  76.1573  79.2399  83.67562  80.3216
        uq      max neval
-  34.0458  46.7473     5
- 101.6745 108.1134     5
- 114.1090 125.4167     5
-  78.6225  82.0310     5</code></pre>
+  33.8610  44.0622     5
+  98.2705 109.6495     5
+ 111.4120 116.8373     5
+  81.1135 101.5458     5</code></pre>
 </div>
 </div>
 <p>👉 <strong>Conclusion</strong> of this little benchmark based <strong>on unique parquet files</strong>: the big winner is <code>polars (lazy mode)</code> ! 🏆🏆🏆</p>
@@ -1245,7 +1247,7 @@ Note
 </div>
 <div class="sourceCode cell-code" id="cb56"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb56-1"><a href="#cb56-1" aria-hidden="true" tabindex="-1"></a><span class="fu">toc</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>0.149 sec elapsed</code></pre>
+<pre><code>0.153 sec elapsed</code></pre>
 </div>
 </div>
 </div>
@@ -1295,7 +1297,7 @@ Note
 </div>
 <div class="sourceCode cell-code" id="cb60"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb60-1"><a href="#cb60-1" aria-hidden="true" tabindex="-1"></a><span class="fu">toc</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>0.398 sec elapsed</code></pre>
+<pre><code>0.407 sec elapsed</code></pre>
 </div>
 </div>
 </div>
@@ -1343,7 +1345,7 @@ Note
 </div>
 <div class="sourceCode cell-code" id="cb64"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb64-1"><a href="#cb64-1" aria-hidden="true" tabindex="-1"></a><span class="fu">toc</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>0.035 sec elapsed</code></pre>
+<pre><code>0.036 sec elapsed</code></pre>
 </div>
 </div>
 </div>
@@ -1362,13 +1364,13 @@ Note
 <div class="cell-output cell-output-stdout">
 <pre><code>Unit: milliseconds
                                            expr      min       lq      mean
-   arrow (lazy) - from partitioned parquet file 114.7268 118.0219 122.30030
- dplyr (duckdb) - from partitioned parquet file 336.7384 353.6396 353.18422
-  polars (lazy) - from partitioned parquet file  32.8534  32.9096  36.54518
+   arrow (lazy) - from partitioned parquet file 118.2614 119.4728 125.85126
+ dplyr (duckdb) - from partitioned parquet file 343.7611 357.0569 356.66882
+  polars (lazy) - from partitioned parquet file  32.9343  33.0690  36.33808
    median       uq      max neval
- 118.4081 129.2681 131.0766     5
- 356.0392 358.4711 361.0328     5
-  33.6198  36.0845  47.2586     5</code></pre>
+ 120.7328 130.3207 140.4686     5
+ 359.8705 360.4786 362.1770     5
+  33.0922  33.9366  48.6583     5</code></pre>
 </div>
 </div>
 <p>👉 <strong>Conclusion</strong> of this little benchmark based <strong>on partitioned parquet files</strong>: as for unique parquet files, the big winner is <code>polars (lazy mode)</code> ! 🏆🏆🏆</p>
@@ -1428,7 +1430,7 @@ Note
 </div>
 <div class="sourceCode cell-code" id="cb70"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb70-1"><a href="#cb70-1" aria-hidden="true" tabindex="-1"></a><span class="fu">toc</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>0.078 sec elapsed</code></pre>
+<pre><code>0.075 sec elapsed</code></pre>
 </div>
 </div>
 </div>
@@ -1444,8 +1446,8 @@ Note
 <span id="cb72-5"><a href="#cb72-5" aria-hidden="true" tabindex="-1"></a>duckdb_bmk</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>Unit: milliseconds
-                 expr     min     lq     mean  median      uq     max neval
- SQL from duckdb file 71.0608 72.336 73.32148 73.3864 73.6971 76.1271     5</code></pre>
+                 expr     min      lq     mean  median      uq     max neval
+ SQL from duckdb file 70.9598 72.2584 73.55786 72.9994 73.1528 78.4189     5</code></pre>
 </div>
 </div>
 <p>Note that the query with the standard DBI methods is faster than those with dplyr verbs 🏆</p>
@@ -1467,7 +1469,7 @@ With which file format and which method is it fastest to execute the same reques
 <span id="cb74-6"><a href="#cb74-6" aria-hidden="true" tabindex="-1"></a>  duckdb_bmk</span>
 <span id="cb74-7"><a href="#cb74-7" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<p>Let’s do a few basic data manipulation before plotting the results :</p>
+<p>Let’s do a quick sort on the <code>expr</code> column before plotting the results :</p>
 <div class="cell">
 <details>
 <summary>Code</summary>
@@ -1476,10 +1478,6 @@ With which file format and which method is it fastest to execute the same reques
 </details>
 </div>
 <div class="cell">
-<div class="cell-output cell-output-stderr">
-<pre><code>Warning: Vectorized input to `element_text()` is not officially supported.
-ℹ Results may be unexpected or may change in future versions of ggplot2.</code></pre>
-</div>
 <div class="cell-output-display">
 <p><img src="benchmarking_files/figure-html/final-results-plot-1.png" class="img-fluid" width="672"></p>
 </div>
@@ -1504,15 +1502,16 @@ Final conclusions
 <p>We’ve just analysed the performance of the various alternatives to Polars, but what about R’s memory usage?</p>
 <p>To do this, we’re going to use <code>mem_change()</code> from <code>{pryr}</code> package. This method tells you how memory changes during code execution. Positive numbers represent an increase in the memory used by R, and negative numbers represent a decrease.</p>
 <div class="cell">
-<div class="cell-output cell-output-stdout">
-<pre><code>          used  (Mb) gc trigger  (Mb) max used  (Mb)
-Ncells 2191864 117.1    4730217 252.7  4730217 252.7
-Vcells 7598300  58.0   27871703 212.7 34839628 265.9</code></pre>
-</div>
-</div>
-<div class="cell">
 <div class="cell-output-display">
 <p><img src="benchmarking_files/figure-html/memory-usage-results-1.png" class="img-fluid" width="672"></p>
+</div>
+</div>
+<p>Now let’s combine the two plots by placing them side by side:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb76"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb76-1"><a href="#cb76-1" aria-hidden="true" tabindex="-1"></a>speed_plot <span class="sc">+</span> mem_plot <span class="sc">+</span></span>
+<span id="cb76-2"><a href="#cb76-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">plot_annotation</span>(<span class="st">"🔎 Right-click on the plot to open it wide in a new tab"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img src="benchmarking_files/figure-html/combining-plots-1.png" class="img-fluid" width="672"></p>
 </div>
 </div>
 
