@@ -57,9 +57,9 @@ speed_plot
 
 👉 **A few conclusions can be drawn from this section on benchmarking:**  
 
-:one: It is **more efficient** to work **from a parquet or duckdb file**;
-:two: In terms of **execution speed**, there is **no great difference between a single parquet file and several partitioned parquet files** (although the gap will undoubtedly widen in favour of partitioned files if the size of the initial work file is increased);
-:three: **Lazy evaluation of polars performs best, followed by SQL queries executed directly on a duckdb file.** 🏆🏆🏆 
+- It is **more efficient** to work **from a parquet or duckdb file**;  
+- In terms of **execution speed**, there is **no great difference between a single parquet file and several partitioned parquet files** (although the gap will undoubtedly widen in favour of partitioned files if the size of the initial work file is increased);  
+- **Lazy evaluation of polars performs best, followed by SQL queries executed directly on a duckdb file.** 🏆🏆🏆   
 
 :::
 
@@ -128,14 +128,14 @@ mem_plot <- ggplot(memory_usage_df,
                          "SQL from duckdb file",                          
                          "polars (lazy) - from partitioned parquet file" ,
                          "polars (lazy) - from unique parquet file"))) +
-  geom_col(fill = c("orange","orange","red","orange",
+  geom_col(fill = rev(c("orange","orange","red","orange",
                             "orange","orange","red","blue",
-                            "blue","blue","green","red","blue")) +
+                            "blue","blue","green","red","blue"))) +
                               labs(title = "Memory consumption according to functions used",
                                    subtitle = "🔎 Right-click on the plot to open it wide in a new tab",
                                    x = "Memory consumption", y = "Functions") +
-  scale_color_manual('Functions', values = c("orange","orange","red","orange",
+    theme(axis.text.y = element_text(color = rev(c("orange","orange","red","orange",
                                              "orange","orange","red","blue",
-                                             "blue","blue","green","red","blue"))
+                                             "blue","blue","green","red","blue")))) +
 mem_plot
 ```
