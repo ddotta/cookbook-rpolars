@@ -19,7 +19,7 @@ bmk_results <- rbind(
 )
 ```
 
-Let's do a few basic data manipulation before plotting the results :
+Let's do a quick sort on the `expr` column before plotting the results :
 
 ```{r}
 #| label: data-manipulation-before-plotting
@@ -36,17 +36,20 @@ bmk_results$expr <- reorder(bmk_results$expr, bmk_results$time, decreasing = TRU
 ```{r}
 #| label: final-results-plot
 #| echo: false
+#| warning: false
 
 autoplot(bmk_results) +
   labs(title = "polars ⚔️ others : Benchmark results!",
        subtitle = "🔎 Right-click on the plot to open it wide in a new tab") +
   theme(plot.title = element_text(hjust = 0.5),
         legend.position = "none") +
-  theme(axis.text.y = element_text(color = c('blue', 'red', 'green', 'blue', 'blue', 'blue',
-                                             'red', 'orange','orange', 'orange', 'red', 'orange','orange'))) +
+  theme(axis.text.y = element_text(color = c("orange","orange","red","orange",
+                                             "orange","orange","red","blue",
+                                             "blue","blue","green","red","blue"))) +
   aes(color = expr) +
-  scale_color_manual('Functions', values = c('blue', 'red', 'green', 'blue', 'blue', 'blue',
-                                             'red', 'orange','orange', 'orange', 'red', 'orange','orange'))
+  scale_color_manual('Functions', values = c("orange","orange","red","orange",
+                                             "orange","orange","red","blue",
+                                             "blue","blue","green","red","blue"))
 ```
 
 ::: {.callout-important title="Final conclusions"}
@@ -68,6 +71,7 @@ To do this, we're going to use `mem_change()` from `{pryr}` package. This method
 ```{r}
 #| label: garbage-collection
 #| echo: false
+#| results: 'hide'
 gc()
 ```
 
@@ -106,9 +110,25 @@ memory_usage_df <- data.frame(
 
   
 # Création du graphique avec ggplot2
-ggplot(memory_usage_df, aes(x = change, y = functions)) +
-  geom_col(fill =  c('blue', 'red', 'green', 'blue', 'blue', 'blue',
-                     'red', 'orange','orange', 'orange', 'red', 'orange','orange')) +
+ggplot(memory_usage_df, aes(x = change,
+                            y = fct_relevel(
+                              functions,
+                              "polars (lazy) - from unique parquet file",
+                              "polars (lazy) - from partitioned parquet file",
+                              "SQL from duckdb file",
+                              "Duckdb and SQL - from unique parquet file",
+                              "arrow (eager) - from unique parquet file",
+                              "arrow (lazy) - from unique parquet file",
+                              "arrow (lazy) - from partitioned parquet file",
+                              "dplyr (Acero) - from csv file",
+                              "polars (eager) from csv file",
+                              "data.table - from csv file",
+                              "dplyr (duckdb) - from partitioned parquet file",
+                              "dplyr - from csv file",
+                              "R base - from csv file"))) +
+         geom_col(fill = c("orange","orange","red","orange",
+                           "orange","orange","red","blue",
+                           "blue","blue","green","red","blue")) +
   labs(title = "Memory consumption according to functions used",
        subtitle = "🔎 Right-click on the plot to open it wide in a new tab",
        x = "Memory consumption", y = "Functions")
