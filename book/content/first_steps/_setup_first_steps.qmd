@@ -35,4 +35,5 @@ The most practical one in my opinion at the moment is to use [R-universe](https:
 
 install.packages("polars", repos = "https://rpolars.r-universe.dev")
 library(polars)
+packageVersion("polars")
 ```
