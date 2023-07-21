@@ -134,8 +134,8 @@ mem_plot <- ggplot(memory_usage_df,
                               labs(title = "Memory consumption according to functions used",
                                    subtitle = "🔎 Right-click on the plot to open it wide in a new tab",
                                    x = "Memory consumption", y = "Functions") +
-    theme(axis.text.y = element_text(color = rev(c("orange","orange","red","orange",
+    theme(axis.text.y = element_text(color = c("orange","orange","red","orange",
                                              "orange","orange","red","blue",
-                                             "blue","blue","green","red","blue"))))
+                                             "blue","blue","green","red","blue")))
 mem_plot
 ```
