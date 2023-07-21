@@ -148,7 +148,7 @@ mem_plot
 - Firstly, the method with `data.table from a csv file` surprisingly **consumes a lot of RAM**. Maybe it's related to the `as.data.table()` conversion? If a reader has an explanation, I'm interested and feel free to open an issue;   
 - Regarding csv files, syntaxes with `R base` and `dplyr` are the **least consuming RAM** (but at the expense of speed);  
 - Regarding parquet files, syntaxes with `arrow (eager)` and `Duckdb with SQL` are the **least consuming RAM**;  
-- The `SQL language used on a Duckdb file` also consumes **very little RAM**
+- The `SQL language used on a Duckdb file` also consumes **very little RAM**  
 
 🏆🏆🏆   
 
