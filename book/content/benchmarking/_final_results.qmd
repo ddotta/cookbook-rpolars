@@ -53,7 +53,7 @@ speed_plot <- autoplot(bmk_results) +
 speed_plot
 ```
 
-::: {.callout-important title="Final conclusions"}
+::: {.callout-important title="Final conclusions" icon=false}
 
 👉 **A few conclusions can be drawn from this section on benchmarking:**  
 
