@@ -79,6 +79,7 @@ gc()
 ```{r}
 #| label: memory-usage-results
 #| echo: false
+#| warning: false
 
 memory_usage_df <- data.frame(
   functions = c("polars (lazy) - from unique parquet file",
