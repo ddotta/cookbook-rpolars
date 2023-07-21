@@ -446,26 +446,26 @@ Important
 <span id="cb13-6"><a href="#cb13-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(</span>
 <span id="cb13-7"><a href="#cb13-7" aria-hidden="true" tabindex="-1"></a>    pl<span class="sc">$</span><span class="fu">col</span>(<span class="st">"region"</span>) <span class="sc">==</span> <span class="st">"Aquitaine"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>shape: (642, 3)
-┌───────────┬─────────────┬──────────┐
-│ region    ┆ departement ┆ priority │
-│ ---       ┆ ---         ┆ ---      │
-│ str       ┆ str         ┆ cat      │
-╞═══════════╪═════════════╪══════════╡
-│ Aquitaine ┆ Gironde     ┆ Bronze   │
-│ Aquitaine ┆ Gironde     ┆ Bronze   │
-│ Aquitaine ┆ Gironde     ┆ Bronze   │
-│ Aquitaine ┆ Gironde     ┆ Bronze   │
-│ …         ┆ …           ┆ …        │
-│ Aquitaine ┆ Gironde     ┆ Bronze   │
-│ Aquitaine ┆ Gironde     ┆ Bronze   │
-│ Aquitaine ┆ Gironde     ┆ Bronze   │
-│ Aquitaine ┆ Gironde     ┆ Bronze   │
-└───────────┴─────────────┴──────────┘</code></pre>
+<pre><code>shape: (3_108, 3)
+┌───────────┬──────────────────────┬──────────┐
+│ region    ┆ departement          ┆ priority │
+│ ---       ┆ ---                  ┆ ---      │
+│ str       ┆ str                  ┆ cat      │
+╞═══════════╪══════════════════════╪══════════╡
+│ Aquitaine ┆ Pyrénées-Atlantiques ┆ Gold     │
+│ Aquitaine ┆ Pyrénées-Atlantiques ┆ Gold     │
+│ Aquitaine ┆ Pyrénées-Atlantiques ┆ Gold     │
+│ Aquitaine ┆ Pyrénées-Atlantiques ┆ Gold     │
+│ …         ┆ …                    ┆ …        │
+│ Aquitaine ┆ Gironde              ┆ Silver   │
+│ Aquitaine ┆ Gironde              ┆ Silver   │
+│ Aquitaine ┆ Landes               ┆ Bronze   │
+│ Aquitaine ┆ Pyrénées-Atlantiques ┆ Gold     │
+└───────────┴──────────────────────┴──────────┘</code></pre>
 </div>
 <div class="sourceCode cell-code" id="cb15"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="fu">toc</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>0.084 sec elapsed</code></pre>
+<pre><code>0.081 sec elapsed</code></pre>
 </div>
 </div>
 <p>As seen above, we’re going to use the <code>lazy()</code> method to convert a <code>DataFrame</code> to a <code>LazyFrame</code>:</p>
@@ -480,26 +480,26 @@ Important
 <span id="cb17-8"><a href="#cb17-8" aria-hidden="true" tabindex="-1"></a>    pl<span class="sc">$</span><span class="fu">col</span>(<span class="st">"region"</span>) <span class="sc">==</span> <span class="st">"Aquitaine"</span>)<span class="sc">$</span></span>
 <span id="cb17-9"><a href="#cb17-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">collect</span>() <span class="co"># don't forget collect() here!</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>shape: (642, 3)
-┌───────────┬─────────────┬──────────┐
-│ region    ┆ departement ┆ priority │
-│ ---       ┆ ---         ┆ ---      │
-│ str       ┆ str         ┆ cat      │
-╞═══════════╪═════════════╪══════════╡
-│ Aquitaine ┆ Gironde     ┆ Bronze   │
-│ Aquitaine ┆ Gironde     ┆ Bronze   │
-│ Aquitaine ┆ Gironde     ┆ Bronze   │
-│ Aquitaine ┆ Gironde     ┆ Bronze   │
-│ …         ┆ …           ┆ …        │
-│ Aquitaine ┆ Gironde     ┆ Bronze   │
-│ Aquitaine ┆ Gironde     ┆ Bronze   │
-│ Aquitaine ┆ Gironde     ┆ Bronze   │
-│ Aquitaine ┆ Gironde     ┆ Bronze   │
-└───────────┴─────────────┴──────────┘</code></pre>
+<pre><code>shape: (3_108, 3)
+┌───────────┬──────────────────────┬──────────┐
+│ region    ┆ departement          ┆ priority │
+│ ---       ┆ ---                  ┆ ---      │
+│ str       ┆ str                  ┆ cat      │
+╞═══════════╪══════════════════════╪══════════╡
+│ Aquitaine ┆ Pyrénées-Atlantiques ┆ Gold     │
+│ Aquitaine ┆ Pyrénées-Atlantiques ┆ Gold     │
+│ Aquitaine ┆ Pyrénées-Atlantiques ┆ Gold     │
+│ Aquitaine ┆ Pyrénées-Atlantiques ┆ Gold     │
+│ …         ┆ …                    ┆ …        │
+│ Aquitaine ┆ Gironde              ┆ Silver   │
+│ Aquitaine ┆ Gironde              ┆ Silver   │
+│ Aquitaine ┆ Landes               ┆ Bronze   │
+│ Aquitaine ┆ Pyrénées-Atlantiques ┆ Gold     │
+└───────────┴──────────────────────┴──────────┘</code></pre>
 </div>
 <div class="sourceCode cell-code" id="cb19"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a><span class="fu">toc</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>0.082 sec elapsed</code></pre>
+<pre><code>0.08 sec elapsed</code></pre>
 </div>
 </div>
 </section>
@@ -519,22 +519,26 @@ Important
 <span id="cb21-10"><a href="#cb21-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">groupby</span>(<span class="st">"departement"</span>,<span class="st">"priority"</span>)<span class="sc">$</span></span>
 <span id="cb21-11"><a href="#cb21-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">agg</span>(pl<span class="sc">$</span><span class="fu">col</span>(<span class="st">"age"</span>)<span class="sc">$</span><span class="fu">mean</span>())</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>shape: (5, 3)
-┌─────────────────┬───────────┬───────────┐
-│ departement     ┆ priority  ┆ age       │
-│ ---             ┆ ---       ┆ ---       │
-│ str             ┆ str       ┆ f64       │
-╞═════════════════╪═══════════╪═══════════╡
-│ Morbihan        ┆ Silver    ┆ null      │
-│ Côtes-d'Armor   ┆ Gold      ┆ 43.0      │
-│ Ille-et-Vilaine ┆ Bronze    ┆ 37.0      │
-│ NA              ┆ Silver    ┆ 35.91002  │
-│ Finistère       ┆ Platinium ┆ 64.372093 │
-└─────────────────┴───────────┴───────────┘</code></pre>
+<pre><code>shape: (10, 3)
+┌─────────────────┬───────────┬──────┐
+│ departement     ┆ priority  ┆ age  │
+│ ---             ┆ ---       ┆ ---  │
+│ str             ┆ str       ┆ f64  │
+╞═════════════════╪═══════════╪══════╡
+│ Finistère       ┆ Platinium ┆ 70.0 │
+│ Ille-et-Vilaine ┆ Silver    ┆ 41.0 │
+│ Ille-et-Vilaine ┆ Gold      ┆ null │
+│ Morbihan        ┆ Bronze    ┆ null │
+│ …               ┆ …         ┆ …    │
+│ Finistère       ┆ Bronze    ┆ 29.0 │
+│ Finistère       ┆ Silver    ┆ null │
+│ Côtes-d'Armor   ┆ Silver    ┆ 20.0 │
+│ Côtes-d'Armor   ┆ Bronze    ┆ 55.0 │
+└─────────────────┴───────────┴──────┘</code></pre>
 </div>
 <div class="sourceCode cell-code" id="cb23"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a><span class="fu">toc</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>0.104 sec elapsed</code></pre>
+<pre><code>0.084 sec elapsed</code></pre>
 </div>
 </div>
 <p>… while the <code>lazy</code> method is represented by the <code>pl$scan_csv()</code>:</p>
@@ -566,19 +570,24 @@ Important
 <span id="cb26-6"><a href="#cb26-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">arrange</span>(departement) <span class="sc">|&gt;</span></span>
 <span id="cb26-7"><a href="#cb26-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">collect</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code># A tibble: 5 × 3
+<pre><code># A tibble: 10 × 3
 # Groups:   departement [5]
-  departement     priority  mymean
-  &lt;chr&gt;           &lt;fct&gt;      &lt;dbl&gt;
-1 Côtes-d'Armor   Gold        43  
-2 Finistère       Platinium   64.4
-3 Ille-et-Vilaine Bronze      37  
-4 Morbihan        Silver     NaN  
-5 &lt;NA&gt;            Silver      35.9</code></pre>
+   departement     priority  mymean
+   &lt;chr&gt;           &lt;fct&gt;      &lt;dbl&gt;
+ 1 Côtes-d'Armor   Silver        20
+ 2 Côtes-d'Armor   Bronze        55
+ 3 Finistère       Platinium     70
+ 4 Finistère       Bronze        29
+ 5 Finistère       Silver       NaN
+ 6 Ille-et-Vilaine Gold         NaN
+ 7 Ille-et-Vilaine Silver        41
+ 8 Morbihan        Gold          54
+ 9 Morbihan        Bronze       NaN
+10 &lt;NA&gt;            Silver        19</code></pre>
 </div>
 <div class="sourceCode cell-code" id="cb28"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true" tabindex="-1"></a><span class="fu">toc</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>0.263 sec elapsed</code></pre>
+<pre><code>0.22 sec elapsed</code></pre>
 </div>
 </div>
 <div class="cell">
@@ -592,22 +601,26 @@ Important
 <span id="cb30-8"><a href="#cb30-8" aria-hidden="true" tabindex="-1"></a>)<span class="sc">$</span><span class="fu">sort</span>(<span class="st">"departement"</span>)<span class="sc">$</span></span>
 <span id="cb30-9"><a href="#cb30-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">collect</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>shape: (5, 3)
-┌─────────────────┬───────────┬───────────┐
-│ departement     ┆ priority  ┆ age       │
-│ ---             ┆ ---       ┆ ---       │
-│ str             ┆ cat       ┆ f64       │
-╞═════════════════╪═══════════╪═══════════╡
-│ null            ┆ Silver    ┆ 35.91002  │
-│ Côtes-d'Armor   ┆ Gold      ┆ 43.0      │
-│ Finistère       ┆ Platinium ┆ 64.372093 │
-│ Ille-et-Vilaine ┆ Bronze    ┆ 37.0      │
-│ Morbihan        ┆ Silver    ┆ null      │
-└─────────────────┴───────────┴───────────┘</code></pre>
+<pre><code>shape: (10, 3)
+┌─────────────────┬───────────┬──────┐
+│ departement     ┆ priority  ┆ age  │
+│ ---             ┆ ---       ┆ ---  │
+│ str             ┆ cat       ┆ f64  │
+╞═════════════════╪═══════════╪══════╡
+│ null            ┆ Silver    ┆ 19.0 │
+│ Côtes-d'Armor   ┆ Silver    ┆ 20.0 │
+│ Côtes-d'Armor   ┆ Bronze    ┆ 55.0 │
+│ Finistère       ┆ Platinium ┆ 70.0 │
+│ …               ┆ …         ┆ …    │
+│ Ille-et-Vilaine ┆ Gold      ┆ null │
+│ Ille-et-Vilaine ┆ Silver    ┆ 41.0 │
+│ Morbihan        ┆ Gold      ┆ 54.0 │
+│ Morbihan        ┆ Bronze    ┆ null │
+└─────────────────┴───────────┴──────┘</code></pre>
 </div>
 <div class="sourceCode cell-code" id="cb32"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb32-1"><a href="#cb32-1" aria-hidden="true" tabindex="-1"></a><span class="fu">toc</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>0.012 sec elapsed</code></pre>
+<pre><code>0.016 sec elapsed</code></pre>
 </div>
 </div>
 <p>And it’s another victory for the <code>lazy</code> execution!</p>
@@ -631,19 +644,24 @@ Important
 <span id="cb34-6"><a href="#cb34-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">arrange</span>(departement) <span class="sc">|&gt;</span></span>
 <span id="cb34-7"><a href="#cb34-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">collect</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code># A tibble: 5 × 3
+<pre><code># A tibble: 10 × 3
 # Groups:   departement [5]
-  departement     priority  mymean
-  &lt;chr&gt;           &lt;fct&gt;      &lt;dbl&gt;
-1 Côtes-d'Armor   Gold        43  
-2 Finistère       Platinium   64.4
-3 Ille-et-Vilaine Bronze      37  
-4 Morbihan        Silver     NaN  
-5 &lt;NA&gt;            Silver      35.9</code></pre>
+   departement     priority  mymean
+   &lt;chr&gt;           &lt;fct&gt;      &lt;dbl&gt;
+ 1 Côtes-d'Armor   Silver        20
+ 2 Côtes-d'Armor   Bronze        55
+ 3 Finistère       Platinium     70
+ 4 Finistère       Bronze        29
+ 5 Finistère       Silver       NaN
+ 6 Ille-et-Vilaine Gold         NaN
+ 7 Ille-et-Vilaine Silver        41
+ 8 Morbihan        Gold          54
+ 9 Morbihan        Bronze       NaN
+10 &lt;NA&gt;            Silver        19</code></pre>
 </div>
 <div class="sourceCode cell-code" id="cb36"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb36-1"><a href="#cb36-1" aria-hidden="true" tabindex="-1"></a><span class="fu">toc</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>0.116 sec elapsed</code></pre>
+<pre><code>0.095 sec elapsed</code></pre>
 </div>
 </div>
 </div>
