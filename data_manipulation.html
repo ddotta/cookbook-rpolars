@@ -873,12 +873,12 @@ Here’s an example:</p>
 <span id="cb74-8"><a href="#cb74-8" aria-hidden="true" tabindex="-1"></a>  )</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>Unit: milliseconds
-                           expr     min       lq      mean   median       uq
- Without telling col1 is sorted 13.2108 13.47455 13.611018 13.58920 13.74955
-         Telling col1 is sorted  2.0122  2.19355  2.417973  2.40715  2.57570
+                           expr     min       lq      mean  median       uq
+ Without telling col1 is sorted 12.8756 13.34285 13.908033 13.5359 13.86275
+         Telling col1 is sorted  1.9504  2.19850  2.477727  2.3710  2.56970
      max neval
- 14.0833   100
-  3.3617   100</code></pre>
+ 24.5899   100
+  7.9339   100</code></pre>
 </div>
 </div>
 </div>
@@ -4007,7 +4007,7 @@ Important
 [45] "std"            "sum"            "tail"           "to_data_frame" 
 [49] "to_list"        "to_series"      "to_struct"      "unique"        
 [53] "unnest"         "var"            "width"          "with_column"   
-[57] "with_columns"  </code></pre>
+[57] "with_columns"   "with_row_count"</code></pre>
 </div>
 <div class="sourceCode cell-code" id="cb425"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb425-1"><a href="#cb425-1" aria-hidden="true" tabindex="-1"></a><span class="co"># See all private methods for DataFrame (not intended for regular use)</span></span>
 <span id="cb425-2"><a href="#cb425-2" aria-hidden="true" tabindex="-1"></a><span class="fu">ls</span>(polars<span class="sc">:::</span>.pr<span class="sc">$</span>DataFrame)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
@@ -4027,7 +4027,8 @@ Important
 [25] "set_column_from_series"    "set_column_names_mut"     
 [27] "shape"                     "to_list"                  
 [29] "to_list_tag_structs"       "to_list_unwind"           
-[31] "to_struct"                 "unnest"                   </code></pre>
+[31] "to_struct"                 "unnest"                   
+[33] "with_row_count"           </code></pre>
 </div>
 </div>
 

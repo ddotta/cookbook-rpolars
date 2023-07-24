@@ -648,7 +648,7 @@ Tip
 </div>
 <p>For example:</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb48"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb48-1"><a href="#cb48-1" aria-hidden="true" tabindex="-1"></a>pl<span class="sc">$</span><span class="fu">col</span>(<span class="st">"bar"</span>)<span class="sc">$</span><span class="fu">filter</span>(<span class="fu">pl.col</span>(<span class="st">"foo"</span>) <span class="sc">==</span> <span class="dv">1</span>)<span class="sc">$</span><span class="fu">sum</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb48"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb48-1"><a href="#cb48-1" aria-hidden="true" tabindex="-1"></a>pl<span class="sc">$</span><span class="fu">col</span>(<span class="st">"bar"</span>)<span class="sc">$</span><span class="fu">filter</span>(pl<span class="sc">$</span><span class="fu">col</span>(<span class="st">"foo"</span>) <span class="sc">==</span> <span class="dv">1</span>)<span class="sc">$</span><span class="fu">sum</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>To learn more about Polars expressions, see <a href="https://pola-rs.github.io/polars-book/user-guide/concepts/expressions/">the official documentation</a>.</p>
 <hr>
