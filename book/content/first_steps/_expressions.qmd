@@ -26,7 +26,7 @@ For example:
 ```{r}
 #| label: second-polars-expression
 #| eval: false
-pl$col("bar")$filter(pl.col("foo") == 1)$sum()
+pl$col("bar")$filter(pl$col("foo") == 1)$sum()
 ```
 
 To learn more about Polars expressions, see [the official documentation](https://pola-rs.github.io/polars-book/user-guide/concepts/expressions/).
