@@ -73,6 +73,7 @@ A character vector can be passed to the `columns` attribute to rename the column
 ```{r}
 #| label: renames-columns
 mydf$columns <- c("colA","colB")
+mydf$columns
 ```
 
 ### Get the size

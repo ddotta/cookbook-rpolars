@@ -1,0 +1,62 @@
+## Rename columns
+
+### Selecting by name
+
+Similar to the dplyr package, the `rename()` method can also be used to rename existing column.  
+The renaming logic is identical to that of `dplyr`, and is performed as follows: `new_name="old_name"`.
+
+::: {.callout-note}
+Note the double quotes `""` surrounding the name of the old variable to be renamed which does not exist with `dplyr` (see examples below).
+:::
+
+::: {.panel-tabset}
+## polars
+
+```{r}
+#| label: rename-polars
+data(iris)
+pl$DataFrame(iris)$
+  rename(
+    sepal_length = "Sepal.Length", 
+    sepal_width = "Sepal.Width",
+    `length of petal` = "Petal.Length",
+    `width of petal` = "Petal.Width",
+    species = "Species"
+  )$columns
+```
+
+## R base
+
+```{r}
+#| label: rename-rbase
+data(iris)
+names(iris) <- c("sepal_length","sepal_width","length of petal","width of petal","species")
+names(iris)
+```
+
+## dplyr
+
+```{r}
+#| label: rename-dplyr
+data(iris)
+iris |>
+  rename(
+    sepal_length = Sepal.Length, 
+    sepal_width = Sepal.Width,
+    `length of petal` = Petal.Length,
+    `width of petal` = Petal.Width,
+    species = Species
+  ) |>
+  names()
+```
+
+## data.table
+
+```{r}
+#| label: rename-datatable
+setnames(iris_dt, 
+         old = c("Sepal.Length", "Sepal.Width", "Petal.Length", "Petal.Width", "Species"),
+         new = c("sepal_length", "sepal_width", "length_of_petal", "width_of_petal", "species"))
+names(iris_dt)
+```
+:::
