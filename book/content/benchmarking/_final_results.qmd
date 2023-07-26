@@ -45,11 +45,11 @@ speed_plot <- autoplot(bmk_results) +
         legend.position = "none") +
   theme(axis.text.y = element_text(color = c("orange","orange","red","orange",
                                              "orange","orange","red","blue",
-                                             "blue","blue","green","red","blue"))) +
+                                             "blue","blue","green","orange","red","blue"))) +
   aes(color = expr) +
   scale_color_manual('Functions', values = c("orange","orange","red","orange",
                                              "orange","orange","red","blue",
-                                             "blue","blue","green","red","blue"))
+                                             "blue","blue","green","orange","red","blue"))
 speed_plot
 ```
 
@@ -57,7 +57,7 @@ speed_plot
 
 👉 **A few conclusions can be drawn from this section on benchmarking:**  
 
-- It is **more efficient** to work **from a parquet or duckdb file**;  
+- It is **more efficient** to work **from a parquet or duckdb file** except for polas with lazy evaluation which is very fast;  
 - In terms of **execution speed**, there is **no great difference between a single parquet file and several partitioned parquet files** (although the gap will undoubtedly widen in favour of partitioned files if the size of the initial work file is increased);  
 - **Lazy evaluation of polars performs best, followed by SQL queries executed directly on a duckdb file.** 🏆🏆🏆   
 
@@ -84,27 +84,29 @@ gc()
 memory_usage_df <- data.frame(
   functions = c("polars (lazy) - from unique parquet file",
                 "polars (lazy) - from partitioned parquet file",
-                "SQL from duckdb file",
+                "polars (lazy) - from csv file",
                 "Duckdb and SQL - from unique parquet file",
                 "arrow (eager) - from unique parquet file",
                 "arrow (lazy) - from unique parquet file",
                 "arrow (lazy) - from partitioned parquet file",
-                "dplyr (Acero) - from csv file",
-                "polars (eager) from csv file",
+                "SQL from duckdb file",
                 "data.table - from csv file",
+                "polars (eager) from csv file",
+                "dplyr (Acero) - from csv file",
                 "dplyr (duckdb) - from partitioned parquet file",
                 "dplyr - from csv file",
                 "R base - from csv file"),
   change = c(mem_change(parquet_polars_lazy()$collect()$to_data_frame()),
              mem_change(partitioned_parquet_polars_lazy()$to_data_frame()),
+             mem_change(csv_lazy_polars()$collect()),
              mem_change(duckdb_dbfile_sql()),
-             mem_change(parquet_duckdb_sql()),
              mem_change(arrow_eager()),
              mem_change(arrow_lazy() |> collect()),
              mem_change(partitioned_parquet_arrow_lazy()),
-             mem_change(csv_arrow()),
-             mem_change(csv_eager_polars()),
+             mem_change(parquet_duckdb_sql()),
              mem_change(csv_dt()),
+             mem_change(csv_eager_polars()),
+             mem_change(csv_arrow()),
              mem_change(partitioned_parquet_dplyr_duckdb()),
              mem_change(csv_dplyr()),
              mem_change(csv_rbase()))
@@ -116,28 +118,29 @@ mem_plot <- ggplot(memory_usage_df,
                    aes(x = change,
                        y = fct_relevel(
                          functions,
-                          "R base - from csv file",
+                         "R base - from csv file",
                          "dplyr - from csv file",                         
                          "dplyr (duckdb) - from partitioned parquet file",
-                         "data.table - from csv file",                    
-                         "polars (eager) from csv file" ,                 
                          "dplyr (Acero) - from csv file",                 
+                         "polars (eager) from csv file" ,                 
+                         "data.table - from csv file",                    
+                         "SQL from duckdb file",      
                          "arrow (lazy) - from partitioned parquet file", 
                          "arrow (lazy) - from unique parquet file",     
                          "arrow (eager) - from unique parquet file",      
                          "Duckdb and SQL - from unique parquet file",     
-                         "SQL from duckdb file",                          
+                         "polars (lazy) - from csv file",
                          "polars (lazy) - from partitioned parquet file" ,
                          "polars (lazy) - from unique parquet file"))) +
   geom_col(fill = rev(c("orange","orange","red","orange",
-                            "orange","orange","red","blue",
-                            "blue","blue","green","red","blue"))) +
+                            "orange","orange","green","red","blue",
+                            "blue","blue","orange","red","blue"))) +
                               labs(title = "Memory consumption according to functions used",
                                    subtitle = "🔎 Right-click on the plot to open it wide in a new tab",
                                    x = "Memory consumption", y = "Functions") +
     theme(axis.text.y = element_text(color = c("orange","orange","red","orange",
-                                             "orange","orange","red","blue",
-                                             "blue","blue","green","red","blue")))
+                                               "orange","orange","green","red","blue",
+                                               "blue","blue","orange","red","blue")))
 mem_plot
 ```
 
