@@ -149,9 +149,11 @@ Here's an example with equivalent syntax to help you understand:
 
 df <- data.frame(
   name = c("X","X","Y","Y","Z","Z"),
+  adress = c("A","B","C","D","E","F"),
   col2 = c(2L,4L,1L,3L,4L,2L),
   col3 = c(5L,19L,17L,12L,11L,15L)
 )
+df
 ```
 
 
@@ -191,4 +193,8 @@ dt <- as.data.table(df)
 dt[, col3_max := max(col3), by = name]
 dt
 ```
+:::
+
+::: {.callout-tip}
+If you need to pass multiple column names in the `over` expression, you can either list them like this `over("name","adress")` or - more conveniently - use a character vector `over(c("name","adress"))`.
 :::
