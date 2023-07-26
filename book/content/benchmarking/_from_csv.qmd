@@ -55,7 +55,6 @@ toc()
 
 ```{r}
 #| label: csv-lazy-polars-benchmarking
-#| eval: false
 
 csv_lazy_polars <- function() {
 # Reading the csv file (eager mode)
@@ -279,7 +278,7 @@ toc()
 
 csv_bmk <- microbenchmark(
   "polars (eager) from csv file" = csv_eager_polars(),
-  #"polars (lazy) from csv file" = csv_lazy_polars()$collect(),
+  "polars (lazy) from csv file" = csv_lazy_polars()$collect(),
   "R base - from csv file" = csv_rbase(),
   "dplyr - from csv file" = csv_dplyr(),
   "dplyr (Acero) - from csv file" = csv_arrow(),

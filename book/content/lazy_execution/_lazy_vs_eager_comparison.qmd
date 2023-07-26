@@ -30,7 +30,6 @@ Here is the equivalent code using the lazy API. At the end of the query, don't f
 
 ```{r}
 #| label: lazy-query-steps
-#| eval: false
 
 pl$scan_csv("examples/iris.csv")$
   filter(

@@ -61,7 +61,6 @@ toc()
 
 ```{r}
 #| label: fight-lazy_csv_reader
-#| eval: false
 
 tic()
 pl$scan_csv("Datasets/fakir_file.csv", infer_schema_length=0)$

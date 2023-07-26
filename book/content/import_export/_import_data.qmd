@@ -67,7 +67,6 @@ The `pl$scan_csv()` method can be used to lazily read a csv file from a file.
 
 ```{r}
 #| label: lazy_csv-from-file-polars
-#| eval: false
 
 pl$scan_csv(
   "examples/iris.csv")$select( # lazy, don't do a thing
