@@ -47,9 +47,18 @@ The formatting is done one line per column, so wide `DataFrame` show nicely. Eac
 ```{r}
 #| label: glimpse-method
 
-pl$DataFrame(mydf)$glimpse()
+pl$DataFrame(iris)$glimpse()
 ```
 
+### Get summary statistics
+
+You can access some summary statistics from a `DataFrame` by using the `describe()` method.
+
+```{r}
+#| label: describe-method
+
+pl$DataFrame(iris)$describe()
+```
 
 ### Get the rows number
 
