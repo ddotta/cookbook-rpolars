@@ -104,3 +104,37 @@ iris_dt[, .SD, .SDcols = is.numeric]
 ::: {.callout-note}
 You can also select columns from a DataFrame using a name pattern. See [an example by removing a column](#removing-by-name-pattern)
 :::
+
+### Selecting using lists
+
+It is also possible to select columns using `R lists` which can be very practical depending on the case. Here's an example:
+
+```{r}
+#| label: select-lists-polars
+data(iris)
+
+l_expr = list(
+  pl$col("Petal.Length"),
+  pl$col("Species")
+)
+
+# Select only categorical columns
+pl$DataFrame(iris)$select(l_expr)$head(3) 
+```
+This way of selecting columns also works with simple R lists:
+
+```{r}
+#| label: select-simple-lists-polars
+data(iris)
+
+l_expr = list(
+  "Petal.Length",
+  "Species",
+  "Petal.Width"
+)
+
+# Select only categorical columns
+pl$DataFrame(iris)$select(l_expr)$head(3) 
+```
+
+
