@@ -63,3 +63,90 @@ iris_dt[order(Species,Petal.Length)][1:3,]
 iris_dt[order(-Species,Petal.Length)][1:3,]
 ```
 :::
+
+If you want to keep unique/distinct rows from a DataFrame, you can use the `unique()` method:
+
+::: {.panel-tabset}
+## polars
+
+```{r}
+#| label: unique-rows-dataframe-polars
+
+# With one column
+pl$DataFrame(iris)$unique(
+  subset = "Species"
+)
+# With one column keeping last entry
+pl$DataFrame(iris)$unique(
+  subset = "Species",
+  keep = "last"
+)
+# With two colums, keeping last entry and maintaining the same order
+pl$DataFrame(
+  x = c(1L, 1:3, 3L),
+  y = c(1L, 1:3, 3L),
+  z = c(1L, 1:3, 4L)
+)$unique(
+  subset = c("x","y"),
+  keep = "last",
+  maintain_order = TRUE
+)
+```
+
+## R base
+
+```{r}
+#| label: unique-rows-dataframe-rbase
+# With one column
+aggregate(. ~ Species, data = iris, FUN = head, N = 1)
+# With one column keeping last entry
+aggregate(. ~ Species, data = iris, FUN = tail, n = 1)
+# With two colums, keeping last entry and maintaining the same order
+mytest <- data.frame(
+  x = c(1L, 1:3, 3L),
+  y = c(1L, 1:3, 3L),
+  z = c(1L, 1:3, 4L)
+) 
+aggregate(. ~ x + y, data = mytest, FUN = tail, n = 1)
+```
+
+## dplyr
+
+```{r}
+#| label: unique-rows-dataframe-dplyr
+# With one column
+iris |>
+  distinct(Species, .keep_all = TRUE)
+# With one column keeping last entry
+iris |>
+  group_by(Species) |>
+  slice_tail() |>
+  ungroup()
+# With two colums, keeping last entry and maintaining the same order
+data.frame(
+  x = c(1L, 1:3, 3L),
+  y = c(1L, 1:3, 3L),
+  z = c(1L, 1:3, 4L)
+) |>
+  group_by(x,y) |>
+  slice_tail() |>
+  ungroup()
+```
+
+## data.table
+
+```{r}
+#| label: unique-rows-dataframe-datatable
+# With one column
+unique(iris_dt, by = "Species")
+# With one column keeping last entry
+unique(iris_dt, by = "Species", fromLast = TRUE)
+# With two colums, keeping last entry and maintaining the same order
+mytest_dt <- data.table(
+  x = c(1L, 1:3, 3L),
+  y = c(1L, 1:3, 3L),
+  z = c(1L, 1:3, 4L)
+) 
+unique(mytest_dt, by = c("x","y"), fromLast = TRUE)
+```
+:::
