@@ -14,6 +14,8 @@
 
 {{< include content/data_manipulation/_add_columns.qmd >}}
 
+{{< include content/data_manipulation/_rename_columns.qmd >}}
+
 {{< include content/data_manipulation/_remove_columns.qmd >}}
 
 {{< include content/data_manipulation/_aggregations_by_group.qmd >}}
