@@ -115,10 +115,6 @@ mydf$head(2)
 ```
 
 
-::: {.callout-caution title="Work in Progress"}
-Polars API contains useful method for quickly describing a `DataFrame` - for example  [describe](https://pola-rs.github.io/polars/py-polars/html/reference/dataframe/api/polars.DataFrame.describe.html) has not yet been implemented (July 2023).
-:::
-
 ### Count values in a DataFrame
 
 The `value_counts()` method can be used to count values in a Series of a DataFrame. 
