@@ -7,11 +7,9 @@ Another frequently used data manipulation is the aggregation of data by group. T
 
 ```{r}
 #| label: agg-polars
-pl$DataFrame(iris)$groupby(
-  "Species"
-)$agg(
-  pl$col(c("Petal.Length","Petal.Width"))$sum()
-)
+pl$DataFrame(iris)$
+  groupby("Species")$
+  agg(pl$col(c("Petal.Length","Petal.Width"))$sum())
 ```
 
 ## R base
