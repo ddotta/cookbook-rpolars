@@ -39,6 +39,18 @@ mydf$lazy()$dtypes
 mydf$dtype_strings()
 ```
 
+### Get a glimpse
+
+You can access a dense preview of a `DataFrame` by using the `glimpse()` method.  
+The formatting is done one line per column, so wide `DataFrame` show nicely. Each line will show the column name, the dtypes attributes and the first few values.  
+
+```{r}
+#| label: glimpse-method
+
+pl$DataFrame(mydf)$glimpse()
+```
+
+
 ### Get the rows number
 
 A `DataFrame` has a `width` attribute which returns the width of the `DataFrame`.  
