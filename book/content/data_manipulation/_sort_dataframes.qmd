@@ -186,14 +186,18 @@ iris[order(iris$Petal.Width), "Petal.Length", drop = FALSE]
 #| label: sort_by-dataframe-dplyr
 
 data(iris)
-iris_dt <- as.data.table(iris)
-iris[, .(Petal.Length)][order(Petal.Length)]
+iris |>
+  arrange(Petal.Width) |>
+  select(Petal.Length)
 ```
 
 ## data.table
 
 ```{r}
 #| label: sort_by-dataframe-datatable
+
+data(iris)
+iris_dt <- as.data.table(iris)
 iris_dt[order(Petal.Width)][,.(Petal.Length)]
 ```
 :::
