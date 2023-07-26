@@ -1,5 +1,7 @@
 ## Sort a DataFrame
 
+### Simply sort a DataFrame
+
 The `sort()` method can be used to sort a `DataFrame`.
 
 ::: {.panel-tabset}
@@ -64,7 +66,9 @@ iris_dt[order(-Species,Petal.Length)][1:3,]
 ```
 :::
 
-If you want to keep unique/distinct rows from a DataFrame, you can use the `unique()` method:
+### Keep unique rows
+
+If you want to keep unique/distinct rows from a `DataFrame`, you can use the `unique()` method:
 
 ::: {.panel-tabset}
 ## polars
@@ -149,4 +153,51 @@ mytest_dt <- data.table(
 ) 
 unique(mytest_dt, by = c("x","y"), fromLast = TRUE)
 ```
+:::
+
+### Keep some columns from sorted DataFrame
+
+If you want to keep only some columns from a sorted `DataFrame`, you can use the `sort_by()` method with the `select()` method.  
+In details, `sort_by()` can sort a column by the ordering of another column, or multiple other columns.  
+It's the equivalent of `order()` method of R base.
+
+::: {.panel-tabset}
+## polars
+
+```{r}
+#| label: sort_by-dataframe-polars
+
+pl$DataFrame(iris)$
+  select(pl$col("Petal.Length")$
+  sort_by("Petal.Width"))
+```
+
+## R base
+
+```{r}
+#| label: sort_by-dataframe-rbase
+data(iris)
+iris[order(iris$Petal.Width), "Petal.Length", drop = FALSE]
+```
+
+## dplyr
+
+```{r}
+#| label: sort_by-dataframe-dplyr
+
+data(iris)
+iris_dt <- as.data.table(iris)
+iris[, .(Petal.Length)][order(Petal.Length)]
+```
+
+## data.table
+
+```{r}
+#| label: sort_by-dataframe-datatable
+iris_dt[order(Petal.Width)][,.(Petal.Length)]
+```
+:::
+
+::: {.callout-tip}
+If you want to use multiple columns/expressions, you can pass it in a `list` like this for example `sort_by(list("Petal.Width","Sepal.Width"))` or `sort_by(list("Petal.Width", pl$col("Sepal.Width")))`
 :::
