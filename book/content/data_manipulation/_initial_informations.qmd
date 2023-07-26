@@ -104,7 +104,7 @@ mydf$head(2)
 
 
 ::: {.callout-caution title="Work in Progress"}
-Polars API contains useful methods for quickly describing a `DataFrame` - [describe](https://pola-rs.github.io/polars/py-polars/html/reference/dataframe/api/polars.DataFrame.describe.html) and [glimpse](https://pola-rs.github.io/polars/py-polars/html/reference/dataframe/api/polars.DataFrame.glimpse.html#) that has not yet been implemented (June 2023).
+Polars API contains useful method for quickly describing a `DataFrame` - for example  [describe](https://pola-rs.github.io/polars/py-polars/html/reference/dataframe/api/polars.DataFrame.describe.html) has not yet been implemented (July 2023).
 :::
 
 ### Count values in a DataFrame
