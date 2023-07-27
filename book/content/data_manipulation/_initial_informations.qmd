@@ -24,7 +24,7 @@ mydf$shape
 
 ### Get columns types
 
-A `DataFrame` has a `dtypes` attribute which is a list of dypes for the columns of the `DataFrame`.  
+A `DataFrame` has a `dtypes` attribute which is a list of dtypes (for data type) for every column of the `DataFrame`.  
 
 Alternatively, the `dtype_strings()` method can be used to get columns types in a character/string vector.
 
@@ -41,7 +41,7 @@ mydf$dtype_strings()
 
 ### Get a glimpse
 
-You can access a dense preview of a `DataFrame` by using the `glimpse()` method.  
+You can access a dense preview of a `DataFrame` by using the `glimpse()` method.  f
 The formatting is done one line per column, so wide `DataFrame` show nicely. Each line will show the column name, the dtypes attributes and the first few values.  
 
 ```{r}
