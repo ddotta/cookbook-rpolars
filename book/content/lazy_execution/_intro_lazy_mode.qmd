@@ -47,7 +47,7 @@ myquery$describe_optimized_plan()
 This example shows a simple but surprisingly effective element of query optimisation: **projection**. Changing the order in which our subset operations occur - in this case, the subset on columns first - reduces the memory overhead of the global query.  
 
 We can see that Polars has identified that only 2 columns are needed to execute our query (`PROJECT 2/5 COLUMNS`). And Polars did this without me having to select these variables myself (for example with a `select` method).  
-**The added value of Polars is that it appliess some optimizations that I/you might not even have known about. 💪**
+**The added value of Polars is that it applies some optimizations that I/you might not even have known about. 💪**
 
 ### Execute the plan
 
