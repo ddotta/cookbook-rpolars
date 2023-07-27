@@ -44,7 +44,8 @@ This way, we can display the **naive plan** but as indicated in the console, we 
 myquery$describe_optimized_plan()
 ```
 
-This example shows a simple but surprisingly effective element of query optimisation: **projection**. Changing the order in which our subset operations occur - in this case, the subset on columns first - reduces the memory overhead of the global query.
+This example shows a simple but surprisingly effective element of query optimisation: **projection**. Changing the order in which our subset operations occur - in this case, the subset on columns first - reduces the memory overhead of the global query.  
+we can see that Polars has identified that only 2 columns are needed to execute our query (`PROJECT 2/5 COLUMNS`).
 
 ### Execute the plan
 
