@@ -1,5 +1,7 @@
 ## `Lazy` vs `eager` mode comparison
 
+### General principles
+
 In this first example we use the **eager API**:
 
 ```{r}
@@ -43,4 +45,44 @@ pl$scan_csv("examples/iris.csv")$
 Use **lazy execution** will signficantly lower the load on memory & CPU thus allowing you to fit bigger datasets in memory and process faster.
 :::
 
-The next part will demonstrate this time saving. 👇
+The next section will demonstrate this time saving. 👇
+
+
+### Limits of lazy mode
+
+There are some operations that cannot be performed in lazy mode (whether in polars or other lazy frameworks such as SQL database). One limitation is that Polars needs to know the column names and dtypes at each step of the query plan.
+
+For example, we can't `pivot()` (see [here](#pivot-a-dataframe)) in lazy mode as the column names are data-dependant following a pivot. Indeed, when you have to `pivot()` a `DataFrame` your future columns names cannot be predicted because it depends on what it is actually in your datasets!
+
+When you have to do operations that can be done in lazy mode, the recommandation is:
+- Running your query in lazy mode as far as possible;  
+- Evaluating this lazy query with `collect()` when you need a non-lazy method;  
+- Running the non-lazy methods;  
+- Calling `lazy()` on the output to continue in lazy mode.  
+
+Here's an example:
+
+```{r}
+#| label: query-lazy-then-eager
+
+pl$scan_parquet("Datasets/fakir_file.parquet")$
+  # Call collect() because I need to pivot()
+  collect()$
+  pivot(
+    index = "region",
+    columns = "priority",
+    values = "age", 
+    aggregate_function = "mean"
+  )$
+  # Continue in lazy mode
+  lazy()$
+  select(
+    pl$col(c("region","Gold","Platinium"))
+  )$
+  collect()
+```
+
+
+
+
+
