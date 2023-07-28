@@ -40,12 +40,6 @@ myquery
 
 This way, we can display the **naive plan** (which means it is an non-optimized plan). Let's see what it contains for our example:  
 
-```
-SELECT [col("Species"), col("Petal.Length")] FROM
-  FILTER [(col("Species")) == (Utf8(setosa))] FROM
-  DF ["Sepal.Length", "Sepal.Width", "Petal.Length", "Petal.Width"]; PROJECT */5 COLUMNS; SELECTION: "None"
-```
-
 - `FILTER [(col("Species")) == (Utf8(setosa))] FROM DF ["Sepal.Length", "Sepal.Width", "Petal.Length", "Petal.Width"]` means that **once the entire datasets has been read into memory**, this `DataFrame` will be filtered for rows with Species equals to "setosa";   
 - `PROJECT */5 COLUMNS` selects all 5 of the columns (* is the wildcard meaning all);  
 - `SELECTION: "None"` means no rows will be filtered out.  
@@ -58,11 +52,6 @@ myquery$describe_optimized_plan()
 ```
 
 This example shows a simple but surprisingly effective element of query optimisation: **projection**.   
-
-```
-FAST_PROJECT: [Species, Petal.Length]
-  DF ["Sepal.Length", "Sepal.Width", "Petal.Length", "Petal.Width"]; PROJECT 2/5 COLUMNS; SELECTION: "[(col(\"Species\")) == (Utf8(setosa))]"
-```
 
 Let's see what changed in this **optimized plan**:  
 
