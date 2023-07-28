@@ -43,6 +43,9 @@ iris_dt[1:3,.(Petal.Length,Petal.Width)]
 ```
 :::
 
+Keep in mind that when **selecting only one column** from a `DataFrame` the output is a `Series` whereas **if there is more than one column**, the output is a `DataFrame`.
+
+
 ::: {.callout-note}
 With Polars if you want to obtain a result in an R data.frame, you can simply add the method `to_data_frame()` at the end of the method chaining.
 :::
