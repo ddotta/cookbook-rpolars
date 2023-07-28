@@ -37,16 +37,40 @@ myquery <- pl$DataFrame(iris)$lazy()$filter(
 )
 myquery
 ```
-This way, we can display the **naive plan** but as indicated in the console, we can use the `describe_optimized_plan()` method to see the **optimized plan**.
+
+This way, we can display the **naive plan** (which means it is an non-optimized plan). Let's see what it contains for our example:  
+
+```
+SELECT [col("Species"), col("Petal.Length")] FROM
+  FILTER [(col("Species")) == (Utf8(setosa))] FROM
+  DF ["Sepal.Length", "Sepal.Width", "Petal.Length", "Petal.Width"]; PROJECT */5 COLUMNS; SELECTION: "None"
+```
+
+- `FILTER [(col("Species")) == (Utf8(setosa))] FROM DF ["Sepal.Length", "Sepal.Width", "Petal.Length", "Petal.Width"]` means that **once the entire datasets has been read into memory**, this `DataFrame` will be filtered for rows with Species equals to "setosa";   
+- `PROJECT */5 COLUMNS` selects all 5 of the columns (* is the wildcard meaning all);  
+- `SELECTION: "None"` means no rows will be filtered out.  
+
+As indicated in the console, we can use the `describe_optimized_plan()` method to see the **optimized plan**.
 
 ```{r}
 #| label: optimized-query-lazy
 myquery$describe_optimized_plan()
 ```
 
-This example shows a simple but surprisingly effective element of query optimisation: **projection**. Changing the order in which our subset operations occur - in this case, the subset on columns first - reduces the memory overhead of the global query.  
+This example shows a simple but surprisingly effective element of query optimisation: **projection**.   
 
-We can see that Polars has identified that only 2 columns are needed to execute our query (`PROJECT 2/5 COLUMNS`). And Polars did this without me having to select these variables myself (for example with a `select` method).  
+```
+FAST_PROJECT: [Species, Petal.Length]
+  DF ["Sepal.Length", "Sepal.Width", "Petal.Length", "Petal.Width"]; PROJECT 2/5 COLUMNS; SELECTION: "[(col(\"Species\")) == (Utf8(setosa))]"
+```
+
+Let's see what changed in this **optimized plan**:  
+
+- `PROJECT 2/5 COLUMNS` selects only 2 columns;  
+- `SELECTION: "[(col(\"Species\")) == (Utf8(setosa))]` means that Polars will apply the filter conditions on the `Species` column **as the datasets is being read.**  
+
+
+We can see that Polars has identified that only 2 columns are needed to execute our query which is **memory efficient**! And Polars did this without me having to select these variables myself (for example with a `select` method).  
 **The added value of Polars is that it applies some optimizations that I/you might not even have known about. 💪**
 
 ### Execute the plan
