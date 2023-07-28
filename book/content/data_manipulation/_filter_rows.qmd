@@ -15,7 +15,14 @@ pl$DataFrame(iris)[c(1,3,5)]
 It's convenient when you have to quickly inspect your data. But you'll quickly be limited by the square brackets, as they don't accept conditions with the expressions. For example `pl$DataFrame(iris)[Petal.Length > 6]` doesn't work.
 :::
 
-The second and best option is to use the `filter()` method. It must be used with the `col()` method which allows to designate the columns on which the filter condition will be applied.
+The second and best option is to use the `filter()` method. It must be used with the `Polars expression`, here the `col()` method which allows to designate the columns on which the filter condition will be applied.  
+
+Let's see in details what's inside a `filter()` method with an example:  
+
+- `pl$col("Petal.Length")`: this expression selects the `Petal.Length` column from iris;  
+- `>6`: applies a Boolean condition to this expression (for all Petals that have a length > 6).  
+
+In the example below, we will use `&` operator to apply multiple conditions in `filter()` method:
 
 ::: {.panel-tabset}
 ## polars
@@ -62,7 +69,7 @@ pl$DataFrame(
 ```
 :::
 
-Another reason for using the `filter()` method is that filter expressions can be optimised in [lazy mode](#introduction-to-lazy-mode) by the query optimiser.  
+Another reason for using the `filter()` method is that filter expressions can be optimised in [lazy mode](#introduction-to-lazy-mode) by the query optimiser. Square brackets `[]` can only be used in **eager mode**.  
 
 ::: {.callout-tip}
 There is another way **to speed up filter processing on rows**: tell polars that the column(s) used to filter rows are already sorted! To do this, you can use the `set_sorted()` method.   
