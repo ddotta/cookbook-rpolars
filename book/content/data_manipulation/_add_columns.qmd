@@ -19,6 +19,9 @@ Again, let's look at the official documentation:
 
 > To modify or add some columns---whilst preserving all others in the dataset---it is therefore better to use the `with_columns()` method.
 
+Note that the `with_columns()` method only accepts expressions.  
+Let's use it in an example:  
+
 ::: {.panel-tabset}
 ## polars
 
