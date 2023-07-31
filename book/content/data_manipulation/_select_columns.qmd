@@ -62,7 +62,7 @@ inherits(pl$DataFrame(iris)[,c("Petal.Length","Petal.Width")],"Series")
 
 
 ::: {.callout-note}
-With Polars if you want to obtain a result in an R data.frame, you can simply add the method `to_data_frame()` at the end of the method chaining.
+With Polars if you want to obtain a result in an R data.frame, you can simply add the method `to_data_frame()` at the end of the method chaining. See [here](#from-seriesdataframes-to-vectordata.frames) for examples.
 :::
 
 
