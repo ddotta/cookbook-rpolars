@@ -59,7 +59,7 @@ names(mylist)
 
 #### Get a slice of a DataFrame
 
-The `to_series()` method can be used to get a slice of a `DataFrame`.
+The `slice()` method can be used to get a slice of a `DataFrame`.
 
 ::: {.callout-important}
 With Polars, numeric default is 0! Thus the equivalent to `slice(1,3)` with Polars will be `1:4` in R Base and data.table and `slice(1,4)` with dplyr.
