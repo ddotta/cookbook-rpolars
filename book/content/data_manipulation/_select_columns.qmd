@@ -200,4 +200,50 @@ l_expr = list(
 pl$DataFrame(iris)$select(l_expr)$head(3) 
 ```
 
+### Removing columns
+
+To remove one or multiple columns from a `DataFrame` you can use the `all()` and `exclude()` methods.   
+Here's an example:
+
+::: {.panel-tabset}
+## polars
+
+```{r}
+#| label: remove-columns-polars
+
+pl$DataFrame(iris)$select(
+  pl$all()$exclude(c("Petal.Length","Species"))
+)$head(3) # display the first 3 lines
+```
+
+## R base
+
+```{r}
+#| label: remove-columns-rbase
+iris[1:3,-which(names(iris) %in% c("Petal.Length","Species"))]
+```
+
+## dplyr
+
+```{r}
+#| label: remove-columns-dplyr
+
+# Select only factor columns
+iris %>% 
+  select(-Petal.Length,-Species)
+```
+
+## data.table
+
+```{r}
+#| label: remove-columns-datatable
+res <- iris_dt[, c("Petal.Length","Species"):=NULL]
+res
+data(iris)
+```
+:::
+
+::: {.callout-note}
+All the ways we've seen in this section for selecting columns from a `DataFrame` (by name, data type, with a regex and with a list) also work with `pl$all()$exclude()`!
+:::
 
