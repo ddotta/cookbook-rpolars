@@ -84,6 +84,16 @@ pl$DataFrame(iris)$with_columns(
 ### Add a new column based on conditions
 
 To add new columns based on conditions, the `when-then-otherwise` expression must be used.  
+
+Here's the syntax:  
+
+```
+pl$when(**Boolean Expression**)$
+  then(**Value if True**)$
+  otherwise(**Value if False)$
+  alias(**New Column Name**)
+```
+
 Here's an example with equivalent syntax to help you understand:  
 
 ::: {.panel-tabset}
@@ -94,7 +104,8 @@ Here's an example with equivalent syntax to help you understand:
 pl$DataFrame(iris)$with_columns(
   pl$when(pl$col("Petal.Length") <= 2)$then("<=2")$
     when(pl$col("Petal.Length") <= 5)$then("<=5")$
-    otherwise(">5")$alias("mygroups")
+    otherwise(">5")$
+    alias("mygroups")
 # we only need to display 2 variables to check that it's OK
 )$select(
   pl$col(c("Petal.Length","mygroups"))
