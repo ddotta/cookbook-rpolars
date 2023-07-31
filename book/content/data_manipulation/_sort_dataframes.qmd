@@ -2,7 +2,7 @@
 
 ### Simply sort a DataFrame
 
-The `sort()` method can be used to sort a `DataFrame`.
+The `sort()` method with a character vector can be used to sort a `DataFrame`.
 
 ::: {.panel-tabset}
 ## polars
