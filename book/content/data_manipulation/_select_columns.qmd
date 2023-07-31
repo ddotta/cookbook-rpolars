@@ -3,7 +3,7 @@
 ### Selecting by name
 
 The first option for selecting columns of a DataFrame is to use square brackets `[]`.  
-The second option is to use the `select()` method. In this case, it must be used with the `col()` method which allows to designate the columns to be selected.
+The second option is to use the `select()` method. In this case, it must be used with the `col()` method which allows to designate the columns to be selected with a character vector.
 
 ::: {.panel-tabset}
 ## polars
@@ -44,8 +44,12 @@ iris_dt[1:3,.(Petal.Length,Petal.Width)]
 :::
 
 Keep in mind that when:  
-- **Selecting only one column** from a `DataFrame`, the output is a `Series`;  
-- Whereas **if there is more than one column selected**, the output is a `DataFrame`.
+- Square brackets are used:  
+    - **Selecting only one column** from a `DataFrame`, the output is a `Series`;  
+    - Whereas **if there is more than one column selected**, the output is a `DataFrame`.  
+- `select()` method is used:  
+    - The output is always a `DataFrame` rather than a `Series` even if one column is selected.  
+    => If you need a `Series` you can use the `to_series()` method. See [here](#get-series-from-dataFrame).
 
 ```{r}
 #| label: select-output-polars
