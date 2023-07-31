@@ -70,7 +70,7 @@ Beyond the minor differences discussed above, there are **two major reasons why 
 
 ### Selecting by data type
 
-To select columns by data type from a DataFrame, you can pass a data type to `pl$col` expression.
+To select columns by data type from a `DataFrame`, you can pass a data type to `pl$col` expression.
 For example:
 
 ::: {.panel-tabset}
@@ -125,9 +125,52 @@ iris_dt[, .SD, .SDcols = is.numeric]
 You can also select columns from a DataFrame using a name pattern. See [an example by removing a column](#removing-by-name-pattern)
 :::
 
+### Selecting with a regex
+
+To select columns with a regex from a `DataFrame`, you can pass it in `pl$col` expression.
+For example, to select all columns that starts with "Sepal" in iris dataset:  
+
+::: {.panel-tabset}
+## polars
+
+```{r}
+#| label: select-regex-polars
+
+pl$DataFrame(iris)$select(
+  pl$col("^Sepal.*$")
+)$head(3) # display the first 3 lines
+
+```
+
+## R base
+
+```{r}
+#| label: select-regex-rbase
+
+iris[, grep("^Sepal.*$", colnames(iris))]
+```
+
+## dplyr
+
+```{r}
+#| label: select-regex-dplyr
+
+iris %>%
+  select(starts_with("Sepal"))
+```
+
+## data.table
+
+```{r}
+#| label: select-regex-datatable
+
+iris_dt[, .SD, .SDcols = grep("^Sepal", colnames(iris_dt))]
+```
+:::
+
 ### Selecting using lists
 
-It is also possible to select columns using `R lists` which can be very practical depending on the case. Here's an example:
+It is also possible to select columns from a `DataFrame` using `R lists` which can be very practical depending on the case. Here's an example:
 
 ```{r}
 #| label: select-lists-polars
