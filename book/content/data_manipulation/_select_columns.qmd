@@ -201,3 +201,22 @@ l_expr = list(
 # Select only categorical columns
 pl$DataFrame(iris)$select(l_expr)$head(3) 
 ```
+
+### Selecting - other ways
+
+The selectors API of polars enables to use other methods to select columns.  
+Here's a few examples selecting the first and last column of a `DataFrame` respectively with `first()` and `last()` methods:  
+
+```{r}
+#| label: first-last-polars
+
+# Select the first column
+pl$DataFrame(iris)$select(
+  pl$first()
+)$head(3)
+
+# Select the last column
+pl$DataFrame(iris)$select(
+  pl$last()
+)$head(3)
+```
