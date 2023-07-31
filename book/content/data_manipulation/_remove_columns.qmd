@@ -49,9 +49,9 @@ iris_dt[, c("Petal.Width","Sepal.Length","Sepal.Width") := NULL][1:3,]
 ```
 :::
 
-### Removing by name pattern
+### Removing with a regex
 
-To remove columns by name pattern from a DataFrame, the `drop` expression must be used.  
+To remove columns with a regex from a DataFrame, the `drop` expression must be used.  
 Let's see an example where you want to drop columns whose names starts with "Petal" in `iris`.
 
 ::: {.panel-tabset}  
@@ -91,4 +91,8 @@ iris |>
 #| warning: false
 iris_dt[, which(grepl("^Petal$", names(iris_dt))):=NULL][1:3,]
 ```
+:::
+
+::: {.callout-note}
+All the ways we've seen in the section about selecting columns from a `DataFrame` (by name, data type and with a list) also work with `drop()` method!
 :::
