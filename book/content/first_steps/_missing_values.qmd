@@ -10,4 +10,4 @@ pl$DataFrame(
 )
 ```
 
-To learn more about dealing with missing values in polars, see [here](#check-if-series-has-missing-values).
+To learn more about dealing with missing values in polars, see [here](#dealing-with-missing-values).

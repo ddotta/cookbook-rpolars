@@ -26,6 +26,8 @@
 
 {{< include content/data_manipulation/_pivot_dataframes.qmd >}}
 
+{{< include content/data_manipulation/_missing_values.qmd >}}
+
 {{< include content/data_manipulation/_series_methods.qmd >}}
 
 {{< include content/data_manipulation/_dataframes_methods.qmd >}}
