@@ -1,6 +1,6 @@
 ## DataFrames display on Windows
 
-::: callout-note
+::: {callout-note}
 This section is for Windows and RStudio users only!
 :::
 
