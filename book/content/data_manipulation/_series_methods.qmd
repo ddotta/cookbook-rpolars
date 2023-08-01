@@ -244,7 +244,7 @@ is.unsorted(c(1,3,2))
 
 #### Check if Series has missing values
 
-The `is_null()` and `is_not_null()`methods can be used to check if `Series` has missing values.\
+The `is_null()` and `is_not_null()` methods can be used to check if `Series` has missing values.\
 Theses methods are the equivalent of `is.na()` and `!is.na()` of R base.  
 
 Let's see two examples combining thes methods with `select()` and `filter()` methods:  
@@ -294,10 +294,9 @@ mydfNA2[!is.na(mydfNA2$colA) & !is.na(mydfNA2$colB), ]
 
 #### Replace missing values with a constant
 
-The `is_null()` and `is_not_null()`methods can be used to check if `Series` has missing values.\
-Theses methods are the equivalent of `is.na()` and `!is.na()` of R base.  
+The `fill_null()` method can be used to replace missing values in a `Series` with a constant.  
 
-Let's see two examples combining thes methods with `select()` and `filter()` methods:  
+Here's some examples where I replace missing values from all columns of a `DataFrame`:   
 
 ::: {.panel-tabset}
 ## polars
@@ -383,6 +382,11 @@ mydfNA2_dt[,
            .SDcols = c("colA", "colB")]
 mydfNA2_dt
 ```
+:::
+
+::: {.callout-important}
+Be careful, **the `fill_null()` method can in some cases modify data types like `cast()`.**   
+This can happen, for example, when you're working on an integer column and you want to replace the missing values with a string => the column will then has a string dtype!
 :::
 
 #### Get length of a Series
