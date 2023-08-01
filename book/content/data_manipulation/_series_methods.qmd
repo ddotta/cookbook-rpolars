@@ -548,6 +548,8 @@ mydfNA2[is.na(mydfNA2)] <- "missing"
 mydfNA2
 
 # In new columns suffixed by "_corrected"
+mydfNA2 <- mydfNA$to_data_frame()
+
 transform(mydfNA2,
           colA_corrected = ifelse(is.na(colA), "missing", colA),
           colB_corrected = ifelse(is.na(colB), "missing", colB))
@@ -641,6 +643,90 @@ mydfNA$
 mydfNA$
   with_column(
     pl$col("colC")$fill_null(strategy = "mean")$suffix("_corrected")
+  )
+```
+
+#### Replace missing values with an expression
+
+Of course, you are not limited to the built-in strategies of polars => with `fill_null()` you can also use expressions to replace missing values. It works with expression from the same column and from another column.  
+
+Here's some examples:  
+
+::: {.panel-tabset}
+## polars
+
+```{r}
+#| label: replace-missing-values-expression-polars
+
+# Replace missing values with the mean of the non-null values for that column
+mydfNA$
+  with_column(
+    pl$col("colC")$fill_null(pl$mean("colC"))$suffix("_corrected")
+  )
+# Replace missing values with the values from another column
+mydfNA$
+  with_column(
+    pl$col("colB")$fill_null(pl$col("colA"))$suffix("_corrected")
+  )
+```
+
+## R base
+
+```{r}
+#| label: replace-missing-values-expression-rbase
+mydfNA2 <- mydfNA$to_data_frame()
+
+# Replace missing values with the mean of the non-null values for that column
+mydfNA2$colC_corrected <- ifelse(is.na(mydfNA2$colC), mean(mydfNA2$colC, na.rm = TRUE), mydfNA2$colC)
+
+mydfNA2 <- mydfNA$to_data_frame()
+# Replace missing values with the values from another column
+mydfNA2$colB_corrected <- ifelse(is.na(mydfNA2$colB), mydfNA2$colA, mydfNA2$colB)
+mydfNA2
+```
+
+## dplyr
+
+```{r}
+#| label: replace-missing-values-expression-dplyr
+mydfNA2 <- mydfNA$to_data_frame()
+
+# Replace missing values with the mean of the non-null values for that column
+mydfNA2 %>%
+  mutate(colC_corrected = ifelse(is.na(colC), mean(mydfNA2$colC, na.rm = TRUE), colC))
+# Replace missing values with the values from another column
+mydfNA2 %>%
+  mutate(colB_corrected = ifelse(is.na(colB), colA, colB))
+```
+
+## data.table
+
+```{r}
+#| label: replace-missing-values-expression-datatable
+
+mydfNA2 <- mydfNA$to_data_frame()
+mydfNA2_dt <- as.data.table(mydfNA2)
+
+# Replace missing values with the mean of the non-null values for that column
+mydfNA2_dt[, colC_corrected := ifelse(is.na(colC), mean(mydfNA2_dt$colC, na.rm = TRUE), colC)]
+mydfNA2_dt
+
+# Replace missing values with the values from another column
+mydfNA2_dt[, colB_corrected := ifelse(is.na(colB), colA, colB)]
+mydfNA2_dt
+```
+:::
+
+#### Replace missing values with a sequence of columns
+
+```{r}
+#| label: coalesce-polars
+
+# Create a new column that has the first non-null value as we go through some columns (in order!) otherwise "missing"
+# With coalesce()
+mydfNA$
+  with_column(
+    pl$coalesce("colA","colB",9)$alias("colD")
   )
 ```
 
