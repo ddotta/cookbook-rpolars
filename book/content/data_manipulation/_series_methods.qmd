@@ -719,14 +719,56 @@ mydfNA2_dt
 
 #### Replace missing values with a sequence of columns
 
+The `coalesce()` method can be used to replace missing values based on a sequence of columns.  
+
+Here's an example creating a new column "col4" that has the first non-null value as we go through some columns (in order!):     
+
+::: {.panel-tabset}
+## polars
+
 ```{r}
 #| label: coalesce-polars
 
-# Create a new column that has the first non-null value as we go through some columns (in order!) otherwise "missing"
-# With coalesce()
-mydfNA$
+mynewdfNA <- pl$DataFrame(
+  col1 = pl$Series(c(NA,"y",NA)),
+  col2 = pl$Series(c(NA,"v","w")),
+  col3 = pl$Series(c("r","s",NA))
+)
+
+mynewdfNA$
   with_column(
-    pl$coalesce("colA","colB",9)$alias("colD")
+    pl$coalesce("col1","col2","col3")$alias("col4")
   )
 ```
 
+## R base
+
+```{r}
+#| label: coalesce-rbase
+mynewdfNA2 <-  mynewdfNA$to_data_frame()
+
+mynewdfNA2$col4 <- coalesce(mynewdfNA2$col1, mynewdfNA2$col2, mynewdfNA2$col3)
+mynewdfNA2
+```
+
+## dplyr
+
+```{r}
+#| label: coalesce-dplyr
+mynewdfNA2 <-  mynewdfNA$to_data_frame()
+
+mynewdfNA2 %>%
+  mutate(col4 = coalesce(col1, col2, col3))
+```
+
+## data.table
+
+```{r}
+#| label: coalesce-datatable
+mynewdfNA2 <-  mynewdfNA$to_data_frame()
+mynewdfNA2_dt <- as.data.table(mynewdfNA2)
+
+mynewdfNA2_dt[, col4 := fcoalesce(col1, col2, col3)]
+mynewdfNA2_dt
+```
+:::
