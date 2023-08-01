@@ -292,6 +292,99 @@ mydfNA2[!is.na(mydfNA2$colA) & !is.na(mydfNA2$colB), ]
 ```
 :::
 
+#### Replace missing values with a constant
+
+The `is_null()` and `is_not_null()`methods can be used to check if `Series` has missing values.\
+Theses methods are the equivalent of `is.na()` and `!is.na()` of R base.  
+
+Let's see two examples combining thes methods with `select()` and `filter()` methods:  
+
+::: {.panel-tabset}
+## polars
+
+```{r}
+#| label: replace-missing-values-polars
+
+# In the same columns
+mydfNA <- pl$DataFrame(
+  colA = pl$Series(c("a",NA,"c")),
+  colB = pl$Series(c("d",NA,NA))
+)
+mydfNA$
+  with_column(
+  pl$all()$fill_null("missing")
+)
+# In new columns suffixed by "_corrected"
+mydfNA <- pl$DataFrame(
+  colA = pl$Series(c("a",NA,"c")),
+  colB = pl$Series(c("d",NA,NA))
+)
+mydfNA$
+  with_column(
+  pl$all()$fill_null("missing")$suffix("_corrected")
+)
+```
+
+## R base
+
+```{r}
+#| label: replace-missing-values-rbase
+
+# In the same columns
+mydfNA2 <- mydfNA$to_data_frame()
+
+mydfNA2[is.na(mydfNA2)] <- "missing"
+mydfNA2
+
+# In new columns suffixed by "_corrected"
+mydfNA2 <- mydfNA$to_data_frame()
+transform(mydfNA2,
+          colA_corrected = ifelse(is.na(colA), "missing", colA),
+          colB_corrected = ifelse(is.na(colB), "missing", colB))
+
+```
+
+## dplyr
+
+```{r}
+#| label: replace-missing-values-dplyr
+
+# In the same columns
+mydfNA2 <- mydfNA$to_data_frame()
+
+mydfNA2 %>%
+  mutate(across(everything(), ~ifelse(is.na(.), "missing", .)))
+
+# In new columns suffixed by "_corrected"
+mydfNA2 <- mydfNA$to_data_frame()
+
+mydfNA2 %>%
+  mutate(across(c(colA, colB), ~ifelse(is.na(.), "missing", .), .names = "{col}_corrected"))
+```
+
+## data.table
+
+```{r}
+#| label: replace-missing-values-datatable
+
+# In the same columns
+mydfNA2 <- mydfNA$to_data_frame()
+mydfNA2_dt <- as.data.table(mydfNA2)
+
+mydfNA2_dt[is.na(mydfNA2_dt)] <- "missing"
+mydfNA2_dt
+
+# In new columns suffixed by "_corrected"
+mydfNA2 <- mydfNA$to_data_frame()
+mydfNA2_dt <- as.data.table(mydfNA2)
+
+mydfNA2_dt[, 
+           c("colA_corrected", "colB_corrected") := lapply(.SD, function(x) ifelse(is.na(x), "missing", x)), 
+           .SDcols = c("colA", "colB")]
+mydfNA2_dt
+```
+:::
+
 #### Get length of a Series
 
 The `len()` method can be used to get the length of a `Series`.
