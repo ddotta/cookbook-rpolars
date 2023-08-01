@@ -1,0 +1,52 @@
+## Create your methods
+
+With `R` you can create your own method/function with `function()`.  
+Let's try to create a R function to captue some `DataFrame` transformations.  
+
+Our simple function:  
+- Takes a `DataFrame` as an input (argument `data`)  
+- Convert Categorical columns into Strings  
+- Make all Strings columns uppercase  
+- And filter only the third first rows
+
+
+```{r}
+#| label: function-creation-polars
+fn_transformation <- function(data) {
+
+  data$
+    # Convert Categorical columns into Strings 
+    with_columns(
+      pl$col(pl$Categorical)$cast(pl$Utf8))$
+    # Make all Strings columns uppercase
+    with_columns(
+      pl$col(pl$Utf8)$str$to_uppercase())$
+    # Filter only the third first rows
+    head(3)
+  
+}
+```
+
+Let's apply our method to `pl$DataFrame(iris)`:  
+
+```{r}
+#| label: function-use1-polars
+fn_transformation(pl$DataFrame(iris))
+```
+
+Our method `fn_transformation()` can now be re-used multiple times for example on another datasets:  
+
+```{r}
+#| label: function-use2-polars
+
+Newdf <- pl$DataFrame(
+  col_categ = pl$Series(factor(c("a","b","c"))),
+  col_str = pl$Series(c("x","y","z")),
+  col_num = pl$Series(1:3)
+)
+  
+fn_transformation(Newdf)
+```
+
+Of course, in real life, we will create functions that are more complicated than our example.
+
