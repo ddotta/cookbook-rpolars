@@ -9,3 +9,5 @@ pl$DataFrame(
   col1 = pl$Series(c(NA,"b","c"))
 )
 ```
+
+To learn more about dealing with missing values in polars, see [here](#check-if-series-has-missing-values).
