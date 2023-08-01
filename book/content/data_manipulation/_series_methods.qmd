@@ -245,7 +245,9 @@ is.unsorted(c(1,3,2))
 #### Check if Series has missing values
 
 The `is_null()` and `is_not_null()`methods can be used to check if `Series` has missing values.\
-Theses methods are the equivalent of `is.na()` and `!is.na()` of R base.
+Theses methods are the equivalent of `is.na()` and `!is.na()` of R base.  
+
+Let's see two examples combining thes methods with `select()` and `filter()` methods:  
 
 ::: {.panel-tabset}
 ## polars
@@ -257,11 +259,18 @@ mydfNA <- pl$DataFrame(
   colB = pl$Series(c("d",NA,NA))
 )
 
+# Find null values
 mydfNA$
   select(
     pl$col("colA"),
     pl$col("colA")$is_null()$alias("is_null"),
     pl$col("colA")$is_not_null()$alias("is_not_null")
+  )
+
+# Filter by null values
+mydfNA$
+  filter(
+    pl$col("colA")$is_not_null() & pl$col("colB")$is_not_null()
   )
 ```
 
@@ -271,11 +280,15 @@ mydfNA$
 #| label: has-missing-values-rbase
 mydfNA2 <- mydfNA$to_data_frame()
 
+# Find null values
 data.frame(
   colA = mydfNA2$colA,
   is_null = is.na(mydfNA2$colA),
   is_not_null = !is.na(mydfNA2$colA)
 )
+
+# Filter by null values
+mydfNA2[!is.na(mydfNA2$colA) & !is.na(mydfNA2$colB), ]
 ```
 :::
 
