@@ -2,6 +2,21 @@
 
 Another frequently used data manipulation is the aggregation of data by group. To do this, we indicate in the `group_by()` method which column will be used to group the data.frame. And the `agg()` method which specifies the expression to aggregate.
 
+The methods available for the `agg()` method are (in each group):  
+
+ - `first()` get the first element  
+ - `last()` get the last element  
+ - `n_unique()` get the number of unique elements  
+ - `count()` get the number of elements   
+ - `sum()` sum the elements  
+ - `min()` get the smallest element  
+ - `max()` get the largest element  
+ - `mean()` get the average of elements  
+ - `median()` get the median  
+ - `quantile()` calculate quantiles  
+ 
+ Here's a minimal example with `sum`:  
+ 
 ::: {.panel-tabset}
 ## polars
 
