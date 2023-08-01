@@ -242,193 +242,6 @@ is.unsorted(c(1,3,2))
 ```
 :::
 
-#### Check if Series has missing values
-
-The `is_null()` and `is_not_null()` methods can be used to check if `Series` has missing values.\
-Theses methods are the equivalent of `is.na()` and `!is.na()` of R base.  
-
-Let's see two examples combining thes methods with `select()` and `filter()` methods:  
-
-::: {.panel-tabset}
-## polars
-
-```{r}
-#| label: has-missing-values-polars
-mydfNA <- pl$DataFrame(
-  colA = pl$Series(c("a",NA,"c")),
-  colB = pl$Series(c("d",NA,NA))
-)
-
-# Find null values
-mydfNA$
-  select(
-    pl$col("colA"),
-    pl$col("colA")$is_null()$alias("is_null"),
-    pl$col("colA")$is_not_null()$alias("is_not_null")
-  )
-
-# Filter by null values
-mydfNA$
-  filter(
-    pl$col("colA")$is_not_null() & pl$col("colB")$is_not_null()
-  )
-```
-
-## R base
-
-```{r}
-#| label: has-missing-values-rbase
-mydfNA2 <- mydfNA$to_data_frame()
-
-# Find null values
-data.frame(
-  colA = mydfNA2$colA,
-  is_null = is.na(mydfNA2$colA),
-  is_not_null = !is.na(mydfNA2$colA)
-)
-
-# Filter by null values
-mydfNA2[!is.na(mydfNA2$colA) & !is.na(mydfNA2$colB), ]
-```
-:::
-
-#### Replace missing values with a constant
-
-The `fill_null()` method can be used to replace missing values in a `Series` with a constant.  
-
-Here's some examples where I replace missing values from all columns of a `DataFrame`:   
-
-::: {.panel-tabset}
-## polars
-
-```{r}
-#| label: replace-missing-values-polars
-
-mydfNA <- pl$DataFrame(
-  colA = pl$Series(c("a",NA,"c")),
-  colB = pl$Series(c("d",NA,NA))
-)
-
-# In the same columns
-mydfNA$
-  with_column(
-  pl$all()$fill_null("missing")
-)
-
-# In new columns suffixed by "_corrected"
-mydfNA$
-  with_column(
-  pl$all()$fill_null("missing")$suffix("_corrected")
-)
-```
-
-## R base
-
-```{r}
-#| label: replace-missing-values-rbase
-
-mydfNA2 <- mydfNA$to_data_frame()
-
-# In the same columns
-mydfNA2[is.na(mydfNA2)] <- "missing"
-mydfNA2
-
-# In new columns suffixed by "_corrected"
-transform(mydfNA2,
-          colA_corrected = ifelse(is.na(colA), "missing", colA),
-          colB_corrected = ifelse(is.na(colB), "missing", colB))
-
-```
-
-## dplyr
-
-```{r}
-#| label: replace-missing-values-dplyr
-
-mydfNA2 <- mydfNA$to_data_frame()
-
-# In the same columns
-mydfNA2 %>%
-  mutate(across(everything(), ~ifelse(is.na(.), "missing", .)))
-
-# In new columns suffixed by "_corrected"
-mydfNA2 %>%
-  mutate(across(c(colA, colB), ~ifelse(is.na(.), "missing", .), .names = "{col}_corrected"))
-```
-
-## data.table
-
-```{r}
-#| label: replace-missing-values-datatable
-
-mydfNA2 <- mydfNA$to_data_frame()
-mydfNA2_dt <- as.data.table(mydfNA2)
-
-# In the same columns
-mydfNA2_dt[is.na(mydfNA2_dt)] <- "missing"
-mydfNA2_dt
-
-# In new columns suffixed by "_corrected"
-mydfNA2_dt[, 
-           c("colA_corrected", "colB_corrected") := lapply(.SD, function(x) ifelse(is.na(x), "missing", x)), 
-           .SDcols = c("colA", "colB")]
-mydfNA2_dt
-```
-:::
-
-::: {.callout-important}
-Be careful, **the `fill_null()` method can in some cases modify data types like `cast()`.**   
-This can happen, for example, when you're working on an integer column and you want to replace the missing values with a string => the column will then has a string dtype!
-:::
-
-#### Replace missing values with a strategy
-
-The `fill_null()` method of polars has a `strategy` argument for replacing missing values:  
-
-- `forward`: replace with the previous non-null value in the `Series`  
-- `backward`: replace with the next non-null value in the `Series`   
-- `min`: replace with the smallest value in the `Series`  
-- `max`: replace with the largest value in the `Series`  
-- `mean`: replace with the median value in the `Series`  
-- `zero`: replace with `0`  
-- `one`: replace with `1`  
-
-::: {.callout-note}
-We can set a limit on how many rows to fill-forward or backward with `limit`
-:::
-
-Here's some examples :   
-
-```{r}
-#| label: replace-missing-values-strategy-polars
-
-# In the same columns
-mydfNA <- pl$DataFrame(
-  colA = pl$Series(c("a",NA,"c")),
-  colB = pl$Series(c("d",NA,NA)),
-  colC = pl$Series(c(1,NA,3))
-)
-# With forward strategy
-mydfNA$
-  with_column(
-    pl$all()$fill_null(strategy = "forward")$suffix("_corrected")
-  )
-# With forward strategy and a limit
-mydfNA$
-  with_column(
-    pl$all()$fill_null(strategy = "forward", limit = 1)$suffix("_corrected")
-  )
-# With backward strategy
-mydfNA$
-  with_column(
-    pl$all()$fill_null(strategy = "backward")$suffix("_corrected")
-  )
-# With mean strategy only on "colC" column
-mydfNA$
-  with_column(
-    pl$col("colC")$fill_null(strategy = "mean")$suffix("_corrected")
-  )
-```
 
 #### Get length of a Series
 
@@ -642,3 +455,192 @@ pl$DataFrame(iris)$
   pl$col(c("Petal.Length","Petal.Width")))$
   with_column(pl$sum(list("*")))
 ```
+
+#### Check if Series has missing values
+
+The `is_null()` and `is_not_null()` methods can be used to check if `Series` has missing values.\
+Theses methods are the equivalent of `is.na()` and `!is.na()` of R base.  
+
+Let's see two examples combining thes methods with `select()` and `filter()` methods:  
+
+::: {.panel-tabset}
+## polars
+
+```{r}
+#| label: has-missing-values-polars
+mydfNA <- pl$DataFrame(
+  colA = pl$Series(c("a",NA,"c")),
+  colB = pl$Series(c("d",NA,NA))
+)
+
+# Find null values
+mydfNA$
+  select(
+    pl$col("colA"),
+    pl$col("colA")$is_null()$alias("is_null"),
+    pl$col("colA")$is_not_null()$alias("is_not_null")
+  )
+
+# Filter by null values
+mydfNA$
+  filter(
+    pl$col("colA")$is_not_null() & pl$col("colB")$is_not_null()
+  )
+```
+
+## R base
+
+```{r}
+#| label: has-missing-values-rbase
+mydfNA2 <- mydfNA$to_data_frame()
+
+# Find null values
+data.frame(
+  colA = mydfNA2$colA,
+  is_null = is.na(mydfNA2$colA),
+  is_not_null = !is.na(mydfNA2$colA)
+)
+
+# Filter by null values
+mydfNA2[!is.na(mydfNA2$colA) & !is.na(mydfNA2$colB), ]
+```
+:::
+
+#### Replace missing values with a constant
+
+The `fill_null()` method can be used to replace missing values in a `Series` with a constant.  
+
+Here's some examples where I replace missing values from all columns of a `DataFrame`:   
+
+::: {.panel-tabset}
+## polars
+
+```{r}
+#| label: replace-missing-values-polars
+
+mydfNA <- pl$DataFrame(
+  colA = pl$Series(c("a",NA,"c")),
+  colB = pl$Series(c("d",NA,NA))
+)
+
+# In the same columns
+mydfNA$
+  with_column(
+  pl$all()$fill_null("missing")
+)
+
+# In new columns suffixed by "_corrected"
+mydfNA$
+  with_column(
+  pl$all()$fill_null("missing")$suffix("_corrected")
+)
+```
+
+## R base
+
+```{r}
+#| label: replace-missing-values-rbase
+
+mydfNA2 <- mydfNA$to_data_frame()
+
+# In the same columns
+mydfNA2[is.na(mydfNA2)] <- "missing"
+mydfNA2
+
+# In new columns suffixed by "_corrected"
+transform(mydfNA2,
+          colA_corrected = ifelse(is.na(colA), "missing", colA),
+          colB_corrected = ifelse(is.na(colB), "missing", colB))
+
+```
+
+## dplyr
+
+```{r}
+#| label: replace-missing-values-dplyr
+
+mydfNA2 <- mydfNA$to_data_frame()
+
+# In the same columns
+mydfNA2 %>%
+  mutate(across(everything(), ~ifelse(is.na(.), "missing", .)))
+
+# In new columns suffixed by "_corrected"
+mydfNA2 %>%
+  mutate(across(c(colA, colB), ~ifelse(is.na(.), "missing", .), .names = "{col}_corrected"))
+```
+
+## data.table
+
+```{r}
+#| label: replace-missing-values-datatable
+
+mydfNA2 <- mydfNA$to_data_frame()
+mydfNA2_dt <- as.data.table(mydfNA2)
+
+# In the same columns
+mydfNA2_dt[is.na(mydfNA2_dt)] <- "missing"
+mydfNA2_dt
+
+# In new columns suffixed by "_corrected"
+mydfNA2_dt[, 
+           c("colA_corrected", "colB_corrected") := lapply(.SD, function(x) ifelse(is.na(x), "missing", x)), 
+           .SDcols = c("colA", "colB")]
+mydfNA2_dt
+```
+:::
+
+::: {.callout-important}
+Be careful, **the `fill_null()` method can in some cases modify data types like `cast()`.**   
+This can happen, for example, when you're working on an integer column and you want to replace the missing values with a string => the column will then has a string dtype!
+:::
+
+#### Replace missing values with a strategy
+
+The `fill_null()` method of polars has a `strategy` argument for replacing missing values:  
+
+- `forward`: replace with the previous non-null value in the `Series`  
+- `backward`: replace with the next non-null value in the `Series`   
+- `min`: replace with the smallest value in the `Series`  
+- `max`: replace with the largest value in the `Series`  
+- `mean`: replace with the median value in the `Series`  
+- `zero`: replace with `0`  
+- `one`: replace with `1`  
+
+::: {.callout-note}
+We can set a limit on how many rows to fill-forward or backward with `limit`
+:::
+
+Here's some examples :   
+
+```{r}
+#| label: replace-missing-values-strategy-polars
+
+# In the same columns
+mydfNA <- pl$DataFrame(
+  colA = pl$Series(c("a",NA,"c")),
+  colB = pl$Series(c("d",NA,NA)),
+  colC = pl$Series(c(1,NA,3))
+)
+# With forward strategy
+mydfNA$
+  with_column(
+    pl$all()$fill_null(strategy = "forward")$suffix("_corrected")
+  )
+# With forward strategy and a limit
+mydfNA$
+  with_column(
+    pl$all()$fill_null(strategy = "forward", limit = 1)$suffix("_corrected")
+  )
+# With backward strategy
+mydfNA$
+  with_column(
+    pl$all()$fill_null(strategy = "backward")$suffix("_corrected")
+  )
+# With mean strategy only on "colC" column
+mydfNA$
+  with_column(
+    pl$col("colC")$fill_null(strategy = "mean")$suffix("_corrected")
+  )
+```
+
