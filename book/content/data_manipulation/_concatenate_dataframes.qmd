@@ -65,3 +65,35 @@ bind_rows(list(dfup_df,dfdown_df))
 rbindlist(list(dfup_dt, dfdown_dt))
 ```
 :::
+
+### Horizontal concatenation
+
+::: {.panel-tabset}
+## polars
+
+```{r}
+#| label: horizontal-concatenation-polars
+pl$concat(list(dfleft,dfright),how = "horizontal")
+```
+
+## R base
+
+```{r}
+#| label: horizontal-concatenation-rbase
+cbind(dfleft_df,dfright_df)
+```
+
+## dplyr
+
+```{r}
+#| label: horizontal-concatenation-dplyr
+cbind(list(dfleft_df,dfright_df))
+```
+
+## data.table
+
+```{r}
+#| label: horizontal-concatenation-datatable
+data.table(dfleft_dt, dfright_dt)
+```
+:::
