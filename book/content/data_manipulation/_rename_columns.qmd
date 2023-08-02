@@ -1,7 +1,5 @@
 ## Rename columns
 
-### Selecting by name
-
 Similar to the dplyr package, the `rename()` method can also be used to rename existing column.  
 The renaming logic is identical to that of `dplyr`, and is performed as follows: `new_name="old_name"`.
 
