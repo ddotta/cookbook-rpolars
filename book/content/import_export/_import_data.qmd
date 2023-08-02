@@ -111,7 +111,18 @@ June 2023: arguments available in Python `eol_char` and `with_column_names` not 
 #### From a single file
 
 The `scan_parquet()` method can be used to lazily read a parquet file from a file.  
-Scanning delays the actual parsing of the file and `pl$scan_parquet()` returns a `LazyFrame`. 
+Scanning delays the actual parsing of the file and `pl$scan_parquet()` returns a `LazyFrame`.  
+
+Its main arguments are:  
+
+- `path`: path to file.  
+- `n_rows`: integer. Limit rows to scan.  
+- `cache`: boolean. Cache the result.  
+- `parallel`: string. Either "Auto", "None", "Columns" or "RowGroups". The way to parallelized the scan.  
+- `rechunk`: boolean. `rechunk` reorganize memory layout, potentially make future operations faster , however perform reallocation now.  
+- `row_count_name`: string. Name of a added row count column.  
+- `row_count_offset`: integer. Offset to start the row_count column (only used if the name is set).  
+- `low_memory`: boolean. Reduce memory usage in expense of performance.  
 
 ```{r}
 #| label: scan-parquet-polars
