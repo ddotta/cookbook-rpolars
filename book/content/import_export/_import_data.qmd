@@ -81,8 +81,9 @@ pl$read_csv("https://j.mp/iriscsv")
 
 ### Scan a csv file
 
-The `pl$scan_csv()` method can be used to lazily read a csv file from a file.  
-`pl$scan_csv()` returns a `LazyFrame`. 
+The `scan_csv()` method can be used to lazily read a csv file from a file.  
+`pl$scan_csv()` returns a `LazyFrame`.  
+It's argument are the same as `read_csv()` method (see section above).
 
 > This allows the query optimizer to push down predicates and projections to the scan level, thereby potentially reducing memory overhead.
 
@@ -109,7 +110,7 @@ June 2023: arguments available in Python `eol_char` and `with_column_names` not 
 
 #### From a single file
 
-The `pl$scan_parquet()` method can be used to lazily read a parquet file from a file.  
+The `scan_parquet()` method can be used to lazily read a parquet file from a file.  
 Scanning delays the actual parsing of the file and `pl$scan_parquet()` returns a `LazyFrame`. 
 
 ```{r}
@@ -134,7 +135,7 @@ June 2023 : Export methods have not yet been implemented in R. This methods star
 
 #### From multiple files
 
-The `pl$scan_parquet()` method can also be used to lazily read multiple parquet files in the same folder.  
+The `scan_parquet()` method can also be used to lazily read multiple parquet files in the same folder.  
 This is particularly useful for partitioned files!
 For example:
 
