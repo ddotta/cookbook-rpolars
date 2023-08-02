@@ -27,6 +27,26 @@ pl$DataFrame(iris)$
   agg(pl$col(c("Petal.Length","Petal.Width"))$sum())
 ```
 
+::: {.callout-tip}
+Be careful! **Calling multiple aggregations on the same column produces columns of the same name** which generates an error with R.  
+
+You can use an `alias` to ensure column names are unique.  
+For example:  
+
+```{r}
+#| label: example-agg-with-alias
+
+pl$DataFrame(iris)$
+  groupby("Species")$
+  agg(
+    pl$col(c("Petal.Length"))$sum()$alias("Sum_Petal.Length"),
+    pl$col(c("Petal.Length"))$mean()$alias("Mean_Petal.Length"),
+    pl$col(c("Petal.Width"))$sum()$alias("Sum_Petal.Width")
+    )
+```
+
+:::
+
 ## R base
 
 ```{r}
