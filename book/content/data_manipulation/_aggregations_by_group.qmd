@@ -15,7 +15,7 @@ The methods available for the `agg()` method are (in each group):
  - `median()` get the median  
  - `quantile()` calculate quantiles  
  
- Here's a minimal example with `sum`:  
+ Here's a minimal example with `sum` applied to 2 different columns:  
  
 ::: {.panel-tabset}
 ## polars
@@ -30,7 +30,7 @@ pl$DataFrame(iris)$
 ::: {.callout-tip}
 Be careful! **Calling multiple aggregations on the same column produces columns of the same name** which generates an error with R.  
 
-You can use an `alias` to ensure column names are unique.  
+You can use the `alias()` or `suffix()` method to ensure column names are unique.  
 For example:  
 
 ```{r}
@@ -39,10 +39,13 @@ For example:
 pl$DataFrame(iris)$
   groupby("Species")$
   agg(
-    pl$col(c("Petal.Length"))$sum()$alias("Sum_Petal.Length"),
-    pl$col(c("Petal.Length"))$mean()$alias("Mean_Petal.Length"),
-    pl$col(c("Petal.Width"))$sum()$alias("Sum_Petal.Width")
-    )
+    # With alias()
+    pl$col(c("Petal.Length"))$sum()$alias("Petal.Length_Sum"),
+    pl$col(c("Petal.Length"))$mean()$alias("Petal.Length_Mean"),
+    # With suffix()
+    pl$col(c("Petal.Width"))$sum()$suffix("_Sum"),
+    pl$col(c("Petal.Width"))$mean()$suffix("_Mean")
+  )
 ```
 
 :::
