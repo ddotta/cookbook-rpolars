@@ -1,0 +1,67 @@
+## Concatenate DataFrames
+
+To perform concatenations, the `concat()` method must be used.  
+In this section, we will see **vertical**, **horizontal** and **diagonal** concatenation.
+
+Before we need to create some datasets to run our examples. Click to expand it! 👇
+
+```{r}
+#| label: creation-examples-datasets-concat
+#| code-fold: true
+#| results: 'hide'
+
+dfup <- pl$DataFrame(
+  col1 = pl$Series(c("a")),
+  col2 = pl$Series(c("b")),
+  col3 = pl$Series(c("c"))
+)
+dfdown <- pl$DataFrame(
+  col1 = pl$Series(c("x")),
+  col2 = pl$Series(c("y")),
+  col3 = pl$Series(c("z"))
+)
+dfleft <- pl$DataFrame(col1 = pl$Series(c("a","b","c")))
+dfright <- pl$DataFrame(col2 = pl$Series(c("x","y","z")))
+
+dfup_df <- dfup$to_data_frame()
+dfdown_df <- dfdown$to_data_frame()
+dfleft_df <- dfleft$to_data_frame()
+dfright_df <- dfright$to_data_frame()
+
+dfup_dt <- as.data.table(dfup)
+dfdown_dt <- as.data.table(dfdown)
+dfleft_dt <- as.data.table(dfleft)
+dfright_dt <- as.data.table(dfright)
+```
+
+### Vertical concatenation
+
+::: {.panel-tabset}
+## polars
+
+```{r}
+#| label: vertical-concatenation-polars
+pl$concat(list(dfup,dfdown),how = "vertical")
+```
+
+## R base
+
+```{r}
+#| label: vertical-concatenation-rbase
+rbind(dfup_df,dfdown_df)
+```
+
+## dplyr
+
+```{r}
+#| label: vertical-concatenation-dplyr
+bind_rows(list(dfup_df,dfdown_df))
+```
+
+## data.table
+
+```{r}
+#| label: vertical-concatenation-datatable
+rbindlist(list(dfup_dt, dfdown_dt))
+```
+:::

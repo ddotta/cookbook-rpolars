@@ -24,6 +24,8 @@
 
 {{< include content/data_manipulation/_join_dataframes.qmd >}}
 
+{{< include content/data_manipulation/_concatenate_dataframes.qmd >}}
+
 {{< include content/data_manipulation/_pivot_dataframes.qmd >}}
 
 {{< include content/data_manipulation/_missing_values.qmd >}}
