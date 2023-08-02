@@ -21,7 +21,6 @@ library(ggplot2)
 library(pryr)
 library(dbplyr)
 library(forcats)
-library(patchwork)
 
 # Creation the "Datasets" folder
 dir.create(normalizePath("Datasets"))
