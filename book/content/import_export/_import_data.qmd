@@ -140,7 +140,7 @@ pl$scan_parquet("examples/iris.parquet")$
 ```
 
 ::: {.callout-caution}
-June 2023 : Export methods have not yet been implemented in R. This methods start with `write_` (write_parquet(), write_parquet(), write_json(), write_ndjson()...)
+August 2023 : Export methods have not yet been implemented in R. This methods start with `write_` (write_parquet(), write_parquet(), write_json(), write_ndjson()...)
 :::
 
 
