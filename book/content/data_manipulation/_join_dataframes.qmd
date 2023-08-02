@@ -74,7 +74,7 @@ merge(as.data.table(colors_df),
 ```
 :::
 
-::: {.callout-tip}
+
 If join columns have different names in both `DataFrames`, you can use arguments `"left_on"` and `"right_on"`.  
 Here's an example:  
 
@@ -91,4 +91,12 @@ colors$join(
 )
 ```
 
+::: {.callout-tip}
+When we join on **integer** columns that are **sorted** polars uses **a fast-track algorithm**.  
+
+To use the fast-track algorithm polars needs to know the join columns are sorted. See the tip [in this section](#filter-rows) for an example with `filter()` method.  
+
+**Polars can't use the fast-track algorithm for joining string columns** as the algorithm works on integers.  
+
+=> **To use the fast-track algorithm** the string column must be cast to **categorical dtype**. See an example [here](#cast).
 :::
