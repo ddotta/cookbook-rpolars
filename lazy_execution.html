@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
 
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.3.433">
+<meta name="generator" content="quarto-1.3.353">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
@@ -73,10 +73,12 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <script src="site_libs/quarto-html/tippy.umd.min.js"></script>
 <script src="site_libs/quarto-html/anchor.min.js"></script>
 <link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
-<link href="site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-text-highlighting-styles">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting-dark.css" rel="prefetch" class="quarto-color-scheme quarto-color-alternate" id="quarto-text-highlighting-styles">
 <script src="site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="site_libs/bootstrap/bootstrap.min.css" rel="stylesheet" id="quarto-bootstrap" data-mode="light">
+<link href="site_libs/bootstrap/bootstrap.min.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
+<link href="site_libs/bootstrap/bootstrap-dark.min.css" rel="prefetch" class="quarto-color-scheme quarto-color-alternate" id="quarto-bootstrap" data-mode="dark">
 <script id="quarto-search-options" type="application/json">{
   "location": "sidebar",
   "copy-button": false,
@@ -93,8 +95,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     "search-more-matches-text": "more matches in this document",
     "search-clear-button-title": "Clear",
     "search-detached-cancel-button-title": "Cancel",
-    "search-submit-button-title": "Submit",
-    "search-label": "Search"
+    "search-submit-button-title": "Submit"
   }
 }</script>
 
@@ -114,7 +115,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
       <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./lazy_execution.html"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Lazy execution</span></a></li></ol></nav>
       <a class="flex-grow-1" role="button" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
       </a>
-      <button type="button" class="btn quarto-search-button" aria-label="" onclick="window.quartoOpenSearch();">
+      <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
         <i class="bi bi-search"></i>
       </button>
     </div>
@@ -130,8 +131,9 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
       </a>
     <div class="sidebar-title mb-0 py-0">
       <a href="./">Cookbook Polars for R</a> 
-        <div class="sidebar-tools-main">
-    <a href="https://github.com/ddotta/cookbook-rpolars/tree/main/book/" rel="" title="Source Code" class="quarto-navigation-tool px-1" aria-label="Source Code"><i class="bi bi-github"></i></a>
+        <div class="sidebar-tools-main tools-wide">
+    <a href="https://github.com/ddotta/cookbook-rpolars/tree/main/book/" title="Source Code" class="quarto-navigation-tool px-1" aria-label="Source Code"><i class="bi bi-github"></i></a>
+    <a href="./Cookbook-Polars-for-R.pdf" title="Download PDF" class="quarto-navigation-tool px-1" aria-label="Download PDF"><i class="bi bi-file-pdf"></i></a>
     <div class="dropdown">
       <a href="" title="Share" id="quarto-navigation-tool-dropdown-0" class="quarto-navigation-tool dropdown-toggle px-1" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Share"><i class="bi bi-share"></i></a>
       <ul class="dropdown-menu" aria-labelledby="quarto-navigation-tool-dropdown-0">
@@ -149,6 +151,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
           </li>
       </ul>
     </div>
+  <a href="" class="quarto-color-scheme-toggle quarto-navigation-tool  px-1" onclick="window.quartoToggleColorScheme(); return false;" title="Toggle dark mode"><i class="bi"></i></a>
 </div>
     </div>
       </div>
@@ -393,8 +396,8 @@ DF ["Sepal.Length", "Sepal.Width", "Petal.Length", "Petal.Width"]; PROJECT */5 C
 │ ---        ┆ ---         │
 │ str        ┆ f64         │
 ╞════════════╪═════════════╡
-│ versicolor ┆ 1.6         │
 │ virginica  ┆ 2.1         │
+│ versicolor ┆ 1.6         │
 └────────────┴─────────────┘</code></pre>
 </div>
 </div>
@@ -485,21 +488,21 @@ Important
 <span id="cb14-15"><a href="#cb14-15" aria-hidden="true" tabindex="-1"></a>  <span class="fu">collect</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>shape: (21, 3)
-┌──────────────────┬───────────┬───────────┐
-│ region           ┆ Gold      ┆ Platinium │
-│ ---              ┆ ---       ┆ ---       │
-│ str              ┆ f64       ┆ f64       │
-╞══════════════════╪═══════════╪═══════════╡
-│ Lorraine         ┆ 68.0      ┆ null      │
-│ Pays de la Loire ┆ 61.0      ┆ 81.0      │
-│ Haute-Normandie  ┆ 49.0      ┆ 85.0      │
-│ null             ┆ 60.922758 ┆ 70.321321 │
-│ …                ┆ …         ┆ …         │
-│ Alsace           ┆ null      ┆ null      │
-│ Rhône-Alpes      ┆ null      ┆ null      │
-│ Midi-Pyrénées    ┆ null      ┆ null      │
-│ Limousin         ┆ null      ┆ null      │
-└──────────────────┴───────────┴───────────┘</code></pre>
+┌────────────────────────────┬──────────┬───────────┐
+│ region                     ┆ Gold     ┆ Platinium │
+│ ---                        ┆ ---      ┆ ---       │
+│ str                        ┆ f64      ┆ f64       │
+╞════════════════════════════╪══════════╪═══════════╡
+│ Languedoc-Roussillon       ┆ 54.0     ┆ null      │
+│ Lorraine                   ┆ null     ┆ 81.0      │
+│ Midi-Pyrénées              ┆ 47.02069 ┆ null      │
+│ Provence-Alpes-Côte d'Azur ┆ 43.0     ┆ null      │
+│ …                          ┆ …        ┆ …         │
+│ Picardie                   ┆ 60.0     ┆ null      │
+│ Champagne-Ardenne          ┆ null     ┆ null      │
+│ Île-de-France              ┆ 40.0     ┆ 68.0      │
+│ Corse                      ┆ 76.0     ┆ null      │
+└────────────────────────────┴──────────┴───────────┘</code></pre>
 </div>
 </div>
 </section>
@@ -525,26 +528,26 @@ Important
 <span id="cb16-6"><a href="#cb16-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(</span>
 <span id="cb16-7"><a href="#cb16-7" aria-hidden="true" tabindex="-1"></a>    pl<span class="sc">$</span><span class="fu">col</span>(<span class="st">"region"</span>) <span class="sc">==</span> <span class="st">"Aquitaine"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>shape: (4_369, 3)
+<pre><code>shape: (1_044, 3)
 ┌───────────┬────────────────┬──────────┐
 │ region    ┆ departement    ┆ priority │
 │ ---       ┆ ---            ┆ ---      │
 │ str       ┆ str            ┆ cat      │
 ╞═══════════╪════════════════╪══════════╡
-│ Aquitaine ┆ Lot-et-Garonne ┆ Bronze   │
-│ Aquitaine ┆ Lot-et-Garonne ┆ Bronze   │
-│ Aquitaine ┆ Lot-et-Garonne ┆ Bronze   │
-│ Aquitaine ┆ Lot-et-Garonne ┆ Bronze   │
+│ Aquitaine ┆ Lot-et-Garonne ┆ Gold     │
+│ Aquitaine ┆ Lot-et-Garonne ┆ Gold     │
+│ Aquitaine ┆ Lot-et-Garonne ┆ Gold     │
+│ Aquitaine ┆ Lot-et-Garonne ┆ Gold     │
 │ …         ┆ …              ┆ …        │
-│ Aquitaine ┆ Landes         ┆ Silver   │
-│ Aquitaine ┆ null           ┆ Bronze   │
-│ Aquitaine ┆ null           ┆ Bronze   │
-│ Aquitaine ┆ Gironde        ┆ Silver   │
+│ Aquitaine ┆ Dordogne       ┆ Silver   │
+│ Aquitaine ┆ Dordogne       ┆ Silver   │
+│ Aquitaine ┆ Lot-et-Garonne ┆ Gold     │
+│ Aquitaine ┆ Dordogne       ┆ Silver   │
 └───────────┴────────────────┴──────────┘</code></pre>
 </div>
 <div class="sourceCode cell-code" id="cb18"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a><span class="fu">toc</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>0.082 sec elapsed</code></pre>
+<pre><code>0.101 sec elapsed</code></pre>
 </div>
 </div>
 <p>As seen above, we’re going to use the <code>lazy()</code> method to convert a <code>DataFrame</code> to a <code>LazyFrame</code>:</p>
@@ -559,26 +562,26 @@ Important
 <span id="cb20-8"><a href="#cb20-8" aria-hidden="true" tabindex="-1"></a>    pl<span class="sc">$</span><span class="fu">col</span>(<span class="st">"region"</span>) <span class="sc">==</span> <span class="st">"Aquitaine"</span>)<span class="sc">$</span></span>
 <span id="cb20-9"><a href="#cb20-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">collect</span>() <span class="co"># don't forget collect() here!</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>shape: (4_369, 3)
+<pre><code>shape: (1_044, 3)
 ┌───────────┬────────────────┬──────────┐
 │ region    ┆ departement    ┆ priority │
 │ ---       ┆ ---            ┆ ---      │
 │ str       ┆ str            ┆ cat      │
 ╞═══════════╪════════════════╪══════════╡
-│ Aquitaine ┆ Lot-et-Garonne ┆ Bronze   │
-│ Aquitaine ┆ Lot-et-Garonne ┆ Bronze   │
-│ Aquitaine ┆ Lot-et-Garonne ┆ Bronze   │
-│ Aquitaine ┆ Lot-et-Garonne ┆ Bronze   │
+│ Aquitaine ┆ Lot-et-Garonne ┆ Gold     │
+│ Aquitaine ┆ Lot-et-Garonne ┆ Gold     │
+│ Aquitaine ┆ Lot-et-Garonne ┆ Gold     │
+│ Aquitaine ┆ Lot-et-Garonne ┆ Gold     │
 │ …         ┆ …              ┆ …        │
-│ Aquitaine ┆ Landes         ┆ Silver   │
-│ Aquitaine ┆ null           ┆ Bronze   │
-│ Aquitaine ┆ null           ┆ Bronze   │
-│ Aquitaine ┆ Gironde        ┆ Silver   │
+│ Aquitaine ┆ Dordogne       ┆ Silver   │
+│ Aquitaine ┆ Dordogne       ┆ Silver   │
+│ Aquitaine ┆ Lot-et-Garonne ┆ Gold     │
+│ Aquitaine ┆ Dordogne       ┆ Silver   │
 └───────────┴────────────────┴──────────┘</code></pre>
 </div>
 <div class="sourceCode cell-code" id="cb22"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a><span class="fu">toc</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>0.08 sec elapsed</code></pre>
+<pre><code>0.097 sec elapsed</code></pre>
 </div>
 </div>
 </section>
@@ -598,22 +601,26 @@ Important
 <span id="cb24-10"><a href="#cb24-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">groupby</span>(<span class="st">"departement"</span>,<span class="st">"priority"</span>)<span class="sc">$</span></span>
 <span id="cb24-11"><a href="#cb24-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">agg</span>(pl<span class="sc">$</span><span class="fu">col</span>(<span class="st">"age"</span>)<span class="sc">$</span><span class="fu">mean</span>())</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>shape: (5, 3)
-┌─────────────────┬──────────┬───────────┐
-│ departement     ┆ priority ┆ age       │
-│ ---             ┆ ---      ┆ ---       │
-│ str             ┆ str      ┆ f64       │
-╞═════════════════╪══════════╪═══════════╡
-│ Côtes-d'Armor   ┆ Silver   ┆ 48.402426 │
-│ NA              ┆ Bronze   ┆ 18.0      │
-│ Ille-et-Vilaine ┆ Gold     ┆ 28.0      │
-│ Finistère       ┆ Bronze   ┆ 36.4817   │
-│ NA              ┆ Gold     ┆ 43.0      │
-└─────────────────┴──────────┴───────────┘</code></pre>
+<pre><code>shape: (9, 3)
+┌─────────────────┬───────────┬───────────┐
+│ departement     ┆ priority  ┆ age       │
+│ ---             ┆ ---       ┆ ---       │
+│ str             ┆ str       ┆ f64       │
+╞═════════════════╪═══════════╪═══════════╡
+│ Côtes-d'Armor   ┆ Bronze    ┆ 24.2      │
+│ Ille-et-Vilaine ┆ Gold      ┆ null      │
+│ Ille-et-Vilaine ┆ Silver    ┆ 68.0      │
+│ Morbihan        ┆ Bronze    ┆ 37.0      │
+│ Finistère       ┆ Gold      ┆ null      │
+│ Morbihan        ┆ Silver    ┆ 41.0      │
+│ Finistère       ┆ Bronze    ┆ 36.23828  │
+│ NA              ┆ Platinium ┆ 78.724672 │
+│ Ille-et-Vilaine ┆ Bronze    ┆ null      │
+└─────────────────┴───────────┴───────────┘</code></pre>
 </div>
 <div class="sourceCode cell-code" id="cb26"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a><span class="fu">toc</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>0.08 sec elapsed</code></pre>
+<pre><code>0.133 sec elapsed</code></pre>
 </div>
 </div>
 <p>… while the <code>lazy</code> method is represented by the <code>pl$scan_csv()</code>:</p>
@@ -630,22 +637,26 @@ Important
 <span id="cb28-10"><a href="#cb28-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">agg</span>(pl<span class="sc">$</span><span class="fu">col</span>(<span class="st">"age"</span>)<span class="sc">$</span><span class="fu">mean</span>())<span class="sc">$</span></span>
 <span id="cb28-11"><a href="#cb28-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">collect</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>shape: (5, 3)
-┌─────────────────┬──────────┬───────────┐
-│ departement     ┆ priority ┆ age       │
-│ ---             ┆ ---      ┆ ---       │
-│ str             ┆ str      ┆ f64       │
-╞═════════════════╪══════════╪═══════════╡
-│ Ille-et-Vilaine ┆ Gold     ┆ 28.0      │
-│ NA              ┆ Gold     ┆ 43.0      │
-│ Finistère       ┆ Bronze   ┆ 36.4817   │
-│ NA              ┆ Bronze   ┆ 18.0      │
-│ Côtes-d'Armor   ┆ Silver   ┆ 48.402426 │
-└─────────────────┴──────────┴───────────┘</code></pre>
+<pre><code>shape: (9, 3)
+┌─────────────────┬───────────┬───────────┐
+│ departement     ┆ priority  ┆ age       │
+│ ---             ┆ ---       ┆ ---       │
+│ str             ┆ str       ┆ f64       │
+╞═════════════════╪═══════════╪═══════════╡
+│ Ille-et-Vilaine ┆ Silver    ┆ 68.0      │
+│ Morbihan        ┆ Silver    ┆ 41.0      │
+│ Côtes-d'Armor   ┆ Bronze    ┆ 24.2      │
+│ Morbihan        ┆ Bronze    ┆ 37.0      │
+│ Finistère       ┆ Bronze    ┆ 36.23828  │
+│ Ille-et-Vilaine ┆ Bronze    ┆ null      │
+│ Finistère       ┆ Gold      ┆ null      │
+│ NA              ┆ Platinium ┆ 78.724672 │
+│ Ille-et-Vilaine ┆ Gold      ┆ null      │
+└─────────────────┴───────────┴───────────┘</code></pre>
 </div>
 <div class="sourceCode cell-code" id="cb30"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb30-1"><a href="#cb30-1" aria-hidden="true" tabindex="-1"></a><span class="fu">toc</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>0.034 sec elapsed</code></pre>
+<pre><code>0.047 sec elapsed</code></pre>
 </div>
 </div>
 <p>We can clearly see that we save a lot of time when executing the <code>lazy</code> version of the code!</p>
@@ -662,19 +673,23 @@ Important
 <span id="cb32-6"><a href="#cb32-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">arrange</span>(departement) <span class="sc">|&gt;</span></span>
 <span id="cb32-7"><a href="#cb32-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">collect</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code># A tibble: 5 × 3
-# Groups:   departement [4]
-  departement     priority mymean
-  &lt;chr&gt;           &lt;fct&gt;     &lt;dbl&gt;
-1 Côtes-d'Armor   Silver     48.4
-2 Finistère       Bronze     36.5
-3 Ille-et-Vilaine Gold       28  
-4 &lt;NA&gt;            Gold       43  
-5 &lt;NA&gt;            Bronze     18  </code></pre>
+<pre><code># A tibble: 9 × 3
+# Groups:   departement [5]
+  departement     priority  mymean
+  &lt;chr&gt;           &lt;fct&gt;      &lt;dbl&gt;
+1 Côtes-d'Armor   Bronze      24.2
+2 Finistère       Gold       NaN  
+3 Finistère       Bronze      36.2
+4 Ille-et-Vilaine Bronze     NaN  
+5 Ille-et-Vilaine Silver      68  
+6 Ille-et-Vilaine Gold       NaN  
+7 Morbihan        Bronze      37  
+8 Morbihan        Silver      41  
+9 &lt;NA&gt;            Platinium   78.7</code></pre>
 </div>
 <div class="sourceCode cell-code" id="cb34"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb34-1"><a href="#cb34-1" aria-hidden="true" tabindex="-1"></a><span class="fu">toc</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>0.22 sec elapsed</code></pre>
+<pre><code>0.335 sec elapsed</code></pre>
 </div>
 </div>
 <div class="cell">
@@ -688,22 +703,26 @@ Important
 <span id="cb36-8"><a href="#cb36-8" aria-hidden="true" tabindex="-1"></a>)<span class="sc">$</span><span class="fu">sort</span>(<span class="st">"departement"</span>)<span class="sc">$</span></span>
 <span id="cb36-9"><a href="#cb36-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">collect</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>shape: (5, 3)
-┌─────────────────┬──────────┬───────────┐
-│ departement     ┆ priority ┆ age       │
-│ ---             ┆ ---      ┆ ---       │
-│ str             ┆ cat      ┆ f64       │
-╞═════════════════╪══════════╪═══════════╡
-│ null            ┆ Gold     ┆ 43.0      │
-│ null            ┆ Bronze   ┆ 18.0      │
-│ Côtes-d'Armor   ┆ Silver   ┆ 48.402426 │
-│ Finistère       ┆ Bronze   ┆ 36.4817   │
-│ Ille-et-Vilaine ┆ Gold     ┆ 28.0      │
-└─────────────────┴──────────┴───────────┘</code></pre>
+<pre><code>shape: (9, 3)
+┌─────────────────┬───────────┬───────────┐
+│ departement     ┆ priority  ┆ age       │
+│ ---             ┆ ---       ┆ ---       │
+│ str             ┆ cat       ┆ f64       │
+╞═════════════════╪═══════════╪═══════════╡
+│ null            ┆ Platinium ┆ 78.724672 │
+│ Côtes-d'Armor   ┆ Bronze    ┆ 24.2      │
+│ Finistère       ┆ Bronze    ┆ 36.23828  │
+│ Finistère       ┆ Gold      ┆ null      │
+│ Ille-et-Vilaine ┆ Bronze    ┆ null      │
+│ Ille-et-Vilaine ┆ Silver    ┆ 68.0      │
+│ Ille-et-Vilaine ┆ Gold      ┆ null      │
+│ Morbihan        ┆ Bronze    ┆ 37.0      │
+│ Morbihan        ┆ Silver    ┆ 41.0      │
+└─────────────────┴───────────┴───────────┘</code></pre>
 </div>
 <div class="sourceCode cell-code" id="cb38"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb38-1"><a href="#cb38-1" aria-hidden="true" tabindex="-1"></a><span class="fu">toc</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>0.011 sec elapsed</code></pre>
+<pre><code>0.017 sec elapsed</code></pre>
 </div>
 </div>
 <p>And it’s another victory for the <code>lazy</code> execution!</p>
@@ -727,19 +746,23 @@ Important
 <span id="cb40-6"><a href="#cb40-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">arrange</span>(departement) <span class="sc">|&gt;</span></span>
 <span id="cb40-7"><a href="#cb40-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">collect</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code># A tibble: 5 × 3
-# Groups:   departement [4]
-  departement     priority mymean
-  &lt;chr&gt;           &lt;fct&gt;     &lt;dbl&gt;
-1 Côtes-d'Armor   Silver     48.4
-2 Finistère       Bronze     36.5
-3 Ille-et-Vilaine Gold       28  
-4 &lt;NA&gt;            Gold       43  
-5 &lt;NA&gt;            Bronze     18  </code></pre>
+<pre><code># A tibble: 9 × 3
+# Groups:   departement [5]
+  departement     priority  mymean
+  &lt;chr&gt;           &lt;fct&gt;      &lt;dbl&gt;
+1 Côtes-d'Armor   Bronze      24.2
+2 Finistère       Gold       NaN  
+3 Finistère       Bronze      36.2
+4 Ille-et-Vilaine Bronze     NaN  
+5 Ille-et-Vilaine Silver      68  
+6 Ille-et-Vilaine Gold       NaN  
+7 Morbihan        Bronze      37  
+8 Morbihan        Silver      41  
+9 &lt;NA&gt;            Platinium   78.7</code></pre>
 </div>
 <div class="sourceCode cell-code" id="cb42"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb42-1"><a href="#cb42-1" aria-hidden="true" tabindex="-1"></a><span class="fu">toc</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>0.092 sec elapsed</code></pre>
+<pre><code>0.151 sec elapsed</code></pre>
 </div>
 </div>
 </div>
@@ -770,6 +793,121 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
     }
   }
   toggleBodyColorPrimary();  
+  const disableStylesheet = (stylesheets) => {
+    for (let i=0; i < stylesheets.length; i++) {
+      const stylesheet = stylesheets[i];
+      stylesheet.rel = 'prefetch';
+    }
+  }
+  const enableStylesheet = (stylesheets) => {
+    for (let i=0; i < stylesheets.length; i++) {
+      const stylesheet = stylesheets[i];
+      stylesheet.rel = 'stylesheet';
+    }
+  }
+  const manageTransitions = (selector, allowTransitions) => {
+    const els = window.document.querySelectorAll(selector);
+    for (let i=0; i < els.length; i++) {
+      const el = els[i];
+      if (allowTransitions) {
+        el.classList.remove('notransition');
+      } else {
+        el.classList.add('notransition');
+      }
+    }
+  }
+  const toggleColorMode = (alternate) => {
+    // Switch the stylesheets
+    const alternateStylesheets = window.document.querySelectorAll('link.quarto-color-scheme.quarto-color-alternate');
+    manageTransitions('#quarto-margin-sidebar .nav-link', false);
+    if (alternate) {
+      enableStylesheet(alternateStylesheets);
+      for (const sheetNode of alternateStylesheets) {
+        if (sheetNode.id === "quarto-bootstrap") {
+          toggleBodyColorMode(sheetNode);
+        }
+      }
+    } else {
+      disableStylesheet(alternateStylesheets);
+      toggleBodyColorPrimary();
+    }
+    manageTransitions('#quarto-margin-sidebar .nav-link', true);
+    // Switch the toggles
+    const toggles = window.document.querySelectorAll('.quarto-color-scheme-toggle');
+    for (let i=0; i < toggles.length; i++) {
+      const toggle = toggles[i];
+      if (toggle) {
+        if (alternate) {
+          toggle.classList.add("alternate");     
+        } else {
+          toggle.classList.remove("alternate");
+        }
+      }
+    }
+    // Hack to workaround the fact that safari doesn't
+    // properly recolor the scrollbar when toggling (#1455)
+    if (navigator.userAgent.indexOf('Safari') > 0 && navigator.userAgent.indexOf('Chrome') == -1) {
+      manageTransitions("body", false);
+      window.scrollTo(0, 1);
+      setTimeout(() => {
+        window.scrollTo(0, 0);
+        manageTransitions("body", true);
+      }, 40);  
+    }
+  }
+  const isFileUrl = () => { 
+    return window.location.protocol === 'file:';
+  }
+  const hasAlternateSentinel = () => {  
+    let styleSentinel = getColorSchemeSentinel();
+    if (styleSentinel !== null) {
+      return styleSentinel === "alternate";
+    } else {
+      return false;
+    }
+  }
+  const setStyleSentinel = (alternate) => {
+    const value = alternate ? "alternate" : "default";
+    if (!isFileUrl()) {
+      window.localStorage.setItem("quarto-color-scheme", value);
+    } else {
+      localAlternateSentinel = value;
+    }
+  }
+  const getColorSchemeSentinel = () => {
+    if (!isFileUrl()) {
+      const storageValue = window.localStorage.getItem("quarto-color-scheme");
+      return storageValue != null ? storageValue : localAlternateSentinel;
+    } else {
+      return localAlternateSentinel;
+    }
+  }
+  let localAlternateSentinel = 'default';
+  // Dark / light mode switch
+  window.quartoToggleColorScheme = () => {
+    // Read the current dark / light value 
+    let toAlternate = !hasAlternateSentinel();
+    toggleColorMode(toAlternate);
+    setStyleSentinel(toAlternate);
+  };
+  // Ensure there is a toggle, if there isn't float one in the top right
+  if (window.document.querySelector('.quarto-color-scheme-toggle') === null) {
+    const a = window.document.createElement('a');
+    a.classList.add('top-right');
+    a.classList.add('quarto-color-scheme-toggle');
+    a.href = "";
+    a.onclick = function() { try { window.quartoToggleColorScheme(); } catch {} return false; };
+    const i = window.document.createElement("i");
+    i.classList.add('bi');
+    a.appendChild(i);
+    window.document.body.appendChild(a);
+  }
+  // Switch to dark mode if need be
+  if (hasAlternateSentinel()) {
+    toggleColorMode(true);
+  } else {
+    toggleColorMode(false);
+  }
   const icon = "";
   const anchorJS = new window.AnchorJS();
   anchorJS.options = {

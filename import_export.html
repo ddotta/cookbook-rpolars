@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
 
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.3.433">
+<meta name="generator" content="quarto-1.3.353">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
@@ -73,10 +73,12 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <script src="site_libs/quarto-html/tippy.umd.min.js"></script>
 <script src="site_libs/quarto-html/anchor.min.js"></script>
 <link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
-<link href="site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-text-highlighting-styles">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting-dark.css" rel="prefetch" class="quarto-color-scheme quarto-color-alternate" id="quarto-text-highlighting-styles">
 <script src="site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="site_libs/bootstrap/bootstrap.min.css" rel="stylesheet" id="quarto-bootstrap" data-mode="light">
+<link href="site_libs/bootstrap/bootstrap.min.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
+<link href="site_libs/bootstrap/bootstrap-dark.min.css" rel="prefetch" class="quarto-color-scheme quarto-color-alternate" id="quarto-bootstrap" data-mode="dark">
 <script id="quarto-search-options" type="application/json">{
   "location": "sidebar",
   "copy-button": false,
@@ -93,8 +95,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     "search-more-matches-text": "more matches in this document",
     "search-clear-button-title": "Clear",
     "search-detached-cancel-button-title": "Cancel",
-    "search-submit-button-title": "Submit",
-    "search-label": "Search"
+    "search-submit-button-title": "Submit"
   }
 }</script>
 
@@ -114,7 +115,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
       <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./import_export.html"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Import/Export</span></a></li></ol></nav>
       <a class="flex-grow-1" role="button" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
       </a>
-      <button type="button" class="btn quarto-search-button" aria-label="" onclick="window.quartoOpenSearch();">
+      <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
         <i class="bi bi-search"></i>
       </button>
     </div>
@@ -130,8 +131,9 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
       </a>
     <div class="sidebar-title mb-0 py-0">
       <a href="./">Cookbook Polars for R</a> 
-        <div class="sidebar-tools-main">
-    <a href="https://github.com/ddotta/cookbook-rpolars/tree/main/book/" rel="" title="Source Code" class="quarto-navigation-tool px-1" aria-label="Source Code"><i class="bi bi-github"></i></a>
+        <div class="sidebar-tools-main tools-wide">
+    <a href="https://github.com/ddotta/cookbook-rpolars/tree/main/book/" title="Source Code" class="quarto-navigation-tool px-1" aria-label="Source Code"><i class="bi bi-github"></i></a>
+    <a href="./Cookbook-Polars-for-R.pdf" title="Download PDF" class="quarto-navigation-tool px-1" aria-label="Download PDF"><i class="bi bi-file-pdf"></i></a>
     <div class="dropdown">
       <a href="" title="Share" id="quarto-navigation-tool-dropdown-0" class="quarto-navigation-tool dropdown-toggle px-1" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Share"><i class="bi bi-share"></i></a>
       <ul class="dropdown-menu" aria-labelledby="quarto-navigation-tool-dropdown-0">
@@ -149,6 +151,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
           </li>
       </ul>
     </div>
+  <a href="" class="quarto-color-scheme-toggle quarto-navigation-tool  px-1" onclick="window.quartoToggleColorScheme(); return false;" title="Toggle dark mode"><i class="bi"></i></a>
 </div>
     </div>
       </div>
@@ -245,7 +248,44 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <h2 data-number="3.1" class="anchored" data-anchor-id="import-data"><span class="header-section-number">3.1</span> Import data</h2>
 <section id="read-a-csv-file-or-url" class="level3" data-number="3.1.1">
 <h3 data-number="3.1.1" class="anchored" data-anchor-id="read-a-csv-file-or-url"><span class="header-section-number">3.1.1</span> Read a csv file or URL</h3>
-<p>The <code>read_csv()</code> method can be used to import a csv file from a file or an URL. <code>read_csv()</code> returns a <code>DataFrame</code>.</p>
+<p>The <code>read_csv()</code> method can be used to import a csv file from a file or an URL. <code>read_csv()</code> returns a <code>DataFrame</code>.<br>
+Its main arguments are:</p>
+<ul>
+<li><code>path</code>: path to a file or URL.<br>
+</li>
+<li><code>sep</code>: single character to use as delimiter in the csv file.<br>
+</li>
+<li><code>ignore_errors</code>: boolean. Indicate if the first row of dataset is a header or not. If set to <code>FALSE</code>, column names will be autogenerated in the following format: column_x, with x being an enumeration over every column in the dataset starting at 1.<br>
+</li>
+<li><code>skip_rows</code>: integer. Start reading after skip_rows lines. The header will be parsed at this offset.<br>
+</li>
+<li><code>n_rows</code>: integer. Stop reading after reading n_rows.<br>
+</li>
+<li><code>cache</code>: boolean. Cache the result after reading.<br>
+</li>
+<li><code>overwrite_dtype</code>: named list of dtypes where name points to a column. Can overwrite dtypes during inference.<br>
+</li>
+<li><code>low_memory</code>: boolean. Reduce memory usage in expense of performance.<br>
+</li>
+<li><code>comment_char</code>: single byte character used for csv quoting, default = “. Set to NA to turn off special handling and escaping of quotes.<br>
+</li>
+<li><code>null_values</code>: values to interpret as null values.<br>
+</li>
+<li><code>infer_schem_length</code>: maximum number of rows to read to infer the column types. If set to 0, all columns will be read as UTF-8. If NULL, a full table scan will be done (slow).<br>
+</li>
+<li><code>skip_rows_after_header</code>: boolean. Skip this number of rows when the header is parsed.<br>
+</li>
+<li><code>encoding</code>: either “utf8” or “utf8-lossy”. Lossy means that invalid utf8 values are replaced with “?” characters.<br>
+</li>
+<li><code>row_count_name</code>: string. Name of a added row count column.<br>
+</li>
+<li><code>row_count_offset</code>: integer. Offset to start the row_count column (only used if the name is set).<br>
+</li>
+<li><code>parse_dates</code>: boolean. Try to automatically parse dates. If this does not succeed, the column remains of data type <code>Utf8</code>.<br>
+</li>
+<li><code>reuse_downloaded</code>: boolean. If TRUE(default) and a URL was provided, cache the downloaded files in session for an easy reuse.</li>
+</ul>
+<p>By default, polars takes the first row of the csv file as the header to set column names. If the first row is not a header, you can set the argument <code>has_header = FALSE</code> and the column names will be <code>column_1</code>, <code>column_2</code>…</p>
 <section id="from-a-file" class="level4" data-number="3.1.1.1">
 <h4 data-number="3.1.1.1" class="anchored" data-anchor-id="from-a-file"><span class="header-section-number">3.1.1.1</span> From a file</h4>
 <div class="tabset-margin-container"></div><div class="panel-tabset">
@@ -469,7 +509,7 @@ Important
 <div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>pl<span class="sc">$</span><span class="fu">read_csv</span>(<span class="st">"https://j.mp/iriscsv"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stderr">
 <pre><code>tmp file placed in 
- /tmp/RtmpdyL8VF/https...j.mp.iriscsv</code></pre>
+ /tmp/Rtmpy20iyq/https...j.mp.iriscsv</code></pre>
 </div>
 <div class="cell-output cell-output-stdout">
 <pre><code>shape: (150, 5)
@@ -495,8 +535,9 @@ Important
 </section>
 <section id="scan-a-csv-file" class="level3" data-number="3.1.2">
 <h3 data-number="3.1.2" class="anchored" data-anchor-id="scan-a-csv-file"><span class="header-section-number">3.1.2</span> Scan a csv file</h3>
-<p>The <code>pl$scan_csv()</code> method can be used to lazily read a csv file from a file.<br>
-<code>pl$scan_csv()</code> returns a <code>LazyFrame</code>.</p>
+<p>The <code>scan_csv()</code> method can be used to lazily read a csv file from a file.<br>
+<code>pl$scan_csv()</code> returns a <code>LazyFrame</code>.<br>
+It’s argument are the same as <code>read_csv()</code> method (see section above).</p>
 <blockquote class="blockquote">
 <p>This allows the query optimizer to push down predicates and projections to the scan level, thereby potentially reducing memory overhead.</p>
 </blockquote>
@@ -546,8 +587,26 @@ Important
 <h3 data-number="3.1.3" class="anchored" data-anchor-id="scan-a-parquet-file"><span class="header-section-number">3.1.3</span> Scan a parquet file</h3>
 <section id="from-a-single-file" class="level4" data-number="3.1.3.1">
 <h4 data-number="3.1.3.1" class="anchored" data-anchor-id="from-a-single-file"><span class="header-section-number">3.1.3.1</span> From a single file</h4>
-<p>The <code>pl$scan_parquet()</code> method can be used to lazily read a parquet file from a file.<br>
+<p>The <code>scan_parquet()</code> method can be used to lazily read a parquet file from a file.<br>
 Scanning delays the actual parsing of the file and <code>pl$scan_parquet()</code> returns a <code>LazyFrame</code>.</p>
+<p>Its main arguments are:</p>
+<ul>
+<li><code>path</code>: path to file.<br>
+</li>
+<li><code>n_rows</code>: integer. Limit rows to scan.<br>
+</li>
+<li><code>cache</code>: boolean. Cache the result.<br>
+</li>
+<li><code>parallel</code>: string. Either “Auto”, “None”, “Columns” or “RowGroups”. The way to parallelized the scan.<br>
+</li>
+<li><code>rechunk</code>: boolean. <code>rechunk</code> reorganize memory layout, potentially make future operations faster , however perform reallocation now.<br>
+</li>
+<li><code>row_count_name</code>: string. Name of a added row count column.<br>
+</li>
+<li><code>row_count_offset</code>: integer. Offset to start the row_count column (only used if the name is set).<br>
+</li>
+<li><code>low_memory</code>: boolean. Reduce memory usage in expense of performance.</li>
+</ul>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb12"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a>pl<span class="sc">$</span><span class="fu">scan_parquet</span>(<span class="st">"examples/iris.parquet"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
@@ -591,13 +650,13 @@ Caution
 </div>
 </div>
 <div class="callout-body-container callout-body">
-<p>June 2023 : Export methods have not yet been implemented in R. This methods start with <code>write_</code> (write_parquet(), write_parquet(), write_json(), write_ndjson()…)</p>
+<p>August 2023 : Export methods have not yet been implemented in R. This methods start with <code>write_</code> (write_parquet(), write_parquet(), write_json(), write_ndjson()…)</p>
 </div>
 </div>
 </section>
 <section id="from-multiple-files-1" class="level4" data-number="3.1.3.2">
 <h4 data-number="3.1.3.2" class="anchored" data-anchor-id="from-multiple-files-1"><span class="header-section-number">3.1.3.2</span> From multiple files</h4>
-<p>The <code>pl$scan_parquet()</code> method can also be used to lazily read multiple parquet files in the same folder.<br>
+<p>The <code>scan_parquet()</code> method can also be used to lazily read multiple parquet files in the same folder.<br>
 This is particularly useful for partitioned files! For example:</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb16"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Write multiple parquet files in examples folder</span></span>
@@ -714,6 +773,121 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
     }
   }
   toggleBodyColorPrimary();  
+  const disableStylesheet = (stylesheets) => {
+    for (let i=0; i < stylesheets.length; i++) {
+      const stylesheet = stylesheets[i];
+      stylesheet.rel = 'prefetch';
+    }
+  }
+  const enableStylesheet = (stylesheets) => {
+    for (let i=0; i < stylesheets.length; i++) {
+      const stylesheet = stylesheets[i];
+      stylesheet.rel = 'stylesheet';
+    }
+  }
+  const manageTransitions = (selector, allowTransitions) => {
+    const els = window.document.querySelectorAll(selector);
+    for (let i=0; i < els.length; i++) {
+      const el = els[i];
+      if (allowTransitions) {
+        el.classList.remove('notransition');
+      } else {
+        el.classList.add('notransition');
+      }
+    }
+  }
+  const toggleColorMode = (alternate) => {
+    // Switch the stylesheets
+    const alternateStylesheets = window.document.querySelectorAll('link.quarto-color-scheme.quarto-color-alternate');
+    manageTransitions('#quarto-margin-sidebar .nav-link', false);
+    if (alternate) {
+      enableStylesheet(alternateStylesheets);
+      for (const sheetNode of alternateStylesheets) {
+        if (sheetNode.id === "quarto-bootstrap") {
+          toggleBodyColorMode(sheetNode);
+        }
+      }
+    } else {
+      disableStylesheet(alternateStylesheets);
+      toggleBodyColorPrimary();
+    }
+    manageTransitions('#quarto-margin-sidebar .nav-link', true);
+    // Switch the toggles
+    const toggles = window.document.querySelectorAll('.quarto-color-scheme-toggle');
+    for (let i=0; i < toggles.length; i++) {
+      const toggle = toggles[i];
+      if (toggle) {
+        if (alternate) {
+          toggle.classList.add("alternate");     
+        } else {
+          toggle.classList.remove("alternate");
+        }
+      }
+    }
+    // Hack to workaround the fact that safari doesn't
+    // properly recolor the scrollbar when toggling (#1455)
+    if (navigator.userAgent.indexOf('Safari') > 0 && navigator.userAgent.indexOf('Chrome') == -1) {
+      manageTransitions("body", false);
+      window.scrollTo(0, 1);
+      setTimeout(() => {
+        window.scrollTo(0, 0);
+        manageTransitions("body", true);
+      }, 40);  
+    }
+  }
+  const isFileUrl = () => { 
+    return window.location.protocol === 'file:';
+  }
+  const hasAlternateSentinel = () => {  
+    let styleSentinel = getColorSchemeSentinel();
+    if (styleSentinel !== null) {
+      return styleSentinel === "alternate";
+    } else {
+      return false;
+    }
+  }
+  const setStyleSentinel = (alternate) => {
+    const value = alternate ? "alternate" : "default";
+    if (!isFileUrl()) {
+      window.localStorage.setItem("quarto-color-scheme", value);
+    } else {
+      localAlternateSentinel = value;
+    }
+  }
+  const getColorSchemeSentinel = () => {
+    if (!isFileUrl()) {
+      const storageValue = window.localStorage.getItem("quarto-color-scheme");
+      return storageValue != null ? storageValue : localAlternateSentinel;
+    } else {
+      return localAlternateSentinel;
+    }
+  }
+  let localAlternateSentinel = 'default';
+  // Dark / light mode switch
+  window.quartoToggleColorScheme = () => {
+    // Read the current dark / light value 
+    let toAlternate = !hasAlternateSentinel();
+    toggleColorMode(toAlternate);
+    setStyleSentinel(toAlternate);
+  };
+  // Ensure there is a toggle, if there isn't float one in the top right
+  if (window.document.querySelector('.quarto-color-scheme-toggle') === null) {
+    const a = window.document.createElement('a');
+    a.classList.add('top-right');
+    a.classList.add('quarto-color-scheme-toggle');
+    a.href = "";
+    a.onclick = function() { try { window.quartoToggleColorScheme(); } catch {} return false; };
+    const i = window.document.createElement("i");
+    i.classList.add('bi');
+    a.appendChild(i);
+    window.document.body.appendChild(a);
+  }
+  // Switch to dark mode if need be
+  if (hasAlternateSentinel()) {
+    toggleColorMode(true);
+  } else {
+    toggleColorMode(false);
+  }
   const icon = "";
   const anchorJS = new window.AnchorJS();
   anchorJS.options = {
