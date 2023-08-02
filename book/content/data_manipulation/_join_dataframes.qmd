@@ -12,7 +12,7 @@ Multiple strategies are available:
 - `"cross"`: returns the cartesian product of all rows from the left frame with all rows from the right frame. Duplicates rows are retained. The table length of A cross-joined with B is always len(A) × len(B).  
 
 The main arguments are: 
-- `on`: name(s) of the join columns in both DataFrames.  
+- `on`: name(s) of the join columns in both `DataFrames`.  
 - `how`: join strategy.  
 - `suffix`: suffix to append to columns with a duplicate name.  
 
@@ -44,23 +44,23 @@ colors$join(
 
 ```{r}
 #| label: merge-rbase
-colors <- data.frame(
+colors_df <- data.frame(
   Surname = c("toto","titi","tata"),
   Color = c("blue","red","yellow")
 )
-values <- data.frame(
+values_df <- data.frame(
   Surname = c("toto","titi","tata"),
   value = c(10,20,30)
 )
-merge(colors, values, by = "Surname", all.x = TRUE)
+merge(colors_df, values_df, by = "Surname", all.x = TRUE)
 ```
 
 ## dplyr
 
 ```{r}
 #| label: join-dplyr
-colors |>
-  left_join(values,
+colors_df |>
+  left_join(values_df,
             by = "Surname") 
 ```
 
@@ -68,8 +68,27 @@ colors |>
 
 ```{r}
 #| label: join-datatable
-merge(as.data.table(colors), 
-      as.data.table(values), 
+merge(as.data.table(colors_df), 
+      as.data.table(values_df), 
       by = "Surname", all.x = TRUE)
 ```
+:::
+
+::: {.callout-tip}
+If join columns have different names in both `DataFrames`, you can use arguments `"left_on"` and `"right_on"`.  
+Here's an example:  
+
+```{r}
+#| label: join-different-names-polars
+
+values2 <- values$rename(Surname2 = "Surname")
+
+colors$join(
+  other = values2,
+  left_on = "Surname",
+  right_on = "Surname2",
+  how = "left"
+)
+```
+
 :::
