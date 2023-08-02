@@ -36,6 +36,8 @@ dfright_dt <- as.data.table(dfright)
 
 ### Vertical concatenation
 
+To concatenate multiple `DataFrames` vertically (=by row), you can use the `concat()` method and the argument `how = "vertical"`.
+
 ::: {.panel-tabset}
 ## polars
 
@@ -68,6 +70,8 @@ rbindlist(list(dfup_dt, dfdown_dt))
 
 ### Horizontal concatenation
 
+To concatenate multiple `DataFrames` horizontally (=by col), you can use the `concat()` method and the argument `how = "horizontal"`.
+
 ::: {.panel-tabset}
 ## polars
 
@@ -95,5 +99,47 @@ cbind(list(dfleft_df,dfright_df))
 ```{r}
 #| label: horizontal-concatenation-datatable
 data.table(dfleft_dt, dfright_dt)
+```
+:::
+
+### Diagonal concatenation
+
+To concatenate multiple `DataFrames` diagonally, you can use the `concat()` method and the argument `how = "diagonal"`.  
+Diagonal concatenation is useful when the column names are not identical in initial `DataFrames`. 
+
+::: {.panel-tabset}
+## polars
+
+```{r}
+#| label: diagonal-concatenation-polars
+
+dfup <- dfup$rename(col4="col3")
+pl$concat(list(dfup,dfdown),how = "diagonal")
+```
+
+## R base
+
+```{r}
+#| label: diagonal-concatenation-rbase
+dfup_df <- dfup$to_data_frame()
+dfup_df[setdiff(names(dfdown_df), names(dfup_df))] <- NA
+dfdown_df[setdiff(names(dfup_df), names(dfdown_df))] <- NA
+rbind(dfup_df,dfdown_df)
+```
+
+## dplyr
+
+```{r}
+#| label: diagonal-concatenation-dplyr
+dfup_df <- dfup$to_data_frame()
+bind_rows(list(dfup_df,dfdown_df))
+```
+
+## data.table
+
+```{r}
+#| label: diagonal-concatenation-datatable
+dfup_dt <- as.data.table(dfup)
+rbindlist(list(dfup_dt, dfdown_dt),fill = TRUE)
 ```
 :::
