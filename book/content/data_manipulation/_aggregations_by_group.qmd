@@ -27,29 +27,6 @@ pl$DataFrame(iris)$
   agg(pl$col(c("Petal.Length","Petal.Width"))$sum())
 ```
 
-::: {.callout-tip}
-Be careful! **Calling multiple aggregations on the same column produces columns of the same name** which generates an error with R.  
-
-You can use the `alias()` or `suffix()` method to ensure column names are unique.  
-For example:  
-
-```{r}
-#| label: example-agg-with-alias
-
-pl$DataFrame(iris)$
-  groupby("Species")$
-  agg(
-    # With alias()
-    pl$col(c("Petal.Length"))$sum()$alias("Petal.Length_Sum"),
-    pl$col(c("Petal.Length"))$mean()$alias("Petal.Length_Mean"),
-    # With suffix()
-    pl$col(c("Petal.Width"))$sum()$suffix("_Sum"),
-    pl$col(c("Petal.Width"))$mean()$suffix("_Mean")
-  )
-```
-
-:::
-
 ## R base
 
 ```{r}
@@ -73,5 +50,66 @@ iris |>
 #| label: summarise-datatable
 iris_dt <- as.data.table(iris)
 iris_dt[, .(Petal.Length = sum(Petal.Length), Petal.Width = sum(Petal.Width)), by = Species]
+```
+:::
+
+::: {.callout-tip}
+Be careful! **Calling multiple aggregations on the same column produces columns of the same name** which generates an error with R.  
+
+You can use the `alias()` or `suffix()` method to ensure column names are unique.  
+For example:  
+
+```{r}
+#| label: example-agg-with-alias
+
+pl$DataFrame(iris)$
+  groupby("Species")$
+  agg(
+    # With alias()
+    pl$col(c("Petal.Length"))$sum()$alias("Petal.Length_Sum"),
+    pl$col(c("Petal.Length"))$mean()$alias("Petal.Length_Mean"),
+    # With suffix()
+    pl$col(c("Petal.Width"))$sum()$suffix("_Sum"),
+    pl$col(c("Petal.Width"))$mean()$suffix("_Mean")
+  )
+```
+:::
+
+You can perform more advanced aggregations, for example **calculate the sum of all the floating point columns** in iris:  
+
+::: {.panel-tabset}
+## polars
+
+```{r}
+#| label: agg-advanced-polars
+pl$DataFrame(iris)$
+  groupby("Species")$
+  agg(pl$col(pl$Float64)$sum())
+```
+
+## R base
+
+```{r}
+#| label: aggregate-advanced-rbase
+iris_sum_by_species_base <- aggregate(iris[, sapply(iris, is.numeric)], by = list(Species = iris$Species), FUN = sum)
+iris_sum_by_species_base
+```
+
+## dplyr
+
+```{r}
+#| label: summarise-advanced-dplyr
+iris |>
+  group_by(Species) %>% 
+  summarise(across(where(is.numeric), sum)) 
+```
+
+## data.table
+
+```{r}
+#| label: summarise-advanced-datatable
+iris_dt <- as.data.table(iris)
+iris_sum_by_species_dt <- iris_dt[, lapply(.SD, sum), by = Species, .SDcols = sapply(iris_dt, is.numeric)]
+iris_sum_by_species_dt
 ```
 :::
