@@ -2,17 +2,17 @@ project:
   type: book
 
 book:
-  title: "Cookbook Polars for R"
-  author: "Damien Dotta"
+  title: "의학통계학 R"
+  author: "Jongsoo Hong"
   favicon: logo_cookbook_rpolars.png
-  description: A side-by-side comparison of polars, R base, dplyr, tidyr and data.table packages.
-  keyword: polars, dplyr, tidyr, data.table, dataframe, performance, data science, data engineering
-  url: https://ddotta.github.io/cookbook-rpolars/
+  description: 2023-2 의학통계학에서 다룬 통계분석 방법에 대한 R 강의자료.
+  keyword: descriptive statistics, t-test, ANOVA, regression, logistic, survival
+  url: https://jongsoo92.github.io/cookbook-rpolars/
   page-navigation: true
   sidebar: 
     logo: logo_cookbook_rpolars.png
     search: true
-  repo-url: https://github.com/ddotta/cookbook-rpolars/
+  repo-url: https://jongsoo92.github.io/cookbook-rpolars/
   repo-subdir: book
   repo-branch: main
   repo-actions: [edit, issue, source]
