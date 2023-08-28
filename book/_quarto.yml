@@ -2,7 +2,7 @@ project:
   type: book
 
 book:
-  title: "의학통계학 R test"
+  title: "의학통계학 R"
   author: "Jongsoo Hong"
   favicon: logo_cookbook_rpolars.png
   description: 2023-2 의학통계학에서 다룬 통계분석 방법에 대한 R 강의자료.
