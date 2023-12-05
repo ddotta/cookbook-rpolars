@@ -2,7 +2,7 @@
 
 This section analyses the different methods for making a query **from an R object already loaded in memory**.
 
-Let's start by comparing polars with R base, dplyr and data.table.
+Let's start by comparing polars with R base, dplyr and data.table. We'll alsso add collapse, a recent package that is very fast for data manipulation.
 
 ::: {.panel-tabset}
 
