@@ -1,6 +1,6 @@
 ## From a partitioned parquet file
 
-Let's now look at how to perform queries on **partitioned files**.   
+Let's now look at how to perform queries on **partitioned files**.
 
 The structure of partitioned files on the disk is as follows:
 
@@ -25,11 +25,11 @@ For this comparison, we will use :
 #| label: partitioned-parquet-arrow-lazy-benchmarking
 
 partitioned_parquet_arrow_lazy <- function(variables) {
-  
+
   result <- arrow::open_dataset(
     "Datasets/DataMultiTypes/",
     partitioning = arrow::schema(colFactor = arrow::utf8())) |>
-    
+
     mutate(
       # Conversion of 2 columns to Date format
       colDate1 = as.Date(colDate1),
@@ -40,7 +40,7 @@ partitioned_parquet_arrow_lazy <- function(variables) {
       colInt>2000 & colInt<8000
     ) |>
     # Grouping and aggregation
-    group_by(colString) |> 
+    group_by(colString) |>
     summarise(
       min_colInt = min(colInt),
       mean_colInt = mean(colInt),
@@ -48,14 +48,14 @@ partitioned_parquet_arrow_lazy <- function(variables) {
       min_colNum = min(colNum),
       mean_colNum = mean(colNum),
       max_colNum = max(colNum)
-    ) |> 
+    ) |>
     collect()
-  
+
   return(result)
-  
+
 }
 tic()
-partitioned_parquet_arrow_lazy() 
+partitioned_parquet_arrow_lazy()
 toc()
 ```
 
@@ -67,11 +67,11 @@ toc()
 # library(dbplyr)
 
 partitioned_parquet_dplyr_duckdb <- function(variables) {
-  
+
   con <- DBI::dbConnect(duckdb::duckdb())
-  
+
   result <- tbl(con, "read_parquet('Datasets/DataMultiTypes/*/*.parquet', hive_partitioning=1)") |>
-    
+
     mutate(
       # Conversion of 2 columns to Date format
       colDate1 = as.Date(colDate1),
@@ -82,7 +82,7 @@ partitioned_parquet_dplyr_duckdb <- function(variables) {
       colInt>2000 & colInt<8000
     ) |>
     # Grouping and aggregation
-    group_by(colString) |> 
+    group_by(colString) |>
     summarise(
       min_colInt = min(colInt, na.rm = TRUE),
       mean_colInt = mean(colInt, na.rm = TRUE),
@@ -90,14 +90,14 @@ partitioned_parquet_dplyr_duckdb <- function(variables) {
       min_colNum = min(colNum, na.rm = TRUE),
       mean_colNum = mean(colNum, na.rm = TRUE),
       max_colNum = max(colNum, na.rm = TRUE)
-    ) |> 
+    ) |>
     collect()
-  
+
   DBI::dbDisconnect(con)
   return(result)
 }
 tic()
-partitioned_parquet_dplyr_duckdb() 
+partitioned_parquet_dplyr_duckdb()
 toc()
 ```
 
@@ -107,7 +107,7 @@ toc()
 #| label: partitioned-parquet-polars-lazy-benchmarking
 
 partitioned_parquet_polars_lazy <- function(variables) {
-  
+
   result <- pl$scan_parquet(file = "Datasets/DataMultiTypes.parquet")$
     # Conversion of 2 columns to Date format
     with_columns(
@@ -119,7 +119,7 @@ partitioned_parquet_polars_lazy <- function(variables) {
       pl$col("colInt")>2000 & pl$col("colInt")<8000
     )$
     # Grouping and aggregation
-    groupby(
+    group_by(
       "colString")$
     agg(
       pl$col("colInt")$min()$alias("min_colInt"),
@@ -129,7 +129,7 @@ partitioned_parquet_polars_lazy <- function(variables) {
       pl$col("colNum")$mean()$alias("mean_colNum"),
       pl$col("colNum")$max()$alias("max_colNum")
     )$collect()
-  
+
   return(result)
 }
 tic()
@@ -153,5 +153,5 @@ partitioned_parquet_bmk <- microbenchmark(
  )
 print(partitioned_parquet_bmk)
 ```
- 
-👉 **Conclusion** of this little benchmark based **on partitioned parquet files**: as for unique parquet files, the big winner is `polars (lazy mode)` !  🏆🏆🏆 
+
+👉 **Conclusion** of this little benchmark based **on partitioned parquet files**: as for unique parquet files, the big winner is `polars (lazy mode)` !  🏆🏆🏆

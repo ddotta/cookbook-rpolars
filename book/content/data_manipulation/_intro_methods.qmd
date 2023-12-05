@@ -39,9 +39,9 @@ Let's see an example with the iris dataset:
 ```{r}
 #| label: chaining-polars
 pl$DataFrame(iris)$
-  groupby(
+  group_by(
   "Species")$
-  median()  
+  median()
 ```
 
 ## R base

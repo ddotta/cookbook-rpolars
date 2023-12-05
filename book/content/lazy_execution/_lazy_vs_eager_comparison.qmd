@@ -8,7 +8,7 @@ In this first example we use the **eager API**:
 #| label: eager-query-steps
 df <- pl$read_csv("examples/iris.csv")
 df_small = df$filter(pl$col("Petal.Length") > 5)
-df_agg = df_small$groupby("Species")$agg(pl$col("Petal.Width")$median())
+df_agg = df_small$group_by("Species")$agg(pl$col("Petal.Width")$median())
 df_agg
 ```
 
@@ -18,7 +18,7 @@ This example:
 - Filter the dataset based on Petal.Length
 - Calculate the median of the Petal.Width per Species
 
-**Every step is executed immediately returning the intermediate results**. This can be very **wastefull** as we might do work or load extra data that is not being used.  
+**Every step is executed immediately returning the intermediate results**. This can be very **wastefull** as we might do work or load extra data that is not being used.
 If we instead used the **lazy API** and waited on execution untill all the steps are defined then the query planner could perform various optimizations. In this case:
 
 - `Predicate pushdown`: Apply filters as early as possible while reading the dataset, thus only reading rows with sepal length greater than 5.
@@ -36,7 +36,7 @@ Here is the equivalent code using the lazy API. At the end of the query, don't f
 pl$scan_csv("examples/iris.csv")$
   filter(
     pl$col("Petal.Length") > 5)$
-  groupby("Species")$
+  group_by("Species")$
   agg(pl$col("Petal.Width")$median())$
   collect() # <- don't forget collect() here!
 ```
@@ -55,10 +55,10 @@ There are some operations that cannot be performed in lazy mode (whether in pola
 For example, we can't `pivot()` (see [here](#pivot-a-dataframe)) in lazy mode as the column names are data-dependant following a pivot. Indeed, when you have to `pivot()` a `DataFrame` your future columns names cannot be predicted because it depends on what it is actually in your datasets!
 
 When you have to do operations that can be done in lazy mode, the recommandation is:
-- Running your query in lazy mode as far as possible;  
-- Evaluating this lazy query with `collect()` when you need a non-lazy method;  
-- Running the non-lazy methods;  
-- Calling `lazy()` on the output to continue in lazy mode.  
+- Running your query in lazy mode as far as possible;
+- Evaluating this lazy query with `collect()` when you need a non-lazy method;
+- Running the non-lazy methods;
+- Calling `lazy()` on the output to continue in lazy mode.
 
 Here's an example:
 
@@ -71,7 +71,7 @@ pl$scan_parquet("Datasets/fakir_file.parquet")$
   pivot(
     index = "region",
     columns = "priority",
-    values = "age", 
+    values = "age",
     aggregate_function = "mean"
   )$
   # Continue in lazy mode

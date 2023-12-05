@@ -33,7 +33,7 @@ result_agg <- pl$read_csv(path = "Datasets/DataMultiTypes.csv")$
     pl$col("colInt")>2000 & pl$col("colInt")<8000
   )$
   # Grouping and aggregation
-  groupby(
+  group_by(
     "colString")$
   agg(
     pl$col("colInt")$min()$alias("min_colInt"),
@@ -43,7 +43,7 @@ result_agg <- pl$read_csv(path = "Datasets/DataMultiTypes.csv")$
     pl$col("colNum")$mean()$alias("mean_colNum"),
     pl$col("colNum")$max()$alias("max_colNum")
   )
-  
+
   return(result_agg)
 }
 tic()
@@ -73,7 +73,7 @@ result_agg <- pl$scan_csv(path = "Datasets/DataMultiTypes.csv")$
     pl$col("colInt")>2000 & pl$col("colInt")<8000
   )$
   # Grouping and aggregation
-  groupby(
+  group_by(
     "colString")$
   agg(
     pl$col("colInt")$min()$alias("min_colInt"),
@@ -83,7 +83,7 @@ result_agg <- pl$scan_csv(path = "Datasets/DataMultiTypes.csv")$
     pl$col("colNum")$mean()$alias("mean_colNum"),
     pl$col("colNum")$max()$alias("max_colNum")
   )
-  
+
   return(result_agg)
 }
 tic()
@@ -97,14 +97,14 @@ toc()
 #| label: csv-rbase-benchmarking
 
 csv_rbase <- function() {
-  
+
   # Reading the csv file
   result <- read.csv("Datasets/DataMultiTypes.csv")
-  
+
   # Conversion of 2 columns to Date format
   result$colDate1 <- as.Date(result$colDate1)
   result$colDate2 <- as.Date(result$colDate2)
-  
+
   # Creation of a diff column between 2 dates (in days)
   result$diff <- round(
     as.integer(
@@ -114,17 +114,17 @@ csv_rbase <- function() {
         units = "days")
       ),
     0)
-  
+
   # Filter rows
   result <- result[result$colInt>2000 & result$colInt<8000,]
-  
+
   # Grouping and aggregation
-  result_agg <- aggregate(cbind(colInt, colNum) ~ colString, 
-                          data = result, 
-                          FUN = function(x) c(mean = mean(x), 
-                                              min = min(x), 
+  result_agg <- aggregate(cbind(colInt, colNum) ~ colString,
+                          data = result,
+                          FUN = function(x) c(mean = mean(x),
+                                              min = min(x),
                                               max = max(x)))
-  
+
   return(result_agg)
 }
 
@@ -140,30 +140,30 @@ print(res_rbase)
 #| label: csv-dplyr-benchmarking
 
 csv_dplyr <- function() {
-  
+
   # Reading the csv file
   result <- readr::read_csv("Datasets/DataMultiTypes.csv", show_col_types = FALSE)
-  
+
   # Conversion of 2 columns to Date format
   result <- result |>
     mutate(
       colDate1 = as.Date(colDate1),
       colDate2 = as.Date(colDate2)
     )
-  
+
   # Creation of a diff column between 2 dates (in days)
-  result <- result |> 
+  result <- result |>
     mutate(diff = round(as.integer(difftime(colDate2, colDate1, units = "days")),0))
-  
+
   # Filter rows
   result <- result |>
     filter(
       colInt>2000 & colInt<8000
       )
-  
+
   # Grouping and aggregation
   result_agg <- result |>
-    group_by(colString) |> 
+    group_by(colString) |>
     summarise(
       min_colInt = min(colInt),
       mean_colInt = mean(colInt),
@@ -172,7 +172,7 @@ csv_dplyr <- function() {
       mean_colNum = mean(colNum),
       max_colNum = max(colNum)
   )
-  
+
   return(result_agg)
 }
 
@@ -188,31 +188,31 @@ print(res_dplyr)
 #| label: csv-arrow-benchmarking
 
 csv_arrow <- function() {
-  
+
   # Reading the csv file
   result <- arrow::read_csv_arrow("Datasets/DataMultiTypes.csv", as_data_frame = FALSE)
-  
+
   # Conversion of 2 columns to Date format
   result <- result |>
     mutate(
       colDate1 = as.Date(colDate1),
       colDate2 = as.Date(colDate2)
     )
-  
+
   # Creation of a diff column between 2 dates (in days)
   result <- result |>
     # difftime(unit = "days") is not supported in arrow yet
     mutate(diff = round(as.integer64(difftime(colDate2, colDate1)) %/% (60 * 60 * 24), 0))
-  
+
   # Filter rows
   result <- result |>
     filter(
       colInt>2000 & colInt<8000
       )
-  
+
   # Grouping and aggregation
   result_agg <- result |>
-    group_by(colString) |> 
+    group_by(colString) |>
     summarise(
       min_colInt = min(colInt),
       mean_colInt = mean(colInt),
@@ -237,24 +237,24 @@ print(res_arrow)
 ```{r}
 #| label: csv-datatable-optimised-benchmarking
 csv_dt <- function() {
-  
+
   result_agg <- as.data.table(data.table::fread("Datasets/DataMultiTypes.csv"))[, `:=`(
-    
+
   colDate1 = as.Date(colDate1),
   colDate2 = as.Date(colDate2),
   diff = as.integer(difftime(colDate2, colDate1, units = "days"))
-  
+
 )][colInt > 2000 & colInt < 8000, .(
-  
+
   min_colInt = min(colInt),
   mean_colInt = mean(colInt),
   max_colInt = max(colInt),
   min_colNum = min(colNum),
   mean_colNum = mean(colNum),
   max_colNum = max(colNum)
-  
+
 ), by = colString]
-  
+
   return(result_agg)
 }
 tic()
@@ -264,9 +264,9 @@ toc()
 :::
 
 ::: {.callout-note}
-**The data processing performed is not entirely equivalent, since it includes in addition:**  
-- for `polars (lazy mode)`, conversion to data.frame R at the end of processing  
-- for `data.table`, conversion to dt format at the start, then conversion to data.frame R at the end of processing  
+**The data processing performed is not entirely equivalent, since it includes in addition:**
+- for `polars (lazy mode)`, conversion to data.frame R at the end of processing
+- for `data.table`, conversion to dt format at the start, then conversion to data.frame R at the end of processing
 :::
 
 ### Results eager vs lazy mode
@@ -288,5 +288,5 @@ csv_bmk <- microbenchmark(
 csv_bmk
 ```
 
-👉 **Conclusion** of this little benchmark based **on csv files**: the big winners are `polars (eager mode)` and `dplyr with {arrow}`. The results will undoubtedly be even better with `polars (lazy mode)`... 🏆🏆🏆    
+👉 **Conclusion** of this little benchmark based **on csv files**: the big winners are `polars (eager mode)` and `dplyr with {arrow}`. The results will undoubtedly be even better with `polars (lazy mode)`... 🏆🏆🏆
 TO DO !!!

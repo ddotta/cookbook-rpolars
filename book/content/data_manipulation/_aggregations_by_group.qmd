@@ -2,28 +2,28 @@
 
 Another frequently used data manipulation is the aggregation of data by group. To do this, we indicate in the `group_by()` method which column will be used to group the data.frame. And the `agg()` method which specifies the expression to aggregate.
 
-The methods available for the `agg()` method are (in each group):  
+The methods available for the `agg()` method are (in each group):
 
- - `first()` get the first element  
- - `last()` get the last element  
- - `n_unique()` get the number of unique elements  
- - `count()` get the number of elements   
- - `sum()` sum the elements  
- - `min()` get the smallest element  
- - `max()` get the largest element  
- - `mean()` get the average of elements  
- - `median()` get the median  
- - `quantile()` calculate quantiles  
- 
- Here's a minimal example with `sum` applied to 2 different columns:  
- 
+ - `first()` get the first element
+ - `last()` get the last element
+ - `n_unique()` get the number of unique elements
+ - `count()` get the number of elements
+ - `sum()` sum the elements
+ - `min()` get the smallest element
+ - `max()` get the largest element
+ - `mean()` get the average of elements
+ - `median()` get the median
+ - `quantile()` calculate quantiles
+
+ Here's a minimal example with `sum` applied to 2 different columns:
+
 ::: {.panel-tabset}
 ## polars
 
 ```{r}
 #| label: agg-polars
 pl$DataFrame(iris)$
-  groupby("Species")$
+  group_by("Species")$
   agg(pl$col(c("Petal.Length","Petal.Width"))$sum())
 ```
 
@@ -41,7 +41,7 @@ aggregate(cbind(Petal.Length, Petal.Width) ~ Species, data = iris, FUN = sum)
 data(iris)
 iris |>
   group_by(Species) |>
-  summarise(across(c(Petal.Length, Petal.Width), sum)) 
+  summarise(across(c(Petal.Length, Petal.Width), sum))
 ```
 
 ## data.table
@@ -54,16 +54,16 @@ iris_dt[, .(Petal.Length = sum(Petal.Length), Petal.Width = sum(Petal.Width)), b
 :::
 
 ::: {.callout-tip}
-Be careful! **Calling multiple aggregations on the same column produces columns of the same name** which generates an error with R.  
+Be careful! **Calling multiple aggregations on the same column produces columns of the same name** which generates an error with R.
 
-You can use the `alias()` or `suffix()` method to ensure column names are unique.  
-For example:  
+You can use the `alias()` or `suffix()` method to ensure column names are unique.
+For example:
 
 ```{r}
 #| label: example-agg-with-alias
 
 pl$DataFrame(iris)$
-  groupby("Species")$
+  group_by("Species")$
   agg(
     # With alias()
     pl$col(c("Petal.Length"))$sum()$alias("Petal.Length_Sum"),
@@ -75,7 +75,7 @@ pl$DataFrame(iris)$
 ```
 :::
 
-You can perform more advanced aggregations, for example **calculate the sum of all the floating point columns** in iris:  
+You can perform more advanced aggregations, for example **calculate the sum of all the floating point columns** in iris:
 
 ::: {.panel-tabset}
 ## polars
@@ -83,7 +83,7 @@ You can perform more advanced aggregations, for example **calculate the sum of a
 ```{r}
 #| label: agg-advanced-polars
 pl$DataFrame(iris)$
-  groupby("Species")$
+  group_by("Species")$
   agg(pl$col(pl$Float64)$sum())
 ```
 
@@ -100,8 +100,8 @@ iris_sum_by_species_base
 ```{r}
 #| label: summarise-advanced-dplyr
 iris |>
-  group_by(Species) %>% 
-  summarise(across(where(is.numeric), sum)) 
+  group_by(Species) %>%
+  summarise(across(where(is.numeric), sum))
 ```
 
 ## data.table
