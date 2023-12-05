@@ -81,7 +81,7 @@ robject_dplyr <- function() {
 ## collapse
 
 ```{r}
-#| label: rboject-dplyr-benchmarking
+#| label: rboject-collapse-benchmarking
 
 robject_collapse <- function() {
 

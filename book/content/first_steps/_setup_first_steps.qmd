@@ -8,7 +8,7 @@ First of all we need to install all the packages and create an big random datase
 #| results: 'hide'
 
 # Installation of packages for cookbook-rpolars
-packages <- c('dplyr','data.table','tidyr','arrow','DBI','fakir','tictoc','duckdb','microbenchmark','readr','fs','ggplot2','pryr','dbplyr','forcats')
+packages <- c('dplyr','data.table','tidyr','arrow','DBI','fakir','tictoc','duckdb','microbenchmark','readr','fs','ggplot2','pryr','dbplyr','forcats','collapse')
 installed_packages <- packages %in% rownames(installed.packages())
 if (any(installed_packages == FALSE)) {
   install.packages(packages[!installed_packages], dependencies = TRUE)
@@ -25,7 +25,7 @@ iris_dt <- as.data.table(iris)
 
 Until the R polars package is uploaded to CRAN, [the polars package development team](https://github.com/pola-rs/r-polars/graphs/contributors) offers [several solutions](https://rpolars.github.io/#install) for installation.
 
-The most practical one in my opinion at the moment is to use [R-universe](https://r-universe.dev/search/) and install like this: 
+The most practical one in my opinion at the moment is to use [R-universe](https://r-universe.dev/search/) and install like this:
 
 ``` {r}
 #| label: installation

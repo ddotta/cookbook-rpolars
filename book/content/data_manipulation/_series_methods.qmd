@@ -176,9 +176,9 @@ pl$DataFrame(iris)$estimated_size()
 
 #| label: reduce-footprint-polars
 pl$DataFrame(iris)$with_columns(
-  pl$col("Petal.Length")$cast(pl$Float32), 
-  pl$col("Petal.Width")$cast(pl$Float32), 
-  pl$col("Sepal.Length")$cast(pl$Float32), 
+  pl$col("Petal.Length")$cast(pl$Float32),
+  pl$col("Petal.Width")$cast(pl$Float32),
+  pl$col("Sepal.Length")$cast(pl$Float32),
   pl$col("Sepal.Width")$cast(pl$Float32)
   )$estimated_size()
 ```
@@ -398,7 +398,7 @@ pl$DataFrame(iris)$select(pl$sum(pl$col("Petal.Width")))
 
 - From a `DataFrame` and a column as a list and **sum horizontally**:
 
-In this case, use `with_column()` method.
+In this case, use `with_columns()` method.
 
 ::: {.panel-tabset}
 ## polars
@@ -406,7 +406,7 @@ In this case, use `with_column()` method.
 ```{r}
 #| label: df-horizontally-sum-polars
 df_pl <- pl$DataFrame(col1 = c(10L,20L), col2= c(30L,40L), col3 = c(40L,50L))
-df_pl$with_column(pl$sum(list("col1", "col3")))
+df_pl$with_columns(pl$sum(list("col1", "col3")))
 ```
 
 ## R base
@@ -423,7 +423,7 @@ cbind(df,mysum)
 ```{r}
 #| label: df-horizontally-sum-dplyr
 df |>
-  rowwise() |> 
+  rowwise() |>
   mutate(mysum = sum(col1,col3))
 ```
 
@@ -443,7 +443,7 @@ In this case, use `list(*)`.
 
 ```{r}
 #| label: df-list-sum-polars
-df_pl$with_column(pl$sum(list("*")))
+df_pl$with_columns(pl$sum_horizontal(list("*")))
 ```
 
 With iris `Dataframe`, you must first select numerical variables:
@@ -453,5 +453,5 @@ With iris `Dataframe`, you must first select numerical variables:
 pl$DataFrame(iris)$
   select(
   pl$col(c("Petal.Length","Petal.Width")))$
-  with_column(pl$sum(list("*")))
+  with_columns(pl$sum_horizontal(list("*")))
 ```

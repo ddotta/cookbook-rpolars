@@ -19,14 +19,14 @@ Again, let's look at the official documentation:
 
 > To modify or add some columns---whilst preserving all others in the dataset---it is therefore better to use the `with_columns()` method.
 
-Note that the `with_columns()` method only accepts expressions.  
-Let's use it in an example:  
+Note that the `with_columns()` method only accepts expressions.
+Let's use it in an example:
 
 ::: {.panel-tabset}
 ## polars
 
 ```{r}
-#| label: select-round-with_column-polars
+#| label: select-round-with_columns-polars
 pl$DataFrame(iris)$with_columns(
   pl$col("Petal.Length")$round(decimals = 0)
 )$head(3) # display the first 3 lines
@@ -83,9 +83,9 @@ pl$DataFrame(iris)$with_columns(
 
 ### Add a new column based on conditions
 
-To add new columns based on conditions, the `when-then-otherwise` expression must be used.  
+To add new columns based on conditions, the `when-then-otherwise` expression must be used.
 
-Here's the syntax:  
+Here's the syntax:
 
 ```
 pl$when(**Boolean Expression**)$
@@ -94,7 +94,7 @@ pl$when(**Boolean Expression**)$
   alias(**New Column Name**)
 ```
 
-Here's an example with equivalent syntax to help you understand:  
+Here's an example with equivalent syntax to help you understand:
 
 ::: {.panel-tabset}
 ## polars
@@ -102,14 +102,14 @@ Here's an example with equivalent syntax to help you understand:
 ```{r}
 #| label: add-column-with-conditions-polars
 pl$DataFrame(iris)$with_columns(
-  pl$when(pl$col("Petal.Length") <= 2)$then("<=2")$
-    when(pl$col("Petal.Length") <= 5)$then("<=5")$
-    otherwise(">5")$
+  pl$when(pl$col("Petal.Length") <= 2)$then(pl$lit("<=2"))$
+    when(pl$col("Petal.Length") <= 5)$then(pl$lit("<=5"))$
+    otherwise(pl$lit(">5"))$
     alias("mygroups")
 # we only need to display 2 variables to check that it's OK
 )$select(
   pl$col(c("Petal.Length","mygroups"))
-)[c(1,2,59,150)]
+)[c(1,2,59,150),]
 ```
 
 ## R base
@@ -154,9 +154,9 @@ iris_dt[c(1,2,59,150), .(Petal.Length, mygroups)]
 
 ### Add a new column by group
 
-To add new columns by group, the `over` expression must be used.  
-This expression is similar to performing a groupby aggregation and joining the result back into the original dataframe.  
-Here's an example with equivalent syntax to help you understand:  
+To add new columns by group, the `over` expression must be used.
+This expression is similar to performing a groupby aggregation and joining the result back into the original dataframe.
+Here's an example with equivalent syntax to help you understand:
 
 ```{r}
 #| label: creation-example-add-column-by-group
@@ -177,7 +177,7 @@ df
 ```{r}
 #| label: add-column-by-group-polars
 pl$DataFrame(df)$with_columns(
-  pl$col("col3")$max()$over("name")$suffix("_max")
+  pl$col("col3")$max()$over("name")$name$suffix("_max")
 )
 ```
 
@@ -195,7 +195,7 @@ merge(df, result, by = "name", all.x = TRUE)
 ```{r}
 #| label: add-column-by-group-dplyr
 df |>
-  group_by(name) |> 
+  group_by(name) |>
   mutate(col3_max = max(col3))
 ```
 

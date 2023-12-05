@@ -69,8 +69,8 @@ pl$DataFrame(iris)$
     pl$col(c("Petal.Length"))$sum()$alias("Petal.Length_Sum"),
     pl$col(c("Petal.Length"))$mean()$alias("Petal.Length_Mean"),
     # With suffix()
-    pl$col(c("Petal.Width"))$sum()$suffix("_Sum"),
-    pl$col(c("Petal.Width"))$mean()$suffix("_Mean")
+    pl$col(c("Petal.Width"))$sum()$name$suffix("_Sum"),
+    pl$col(c("Petal.Width"))$mean()$name$suffix("_Mean")
   )
 ```
 :::
