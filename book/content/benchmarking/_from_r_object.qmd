@@ -267,5 +267,5 @@ microbenchmark(
  )
 ```
 
-👉 **Conclusion** of this little benchmark **using R objects already loaded in memory**: the fastest to run are `polars` and `dplyr` followed closely by `data.table`. 🏆🏆🏆
+👉 **Conclusion** of this little benchmark **using R objects already loaded in memory**: the fastest to run is `collapse`. Next are `data.table` and `dplyr` followed closely by `polars`. 🏆🏆🏆
 The worst performer is surprisingly **duckdb with the dplyr syntax**, while **duckdb with the SQL language** does very well and comes 4th in this ranking.
