@@ -1,24 +1,9 @@
-## List of methods to apply to Series {#list-of-methods-to-apply-to-series}
-
-To learn more about the methods to be applied to the `Series`, see [this page](https://rpolars.github.io/reference/Series_class/).
+## List of functions and methods {#list-of-functions-methods}
 
 ```{r}
-#| label: list-methods-series
-# See all exported methods for Series
-ls(polars:::Series)
-# See all private methods for Series (not intended for regular use)
-ls(polars:::.pr$Series)
-```
-
-
-## List of methods to apply to DataFrame {#list-of-methods-to-apply-to-dataframe}
-
-👉 To learn more about the methods to be applied to the `DataFrames`, see [this page](https://rpolars.github.io/reference/DataFrame_class/).
-
-```{r}
-#| label: list-methods-dataframes
-# See all exported methods for DataFrame
-ls(polars:::DataFrame)
-# See all private methods for DataFrame (not intended for regular use)
-ls(polars:::.pr$DataFrame)
+#| label: list-functions-methods
+# See all public functions
+pl_show_all_public_functions()
+# See all public methods
+pl$show_all_public_methods()
 ```
