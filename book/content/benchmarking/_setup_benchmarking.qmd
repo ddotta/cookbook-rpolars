@@ -1,4 +1,4 @@
-Below is the code used to create the fake data needed for the data processing in this document.  
+Below is the code used to create the fake data needed for the data processing in this document.
 Click to expand it! 👇
 
 ```{r}
@@ -21,6 +21,7 @@ library(ggplot2)
 library(pryr)
 library(dbplyr)
 library(forcats)
+library(collapse)
 
 # Creation the "Datasets" folder
 dir.create(normalizePath("Datasets"))

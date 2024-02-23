@@ -16,7 +16,7 @@ For this first round and as seen above, let's start with a simple query from a `
 tic()
 #| label: fight-eager_dataframe
 pl$DataFrame(fake_data)$select(
-    pl$col(c("region","departement","priority")) 
+    pl$col(c("region","departement","priority"))
   )$
   filter(
     pl$col("region") == "Aquitaine")
@@ -30,7 +30,7 @@ tic()
 #| label: fight-lazy_lazyframe
 pl$DataFrame(fake_data)$lazy()$
   select(
-    pl$col(c("region","departement","priority")) 
+    pl$col(c("region","departement","priority"))
   )$
   filter(
     pl$col("region") == "Aquitaine")$
@@ -45,14 +45,14 @@ Now, the `eager` mode is represented here by the `read_csv()` method...
 ```{r}
 tic()
 #| label: fight-eager_read_csv
-pl$read_csv("Datasets/fakir_file.csv", infer_schema_length=0)$ 
+pl$read_csv("Datasets/fakir_file.csv", infer_schema_length=0)$
   select(
     pl$col(c("region","departement","priority","age")))$
   with_columns(
     pl$col("age")$cast(pl$Int32,strict = FALSE))$
   filter(
     pl$col("region") == "Bretagne")$
-  groupby("departement","priority")$
+  group_by("departement","priority")$
   agg(pl$col("age")$mean())
 toc()
 ```
@@ -70,7 +70,7 @@ pl$scan_csv("Datasets/fakir_file.csv", infer_schema_length=0)$
     pl$col("age")$cast(pl$Int32,strict = FALSE))$
   filter(
     pl$col("region") == "Bretagne")$
-  groupby("departement","priority")$
+  group_by("departement","priority")$
   agg(pl$col("age")$mean())$
   collect()
 toc()
@@ -89,9 +89,9 @@ The `read_parquet()` method has not been implemented in the R Polars package, bu
 #| message: false
 tic()
 arrow::read_parquet("Datasets/fakir_file.parquet", as_data_frame = FALSE) |>
-  filter(region == "Bretagne") |> 
-  group_by(departement,priority) |> 
-  summarise(mymean=mean(age, na.rm = TRUE)) |> 
+  filter(region == "Bretagne") |>
+  group_by(departement,priority) |>
+  summarise(mymean=mean(age, na.rm = TRUE)) |>
   arrange(departement) |>
   collect()
 toc()
@@ -101,9 +101,9 @@ toc()
 #| label: fight-lazy-scan-parquet
 tic()
 pl$scan_parquet("Datasets/fakir_file.parquet")$
-  filter( 
+  filter(
     pl$col("region") == "Bretagne")$
-  groupby(c("departement","priority"))$
+  group_by(c("departement","priority"))$
   agg(
     pl$col(c("age"))$mean()
 )$sort("departement")$
@@ -120,9 +120,9 @@ Note that the {arrow} package also have ability to scan parquet files in a lazy 
 #| label: fight-lazy-open-dataset
 #| message: false
 tic()
-arrow::open_dataset("Datasets/fakir_file.parquet") |> 
+arrow::open_dataset("Datasets/fakir_file.parquet") |>
   filter(region == "Bretagne") |>
-  group_by(departement,priority) |> 
+  group_by(departement,priority) |>
   summarise(mymean=mean(age, na.rm = TRUE)) |>
   arrange(departement) |>
   collect()

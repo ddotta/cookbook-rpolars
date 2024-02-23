@@ -20,7 +20,7 @@ With arrow, you can use the [following verbs from the tidyverse](https://arrow.a
 #| label: unique-parquet-polars-lazy-benchmarking
 
 parquet_polars_lazy <- function(variables) {
-  
+
   result <- pl$scan_parquet(file = "Datasets/DataMultiTypes.parquet")$
     # Conversion of 2 columns to Date format
     with_columns(
@@ -32,7 +32,7 @@ parquet_polars_lazy <- function(variables) {
       pl$col("colInt")>2000 & pl$col("colInt")<8000
     )$
     # Grouping and aggregation
-    groupby(
+    group_by(
       "colString")$
     agg(
       pl$col("colInt")$min()$alias("min_colInt"),
@@ -42,7 +42,7 @@ parquet_polars_lazy <- function(variables) {
       pl$col("colNum")$mean()$alias("mean_colNum"),
       pl$col("colNum")$max()$alias("max_colNum")
     )
-  
+
   return(result)
 }
 tic()
@@ -56,9 +56,9 @@ toc()
 #| label: unique-parquet-arrow-eager-benchmarking
 
 arrow_eager <- function(variables) {
-  
+
   result <- arrow::read_parquet("Datasets/DataMultiTypes.parquet") |>
-    
+
     mutate(
       # Conversion of 2 columns to Date format
       colDate1 = as.Date(colDate1),
@@ -69,7 +69,7 @@ arrow_eager <- function(variables) {
       colInt>2000 & colInt<8000
     ) |>
     # Grouping and aggregation
-    group_by(colString) |> 
+    group_by(colString) |>
     summarise(
       min_colInt = min(colInt),
       mean_colInt = mean(colInt),
@@ -78,9 +78,9 @@ arrow_eager <- function(variables) {
       mean_colNum = mean(colNum),
       max_colNum = max(colNum)
   )
-  
+
   return(result)
-  
+
 }
 tic()
 arrow_eager()
@@ -93,9 +93,9 @@ toc()
 #| label: unique-parquet-arrow-lazy-benchmarking
 
 arrow_lazy <- function(variables) {
-  
+
   result <- arrow::open_dataset("Datasets/DataMultiTypes.parquet") |>
-    
+
     mutate(
       # Conversion of 2 columns to Date format
       colDate1 = as.Date(colDate1),
@@ -106,7 +106,7 @@ arrow_lazy <- function(variables) {
       colInt>2000 & colInt<8000
     ) |>
     # Grouping and aggregation
-    group_by(colString) |> 
+    group_by(colString) |>
     summarise(
       min_colInt = min(colInt),
       mean_colInt = mean(colInt),
@@ -115,9 +115,9 @@ arrow_lazy <- function(variables) {
       mean_colNum = mean(colNum),
       max_colNum = max(colNum)
   )
-  
+
   return(result)
-  
+
 }
 tic()
 arrow_lazy() |> collect()
@@ -130,11 +130,11 @@ toc()
 #| label: unique-parquet-duckdb-benchmarking
 
 parquet_duckdb_sql <- function(variables) {
-  
+
   con <- dbConnect(duckdb::duckdb())
-  
+
   result <- dbGetQuery(
-    con, 
+    con,
     "SELECT colString,
            MIN(colInt) AS min_colInt,
            AVG(colInt) AS mean_colInt,
@@ -150,9 +150,9 @@ parquet_duckdb_sql <- function(variables) {
         WHERE colInt > 2000 AND colInt < 8000
 ) AS filtered_data
 GROUP BY colString;")
-  
+
   dbDisconnect(con, shutdown=TRUE)
-  
+
   return(result)
 }
 tic()
@@ -179,5 +179,5 @@ unique_parquet_bmk <- microbenchmark(
  )
 print(unique_parquet_bmk)
 ```
- 
-👉 **Conclusion** of this little benchmark based **on unique parquet files**: the big winner is `polars (lazy mode)` !  🏆🏆🏆 
+
+👉 **Conclusion** of this little benchmark based **on unique parquet files**: the big winner is `polars (lazy mode)` !  🏆🏆🏆
