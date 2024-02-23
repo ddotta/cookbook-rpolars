@@ -276,8 +276,8 @@ Caution, if two series are identical but one is named and the other is not then 
 
 ```{r}
 #| label: series-equal-Series
-pl$Series(1:4)$series_equal(pl$Series(1:4))
-pl$Series(1:4,name = "toto")$series_equal(pl$Series(1:4))
+pl$Series(1:4)$equals(pl$Series(1:4))
+pl$Series(1:4,name = "toto")$equals(pl$Series(1:4))
 ```
 
 ## R base
