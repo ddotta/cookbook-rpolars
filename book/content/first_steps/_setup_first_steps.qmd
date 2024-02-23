@@ -42,6 +42,6 @@ To know the version of the `polars` package you have just installed and to have 
 ```{r}
 #| label: polars_info-function
 
-pl$polars_info()
+polars_info()
 ```
 
