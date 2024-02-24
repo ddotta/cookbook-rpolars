@@ -41,5 +41,3 @@
 {{< include content/data_manipulation/_strings_ends_with_methods.qmd >}}
 
 {{< include content/data_manipulation/_create_your_methods.qmd >}}
-
-{{< include content/data_manipulation/_list_methods.qmd >}}
