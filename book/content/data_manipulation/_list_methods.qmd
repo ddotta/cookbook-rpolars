@@ -1,9 +1,0 @@
-## List of functions and methods {#list-of-functions-methods}
-
-```{r}
-#| label: list-functions-methods
-# See all public functions
-pl$pl_show_all_public_functions()
-# See all public methods
-pl$show_all_public_methods()
-```
