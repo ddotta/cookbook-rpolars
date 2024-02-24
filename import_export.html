@@ -305,7 +305,9 @@ Its main arguments are:</p>
 │ 4.9          ┆ 3.0         ┆ 1.4          ┆ 0.2         ┆ setosa    │
 │ 4.7          ┆ 3.2         ┆ 1.3          ┆ 0.2         ┆ setosa    │
 │ 4.6          ┆ 3.1         ┆ 1.5          ┆ 0.2         ┆ setosa    │
+│ 5.0          ┆ 3.6         ┆ 1.4          ┆ 0.2         ┆ setosa    │
 │ …            ┆ …           ┆ …            ┆ …           ┆ …         │
+│ 6.7          ┆ 3.0         ┆ 5.2          ┆ 2.3         ┆ virginica │
 │ 6.3          ┆ 2.5         ┆ 5.0          ┆ 1.9         ┆ virginica │
 │ 6.5          ┆ 3.0         ┆ 5.2          ┆ 2.0         ┆ virginica │
 │ 6.2          ┆ 3.4         ┆ 5.4          ┆ 2.3         ┆ virginica │
@@ -509,7 +511,7 @@ Important
 <div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>pl<span class="sc">$</span><span class="fu">read_csv</span>(<span class="st">"https://j.mp/iriscsv"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stderr">
 <pre><code>tmp file placed in 
- /tmp/RtmpaxmmZX/https...j.mp.iriscsv</code></pre>
+ /tmp/RtmpXI3l1V/https...j.mp.iriscsv</code></pre>
 </div>
 <div class="cell-output cell-output-stdout">
 <pre><code>shape: (150, 5)
@@ -522,7 +524,9 @@ Important
 │ 4.9          ┆ 3.0         ┆ 1.4          ┆ 0.2         ┆ setosa    │
 │ 4.7          ┆ 3.2         ┆ 1.3          ┆ 0.2         ┆ setosa    │
 │ 4.6          ┆ 3.1         ┆ 1.5          ┆ 0.2         ┆ setosa    │
+│ 5.0          ┆ 3.6         ┆ 1.4          ┆ 0.2         ┆ setosa    │
 │ …            ┆ …           ┆ …            ┆ …           ┆ …         │
+│ 6.7          ┆ 3.0         ┆ 5.2          ┆ 2.3         ┆ virginica │
 │ 6.3          ┆ 2.5         ┆ 5.0          ┆ 1.9         ┆ virginica │
 │ 6.5          ┆ 3.0         ┆ 5.2          ┆ 2.0         ┆ virginica │
 │ 6.2          ┆ 3.4         ┆ 5.4          ┆ 2.3         ┆ virginica │
@@ -560,7 +564,9 @@ It’s argument are the same as <code>read_csv()</code> method (see section abov
 │ 4.5          ┆ 1.5         │
 │ 4.9          ┆ 1.5         │
 │ 4.6          ┆ 1.5         │
+│ 4.5          ┆ 1.3         │
 │ …            ┆ …           │
+│ 5.2          ┆ 2.3         │
 │ 5.0          ┆ 1.9         │
 │ 5.2          ┆ 2.0         │
 │ 5.4          ┆ 2.3         │
@@ -610,9 +616,12 @@ Scanning delays the actual parsing of the file and <code>pl$scan_parquet()</code
 <div class="cell">
 <div class="sourceCode cell-code" id="cb12"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a>pl<span class="sc">$</span><span class="fu">scan_parquet</span>(<span class="st">"examples/iris.parquet"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>[1] "polars LazyFrame naive plan: (run ldf$describe_optimized_plan() to see the optimized plan)"
+<pre><code>polars LazyFrame
+ $describe_optimized_plan() : Show the optimized query plan.
 
-  PARQUET SCAN examples/iris.parquet
+Naive plan:
+
+  Parquet SCAN examples/iris.parquet
   PROJECT */5 COLUMNS</code></pre>
 </div>
 </div>
@@ -632,7 +641,9 @@ Scanning delays the actual parsing of the file and <code>pl$scan_parquet()</code
 │ 4.9          ┆ 3.0         ┆ 1.4          ┆ 0.2         ┆ setosa    │
 │ 4.7          ┆ 3.2         ┆ 1.3          ┆ 0.2         ┆ setosa    │
 │ 4.6          ┆ 3.1         ┆ 1.5          ┆ 0.2         ┆ setosa    │
+│ 5.0          ┆ 3.6         ┆ 1.4          ┆ 0.2         ┆ setosa    │
 │ …            ┆ …           ┆ …            ┆ …           ┆ …         │
+│ 6.7          ┆ 3.0         ┆ 5.2          ┆ 2.3         ┆ virginica │
 │ 6.3          ┆ 2.5         ┆ 5.0          ┆ 1.9         ┆ virginica │
 │ 6.5          ┆ 3.0         ┆ 5.2          ┆ 2.0         ┆ virginica │
 │ 6.2          ┆ 3.4         ┆ 5.4          ┆ 2.3         ┆ virginica │
@@ -667,22 +678,24 @@ This is particularly useful for partitioned files! For example:</p>
 <span id="cb16-6"><a href="#cb16-6" aria-hidden="true" tabindex="-1"></a>pl<span class="sc">$</span><span class="fu">scan_parquet</span>(<span class="st">"examples/*/*.parquet"</span>)<span class="sc">$</span></span>
 <span id="cb16-7"><a href="#cb16-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">collect</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>shape: (150, 4)
-┌──────────────┬─────────────┬──────────────┬─────────────┐
-│ Sepal.Length ┆ Sepal.Width ┆ Petal.Length ┆ Petal.Width │
-│ ---          ┆ ---         ┆ ---          ┆ ---         │
-│ f64          ┆ f64         ┆ f64          ┆ f64         │
-╞══════════════╪═════════════╪══════════════╪═════════════╡
-│ 5.1          ┆ 3.5         ┆ 1.4          ┆ 0.2         │
-│ 4.9          ┆ 3.0         ┆ 1.4          ┆ 0.2         │
-│ 4.7          ┆ 3.2         ┆ 1.3          ┆ 0.2         │
-│ 4.6          ┆ 3.1         ┆ 1.5          ┆ 0.2         │
-│ …            ┆ …           ┆ …            ┆ …           │
-│ 6.3          ┆ 2.5         ┆ 5.0          ┆ 1.9         │
-│ 6.5          ┆ 3.0         ┆ 5.2          ┆ 2.0         │
-│ 6.2          ┆ 3.4         ┆ 5.4          ┆ 2.3         │
-│ 5.9          ┆ 3.0         ┆ 5.1          ┆ 1.8         │
-└──────────────┴─────────────┴──────────────┴─────────────┘</code></pre>
+<pre><code>shape: (150, 5)
+┌──────────────┬─────────────┬──────────────┬─────────────┬───────────┐
+│ Sepal.Length ┆ Sepal.Width ┆ Petal.Length ┆ Petal.Width ┆ Species   │
+│ ---          ┆ ---         ┆ ---          ┆ ---         ┆ ---       │
+│ f64          ┆ f64         ┆ f64          ┆ f64         ┆ str       │
+╞══════════════╪═════════════╪══════════════╪═════════════╪═══════════╡
+│ 5.1          ┆ 3.5         ┆ 1.4          ┆ 0.2         ┆ setosa    │
+│ 4.9          ┆ 3.0         ┆ 1.4          ┆ 0.2         ┆ setosa    │
+│ 4.7          ┆ 3.2         ┆ 1.3          ┆ 0.2         ┆ setosa    │
+│ 4.6          ┆ 3.1         ┆ 1.5          ┆ 0.2         ┆ setosa    │
+│ 5.0          ┆ 3.6         ┆ 1.4          ┆ 0.2         ┆ setosa    │
+│ …            ┆ …           ┆ …            ┆ …           ┆ …         │
+│ 6.7          ┆ 3.0         ┆ 5.2          ┆ 2.3         ┆ virginica │
+│ 6.3          ┆ 2.5         ┆ 5.0          ┆ 1.9         ┆ virginica │
+│ 6.5          ┆ 3.0         ┆ 5.2          ┆ 2.0         ┆ virginica │
+│ 6.2          ┆ 3.4         ┆ 5.4          ┆ 2.3         ┆ virginica │
+│ 5.9          ┆ 3.0         ┆ 5.1          ┆ 1.8         ┆ virginica │
+└──────────────┴─────────────┴──────────────┴─────────────┴───────────┘</code></pre>
 </div>
 </div>
 <p>In the code above:</p>

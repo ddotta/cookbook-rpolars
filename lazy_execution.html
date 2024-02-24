@@ -304,7 +304,10 @@ Note
 <div class="cell">
 <div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>pl<span class="sc">$</span><span class="fu">DataFrame</span>(iris)<span class="sc">$</span><span class="fu">lazy</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>[1] "polars LazyFrame naive plan: (run ldf$describe_optimized_plan() to see the optimized plan)"
+<pre><code>polars LazyFrame
+ $describe_optimized_plan() : Show the optimized query plan.
+
+Naive plan:
 DF ["Sepal.Length", "Sepal.Width", "Petal.Length", "Petal.Width"]; PROJECT */5 COLUMNS; SELECTION: "None"</code></pre>
 </div>
 </div>
@@ -321,9 +324,13 @@ DF ["Sepal.Length", "Sepal.Width", "Petal.Length", "Petal.Width"]; PROJECT */5 C
 <span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a>)</span>
 <span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a>myquery</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>[1] "polars LazyFrame naive plan: (run ldf$describe_optimized_plan() to see the optimized plan)"
+<pre><code>polars LazyFrame
+ $describe_optimized_plan() : Show the optimized query plan.
+
+Naive plan:
  SELECT [col("Species"), col("Petal.Length")] FROM
-  FILTER [(col("Species")) == (Utf8(setosa))] FROM
+  FILTER [(col("Species")) == (String(setosa))] FROM
+
   DF ["Sepal.Length", "Sepal.Width", "Petal.Length", "Petal.Width"]; PROJECT */5 COLUMNS; SELECTION: "None"</code></pre>
 </div>
 </div>
@@ -340,7 +347,7 @@ DF ["Sepal.Length", "Sepal.Width", "Petal.Length", "Petal.Width"]; PROJECT */5 C
 <div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>myquery<span class="sc">$</span><span class="fu">describe_optimized_plan</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>FAST_PROJECT: [Species, Petal.Length]
-  DF ["Sepal.Length", "Sepal.Width", "Petal.Length", "Petal.Width"]; PROJECT 2/5 COLUMNS; SELECTION: "[(col(\"Species\")) == (Utf8(setosa))]"</code></pre>
+  DF ["Sepal.Length", "Sepal.Width", "Petal.Length", "Petal.Width"]; PROJECT 2/5 COLUMNS; SELECTION: "[(col(\"Species\")) == (String(setosa))]"</code></pre>
 </div>
 </div>
 <p>This example shows a simple but surprisingly effective element of query optimisation: <strong>projection</strong>.</p>
@@ -369,7 +376,9 @@ DF ["Sepal.Length", "Sepal.Width", "Petal.Length", "Petal.Width"]; PROJECT */5 C
 │ setosa  ┆ 1.4          │
 │ setosa  ┆ 1.3          │
 │ setosa  ┆ 1.5          │
+│ setosa  ┆ 1.4          │
 │ …       ┆ …            │
+│ setosa  ┆ 1.4          │
 │ setosa  ┆ 1.6          │
 │ setosa  ┆ 1.4          │
 │ setosa  ┆ 1.5          │
@@ -387,7 +396,7 @@ DF ["Sepal.Length", "Sepal.Width", "Petal.Length", "Petal.Width"]; PROJECT */5 C
 <div class="cell">
 <div class="sourceCode cell-code" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a>df <span class="ot">&lt;-</span> pl<span class="sc">$</span><span class="fu">read_csv</span>(<span class="st">"examples/iris.csv"</span>)</span>
 <span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a>df_small <span class="ot">=</span> df<span class="sc">$</span><span class="fu">filter</span>(pl<span class="sc">$</span><span class="fu">col</span>(<span class="st">"Petal.Length"</span>) <span class="sc">&gt;</span> <span class="dv">5</span>)</span>
-<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a>df_agg <span class="ot">=</span> df_small<span class="sc">$</span><span class="fu">groupby</span>(<span class="st">"Species"</span>)<span class="sc">$</span><span class="fu">agg</span>(pl<span class="sc">$</span><span class="fu">col</span>(<span class="st">"Petal.Width"</span>)<span class="sc">$</span><span class="fu">median</span>())</span>
+<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a>df_agg <span class="ot">=</span> df_small<span class="sc">$</span><span class="fu">group_by</span>(<span class="st">"Species"</span>)<span class="sc">$</span><span class="fu">agg</span>(pl<span class="sc">$</span><span class="fu">col</span>(<span class="st">"Petal.Width"</span>)<span class="sc">$</span><span class="fu">median</span>())</span>
 <span id="cb10-4"><a href="#cb10-4" aria-hidden="true" tabindex="-1"></a>df_agg</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>shape: (2, 2)
@@ -396,8 +405,8 @@ DF ["Sepal.Length", "Sepal.Width", "Petal.Length", "Petal.Width"]; PROJECT */5 C
 │ ---        ┆ ---         │
 │ str        ┆ f64         │
 ╞════════════╪═════════════╡
-│ virginica  ┆ 2.1         │
 │ versicolor ┆ 1.6         │
+│ virginica  ┆ 2.1         │
 └────────────┴─────────────┘</code></pre>
 </div>
 </div>
@@ -407,8 +416,7 @@ DF ["Sepal.Length", "Sepal.Width", "Petal.Length", "Petal.Width"]; PROJECT */5 C
 <li>Filter the dataset based on Petal.Length</li>
 <li>Calculate the median of the Petal.Width per Species</li>
 </ul>
-<p><strong>Every step is executed immediately returning the intermediate results</strong>. This can be very <strong>wastefull</strong> as we might do work or load extra data that is not being used.<br>
-If we instead used the <strong>lazy API</strong> and waited on execution untill all the steps are defined then the query planner could perform various optimizations. In this case:</p>
+<p><strong>Every step is executed immediately returning the intermediate results</strong>. This can be very <strong>wastefull</strong> as we might do work or load extra data that is not being used. If we instead used the <strong>lazy API</strong> and waited on execution untill all the steps are defined then the query planner could perform various optimizations. In this case:</p>
 <ul>
 <li><code>Predicate pushdown</code>: Apply filters as early as possible while reading the dataset, thus only reading rows with sepal length greater than 5.</li>
 <li><code>Projection pushdown</code>: Select only the columns that are needed while reading the dataset, thus removing the need to load additional columns</li>
@@ -431,7 +439,7 @@ Tip
 <div class="sourceCode cell-code" id="cb12"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a>pl<span class="sc">$</span><span class="fu">scan_csv</span>(<span class="st">"examples/iris.csv"</span>)<span class="sc">$</span></span>
 <span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(</span>
 <span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a>    pl<span class="sc">$</span><span class="fu">col</span>(<span class="st">"Petal.Length"</span>) <span class="sc">&gt;</span> <span class="dv">5</span>)<span class="sc">$</span></span>
-<span id="cb12-4"><a href="#cb12-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">groupby</span>(<span class="st">"Species"</span>)<span class="sc">$</span></span>
+<span id="cb12-4"><a href="#cb12-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(<span class="st">"Species"</span>)<span class="sc">$</span></span>
 <span id="cb12-5"><a href="#cb12-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">agg</span>(pl<span class="sc">$</span><span class="fu">col</span>(<span class="st">"Petal.Width"</span>)<span class="sc">$</span><span class="fu">median</span>())<span class="sc">$</span></span>
 <span id="cb12-6"><a href="#cb12-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">collect</span>() <span class="co"># &lt;- don't forget collect() here!</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
@@ -441,8 +449,8 @@ Tip
 │ ---        ┆ ---         │
 │ str        ┆ f64         │
 ╞════════════╪═════════════╡
-│ virginica  ┆ 2.1         │
 │ versicolor ┆ 1.6         │
+│ virginica  ┆ 2.1         │
 └────────────┴─────────────┘</code></pre>
 </div>
 </div>
@@ -465,10 +473,7 @@ Important
 <h3 data-number="4.2.2" class="anchored" data-anchor-id="limits-of-lazy-mode"><span class="header-section-number">4.2.2</span> Limits of lazy mode</h3>
 <p>There are some operations that cannot be performed in lazy mode (whether in polars or other lazy frameworks such as SQL database). One limitation is that Polars needs to know the column names and dtypes at each step of the query plan.</p>
 <p>For example, we can’t <code>pivot()</code> (see <a href="data_manipulation.html#pivot-a-dataframe">here</a>) in lazy mode as the column names are data-dependant following a pivot. Indeed, when you have to <code>pivot()</code> a <code>DataFrame</code> your future columns names cannot be predicted because it depends on what it is actually in your datasets!</p>
-<p>When you have to do operations that can be done in lazy mode, the recommandation is: - Running your query in lazy mode as far as possible;<br>
-- Evaluating this lazy query with <code>collect()</code> when you need a non-lazy method;<br>
-- Running the non-lazy methods;<br>
-- Calling <code>lazy()</code> on the output to continue in lazy mode.</p>
+<p>When you have to do operations that can be done in lazy mode, the recommandation is: - Running your query in lazy mode as far as possible; - Evaluating this lazy query with <code>collect()</code> when you need a non-lazy method; - Running the non-lazy methods; - Calling <code>lazy()</code> on the output to continue in lazy mode.</p>
 <p>Here’s an example:</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb14"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a>pl<span class="sc">$</span><span class="fu">scan_parquet</span>(<span class="st">"Datasets/fakir_file.parquet"</span>)<span class="sc">$</span></span>
@@ -477,7 +482,7 @@ Important
 <span id="cb14-4"><a href="#cb14-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">pivot</span>(</span>
 <span id="cb14-5"><a href="#cb14-5" aria-hidden="true" tabindex="-1"></a>    <span class="at">index =</span> <span class="st">"region"</span>,</span>
 <span id="cb14-6"><a href="#cb14-6" aria-hidden="true" tabindex="-1"></a>    <span class="at">columns =</span> <span class="st">"priority"</span>,</span>
-<span id="cb14-7"><a href="#cb14-7" aria-hidden="true" tabindex="-1"></a>    <span class="at">values =</span> <span class="st">"age"</span>, </span>
+<span id="cb14-7"><a href="#cb14-7" aria-hidden="true" tabindex="-1"></a>    <span class="at">values =</span> <span class="st">"age"</span>,</span>
 <span id="cb14-8"><a href="#cb14-8" aria-hidden="true" tabindex="-1"></a>    <span class="at">aggregate_function =</span> <span class="st">"mean"</span></span>
 <span id="cb14-9"><a href="#cb14-9" aria-hidden="true" tabindex="-1"></a>  )<span class="sc">$</span></span>
 <span id="cb14-10"><a href="#cb14-10" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Continue in lazy mode</span></span>
@@ -487,22 +492,24 @@ Important
 <span id="cb14-14"><a href="#cb14-14" aria-hidden="true" tabindex="-1"></a>  )<span class="sc">$</span></span>
 <span id="cb14-15"><a href="#cb14-15" aria-hidden="true" tabindex="-1"></a>  <span class="fu">collect</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>shape: (21, 3)
-┌─────────────────┬───────────┬───────────┐
-│ region          ┆ Gold      ┆ Platinium │
-│ ---             ┆ ---       ┆ ---       │
-│ str             ┆ f64       ┆ f64       │
-╞═════════════════╪═══════════╪═══════════╡
-│ null            ┆ 60.422772 ┆ 81.0      │
-│ Rhône-Alpes     ┆ 60.8004   ┆ 70.784124 │
-│ Corse           ┆ null      ┆ null      │
-│ Bretagne        ┆ 48.082977 ┆ null      │
-│ …               ┆ …         ┆ …         │
-│ Haute-Normandie ┆ null      ┆ null      │
-│ Picardie        ┆ null      ┆ null      │
-│ Franche-Comté   ┆ 60.0      ┆ null      │
-│ Basse-Normandie ┆ null      ┆ null      │
-└─────────────────┴───────────┴───────────┘</code></pre>
+<pre><code>shape: (22, 3)
+┌──────────────────────┬───────────┬───────────┐
+│ region               ┆ Gold      ┆ Platinium │
+│ ---                  ┆ ---       ┆ ---       │
+│ str                  ┆ f64       ┆ f64       │
+╞══════════════════════╪═══════════╪═══════════╡
+│ Nord-Pas-de-Calais   ┆ null      ┆ 70.0      │
+│ Île-de-France        ┆ null      ┆ 81.0      │
+│ Pays de la Loire     ┆ null      ┆ null      │
+│ Midi-Pyrénées        ┆ 54.388753 ┆ null      │
+│ Languedoc-Roussillon ┆ null      ┆ null      │
+│ …                    ┆ …         ┆ …         │
+│ Limousin             ┆ null      ┆ null      │
+│ Aquitaine            ┆ 67.0      ┆ 67.0      │
+│ Centre               ┆ null      ┆ null      │
+│ Haute-Normandie      ┆ null      ┆ null      │
+│ Alsace               ┆ null      ┆ null      │
+└──────────────────────┴───────────┴───────────┘</code></pre>
 </div>
 </div>
 </section>
@@ -523,31 +530,33 @@ Important
 <div class="sourceCode cell-code" id="cb16"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="fu">tic</span>()</span>
 <span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a><span class="co">#| label: fight-eager_dataframe</span></span>
 <span id="cb16-3"><a href="#cb16-3" aria-hidden="true" tabindex="-1"></a>pl<span class="sc">$</span><span class="fu">DataFrame</span>(fake_data)<span class="sc">$</span><span class="fu">select</span>(</span>
-<span id="cb16-4"><a href="#cb16-4" aria-hidden="true" tabindex="-1"></a>    pl<span class="sc">$</span><span class="fu">col</span>(<span class="fu">c</span>(<span class="st">"region"</span>,<span class="st">"departement"</span>,<span class="st">"priority"</span>)) </span>
+<span id="cb16-4"><a href="#cb16-4" aria-hidden="true" tabindex="-1"></a>    pl<span class="sc">$</span><span class="fu">col</span>(<span class="fu">c</span>(<span class="st">"region"</span>,<span class="st">"departement"</span>,<span class="st">"priority"</span>))</span>
 <span id="cb16-5"><a href="#cb16-5" aria-hidden="true" tabindex="-1"></a>  )<span class="sc">$</span></span>
 <span id="cb16-6"><a href="#cb16-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(</span>
 <span id="cb16-7"><a href="#cb16-7" aria-hidden="true" tabindex="-1"></a>    pl<span class="sc">$</span><span class="fu">col</span>(<span class="st">"region"</span>) <span class="sc">==</span> <span class="st">"Aquitaine"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>shape: (6_233, 3)
-┌───────────┬────────────────┬──────────┐
-│ region    ┆ departement    ┆ priority │
-│ ---       ┆ ---            ┆ ---      │
-│ str       ┆ str            ┆ cat      │
-╞═══════════╪════════════════╪══════════╡
-│ Aquitaine ┆ Dordogne       ┆ Silver   │
-│ Aquitaine ┆ Dordogne       ┆ Silver   │
-│ Aquitaine ┆ Dordogne       ┆ Silver   │
-│ Aquitaine ┆ Dordogne       ┆ Silver   │
-│ …         ┆ …              ┆ …        │
-│ Aquitaine ┆ Lot-et-Garonne ┆ Bronze   │
-│ Aquitaine ┆ Lot-et-Garonne ┆ Bronze   │
-│ Aquitaine ┆ null           ┆ Bronze   │
-│ Aquitaine ┆ Lot-et-Garonne ┆ Bronze   │
-└───────────┴────────────────┴──────────┘</code></pre>
+<pre><code>shape: (2_984, 3)
+┌───────────┬─────────────┬──────────┐
+│ region    ┆ departement ┆ priority │
+│ ---       ┆ ---         ┆ ---      │
+│ str       ┆ str         ┆ cat      │
+╞═══════════╪═════════════╪══════════╡
+│ Aquitaine ┆ Landes      ┆ Gold     │
+│ Aquitaine ┆ Landes      ┆ Gold     │
+│ Aquitaine ┆ Landes      ┆ Gold     │
+│ Aquitaine ┆ Landes      ┆ Gold     │
+│ Aquitaine ┆ Landes      ┆ Gold     │
+│ …         ┆ …           ┆ …        │
+│ Aquitaine ┆ Landes      ┆ Gold     │
+│ Aquitaine ┆ Landes      ┆ Gold     │
+│ Aquitaine ┆ Landes      ┆ Gold     │
+│ Aquitaine ┆ Landes      ┆ Gold     │
+│ Aquitaine ┆ Landes      ┆ Gold     │
+└───────────┴─────────────┴──────────┘</code></pre>
 </div>
 <div class="sourceCode cell-code" id="cb18"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a><span class="fu">toc</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>0.101 sec elapsed</code></pre>
+<pre><code>0.07 sec elapsed</code></pre>
 </div>
 </div>
 <p>As seen above, we’re going to use the <code>lazy()</code> method to convert a <code>DataFrame</code> to a <code>LazyFrame</code>:</p>
@@ -556,32 +565,34 @@ Important
 <span id="cb20-2"><a href="#cb20-2" aria-hidden="true" tabindex="-1"></a><span class="co">#| label: fight-lazy_lazyframe</span></span>
 <span id="cb20-3"><a href="#cb20-3" aria-hidden="true" tabindex="-1"></a>pl<span class="sc">$</span><span class="fu">DataFrame</span>(fake_data)<span class="sc">$</span><span class="fu">lazy</span>()<span class="sc">$</span></span>
 <span id="cb20-4"><a href="#cb20-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(</span>
-<span id="cb20-5"><a href="#cb20-5" aria-hidden="true" tabindex="-1"></a>    pl<span class="sc">$</span><span class="fu">col</span>(<span class="fu">c</span>(<span class="st">"region"</span>,<span class="st">"departement"</span>,<span class="st">"priority"</span>)) </span>
+<span id="cb20-5"><a href="#cb20-5" aria-hidden="true" tabindex="-1"></a>    pl<span class="sc">$</span><span class="fu">col</span>(<span class="fu">c</span>(<span class="st">"region"</span>,<span class="st">"departement"</span>,<span class="st">"priority"</span>))</span>
 <span id="cb20-6"><a href="#cb20-6" aria-hidden="true" tabindex="-1"></a>  )<span class="sc">$</span></span>
 <span id="cb20-7"><a href="#cb20-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(</span>
 <span id="cb20-8"><a href="#cb20-8" aria-hidden="true" tabindex="-1"></a>    pl<span class="sc">$</span><span class="fu">col</span>(<span class="st">"region"</span>) <span class="sc">==</span> <span class="st">"Aquitaine"</span>)<span class="sc">$</span></span>
 <span id="cb20-9"><a href="#cb20-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">collect</span>() <span class="co"># don't forget collect() here!</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>shape: (6_233, 3)
-┌───────────┬────────────────┬──────────┐
-│ region    ┆ departement    ┆ priority │
-│ ---       ┆ ---            ┆ ---      │
-│ str       ┆ str            ┆ cat      │
-╞═══════════╪════════════════╪══════════╡
-│ Aquitaine ┆ Dordogne       ┆ Silver   │
-│ Aquitaine ┆ Dordogne       ┆ Silver   │
-│ Aquitaine ┆ Dordogne       ┆ Silver   │
-│ Aquitaine ┆ Dordogne       ┆ Silver   │
-│ …         ┆ …              ┆ …        │
-│ Aquitaine ┆ Lot-et-Garonne ┆ Bronze   │
-│ Aquitaine ┆ Lot-et-Garonne ┆ Bronze   │
-│ Aquitaine ┆ null           ┆ Bronze   │
-│ Aquitaine ┆ Lot-et-Garonne ┆ Bronze   │
-└───────────┴────────────────┴──────────┘</code></pre>
+<pre><code>shape: (2_984, 3)
+┌───────────┬─────────────┬──────────┐
+│ region    ┆ departement ┆ priority │
+│ ---       ┆ ---         ┆ ---      │
+│ str       ┆ str         ┆ cat      │
+╞═══════════╪═════════════╪══════════╡
+│ Aquitaine ┆ Landes      ┆ Gold     │
+│ Aquitaine ┆ Landes      ┆ Gold     │
+│ Aquitaine ┆ Landes      ┆ Gold     │
+│ Aquitaine ┆ Landes      ┆ Gold     │
+│ Aquitaine ┆ Landes      ┆ Gold     │
+│ …         ┆ …           ┆ …        │
+│ Aquitaine ┆ Landes      ┆ Gold     │
+│ Aquitaine ┆ Landes      ┆ Gold     │
+│ Aquitaine ┆ Landes      ┆ Gold     │
+│ Aquitaine ┆ Landes      ┆ Gold     │
+│ Aquitaine ┆ Landes      ┆ Gold     │
+└───────────┴─────────────┴──────────┘</code></pre>
 </div>
 <div class="sourceCode cell-code" id="cb22"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a><span class="fu">toc</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>0.096 sec elapsed</code></pre>
+<pre><code>0.069 sec elapsed</code></pre>
 </div>
 </div>
 </section>
@@ -591,36 +602,37 @@ Important
 <div class="cell">
 <div class="sourceCode cell-code" id="cb24"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a><span class="fu">tic</span>()</span>
 <span id="cb24-2"><a href="#cb24-2" aria-hidden="true" tabindex="-1"></a><span class="co">#| label: fight-eager_read_csv</span></span>
-<span id="cb24-3"><a href="#cb24-3" aria-hidden="true" tabindex="-1"></a>pl<span class="sc">$</span><span class="fu">read_csv</span>(<span class="st">"Datasets/fakir_file.csv"</span>, <span class="at">infer_schema_length=</span><span class="dv">0</span>)<span class="sc">$</span> </span>
+<span id="cb24-3"><a href="#cb24-3" aria-hidden="true" tabindex="-1"></a>pl<span class="sc">$</span><span class="fu">read_csv</span>(<span class="st">"Datasets/fakir_file.csv"</span>, <span class="at">infer_schema_length=</span><span class="dv">0</span>)<span class="sc">$</span></span>
 <span id="cb24-4"><a href="#cb24-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(</span>
 <span id="cb24-5"><a href="#cb24-5" aria-hidden="true" tabindex="-1"></a>    pl<span class="sc">$</span><span class="fu">col</span>(<span class="fu">c</span>(<span class="st">"region"</span>,<span class="st">"departement"</span>,<span class="st">"priority"</span>,<span class="st">"age"</span>)))<span class="sc">$</span></span>
 <span id="cb24-6"><a href="#cb24-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">with_columns</span>(</span>
 <span id="cb24-7"><a href="#cb24-7" aria-hidden="true" tabindex="-1"></a>    pl<span class="sc">$</span><span class="fu">col</span>(<span class="st">"age"</span>)<span class="sc">$</span><span class="fu">cast</span>(pl<span class="sc">$</span>Int32,<span class="at">strict =</span> <span class="cn">FALSE</span>))<span class="sc">$</span></span>
 <span id="cb24-8"><a href="#cb24-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(</span>
 <span id="cb24-9"><a href="#cb24-9" aria-hidden="true" tabindex="-1"></a>    pl<span class="sc">$</span><span class="fu">col</span>(<span class="st">"region"</span>) <span class="sc">==</span> <span class="st">"Bretagne"</span>)<span class="sc">$</span></span>
-<span id="cb24-10"><a href="#cb24-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">groupby</span>(<span class="st">"departement"</span>,<span class="st">"priority"</span>)<span class="sc">$</span></span>
+<span id="cb24-10"><a href="#cb24-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(<span class="st">"departement"</span>,<span class="st">"priority"</span>)<span class="sc">$</span></span>
 <span id="cb24-11"><a href="#cb24-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">agg</span>(pl<span class="sc">$</span><span class="fu">col</span>(<span class="st">"age"</span>)<span class="sc">$</span><span class="fu">mean</span>())</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>shape: (9, 3)
+<pre><code>shape: (10, 3)
 ┌─────────────────┬───────────┬───────────┐
 │ departement     ┆ priority  ┆ age       │
 │ ---             ┆ ---       ┆ ---       │
 │ str             ┆ str       ┆ f64       │
 ╞═════════════════╪═══════════╪═══════════╡
-│ Finistère       ┆ Gold      ┆ 28.0      │
-│ Ille-et-Vilaine ┆ Platinium ┆ null      │
-│ Ille-et-Vilaine ┆ Silver    ┆ 36.002427 │
-│ Côtes-d'Armor   ┆ Bronze    ┆ 18.0      │
-│ Côtes-d'Armor   ┆ Silver    ┆ 32.0      │
-│ Morbihan        ┆ Bronze    ┆ 29.301381 │
-│ Côtes-d'Armor   ┆ Gold      ┆ 54.0      │
-│ Finistère       ┆ Bronze    ┆ 18.0      │
-│ NA              ┆ Gold      ┆ 67.0      │
+│ Finistère       ┆ Bronze    ┆ 23.676385 │
+│ Côtes-d'Armor   ┆ Bronze    ┆ 31.969249 │
+│ Côtes-d'Armor   ┆ Platinium ┆ 72.0      │
+│ Finistère       ┆ Silver    ┆ 53.0      │
+│ Côtes-d'Armor   ┆ Silver    ┆ 41.0      │
+│ Finistère       ┆ Gold      ┆ 68.0      │
+│ Ille-et-Vilaine ┆ Silver    ┆ 38.0      │
+│ Côtes-d'Armor   ┆ Gold      ┆ null      │
+│ Ille-et-Vilaine ┆ Bronze    ┆ 19.0      │
+│ NA              ┆ Bronze    ┆ 52.0      │
 └─────────────────┴───────────┴───────────┘</code></pre>
 </div>
 <div class="sourceCode cell-code" id="cb26"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a><span class="fu">toc</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>0.127 sec elapsed</code></pre>
+<pre><code>0.084 sec elapsed</code></pre>
 </div>
 </div>
 <p>… while the <code>lazy</code> method is represented by the <code>pl$scan_csv()</code>:</p>
@@ -633,30 +645,31 @@ Important
 <span id="cb28-6"><a href="#cb28-6" aria-hidden="true" tabindex="-1"></a>    pl<span class="sc">$</span><span class="fu">col</span>(<span class="st">"age"</span>)<span class="sc">$</span><span class="fu">cast</span>(pl<span class="sc">$</span>Int32,<span class="at">strict =</span> <span class="cn">FALSE</span>))<span class="sc">$</span></span>
 <span id="cb28-7"><a href="#cb28-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(</span>
 <span id="cb28-8"><a href="#cb28-8" aria-hidden="true" tabindex="-1"></a>    pl<span class="sc">$</span><span class="fu">col</span>(<span class="st">"region"</span>) <span class="sc">==</span> <span class="st">"Bretagne"</span>)<span class="sc">$</span></span>
-<span id="cb28-9"><a href="#cb28-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">groupby</span>(<span class="st">"departement"</span>,<span class="st">"priority"</span>)<span class="sc">$</span></span>
+<span id="cb28-9"><a href="#cb28-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(<span class="st">"departement"</span>,<span class="st">"priority"</span>)<span class="sc">$</span></span>
 <span id="cb28-10"><a href="#cb28-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">agg</span>(pl<span class="sc">$</span><span class="fu">col</span>(<span class="st">"age"</span>)<span class="sc">$</span><span class="fu">mean</span>())<span class="sc">$</span></span>
 <span id="cb28-11"><a href="#cb28-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">collect</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>shape: (9, 3)
+<pre><code>shape: (10, 3)
 ┌─────────────────┬───────────┬───────────┐
 │ departement     ┆ priority  ┆ age       │
 │ ---             ┆ ---       ┆ ---       │
 │ str             ┆ str       ┆ f64       │
 ╞═════════════════╪═══════════╪═══════════╡
-│ Ille-et-Vilaine ┆ Silver    ┆ 36.002427 │
-│ Finistère       ┆ Bronze    ┆ 18.0      │
-│ Côtes-d'Armor   ┆ Silver    ┆ 32.0      │
-│ Côtes-d'Armor   ┆ Bronze    ┆ 18.0      │
-│ Morbihan        ┆ Bronze    ┆ 29.301381 │
-│ Ille-et-Vilaine ┆ Platinium ┆ null      │
-│ Finistère       ┆ Gold      ┆ 28.0      │
-│ Côtes-d'Armor   ┆ Gold      ┆ 54.0      │
-│ NA              ┆ Gold      ┆ 67.0      │
+│ Côtes-d'Armor   ┆ Silver    ┆ 41.0      │
+│ Côtes-d'Armor   ┆ Platinium ┆ 72.0      │
+│ Ille-et-Vilaine ┆ Silver    ┆ 38.0      │
+│ Finistère       ┆ Gold      ┆ 68.0      │
+│ Finistère       ┆ Silver    ┆ 53.0      │
+│ Côtes-d'Armor   ┆ Bronze    ┆ 31.969249 │
+│ Finistère       ┆ Bronze    ┆ 23.676385 │
+│ NA              ┆ Bronze    ┆ 52.0      │
+│ Côtes-d'Armor   ┆ Gold      ┆ null      │
+│ Ille-et-Vilaine ┆ Bronze    ┆ 19.0      │
 └─────────────────┴───────────┴───────────┘</code></pre>
 </div>
 <div class="sourceCode cell-code" id="cb30"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb30-1"><a href="#cb30-1" aria-hidden="true" tabindex="-1"></a><span class="fu">toc</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>0.047 sec elapsed</code></pre>
+<pre><code>0.028 sec elapsed</code></pre>
 </div>
 </div>
 <p>We can clearly see that we save a lot of time when executing the <code>lazy</code> version of the code!</p>
@@ -667,62 +680,65 @@ Important
 <div class="cell">
 <div class="sourceCode cell-code" id="cb32"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb32-1"><a href="#cb32-1" aria-hidden="true" tabindex="-1"></a><span class="fu">tic</span>()</span>
 <span id="cb32-2"><a href="#cb32-2" aria-hidden="true" tabindex="-1"></a>arrow<span class="sc">::</span><span class="fu">read_parquet</span>(<span class="st">"Datasets/fakir_file.parquet"</span>, <span class="at">as_data_frame =</span> <span class="cn">FALSE</span>) <span class="sc">|&gt;</span></span>
-<span id="cb32-3"><a href="#cb32-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(region <span class="sc">==</span> <span class="st">"Bretagne"</span>) <span class="sc">|&gt;</span> </span>
-<span id="cb32-4"><a href="#cb32-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(departement,priority) <span class="sc">|&gt;</span> </span>
-<span id="cb32-5"><a href="#cb32-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">mymean=</span><span class="fu">mean</span>(age, <span class="at">na.rm =</span> <span class="cn">TRUE</span>)) <span class="sc">|&gt;</span> </span>
+<span id="cb32-3"><a href="#cb32-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(region <span class="sc">==</span> <span class="st">"Bretagne"</span>) <span class="sc">|&gt;</span></span>
+<span id="cb32-4"><a href="#cb32-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(departement,priority) <span class="sc">|&gt;</span></span>
+<span id="cb32-5"><a href="#cb32-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">mymean=</span><span class="fu">mean</span>(age, <span class="at">na.rm =</span> <span class="cn">TRUE</span>)) <span class="sc">|&gt;</span></span>
 <span id="cb32-6"><a href="#cb32-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">arrange</span>(departement) <span class="sc">|&gt;</span></span>
 <span id="cb32-7"><a href="#cb32-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">collect</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code># A tibble: 9 × 3
-# Groups:   departement [5]
-  departement     priority  mymean
-  &lt;chr&gt;           &lt;fct&gt;      &lt;dbl&gt;
-1 Côtes-d'Armor   Silver      32  
-2 Côtes-d'Armor   Gold        54  
-3 Côtes-d'Armor   Bronze      18  
-4 Finistère       Gold        28  
-5 Finistère       Bronze      18  
-6 Ille-et-Vilaine Silver      36.0
-7 Ille-et-Vilaine Platinium  NaN  
-8 Morbihan        Bronze      29.3
-9 &lt;NA&gt;            Gold        67  </code></pre>
+<pre><code># A tibble: 74 × 3
+# Groups:   departement [4]
+   departement     priority  mymean
+   &lt;chr&gt;           &lt;fct&gt;      &lt;dbl&gt;
+ 1 Côtes-d'Armor   Gold       NaN  
+ 2 Côtes-d'Armor   Bronze      32.0
+ 3 Côtes-d'Armor   Platinium   72  
+ 4 Côtes-d'Armor   Silver      41  
+ 5 Finistère       Gold        68  
+ 6 Finistère       Silver      53  
+ 7 Finistère       Bronze      23.7
+ 8 Ille-et-Vilaine Silver      38  
+ 9 Ille-et-Vilaine Bronze      19  
+10 &lt;NA&gt;            Bronze      52  
+# ℹ 64 more rows</code></pre>
 </div>
 <div class="sourceCode cell-code" id="cb34"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb34-1"><a href="#cb34-1" aria-hidden="true" tabindex="-1"></a><span class="fu">toc</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>0.283 sec elapsed</code></pre>
+<pre><code>0.182 sec elapsed</code></pre>
 </div>
 </div>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb36"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb36-1"><a href="#cb36-1" aria-hidden="true" tabindex="-1"></a><span class="fu">tic</span>()</span>
 <span id="cb36-2"><a href="#cb36-2" aria-hidden="true" tabindex="-1"></a>pl<span class="sc">$</span><span class="fu">scan_parquet</span>(<span class="st">"Datasets/fakir_file.parquet"</span>)<span class="sc">$</span></span>
-<span id="cb36-3"><a href="#cb36-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>( </span>
+<span id="cb36-3"><a href="#cb36-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(</span>
 <span id="cb36-4"><a href="#cb36-4" aria-hidden="true" tabindex="-1"></a>    pl<span class="sc">$</span><span class="fu">col</span>(<span class="st">"region"</span>) <span class="sc">==</span> <span class="st">"Bretagne"</span>)<span class="sc">$</span></span>
-<span id="cb36-5"><a href="#cb36-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">groupby</span>(<span class="fu">c</span>(<span class="st">"departement"</span>,<span class="st">"priority"</span>))<span class="sc">$</span></span>
+<span id="cb36-5"><a href="#cb36-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(<span class="fu">c</span>(<span class="st">"departement"</span>,<span class="st">"priority"</span>))<span class="sc">$</span></span>
 <span id="cb36-6"><a href="#cb36-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">agg</span>(</span>
 <span id="cb36-7"><a href="#cb36-7" aria-hidden="true" tabindex="-1"></a>    pl<span class="sc">$</span><span class="fu">col</span>(<span class="fu">c</span>(<span class="st">"age"</span>))<span class="sc">$</span><span class="fu">mean</span>()</span>
 <span id="cb36-8"><a href="#cb36-8" aria-hidden="true" tabindex="-1"></a>)<span class="sc">$</span><span class="fu">sort</span>(<span class="st">"departement"</span>)<span class="sc">$</span></span>
 <span id="cb36-9"><a href="#cb36-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">collect</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>shape: (9, 3)
+<pre><code>shape: (10, 3)
 ┌─────────────────┬───────────┬───────────┐
 │ departement     ┆ priority  ┆ age       │
 │ ---             ┆ ---       ┆ ---       │
 │ str             ┆ cat       ┆ f64       │
 ╞═════════════════╪═══════════╪═══════════╡
-│ null            ┆ Gold      ┆ 67.0      │
-│ Côtes-d'Armor   ┆ Silver    ┆ 32.0      │
-│ Côtes-d'Armor   ┆ Gold      ┆ 54.0      │
-│ Côtes-d'Armor   ┆ Bronze    ┆ 18.0      │
-│ Finistère       ┆ Gold      ┆ 28.0      │
-│ Finistère       ┆ Bronze    ┆ 18.0      │
-│ Ille-et-Vilaine ┆ Silver    ┆ 36.002427 │
-│ Ille-et-Vilaine ┆ Platinium ┆ null      │
-│ Morbihan        ┆ Bronze    ┆ 29.301381 │
+│ null            ┆ Bronze    ┆ 52.0      │
+│ Côtes-d'Armor   ┆ Gold      ┆ NaN       │
+│ Côtes-d'Armor   ┆ Platinium ┆ 72.0      │
+│ Côtes-d'Armor   ┆ Silver    ┆ 41.0      │
+│ Côtes-d'Armor   ┆ Bronze    ┆ 31.969249 │
+│ Finistère       ┆ Gold      ┆ 68.0      │
+│ Finistère       ┆ Silver    ┆ 53.0      │
+│ Finistère       ┆ Bronze    ┆ 23.676385 │
+│ Ille-et-Vilaine ┆ Silver    ┆ 38.0      │
+│ Ille-et-Vilaine ┆ Bronze    ┆ 19.0      │
 └─────────────────┴───────────┴───────────┘</code></pre>
 </div>
 <div class="sourceCode cell-code" id="cb38"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb38-1"><a href="#cb38-1" aria-hidden="true" tabindex="-1"></a><span class="fu">toc</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>0.016 sec elapsed</code></pre>
+<pre><code>0.011 sec elapsed</code></pre>
 </div>
 </div>
 <p>And it’s another victory for the <code>lazy</code> execution!</p>
@@ -739,30 +755,32 @@ Important
 <p>Note that the {arrow} package also have ability to scan parquet files in a lazy way with the <code>arrow::open_dataset</code> function.</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb40"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb40-1"><a href="#cb40-1" aria-hidden="true" tabindex="-1"></a><span class="fu">tic</span>()</span>
-<span id="cb40-2"><a href="#cb40-2" aria-hidden="true" tabindex="-1"></a>arrow<span class="sc">::</span><span class="fu">open_dataset</span>(<span class="st">"Datasets/fakir_file.parquet"</span>) <span class="sc">|&gt;</span> </span>
+<span id="cb40-2"><a href="#cb40-2" aria-hidden="true" tabindex="-1"></a>arrow<span class="sc">::</span><span class="fu">open_dataset</span>(<span class="st">"Datasets/fakir_file.parquet"</span>) <span class="sc">|&gt;</span></span>
 <span id="cb40-3"><a href="#cb40-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(region <span class="sc">==</span> <span class="st">"Bretagne"</span>) <span class="sc">|&gt;</span></span>
-<span id="cb40-4"><a href="#cb40-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(departement,priority) <span class="sc">|&gt;</span> </span>
+<span id="cb40-4"><a href="#cb40-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(departement,priority) <span class="sc">|&gt;</span></span>
 <span id="cb40-5"><a href="#cb40-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">mymean=</span><span class="fu">mean</span>(age, <span class="at">na.rm =</span> <span class="cn">TRUE</span>)) <span class="sc">|&gt;</span></span>
 <span id="cb40-6"><a href="#cb40-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">arrange</span>(departement) <span class="sc">|&gt;</span></span>
 <span id="cb40-7"><a href="#cb40-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">collect</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code># A tibble: 9 × 3
-# Groups:   departement [5]
-  departement     priority  mymean
-  &lt;chr&gt;           &lt;fct&gt;      &lt;dbl&gt;
-1 Côtes-d'Armor   Silver      32  
-2 Côtes-d'Armor   Gold        54  
-3 Côtes-d'Armor   Bronze      18  
-4 Finistère       Gold        28  
-5 Finistère       Bronze      18  
-6 Ille-et-Vilaine Silver      36.0
-7 Ille-et-Vilaine Platinium  NaN  
-8 Morbihan        Bronze      29.3
-9 &lt;NA&gt;            Gold        67  </code></pre>
+<pre><code># A tibble: 74 × 3
+# Groups:   departement [4]
+   departement     priority  mymean
+   &lt;chr&gt;           &lt;fct&gt;      &lt;dbl&gt;
+ 1 Côtes-d'Armor   Gold       NaN  
+ 2 Côtes-d'Armor   Bronze      32.0
+ 3 Côtes-d'Armor   Platinium   72  
+ 4 Côtes-d'Armor   Silver      41  
+ 5 Finistère       Gold        68  
+ 6 Finistère       Silver      53  
+ 7 Finistère       Bronze      23.7
+ 8 Ille-et-Vilaine Silver      38  
+ 9 Ille-et-Vilaine Bronze      19  
+10 &lt;NA&gt;            Bronze      52  
+# ℹ 64 more rows</code></pre>
 </div>
 <div class="sourceCode cell-code" id="cb42"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb42-1"><a href="#cb42-1" aria-hidden="true" tabindex="-1"></a><span class="fu">toc</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>0.122 sec elapsed</code></pre>
+<pre><code>0.092 sec elapsed</code></pre>
 </div>
 </div>
 </div>
