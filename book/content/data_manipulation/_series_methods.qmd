@@ -393,7 +393,7 @@ sum(iris_dt[, Petal.Length])
 
 ```{r}
 #| label: df-exp-sum-polars
-pl$DataFrame(iris)$select(pl$sum(pl$col("Petal.Width")))
+pl$DataFrame(iris)$select(pl$sum("Petal.Width"))
 ```
 
 - From a `DataFrame` and a column as a list and **sum horizontally**:
@@ -406,7 +406,7 @@ In this case, use `with_columns()` method.
 ```{r}
 #| label: df-horizontally-sum-polars
 df_pl <- pl$DataFrame(col1 = c(10L,20L), col2= c(30L,40L), col3 = c(40L,50L))
-df_pl$with_columns(pl$sum(list("col1", "col3")))
+df_pl$with_columns(pl$sum("col1", "col3"))
 ```
 
 ## R base
