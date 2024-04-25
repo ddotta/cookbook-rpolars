@@ -6,9 +6,9 @@ The first option to filter rows of a DataFrame is to use square brackets `[]` in
 #| label: filter-square-brackets-polars
 data(iris)
 # The first four lines
-pl$DataFrame(iris)[1:4]
+pl$DataFrame(iris)[1:4,]
 # The lines 1, 3 and 5
-pl$DataFrame(iris)[c(1,3,5)]
+pl$DataFrame(iris)[c(1,3,5),]
 ```
 
 ::: {.callout-important}
