@@ -13,11 +13,11 @@ Our simple function:
 ```{r}
 #| label: function-creation-polars
 fn_transformation <- function(data) {
-
+  
   data$
-    # Convert Categorical columns into Strings 
+    # Convert Integer columns into Float 
     with_columns(
-      pl$col(pl$Categorical)$cast(pl$Utf8))$
+      pl$col(pl$Int32)$cast(pl$Float64))$
     # Make all Strings columns uppercase
     with_columns(
       pl$col(pl$Utf8)$str$to_uppercase())$
@@ -31,7 +31,7 @@ Let's apply our method to `pl$DataFrame(iris)`:
 
 ```{r}
 #| label: function-use1-polars
-fn_transformation(pl$DataFrame(iris))
+fn_transformation(pl$DataFrame(mydf))
 ```
 
 Our method `fn_transformation()` can now be re-used multiple times for example on another datasets:  
