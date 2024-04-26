@@ -57,7 +57,7 @@ toc()
 
 arrow_eager <- function(variables) {
 
-  result <- arrow::read_parquet(source = "Datasets/DataMultiTypes.parquet") |>
+  result <- arrow::read_parquet("Datasets/DataMultiTypes.parquet") |>
 
     mutate(
       # Conversion of 2 columns to Date format
