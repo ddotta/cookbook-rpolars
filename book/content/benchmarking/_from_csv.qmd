@@ -18,7 +18,7 @@ For this comparison, we will use :
 
 csv_eager_polars <- function() {
 # Reading the csv file (eager mode)
-result_agg <- pl$read_csv(path = "Datasets/DataMultiTypes.csv")$
+result_agg <- pl$read_csv(source = "Datasets/DataMultiTypes.csv")$
   # Conversion of 2 columns to Date format
   with_columns(
     pl$col("colDate1")$str$strptime(pl$Date, "%F %T", strict = FALSE),
@@ -58,7 +58,7 @@ toc()
 
 csv_lazy_polars <- function() {
 # Reading the csv file (eager mode)
-result_agg <- pl$scan_csv(path = "Datasets/DataMultiTypes.csv")$
+result_agg <- pl$scan_csv(source = "Datasets/DataMultiTypes.csv")$
   # Conversion of 2 columns to Date format
   with_columns(
     pl$col("colDate1")$str$strptime(pl$Date, "%F %T", strict = FALSE),
