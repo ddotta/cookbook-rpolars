@@ -108,7 +108,7 @@ toc()
 
 partitioned_parquet_polars_lazy <- function(variables) {
 
-  result <- pl$scan_parquet(file = "Datasets/DataMultiTypes.parquet")$
+  result <- pl$scan_parquet(source = "Datasets/DataMultiTypes.parquet")$
     # Conversion of 2 columns to Date format
     with_columns(
       pl$col("colDate1")$str$strptime(pl$Date, "%F %T", strict = FALSE),
