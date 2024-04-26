@@ -21,7 +21,7 @@ With arrow, you can use the [following verbs from the tidyverse](https://arrow.a
 
 parquet_polars_lazy <- function(variables) {
 
-  result <- pl$scan_parquet(file = "Datasets/DataMultiTypes.parquet")$
+  result <- pl$scan_parquet(source = "Datasets/DataMultiTypes.parquet")$
     # Conversion of 2 columns to Date format
     with_columns(
       pl$col("colDate1")$str$strptime(pl$Date, "%F %T", strict = FALSE),
@@ -57,7 +57,7 @@ toc()
 
 arrow_eager <- function(variables) {
 
-  result <- arrow::read_parquet("Datasets/DataMultiTypes.parquet") |>
+  result <- arrow::read_parquet(source = "Datasets/DataMultiTypes.parquet") |>
 
     mutate(
       # Conversion of 2 columns to Date format
