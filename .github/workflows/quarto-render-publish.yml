@@ -15,10 +15,7 @@ jobs:
     steps:
       - name: Check out repository
         uses: actions/checkout@v3
-        
-      - name: Setup pandoc
-        uses: r-lib/actions/setup-pandoc@v2
-        
+
       - name: Set up Quarto
         uses: quarto-dev/quarto-actions/setup@v2
         with:
