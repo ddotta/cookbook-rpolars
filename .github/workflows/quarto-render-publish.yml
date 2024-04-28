@@ -4,6 +4,10 @@ on:
   push:
     branches:
       - main
+  pull_request:
+    branches:
+      - main
+  workflow_dispatch:
 
 jobs:
   build-deploy:
@@ -39,6 +43,7 @@ jobs:
           path: book # By default, the current working dir is used i.e `quarto render .`
 
       - name: Publish to GitHub Pages (and render)
+        if: github.event_name != 'pull_request'
         uses: quarto-dev/quarto-actions/publish@v2
         with:
           path: book
