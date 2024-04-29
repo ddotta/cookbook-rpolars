@@ -1,0 +1,35 @@
+Package: cookbookrpolars
+Title: Cookbook to provide solutions to common tasks and problemes in using Polars with R
+Version: 0.0.1
+Authors@R:
+    c(person(given = "Damien",
+             family = "Dotta",
+             role = c("aut", "cre"),
+             email = "damien.dotta@live.fr"))
+Description: The purpose of this book is to introduce some of the features 
+    of Polars with R. It contains a side-by-side comparison between Polars, 
+    R base and the two most popular packages for data manipulation dplyr 
+    and data.table.
+License: file LICENSE
+Encoding: UTF-8
+Roxygen: list(markdown = TRUE)
+RoxygenNote: 7.3.1
+Imports:
+    polars,
+    rmarkdown,
+    dplyr,
+    tidyr,
+    arrow,
+    data.table,
+    fakir,
+    tictoc,
+    duckdb,
+    DBI,
+    microbenchmark,
+    readr,
+    fs,
+    ggplot2,
+    pryr,
+    dbplyr,
+    forcats,
+    collapse

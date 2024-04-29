@@ -27,21 +27,15 @@ Until the R polars package is uploaded to CRAN, [the polars package development 
 
 The most practical one in my opinion at the moment is to use [R-universe](https://r-universe.dev/search/) and install like this:
 
-``` {r}
-#| label: installation
-#| message: false
-#| warning: false
-#| results: 'hide'
-
+```{.r}
 install.packages("polars", repos = "https://rpolars.r-universe.dev")
-library(polars)
 ```
 
-To know the version of the `polars` package you have just installed and to have information on which features are enabled, you can use the `polars_info()` method.
+To know the version of the `polars` package you have just installed and to have information on which features are enabled, you can use the `polars_info()` function.
 
 ```{r}
 #| label: polars_info-function
+library(polars)
 
 polars_info()
 ```
-
