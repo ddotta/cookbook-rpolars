@@ -268,16 +268,15 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <h2 data-number="1.1" class="anchored" data-anchor-id="installation"><span class="header-section-number">1.1</span> Installation</h2>
 <p>Until the R polars package is uploaded to CRAN, <a href="https://github.com/pola-rs/r-polars/graphs/contributors">the polars package development team</a> offers <a href="https://rpolars.github.io/#install">several solutions</a> for installation.</p>
 <p>The most practical one in my opinion at the moment is to use <a href="https://r-universe.dev/search/">R-universe</a> and install like this:</p>
+<div class="sourceCode" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="fu">install.packages</span>(<span class="st">"polars"</span>, <span class="at">repos =</span> <span class="st">"https://rpolars.r-universe.dev"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>To know the version of the <code>polars</code> package you have just installed and to have information on which features are enabled, you can use the <code>polars_info()</code> function.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="fu">install.packages</span>(<span class="st">"polars"</span>, <span class="at">repos =</span> <span class="st">"https://rpolars.r-universe.dev"</span>)</span>
-<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(polars)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</div>
-<p>To know the version of the <code>polars</code> package you have just installed and to have information on which features are enabled, you can use the <code>polars_info()</code> method.</p>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="fu">polars_info</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(polars)</span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a><span class="fu">polars_info</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>Polars R package version : 0.16.1
-Rust Polars crate version: 0.39.1
+<pre><code>Polars R package version : 0.16.2
+Rust Polars crate version: 0.39.2
 
 Thread pool size: 4 
 
