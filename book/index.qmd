@@ -32,3 +32,5 @@ For users of Python and in particular [Pandas](https://pandas.pydata.org/), you 
 ## Contributing
 
 This book is free and open source, so please do [open an issue](https://github.com/ddotta/cookbook-rpolars/issues/new) if you notice a problem!
+
+![](content/images/rpolars_figure.png){fig-alt="rpolars unofficial logo" fig-align="center"}
