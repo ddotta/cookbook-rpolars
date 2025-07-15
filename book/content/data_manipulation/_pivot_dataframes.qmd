@@ -154,7 +154,7 @@ dcast(dt_final, country ~ location, value.var = "population_sum")
 
 ### From wide to long
 
-The `melt()` method can be used to pivot a `DataFrame` from wide to long.  
+The `unpivot()` method can be used to pivot a `DataFrame` from wide to long.  
 
 Let's see with an example :  
 
@@ -173,9 +173,9 @@ df <- data.frame(
 
 ```{r}
 #| label: first-long-pivot-polars
-as_polars_df(df)$melt(
-  id_vars = "country",
-  value_vars = c("North","South")
+as_polars_df(df)$unpivot(
+  index = "country",
+  on = c("North","South")
 )
 ```
 
