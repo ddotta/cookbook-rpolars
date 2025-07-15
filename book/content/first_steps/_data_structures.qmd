@@ -45,8 +45,6 @@ A `DataFrame` is a **2-dimensional** data structure that is backed by a `Series`
 
 In polars objects, `DataFrame` object are like R `data.frame` and close to a `tibble` and a `data.table` object. `DataFrame` has some attributes and you can see [here](#initial-informations-on-a-dataframe) to know how you can use it.  
 
-Polars’ main functions are stored in the “pl” namespace and can be accessed using the “pl$” prefix to prevent conflicts with other packages and base R function names.
-
 **To create a Polars DataFrame from scratch:**
 
 ::: {.panel-tabset}
