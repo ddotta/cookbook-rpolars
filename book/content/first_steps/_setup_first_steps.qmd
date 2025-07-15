@@ -7,6 +7,9 @@ First of all we need to install all the packages and create an big random datase
 #| warning: false
 #| results: 'hide'
 
+# Set CRAN mirror (required for non-interactive environments)
+options(repos = c(CRAN = "https://cloud.r-project.org"))
+
 # Installation of packages for cookbook-rpolars
 packages <- c('dplyr','data.table','tidyr','arrow','DBI','fakir','tictoc','duckdb','microbenchmark','readr','fs','ggplot2','pryr','dbplyr','forcats','collapse')
 installed_packages <- packages %in% rownames(installed.packages())
@@ -16,6 +19,9 @@ if (any(installed_packages == FALSE)) {
 
 # Loading packages
 invisible(lapply(packages, library, character.only = TRUE))
+
+# Load tidypolars
+library(tidypolars)
 
 # Creation of iris_dt
 iris_dt <- as.data.table(iris)
