@@ -48,6 +48,14 @@ nrow(iris)
 iris_polars[1:5, c("Petal.Length", "Species")]
 ```
 
+## tidypolars
+
+```{r}
+#| label: first-extract-tidypolars
+iris_polars |>
+  slice_head(n = 5) |> 
+```
+
 ## R base
 
 ```{r}
@@ -60,7 +68,7 @@ iris[1:5, c("Petal.Length", "Species")]
 ```{r}
 #| label: first-extract-dplyr
 iris |> 
-  slice(1:5) |> 
+  slice_head(n = 5) |> 
   select(Petal.Length,Species)
 ```
 
