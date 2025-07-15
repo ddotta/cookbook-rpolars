@@ -44,11 +44,11 @@ This way, we can display the **naive plan** (which means it is an non-optimized 
 - `PROJECT */5 COLUMNS` selects all 5 of the columns (* is the wildcard meaning all);  
 - `SELECTION: "None"` means no rows will be filtered out.  
 
-As indicated in the console, we can use the `describe_optimized_plan()` method to see the **optimized plan**.
+As indicated in the console, we can use the `explain()` method to see the **optimized plan**.
 
 ```{r}
 #| label: optimized-query-lazy
-myquery$describe_optimized_plan()
+myquery$explain()
 ```
 
 This example shows a simple but surprisingly effective element of query optimisation: **projection**.   
