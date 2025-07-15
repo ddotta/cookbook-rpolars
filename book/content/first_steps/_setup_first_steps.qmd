@@ -50,3 +50,6 @@ If you want to install also the tidypolars package, you can do:
 
 ```{.r}
 install.packages("tidypolars", repos = c("https://community.r-multiverse.org", 'https://cloud.r-project.org'))
+``````
+
+Click [here](https://tidypolars.etiennebacher.com/articles/r-and-polars-expressions#list-of-base-r-and-tidyverse-functions-supported-by-tidypolars) to see the list of base R and tidyverse functions supported by {tidypolars}.
