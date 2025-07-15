@@ -8,6 +8,7 @@ First example to convert the most famous R data frame ([iris](https://archive.ic
 
 ```{r}
 #| label: iris-conversion
+library(polars)
 iris_polars <- as_polars_df(iris)
 iris_polars
 ```
@@ -52,8 +53,8 @@ iris_polars[1:5, c("Petal.Length", "Species")]
 
 ```{r}
 #| label: first-extract-tidypolars
-iris_polars |>
-  slice_head(n = 5) |> 
+# iris_polars |>
+#   slice_head(n = 5)
 ```
 
 ## R base
@@ -68,8 +69,8 @@ iris[1:5, c("Petal.Length", "Species")]
 ```{r}
 #| label: first-extract-dplyr
 iris |> 
-  slice_head(n = 5) |> 
-  select(Petal.Length,Species)
+  dplyr::slice_head(n = 5) |> 
+  dplyr::select(Petal.Length,Species)
 ```
 
 ## data.table
