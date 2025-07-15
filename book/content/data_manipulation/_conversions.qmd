@@ -19,7 +19,7 @@ Here, we can use `to_r()` and `to_data_frame()` methods.
 ```{r}
 #| label: conversion-tor-dataframes
 # To convert Polars Series to vector or list
-myvector$to_r()
+pl$lit(1:3)$to_r()
 # To convert DataFrames to data.frames
 iris_polars$slice(1,3)$to_data_frame()
 ```
