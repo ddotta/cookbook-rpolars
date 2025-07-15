@@ -15,11 +15,11 @@ Note the double quotes `""` surrounding the name of the old variable to be renam
 data(iris)
 as_polars_df(iris)$
   rename(
-    sepal_length = "Sepal.Length", 
-    sepal_width = "Sepal.Width",
-    `length of petal` = "Petal.Length",
-    `width of petal` = "Petal.Width",
-    species = "Species"
+    Sepal.Length = "sepal_length", 
+    Sepal.Width = "sepal_width",
+    Petal.Length = "length of petal",
+    Petal.Width = "width of petal",
+    Species = "species"
   )$columns
 ```
 
