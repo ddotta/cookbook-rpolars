@@ -81,7 +81,7 @@ Here's an example:
 ```{r}
 #| label: join-different-names-polars
 
-values2 <- values$rename(Surname2 = "Surname")
+values2 <- values$rename(Surname = "Surname2")
 
 colors$join(
   other = values2,
