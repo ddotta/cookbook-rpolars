@@ -116,8 +116,8 @@ For example:
 ```{r}
 #| label: expr-wide-pivot-polars
 as_polars_df(df)$pivot(
+  on = "location",
   index = "country", 
-  columns = "location",
   values = "population",
   aggregate_function = pl$element()$sum()$sqrt()
 )
