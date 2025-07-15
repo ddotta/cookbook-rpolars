@@ -113,7 +113,7 @@ Diagonal concatenation is useful when the column names are not identical in init
 ```{r}
 #| label: diagonal-concatenation-polars
 
-dfup <- dfup$rename(col4="col3")
+dfup <- dfup$rename(col3="col4")
 pl$concat(list(dfup,dfdown),how = "diagonal")
 ```
 
