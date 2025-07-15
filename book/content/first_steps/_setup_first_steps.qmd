@@ -39,3 +39,9 @@ library(polars)
 
 polars_info()
 ```
+
+If you want to install also the tidypolars package, you can do:
+
+```{.r}
+install.packages("tidypolars", repos = c("https://community.r-multiverse.org", 'https://cloud.r-project.org'))
+```
