@@ -1,7 +1,5 @@
 ## First glimpse
 
-Polars' main functions are stored in the "pl" namespace and can be accessed using the "pl$" prefix to prevent conflicts with other packages and base R function names. For more, see [here](https://rpolars.github.io/reference/pl_pl/#examples).
-
 ### Convert a R data.frame to a polars DataFrame
 
 First example to convert the most famous R data frame ([iris](https://archive.ics.uci.edu/ml/datasets/iris)) to a Polars DataFrame:
