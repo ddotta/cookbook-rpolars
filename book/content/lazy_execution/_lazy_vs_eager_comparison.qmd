@@ -70,7 +70,7 @@ pl$scan_parquet("Datasets/fakir_file.parquet")$
   collect()$
   pivot(
     index = "region",
-    columns = "priority",
+    on = "priority",
     values = "age",
     aggregate_function = "mean"
   )$
