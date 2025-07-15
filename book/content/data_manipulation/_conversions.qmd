@@ -16,10 +16,16 @@ iris_polars <- as_polars_df(iris)
 
 Here, we can use `to_r()` and `to_data_frame()` methods.
 
+```{.r}
+# To convert Polars Series to a vector
+myvector$to_r()
+# To convert Polars Series to a list
+myvector$to_list()
+```
+
+
 ```{r}
 #| label: conversion-tor-dataframes
-# To convert Polars Series to vector or list
-pl$lit(1:3)$to_r()
 # To convert DataFrames to data.frames
 iris_polars$slice(1,3)$to_data_frame()
 ```
