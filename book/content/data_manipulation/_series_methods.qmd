@@ -437,21 +437,13 @@ print(df_dt)
 ```
 :::
 
-- From a `DataFrame` and **sum horizontally** all columns:
+- From a `DataFrame` and **sum horizontally** some columns:
 
-In this case, use `list(*)`.
-
-```{r}
-#| label: df-list-sum-polars
-df_pl$with_columns(pl$sum_horizontal(list("*")))
-```
-
-With iris `Dataframe`, you must first select numerical variables:
+An example with iris `Dataframe`:
 
 ```{r}
 #| label: df-list-sum-iris-polars
-as_polars_df(iris)$
-  select(
-  pl$col(c("Petal.Length","Petal.Width")))$
-  with_columns(pl$sum_horizontal(list("*")))
+df_pl$with_columns(
+  pl$sum_horizontal("col1", "col2", "col3")$alias("sum")
+)
 ```
