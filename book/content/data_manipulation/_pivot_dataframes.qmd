@@ -23,9 +23,9 @@ df
 
 ```{r}
 #| label: first-wide-pivot-polars
-pl$DataFrame(df)$pivot(
+as_polars_df(df)$pivot(
+  on = "city",
   index = "country", 
-  columns = "city",
   values = "population", 
 )
 ```
@@ -69,9 +69,9 @@ In this case, the `aggregate_function` argument of `pivot()` is the equivalent o
 
 ```{r}
 #| label: mean-wide-pivot-polars
-pl$DataFrame(df)$pivot(
+as_polars_df(df)$pivot(
+  on = "location",
   index = "country", 
-  columns = "location",
   values = "population",
   aggregate_function = "mean"
 )
@@ -115,7 +115,7 @@ For example:
 
 ```{r}
 #| label: expr-wide-pivot-polars
-pl$DataFrame(df)$pivot(
+as_polars_df(df)$pivot(
   index = "country", 
   columns = "location",
   values = "population",
@@ -173,7 +173,7 @@ df <- data.frame(
 
 ```{r}
 #| label: first-long-pivot-polars
-pl$DataFrame(df)$melt(
+as_polars_df(df)$melt(
   id_vars = "country",
   value_vars = c("North","South")
 )
