@@ -8,7 +8,7 @@ First example to convert the most famous R data frame ([iris](https://archive.ic
 
 ```{r}
 #| label: iris-conversion
-iris_polars <- pl$DataFrame(iris)
+iris_polars <- as_polars_df(iris)
 iris_polars
 ```
 
@@ -22,7 +22,7 @@ For example, **to count the number of lines** of the iris data frame :
 ```{r}
 #| label: height-function
 # With pl$ prefix
-pl$DataFrame(iris)$height
+as_polars_df(iris)$height
 # Using iris_polars
 iris_polars$height
 ```
