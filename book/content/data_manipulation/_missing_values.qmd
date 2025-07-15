@@ -15,8 +15,8 @@ Let's see two examples combining thes methods with `select()` and `filter()` met
 ```{r}
 #| label: has-missing-values-polars
 mydfNA <- pl$DataFrame(
-  colA = pl$Series(c("a",NA,"c")),
-  colB = pl$Series(c("d",NA,NA))
+  colA = as_polars_series(c("a",NA,"c")),
+  colB = as_polars_series(c("d",NA,NA))
 )
 
 # Find null values
@@ -65,8 +65,8 @@ Here's some examples where I replace missing values from all columns of a `DataF
 #| label: replace-missing-values-polars
 
 mydfNA <- pl$DataFrame(
-  colA = pl$Series(c("a",NA,"c")),
-  colB = pl$Series(c("d",NA,NA))
+  colA = as_polars_series(c("a",NA,"c")),
+  colB = as_polars_series(c("d",NA,NA))
 )
 
 # In the same columns
@@ -166,9 +166,9 @@ Here's some examples :
 
 # In the same columns
 mydfNA <- pl$DataFrame(
-  colA = pl$Series(c("a",NA,"c")),
-  colB = pl$Series(c("d",NA,NA)),
-  colC = pl$Series(c(1,NA,3))
+  colA = as_polars_series(c("a",NA,"c")),
+  colB = as_polars_series(c("d",NA,NA)),
+  colC = as_polars_series(c(1,NA,3))
 )
 # With forward strategy
 mydfNA$
@@ -276,9 +276,9 @@ Here's an example creating a new column "col4" that has the first non-null value
 #| label: coalesce-polars
 
 mynewdfNA <- pl$DataFrame(
-  col1 = pl$Series(c(NA,"y",NA)),
-  col2 = pl$Series(c(NA,"v","w")),
-  col3 = pl$Series(c("r","s",NA))
+  col1 = as_polars_series(c(NA,"y",NA)),
+  col2 = as_polars_series(c(NA,"v","w")),
+  col3 = as_polars_series(c("r","s",NA))
 )
 
 mynewdfNA$

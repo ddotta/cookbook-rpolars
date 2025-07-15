@@ -38,7 +38,7 @@ Let's see an example with the iris dataset:
 
 ```{r}
 #| label: chaining-polars
-pl$DataFrame(iris)$
+as_polars_df(iris)$
   group_by(
   "Species")$
   median()

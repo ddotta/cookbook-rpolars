@@ -27,11 +27,11 @@ fn_transformation <- function(data) {
 }
 ```
 
-Let's apply our method to `pl$DataFrame(iris)`:  
+Let's apply our method to `as_polars_df(iris)`:  
 
 ```{r}
 #| label: function-use1-polars
-fn_transformation(pl$DataFrame(mydf))
+fn_transformation(as_polars_df(mydf))
 ```
 
 Our method `fn_transformation()` can now be re-used multiple times for example on another datasets:  
@@ -40,9 +40,9 @@ Our method `fn_transformation()` can now be re-used multiple times for example o
 #| label: function-use2-polars
 
 Newdf <- pl$DataFrame(
-  col_categ = pl$Series(factor(c("a","b","c"))),
-  col_str = pl$Series(c("x","y","z")),
-  col_num = pl$Series(1:3)
+  col_categ = as_polars_series(factor(c("a","b","c"))),
+  col_str = as_polars_series(c("x","y","z")),
+  col_num = as_polars_series(1:3)
 )
   
 fn_transformation(Newdf)

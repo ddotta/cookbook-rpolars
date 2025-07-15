@@ -22,7 +22,7 @@ The methods available for the `agg()` method are (in each group):
 
 ```{r}
 #| label: agg-polars
-pl$DataFrame(iris)$
+as_polars_df(iris)$
   group_by("Species")$
   agg(pl$col(c("Petal.Length","Petal.Width"))$sum())
 ```
@@ -62,7 +62,7 @@ For example:
 ```{r}
 #| label: example-agg-with-alias
 
-pl$DataFrame(iris)$
+as_polars_df(iris)$
   group_by("Species")$
   agg(
     # With alias()
@@ -82,7 +82,7 @@ You can perform more advanced aggregations, for example **calculate the sum of a
 
 ```{r}
 #| label: agg-advanced-polars
-pl$DataFrame(iris)$
+as_polars_df(iris)$
   group_by("Species")$
   agg(pl$col(pl$Float64)$sum())
 ```

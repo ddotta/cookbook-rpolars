@@ -7,9 +7,9 @@ These conversions have already been seen earlier in this book.
 ```{r}
 #| label: conversion-to-series-dataframes
 # To convert vector to Polars Series
-myvector <- pl$Series(c("a","b","c"))
+myvector <- as_polars_series(c("a","b","c"))
 # To convert data.frames to DataFrames
-iris_polars <- pl$DataFrame(iris)
+iris_polars <- as_polars_df(iris)
 ```
 
 ### From Series/DataFrames to vector/data.frames

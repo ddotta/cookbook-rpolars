@@ -12,7 +12,7 @@ With R base, the syntax is longer.
 
 ```{r}
 #| label: change-name-Series
-pl$Series(1:3, name = "toto")$alias("titi")
+as_polars_series(1:3, name = "toto")$alias("titi")
 ```
 
 ## R base
@@ -34,10 +34,10 @@ The `all()` and `any()` methods can be used to check if all or any values in a v
 
 ```{r}
 #| label: all-Series
-# all(pl$Series(c(TRUE,TRUE))) doesn't work
-pl$Series(c(TRUE, TRUE, NA))$all()
-pl$Series(c(TRUE, TRUE, FALSE))$all()
-pl$Series(c(TRUE, TRUE, TRUE))$all()
+# all(as_polars_series(c(TRUE,TRUE))) doesn't work
+as_polars_series(c(TRUE, TRUE, NA))$all()
+as_polars_series(c(TRUE, TRUE, FALSE))$all()
+as_polars_series(c(TRUE, TRUE, TRUE))$all()
 ```
 
 ## R base
@@ -60,8 +60,8 @@ The `dtype()` method can be used to get data type of `Series`.
 ```{r}
 #| label: dtype-Series
 
-pl$Series(letters)$dtype
-pl$Series(c(1, 2))$dtype
+as_polars_series(letters)$dtype
+as_polars_series(c(1, 2))$dtype
 ```
 
 ## R base
@@ -82,13 +82,13 @@ Polars is strongly typed. `print(ls(pl$dtypes))` returns the full list of valid 
 
 ```{r}
 #| label: dtype-examples-Series
-pl$Series(c("x","y","z"))$dtype
-pl$Series(c(1, 2, 3))$dtype
-pl$Series(c(1:3))$dtype
-pl$Series(c(TRUE,FALSE))$dtype
-pl$Series(factor(c("a","b","c")))$dtype
-pl$Series(Sys.Date())$dtype
-pl$Series(c(0,1))$dtype
+as_polars_series(c("x","y","z"))$dtype
+as_polars_series(c(1, 2, 3))$dtype
+as_polars_series(c(1:3))$dtype
+as_polars_series(c(TRUE,FALSE))$dtype
+as_polars_series(factor(c("a","b","c")))$dtype
+as_polars_series(Sys.Date())$dtype
+as_polars_series(c(0,1))$dtype
 ```
 
 ## R base
@@ -127,7 +127,7 @@ The `cast()` method can be used to convert the data types of a column to a new o
 
 ```{r}
 #| label: cast-polars
-pl$DataFrame(iris)$with_columns(
+as_polars_df(iris)$with_columns(
   pl$col("Petal.Length")$cast(pl$Int8), # The "Petal.Length" column is converted into integers
   pl$col("Species")$cast(pl$Utf8) # The "Species" column is converted into strings
   )$schema
@@ -172,10 +172,10 @@ When working with very large tables we can **Reduce the memory footprint** by mo
 For example, the example below illustrates how converting Float64 to Float8 reduces memory usage:
 
 ```{r}
-pl$DataFrame(iris)$estimated_size()
+as_polars_df(iris)$estimated_size()
 
 #| label: reduce-footprint-polars
-pl$DataFrame(iris)$with_columns(
+as_polars_df(iris)$with_columns(
   pl$col("Petal.Length")$cast(pl$Float32),
   pl$col("Petal.Width")$cast(pl$Float32),
   pl$col("Sepal.Length")$cast(pl$Float32),
@@ -206,8 +206,8 @@ Note that unlike R base, there is no method to check if a Series is character (i
 
 ```{r}
 #| label: isnumeric-Series
-pl$Series(1:4)$is_numeric()
-pl$Series(c("a", "b", "c"))$is_numeric()
+as_polars_series(1:4)$is_numeric()
+as_polars_series(c("a", "b", "c"))$is_numeric()
 ```
 
 ## R base
@@ -229,8 +229,8 @@ Note that R base provides `is.unsorted()` which returns the opposite boolean to 
 
 ```{r}
 #| label: issorted-polars
-pl$Series(1:4)$is_sorted()
-pl$Series(c(1,3,2))$is_sorted()
+as_polars_series(1:4)$is_sorted()
+as_polars_series(c(1,3,2))$is_sorted()
 ```
 
 ## R base
@@ -252,7 +252,7 @@ The `len()` method can be used to get the length of a `Series`.
 
 ```{r}
 #| label: len-Series
-pl$Series(1:4)$len()
+as_polars_series(1:4)$len()
 ```
 
 ## R base
@@ -276,8 +276,8 @@ Caution, if two series are identical but one is named and the other is not then 
 
 ```{r}
 #| label: series-equal-Series
-pl$Series(1:4)$equals(pl$Series(1:4))
-pl$Series(1:4,name = "toto")$equals(pl$Series(1:4))
+as_polars_series(1:4)$equals(as_polars_series(1:4))
+as_polars_series(1:4,name = "toto")$equals(as_polars_series(1:4))
 ```
 
 ## R base
@@ -295,7 +295,7 @@ In this case, a `DataFrame` with only one column will be created. If the `Series
 
 ```{r}
 #| label: to-frame-Series
-pl$Series(1:3, "toto")$to_frame()
+as_polars_series(1:3, "toto")$to_frame()
 ```
 
 #### Get value Counts of a Series
@@ -307,7 +307,7 @@ The `value_counts()` method can be used to get a value counts of a `Series`.
 
 ```{r}
 #| label: value-counts-Series
-pl$Series(iris$Species)$value_counts()
+as_polars_series(iris$Species)$value_counts()
 ```
 
 ## R base
@@ -344,7 +344,7 @@ The `sum()` method can be used to get a sum of a `Series`.
 
 ```{r}
 #| label: first-sum-polars
-pl$Series(1:3)$sum()
+as_polars_series(1:3)$sum()
 ```
 
 ## R base
@@ -363,7 +363,7 @@ sum(c(1:3))
 
 ```{r}
 #| label: df-string-sum-polars
-pl$DataFrame(iris)$select(pl$sum("Petal.Length"))
+as_polars_df(iris)$select(pl$sum("Petal.Length"))
 ```
 
 ## R base
@@ -393,7 +393,7 @@ sum(iris_dt[, Petal.Length])
 
 ```{r}
 #| label: df-exp-sum-polars
-pl$DataFrame(iris)$select(pl$sum("Petal.Width"))
+as_polars_df(iris)$select(pl$sum("Petal.Width"))
 ```
 
 - From a `DataFrame` and a column as a list and **sum horizontally**:
@@ -450,7 +450,7 @@ With iris `Dataframe`, you must first select numerical variables:
 
 ```{r}
 #| label: df-list-sum-iris-polars
-pl$DataFrame(iris)$
+as_polars_df(iris)$
   select(
   pl$col(c("Petal.Length","Petal.Width")))$
   with_columns(pl$sum_horizontal(list("*")))

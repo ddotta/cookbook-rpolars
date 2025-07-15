@@ -6,13 +6,13 @@ The first option to filter rows of a DataFrame is to use square brackets `[]` in
 #| label: filter-square-brackets-polars
 data(iris)
 # The first four lines
-pl$DataFrame(iris)[1:4,]
+as_polars_df(iris)[1:4,]
 # The lines 1, 3 and 5
-pl$DataFrame(iris)[c(1,3,5),]
+as_polars_df(iris)[c(1,3,5),]
 ```
 
 ::: {.callout-important}
-It's convenient when you have to quickly inspect your data. But you'll quickly be limited by the square brackets, as they don't accept conditions with the expressions. For example `pl$DataFrame(iris)[Petal.Length > 6]` doesn't work.
+It's convenient when you have to quickly inspect your data. But you'll quickly be limited by the square brackets, as they don't accept conditions with the expressions. For example `as_polars_df(iris)[Petal.Length > 6]` doesn't work.
 :::
 
 The second and best option is to use the `filter()` method. It must be used with the `Polars expression`, here the `col()` method which allows to designate the columns on which the filter condition will be applied.  
@@ -29,7 +29,7 @@ In the example below, we will use `&` operator to apply multiple conditions in `
 
 ```{r}
 #| label: filter-polars
-pl$DataFrame(iris)$filter(
+as_polars_df(iris)$filter(
   pl$col("Petal.Length") > 6 & pl$col("Petal.Width") < 2)
 ```
 
@@ -62,7 +62,7 @@ The equivalent of `%in%` R operator is the `is_in()` method. It should be used i
 ```{r}
 #| label: example-is_in
 pl$DataFrame(
-  colA = pl$Series(c("a","b","c"))
+  colA = as_polars_series(c("a","b","c"))
   )$filter(
   pl$col("colA")$is_in(pl$lit(c("a","b")))
   )
@@ -79,7 +79,7 @@ Here's an example:
 #| label: speed-up-filter-rows
 
 mydf <- pl$DataFrame(
-  col1 = pl$Series(sort(runif(10000000)))
+  col1 = as_polars_series(sort(runif(10000000)))
 )
 
 microbenchmark(

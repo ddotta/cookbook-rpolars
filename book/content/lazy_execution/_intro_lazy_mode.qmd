@@ -20,7 +20,7 @@ To convert a `DataFrame` to a `LazyFrame` we can use the `lazy()` contructor.
 
 ```{r}
 #| label: creation-lazyFrame
-pl$DataFrame(iris)$lazy()
+as_polars_df(iris)$lazy()
 ```
 We are no longer working on a `DataFrame` but on a `LazyFrame`.  
 
@@ -30,7 +30,7 @@ Let's look at what happens when we request this `LazyFrame`:
 
 ```{r}
 #| label: first-query-lazy
-myquery <- pl$DataFrame(iris)$lazy()$filter(
+myquery <- as_polars_df(iris)$lazy()$filter(
   pl$col("Species") == "setosa"
 )$select(
   pl$col(c("Species", "Petal.Length"))

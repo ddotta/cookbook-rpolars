@@ -20,7 +20,7 @@ iris_dt <- as.data.table(iris)
 
 ```{r}
 #| label: remove-column-polars
-pl$DataFrame(iris)$
+as_polars_df(iris)$
   drop(c("Petal.Width","Sepal.Length","Sepal.Width"))$
   head(3)
 ```
@@ -60,10 +60,10 @@ Let's see an example where you want to drop columns whose names starts with "Pet
 ```{r}
 #| label: remove-column-pattern-polars
 
-num_to_drop <- !grepl("^Petal",pl$DataFrame(iris)$columns)
-col_to_drop <- pl$DataFrame(iris)$columns[num_to_drop]
+num_to_drop <- !grepl("^Petal",as_polars_df(iris)$columns)
+col_to_drop <- as_polars_df(iris)$columns[num_to_drop]
 
-pl$DataFrame(iris)$
+as_polars_df(iris)$
   drop(col_to_drop)$
   head(3)
 ```

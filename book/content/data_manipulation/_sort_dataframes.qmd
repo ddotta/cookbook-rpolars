@@ -10,15 +10,15 @@ The `sort()` method with a character vector can be used to sort a `DataFrame`.
 ```{r}
 #| label: sort-dataframe-polars
 # Sort by one column
-pl$DataFrame(iris)$
+as_polars_df(iris)$
   sort("Species")$
   head(3)
 # Sort by two columns
-pl$DataFrame(iris)$
+as_polars_df(iris)$
   sort(c("Species","Petal.Length"))$
   head(3)
 # Sort by two columns one in a decreasing manner and the other in an increasing manner
-pl$DataFrame(iris)$
+as_polars_df(iris)$
   sort(c("Species","Petal.Length"), descending = c(TRUE,FALSE))$
   head(3)
 ```
@@ -77,11 +77,11 @@ If you want to keep unique/distinct rows from a `DataFrame`, you can use the `un
 #| label: unique-rows-dataframe-polars
 
 # With one column
-pl$DataFrame(iris)$unique(
+as_polars_df(iris)$unique(
   subset = "Species"
 )
 # With one column keeping last entry
-pl$DataFrame(iris)$unique(
+as_polars_df(iris)$unique(
   subset = "Species",
   keep = "last"
 )
@@ -167,7 +167,7 @@ It's the equivalent of `order()` method of R base.
 ```{r}
 #| label: sort_by-dataframe-polars
 
-pl$DataFrame(iris)$
+as_polars_df(iris)$
   select(pl$col("Petal.Length")$
   sort_by("Petal.Width"))
 ```

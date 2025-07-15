@@ -13,7 +13,7 @@ Note the double quotes `""` surrounding the name of the old variable to be renam
 ```{r}
 #| label: rename-polars
 data(iris)
-pl$DataFrame(iris)$
+as_polars_df(iris)$
   rename(
     sepal_length = "Sepal.Length", 
     sepal_width = "Sepal.Width",

@@ -8,7 +8,7 @@ For example, if we want to get in the data.frame iris the `Petal.Length` column 
 
 ```{r}
 #| label: select-round-select-polars
-pl$DataFrame(iris)$select(
+as_polars_df(iris)$select(
   pl$col("Petal.Length")$round(decimals = 0)
 )$head(3) # display the first 3 lines
 ```
@@ -27,7 +27,7 @@ Let's use it in an example:
 
 ```{r}
 #| label: select-round-with_columns-polars
-pl$DataFrame(iris)$with_columns(
+as_polars_df(iris)$with_columns(
   pl$col("Petal.Length")$round(decimals = 0)
 )$head(3) # display the first 3 lines
 ```
@@ -65,7 +65,7 @@ If you want to add a column to a data.frame, you use the same syntax as above wi
 
 ```{r}
 #| label: select-round-alias-polars
-pl$DataFrame(iris)$with_columns(
+as_polars_df(iris)$with_columns(
   pl$col("Petal.Length")$round(decimals = 0)$alias("Petal.Length.rounded")
 )$head(3) # display the first 3 lines
 ```
@@ -76,7 +76,7 @@ If you need to **create a new column with a constant value** (i.e. the same valu
 
 ```{r}
 #| label: lit-polars
-pl$DataFrame(iris)$with_columns(
+as_polars_df(iris)$with_columns(
   pl$lit("toto")$alias("mynewcolumn")
 )$head(3) # display the first 3 lines
 ```
@@ -101,7 +101,7 @@ Here's an example with equivalent syntax to help you understand:
 
 ```{r}
 #| label: add-column-with-conditions-polars
-pl$DataFrame(iris)$with_columns(
+as_polars_df(iris)$with_columns(
   pl$when(pl$col("Petal.Length") <= 2)$then(pl$lit("<=2"))$
     when(pl$col("Petal.Length") <= 5)$then(pl$lit("<=5"))$
     otherwise(pl$lit(">5"))$
@@ -176,7 +176,7 @@ df
 
 ```{r}
 #| label: add-column-by-group-polars
-pl$DataFrame(df)$with_columns(
+as_polars_df(df)$with_columns(
   pl$col("col3")$max()$over("name")$name$suffix("_max")
 )
 ```

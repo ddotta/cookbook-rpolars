@@ -47,7 +47,7 @@ The formatting is done one line per column, so wide `DataFrame` show nicely. Eac
 ```{r}
 #| label: glimpse-method
 
-pl$DataFrame(iris)$glimpse()
+as_polars_df(iris)$glimpse()
 ```
 
 ### Get summary statistics
@@ -57,7 +57,7 @@ You can access some summary statistics from a `DataFrame` by using the `describe
 ```{r}
 #| label: describe-method
 
-pl$DataFrame(iris)$describe()
+as_polars_df(iris)$describe()
 ```
 
 ### Get the rows number
@@ -136,9 +136,9 @@ The `value_counts()` method can be used to count values in a Series of a DataFra
 #| label: value-count-polars
 
 # 1st option with square brackets
-pl$DataFrame(iris)[,c("Species")]$value_counts()
+as_polars_df(iris)[,c("Species")]$value_counts()
 # 2nd option with select() method
-pl$DataFrame(iris)$select(pl$col("Species"))$to_series()$value_counts()
+as_polars_df(iris)$select(pl$col("Species"))$to_series()$value_counts()
 ```
 
 ## R base
@@ -175,8 +175,8 @@ The `null_count()` method can be used to count NA values of a DataFrame.
 ```{r}
 #| label: null-count-polars
 mydfNA <- pl$DataFrame(
-  colA = pl$Series(c("a",NA,"c")),
-  colB = pl$Series(c("d",NA,NA)))
+  colA = as_polars_series(c("a",NA,"c")),
+  colB = as_polars_series(c("d",NA,NA)))
 mydfNA$null_count()
 ```
 
