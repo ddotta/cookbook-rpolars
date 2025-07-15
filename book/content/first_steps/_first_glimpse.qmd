@@ -1,5 +1,11 @@
 ## First glimpse
 
+From [the official documentation](https://pola-rs.github.io/r-polars/vignettes/polars.html#series-and-dataframes):
+
+> In polars, objects of class Series are analogous to R vectors. Objects of class DataFrame are analogous to R data frames. Notice that to avoid collision with classes provided by other packages, the class name of all objects created by polars starts with “RPolars”. For example, a polars DataFrame has the class “RPolarsDataFrame”.
+
+> To create Polars Series and DataFrames objects, we load the library and use constructor functions with the pl$ prefix. This prefix is very important, as most of the polars functions are made available via pl$:
+
 ### Convert a R data.frame to a polars DataFrame
 
 First example to convert the most famous R data frame ([iris](https://archive.ics.uci.edu/ml/datasets/iris)) to a Polars DataFrame.
