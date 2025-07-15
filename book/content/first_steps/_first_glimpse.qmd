@@ -6,11 +6,11 @@ From [the official documentation](https://pola-rs.github.io/r-polars/vignettes/p
 
 > To create Polars Series and DataFrames objects, we load the library and use constructor functions with the pl$ prefix. This prefix is very important, as most of the polars functions are made available via pl$:
 
-### Convert a R data.frame to a polars DataFrame
+### Convert an existing R data.frame to a polars DataFrame
 
 First example to convert the most famous R data frame ([iris](https://archive.ics.uci.edu/ml/datasets/iris)) to a Polars DataFrame.
 
-To create a Polars Series from scratch, you can use `as_polars_df()` function :
+To convert existing R data.frame to polars DataFrame, you can use `as_polars_df()` function :
 
 ```{r}
 #| label: iris-conversion
