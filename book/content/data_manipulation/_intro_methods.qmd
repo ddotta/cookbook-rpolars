@@ -1,10 +1,13 @@
 ## Introduction to methods
 
-The added value of Polars consists in the `methods`. Those powerful methods are accessed using the `$` operator.
+::: {.callout-important}
+Although some simple R functions work out of the box on polars objects, the added value of Polars consists in the `methods`. Thosepowerful methods are accessed using the `$` operator.
+:::
 
 -   For `Series`, see [this section](#list-of-methods-to-apply-to-series) for the methods available in {polars}.
 -   For `DataFrames`, see [this section](#list-of-methods-to-apply-to-dataframe) for the methods available in {polars}.
 
+Some examples with `Series`:
 Some examples with `Series`:
 
 ```{r}
