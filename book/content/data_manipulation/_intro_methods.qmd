@@ -1,7 +1,18 @@
 ## Introduction to methods
 
 ::: {.callout-important}
-Although some simple R functions work out of the box on polars objects, the added value of Polars consists in the `methods`. Thosepowerful methods are accessed using the `$` operator.
+Although some simple R functions work out of the box on polars objects, the added value of Polars consists in the `methods`. Thosepowerful methods are accessed using the `$` operator.  
+
+There are numerous `methods` designed to accomplish various tasks.
+
+- One advantage of using `methods` is that many more operations are possible on Polars objects using `methods` than through base R functions.  
+
+- A second advantage is `Methods Chaining`, a core part of the Polars workflow. If you are coming from one of the other popular data wrangling libraries in R, then you probably already have an innate sense of what this means. For instance:  
+
+    - In dplyr we use a pipe operator, e.g. dat |> filter(...) |> select(...)  
+    -In data.table we use its indexing syntax, e.g. DT[i, j, by][...]  
+
+In polars our method chaining syntax takes the form `object$m1()$m2()`, where object is our data object, and $m1() and $m2() are appropriate `methods`.
 :::
 
 -   For `Series`, see [this section](#list-of-methods-to-apply-to-series) for the methods available in {polars}.
