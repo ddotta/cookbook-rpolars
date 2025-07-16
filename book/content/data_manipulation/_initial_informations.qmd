@@ -99,6 +99,7 @@ The `estimated_size()` method can be used to get an estimation of the total allo
 
 ```{r}
 #| label: get-size
+mydf
 mydf$estimated_size()
 ```
 
