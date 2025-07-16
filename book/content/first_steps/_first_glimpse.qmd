@@ -59,8 +59,8 @@ iris_polars[1:5, c("Petal.Length", "Species")]
 
 ```{r}
 #| label: first-extract-tidypolars
-# iris_polars |>
-#   slice_head(n = 5)
+iris_polars |>
+  slice_head(n = 5)
 ```
 
 ## R base
