@@ -34,6 +34,26 @@ jobs:
       - name: Install packages
         uses: r-lib/actions/setup-r-dependencies@v2
 
+        - name: Install polars from multiverse
+        run: |
+          install.packages(
+            "polars",
+            repos = c("https://rpolars.r-universe.dev", "https://cloud.r-project.org")
+          )
+        shell: Rscript {0}      
+
+      - name: Check polars version
+        run: |
+          Rscript -e 'packageVersion("polars")'
+          
+        - name: Install tidypolars from multiverse
+        run: |
+          install.packages(
+            "tidypolars",
+            repos = c("https://community.r-multiverse.org", "https://cloud.r-project.org")
+          )
+        shell: Rscript {0}  
+
       - name: Render Quarto Project
         uses: quarto-dev/quarto-actions/render@v2
         with:
