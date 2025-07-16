@@ -17,7 +17,6 @@ book:
   repo-branch: main
   repo-actions: [edit, issue, source]
   sharing: [twitter, linkedin]
-  downloads: [pdf]
   image: polar-bear-airpods-no-background.png
 
   chapters:
