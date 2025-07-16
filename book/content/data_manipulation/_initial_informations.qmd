@@ -93,16 +93,6 @@ mydf$columns
 # mydf$lazy()$columns
 ```
 
-### Rename columns
-
-A character vector can be passed to the `columns` attribute to rename the columns names of the `DataFrame`.
-
-```{r}
-#| label: renames-columns
-mydf$columns <- c("colA","colB")
-mydf$columns
-```
-
 ### Get the size
 
 The `estimated_size()` method can be used to get an estimation of the total allocated size (in Bytes) of a `DataFrame`.
