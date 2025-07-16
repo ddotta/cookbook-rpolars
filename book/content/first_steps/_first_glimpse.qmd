@@ -34,11 +34,34 @@ as_polars_df(iris)$height
 iris_polars$height
 ```
 
+## tidypolars
+
+```{r}
+#| label: height-function-tidypolars
+iris_polars |>
+  nrow()
+```
+
 ## R base
 
 ```{r}
 #| label: nrow-function
 nrow(iris)
+```
+
+## dplyr
+
+```{r}
+#| label: height-function-dplyr
+iris |>
+  nrow()
+```
+
+## data.table
+
+```{r}
+#| label: height-function-dplyr
+nrow(iris_dt)
 ```
 
 :::
