@@ -22,6 +22,6 @@ myvector$to_r()
 # To convert Polars Series to a list
 myvector$to_list()
 # To convert DataFrames to data.frames
-iris_polars$to_data_frame()
+iris_polars$to_data_frame()$slice(1,5)
 ```
 
