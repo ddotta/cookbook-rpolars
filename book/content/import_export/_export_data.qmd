@@ -10,6 +10,33 @@ See [here](https://pola-rs.github.io/r-polars/man/IO_write_csv.html) for full fu
 
 destination = tempfile(fileext = ".csv")
 as_polars_df(iris)$write_csv(destination)
+list.files(destination, recursive = TRUE)
+```
+
+## Export data to Parquet files
+
+The `write_parquet()` method can be used to write to Parquet file.  
+
+See [here](https://pola-rs.github.io/r-polars/man/IO_write_parquet.html) for full function syntax.  
+
+You can write data to a single Parquet file...    
+
+```{r}
+#| label: export-single-parquet
+
+destination = tempfile(fileext = ".parquet")
+as_polars_df(iris)$write_parquet(destination)
+list.files(destination, recursive = TRUE)
+```
+
+...And you can write to folder with a hive-partitioned structure   
+
+```{r}
+#| label: export-multiple-parquet
+
+destination = tempfile(fileext = ".parquet")
+as_polars_df(iris)$write_parquet(destination, partition_by = c("Species"))
+list.files(destination, recursive = TRUE)
 ```
 
 ## Export data to Excel
