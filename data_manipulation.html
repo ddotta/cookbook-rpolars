@@ -426,8 +426,8 @@ Series: '' [i32]
 │ cat        ┆ f64          ┆ f64         ┆ f64          ┆ f64         │
 ╞════════════╪══════════════╪═════════════╪══════════════╪═════════════╡
 │ virginica  ┆ 6.5          ┆ 3.0         ┆ 5.55         ┆ 2.0         │
-│ versicolor ┆ 5.9          ┆ 2.8         ┆ 4.35         ┆ 1.3         │
 │ setosa     ┆ 5.0          ┆ 3.4         ┆ 1.5          ┆ 0.2         │
+│ versicolor ┆ 5.9          ┆ 2.8         ┆ 4.35         ┆ 1.3         │
 └────────────┴──────────────┴─────────────┴──────────────┴─────────────┘</code></pre>
 </div>
 </div>
@@ -1163,11 +1163,11 @@ Here’s an example:</p>
 <div class="cell-output cell-output-stdout">
 <pre><code>Unit: milliseconds
                            expr      min       lq     mean   median       uq
- Without telling col1 is sorted 6.564955 6.797534 7.025038 6.919332 7.090281
-         Telling col1 is sorted 4.076626 4.320030 4.559295 4.416301 4.583963
+ Without telling col1 is sorted 6.520649 6.654393 6.792447 6.731507 6.829590
+         Telling col1 is sorted 4.047393 4.150235 4.358348 4.219845 4.340194
        max neval
- 11.630397   100
-  9.891569   100</code></pre>
+ 10.735644   100
+  8.765798   100</code></pre>
 </div>
 </div>
 </div>
@@ -2808,8 +2808,8 @@ Note
 │ ---        ┆ ---          ┆ ---         │
 │ cat        ┆ f64          ┆ f64         │
 ╞════════════╪══════════════╪═════════════╡
-│ versicolor ┆ 213.0        ┆ 66.3        │
 │ setosa     ┆ 73.1         ┆ 12.3        │
+│ versicolor ┆ 213.0        ┆ 66.3        │
 │ virginica  ┆ 277.6        ┆ 101.3       │
 └────────────┴──────────────┴─────────────┘</code></pre>
 </div>
@@ -2911,9 +2911,9 @@ Tip
 │ ---        ┆ ---          ┆ ---         ┆ ---          ┆ ---         │
 │ cat        ┆ f64          ┆ f64         ┆ f64          ┆ f64         │
 ╞════════════╪══════════════╪═════════════╪══════════════╪═════════════╡
-│ setosa     ┆ 250.3        ┆ 171.4       ┆ 73.1         ┆ 12.3        │
-│ versicolor ┆ 296.8        ┆ 138.5       ┆ 213.0        ┆ 66.3        │
 │ virginica  ┆ 329.4        ┆ 148.7       ┆ 277.6        ┆ 101.3       │
+│ versicolor ┆ 296.8        ┆ 138.5       ┆ 213.0        ┆ 66.3        │
+│ setosa     ┆ 250.3        ┆ 171.4       ┆ 73.1         ┆ 12.3        │
 └────────────┴──────────────┴─────────────┴──────────────┴─────────────┘</code></pre>
 </div>
 </div>
@@ -3137,9 +3137,9 @@ Tip
 │ ---          ┆ ---         ┆ ---          ┆ ---         ┆ ---        │
 │ f64          ┆ f64         ┆ f64          ┆ f64         ┆ cat        │
 ╞══════════════╪═════════════╪══════════════╪═════════════╪════════════╡
+│ 5.1          ┆ 3.5         ┆ 1.4          ┆ 0.2         ┆ setosa     │
 │ 6.3          ┆ 3.3         ┆ 6.0          ┆ 2.5         ┆ virginica  │
 │ 7.0          ┆ 3.2         ┆ 4.7          ┆ 1.4         ┆ versicolor │
-│ 5.1          ┆ 3.5         ┆ 1.4          ┆ 0.2         ┆ setosa     │
 └──────────────┴─────────────┴──────────────┴─────────────┴────────────┘</code></pre>
 </div>
 <div class="sourceCode cell-code" id="cb244"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb244-1"><a href="#cb244-1" aria-hidden="true" tabindex="-1"></a><span class="co"># With one column keeping last entry</span></span>
@@ -3154,9 +3154,9 @@ Tip
 │ ---          ┆ ---         ┆ ---          ┆ ---         ┆ ---        │
 │ f64          ┆ f64         ┆ f64          ┆ f64         ┆ cat        │
 ╞══════════════╪═════════════╪══════════════╪═════════════╪════════════╡
-│ 5.9          ┆ 3.0         ┆ 5.1          ┆ 1.8         ┆ virginica  │
 │ 5.7          ┆ 2.8         ┆ 4.1          ┆ 1.3         ┆ versicolor │
 │ 5.0          ┆ 3.3         ┆ 1.4          ┆ 0.2         ┆ setosa     │
+│ 5.9          ┆ 3.0         ┆ 5.1          ┆ 1.8         ┆ virginica  │
 └──────────────┴─────────────┴──────────────┴─────────────┴────────────┘</code></pre>
 </div>
 <div class="sourceCode cell-code" id="cb246"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb246-1"><a href="#cb246-1" aria-hidden="true" tabindex="-1"></a><span class="co"># With two colums, keeping last entry and maintaining the same order</span></span>

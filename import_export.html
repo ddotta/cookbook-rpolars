@@ -216,7 +216,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   </ul></li>
   <li><a href="#export-data-to-csv-files" id="toc-export-data-to-csv-files" class="nav-link" data-scroll-target="#export-data-to-csv-files"><span class="header-section-number">3.2</span> Export data to csv files</a></li>
   <li><a href="#export-data-to-parquet-files" id="toc-export-data-to-parquet-files" class="nav-link" data-scroll-target="#export-data-to-parquet-files"><span class="header-section-number">3.3</span> Export data to Parquet files</a></li>
-  <li><a href="#export-data-to-excel" id="toc-export-data-to-excel" class="nav-link" data-scroll-target="#export-data-to-excel"><span class="header-section-number">3.4</span> Export data to Excel</a></li>
+  <li><a href="#export-data-to-jsonndjson-files" id="toc-export-data-to-jsonndjson-files" class="nav-link" data-scroll-target="#export-data-to-jsonndjson-files"><span class="header-section-number">3.4</span> Export data to json/ndjson files</a></li>
+  <li><a href="#export-data-to-excel" id="toc-export-data-to-excel" class="nav-link" data-scroll-target="#export-data-to-excel"><span class="header-section-number">3.5</span> Export data to Excel</a></li>
   </ul>
 <div class="toc-actions"><div><i class="bi bi-github"></i></div><div class="action-links"><p><a href="https://github.com/ddotta/cookbook-rpolars/edit/main/book/import_export.qmd" class="toc-action">Edit this page</a></p><p><a href="https://github.com/ddotta/cookbook-rpolars/issues/new" class="toc-action">Report an issue</a></p><p><a href="https://github.com/ddotta/cookbook-rpolars/blob/main/book/import_export.qmd" class="toc-action">View source</a></p></div></div></nav>
     </div>
@@ -513,7 +514,7 @@ Important
 <div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>pl<span class="sc">$</span><span class="fu">read_csv</span>(<span class="st">"https://j.mp/iriscsv"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stderr">
 <pre><code>tmp file placed in 
- /tmp/RtmpQiDEJS/file24e258e6c14</code></pre>
+ /tmp/RtmpMH3dK5/file24972537bc52</code></pre>
 </div>
 <div class="cell-output cell-output-stdout">
 <pre><code>shape: (150, 5)
@@ -729,7 +730,10 @@ Important
 <div class="cell">
 <div class="sourceCode cell-code" id="cb18"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a>destination <span class="ot">=</span> <span class="fu">tempfile</span>(<span class="at">fileext =</span> <span class="st">".csv"</span>)</span>
 <span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a><span class="fu">as_polars_df</span>(iris)<span class="sc">$</span><span class="fu">write_csv</span>(destination)</span>
-<span id="cb18-3"><a href="#cb18-3" aria-hidden="true" tabindex="-1"></a><span class="fu">list.files</span>(destination, <span class="at">recursive =</span> <span class="cn">TRUE</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb18-3"><a href="#cb18-3" aria-hidden="true" tabindex="-1"></a><span class="fu">file.exists</span>(destination)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] TRUE</code></pre>
+</div>
 </div>
 </section>
 <section id="export-data-to-parquet-files" class="level2" data-number="3.3">
@@ -738,26 +742,49 @@ Important
 <p>See <a href="https://pola-rs.github.io/r-polars/man/IO_write_parquet.html">here</a> for full function syntax.</p>
 <p>You can write data to a single Parquet file…</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb19"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a>destination <span class="ot">=</span> <span class="fu">tempfile</span>(<span class="at">fileext =</span> <span class="st">".parquet"</span>)</span>
-<span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a><span class="fu">as_polars_df</span>(iris)<span class="sc">$</span><span class="fu">write_parquet</span>(destination)</span>
-<span id="cb19-3"><a href="#cb19-3" aria-hidden="true" tabindex="-1"></a><span class="fu">list.files</span>(destination, <span class="at">recursive =</span> <span class="cn">TRUE</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb20"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a>destination <span class="ot">=</span> <span class="fu">tempfile</span>(<span class="at">fileext =</span> <span class="st">".parquet"</span>)</span>
+<span id="cb20-2"><a href="#cb20-2" aria-hidden="true" tabindex="-1"></a><span class="fu">as_polars_df</span>(iris)<span class="sc">$</span><span class="fu">write_parquet</span>(destination)</span>
+<span id="cb20-3"><a href="#cb20-3" aria-hidden="true" tabindex="-1"></a><span class="fu">file.exists</span>(destination)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>character(0)</code></pre>
+<pre><code>[1] TRUE</code></pre>
 </div>
 </div>
 <p>…And you can write to folder with a hive-partitioned structure</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb21"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a>destination <span class="ot">=</span> <span class="fu">tempfile</span>(<span class="at">fileext =</span> <span class="st">".parquet"</span>)</span>
-<span id="cb21-2"><a href="#cb21-2" aria-hidden="true" tabindex="-1"></a><span class="fu">as_polars_df</span>(iris)<span class="sc">$</span><span class="fu">write_parquet</span>(destination, <span class="at">partition_by =</span> <span class="fu">c</span>(<span class="st">"Species"</span>))</span>
-<span id="cb21-3"><a href="#cb21-3" aria-hidden="true" tabindex="-1"></a><span class="fu">list.files</span>(destination, <span class="at">recursive =</span> <span class="cn">TRUE</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb22"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a>destination <span class="ot">=</span> <span class="fu">tempfile</span>(<span class="at">fileext =</span> <span class="st">".parquet"</span>)</span>
+<span id="cb22-2"><a href="#cb22-2" aria-hidden="true" tabindex="-1"></a><span class="fu">as_polars_df</span>(iris)<span class="sc">$</span><span class="fu">write_parquet</span>(destination, <span class="at">partition_by =</span> <span class="fu">c</span>(<span class="st">"Species"</span>))</span>
+<span id="cb22-3"><a href="#cb22-3" aria-hidden="true" tabindex="-1"></a><span class="fu">list.files</span>(destination, <span class="at">recursive =</span> <span class="cn">TRUE</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] "Species=setosa/00000000.parquet"     "Species=versicolor/00000000.parquet"
 [3] "Species=virginica/00000000.parquet" </code></pre>
 </div>
 </div>
 </section>
-<section id="export-data-to-excel" class="level2" data-number="3.4">
-<h2 data-number="3.4" class="anchored" data-anchor-id="export-data-to-excel"><span class="header-section-number">3.4</span> Export data to Excel</h2>
+<section id="export-data-to-jsonndjson-files" class="level2" data-number="3.4">
+<h2 data-number="3.4" class="anchored" data-anchor-id="export-data-to-jsonndjson-files"><span class="header-section-number">3.4</span> Export data to json/ndjson files</h2>
+<p>The <code>write_json()</code> and <code>write_ndjson()</code> methods can be used to write to json/ndjson files.</p>
+<p>See <a href="https://pola-rs.github.io/r-polars/man/IO_write_json.html">here</a> or <a href="https://pola-rs.github.io/r-polars/man/IO_write_ndjson.html">here</a> for full function syntax.</p>
+<p>For a json file:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb24"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a>destination <span class="ot">=</span> <span class="fu">tempfile</span>(<span class="at">fileext =</span> <span class="st">".json"</span>)</span>
+<span id="cb24-2"><a href="#cb24-2" aria-hidden="true" tabindex="-1"></a><span class="fu">as_polars_df</span>(iris)<span class="sc">$</span><span class="fu">write_json</span>(destination)</span>
+<span id="cb24-3"><a href="#cb24-3" aria-hidden="true" tabindex="-1"></a><span class="fu">file.exists</span>(destination)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] TRUE</code></pre>
+</div>
+</div>
+<p>For a ndjson file:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb26"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a>destination <span class="ot">=</span> <span class="fu">tempfile</span>(<span class="at">fileext =</span> <span class="st">".ndjson"</span>)</span>
+<span id="cb26-2"><a href="#cb26-2" aria-hidden="true" tabindex="-1"></a><span class="fu">as_polars_df</span>(iris)<span class="sc">$</span><span class="fu">write_ndjson</span>(destination)</span>
+<span id="cb26-3"><a href="#cb26-3" aria-hidden="true" tabindex="-1"></a><span class="fu">file.exists</span>(destination)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] TRUE</code></pre>
+</div>
+</div>
+</section>
+<section id="export-data-to-excel" class="level2" data-number="3.5">
+<h2 data-number="3.5" class="anchored" data-anchor-id="export-data-to-excel"><span class="header-section-number">3.5</span> Export data to Excel</h2>
 <p>As with Python, there are no native method in Rust for <strong>exporting to Excel format</strong>.</p>
 <p>The <strong>best current solution</strong> is to use the <a href="data_manipulation.html#from-seriesdataframes-to-vectordata.frames">data.frame conversion method</a> and then use the <a href="https://ycphs.github.io/openxlsx/index.html">{openxlsx}</a> package or one of its <a href="https://ddotta.github.io/tablexlsx/">{tablexlsx}</a> wrapper to export these DataFrames in xlsx format. The more recent<a href="https://github.com/JanMarvin/openxlsx2">{openxlxs2}</a> package is also a great tool for exporting to xlsx files.</p>
 <p>Let’s look at the syntax of a simple export with theses 3 packages:</p>
@@ -766,32 +793,32 @@ Important
 <div class="tab-content">
 <div id="tabset-2-1" class="tab-pane active" role="tabpanel" aria-labelledby="tabset-2-1-tab">
 <div class="cell">
-<div class="sourceCode cell-code" id="cb23"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a><span class="co"># install.packages("openxlsx")</span></span>
-<span id="cb23-2"><a href="#cb23-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(openxlsx)</span>
-<span id="cb23-3"><a href="#cb23-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb23-4"><a href="#cb23-4" aria-hidden="true" tabindex="-1"></a>openxlsx<span class="sc">::</span><span class="fu">write.xlsx</span>(</span>
-<span id="cb23-5"><a href="#cb23-5" aria-hidden="true" tabindex="-1"></a>    iris,</span>
-<span id="cb23-6"><a href="#cb23-6" aria-hidden="true" tabindex="-1"></a>    <span class="at">file =</span> <span class="fu">tempdir</span>()</span>
-<span id="cb23-7"><a href="#cb23-7" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb28"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true" tabindex="-1"></a><span class="co"># install.packages("openxlsx")</span></span>
+<span id="cb28-2"><a href="#cb28-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(openxlsx)</span>
+<span id="cb28-3"><a href="#cb28-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb28-4"><a href="#cb28-4" aria-hidden="true" tabindex="-1"></a>openxlsx<span class="sc">::</span><span class="fu">write.xlsx</span>(</span>
+<span id="cb28-5"><a href="#cb28-5" aria-hidden="true" tabindex="-1"></a>    iris,</span>
+<span id="cb28-6"><a href="#cb28-6" aria-hidden="true" tabindex="-1"></a>    <span class="at">file =</span> <span class="fu">tempdir</span>()</span>
+<span id="cb28-7"><a href="#cb28-7" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </div>
 <div id="tabset-2-2" class="tab-pane" role="tabpanel" aria-labelledby="tabset-2-2-tab">
 <div class="cell">
-<div class="sourceCode cell-code" id="cb24"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a><span class="co"># install.packages("tablexlsx")</span></span>
-<span id="cb24-2"><a href="#cb24-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tablexlsx)</span>
-<span id="cb24-3"><a href="#cb24-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb24-4"><a href="#cb24-4" aria-hidden="true" tabindex="-1"></a>iris <span class="sc">|&gt;</span> <span class="fu">toxlsx</span>(<span class="at">path =</span> <span class="fu">tempdir</span>())</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb29"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true" tabindex="-1"></a><span class="co"># install.packages("tablexlsx")</span></span>
+<span id="cb29-2"><a href="#cb29-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tablexlsx)</span>
+<span id="cb29-3"><a href="#cb29-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb29-4"><a href="#cb29-4" aria-hidden="true" tabindex="-1"></a>iris <span class="sc">|&gt;</span> <span class="fu">toxlsx</span>(<span class="at">path =</span> <span class="fu">tempdir</span>())</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </div>
 <div id="tabset-2-3" class="tab-pane" role="tabpanel" aria-labelledby="tabset-2-3-tab">
 <div class="cell">
-<div class="sourceCode cell-code" id="cb25"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a><span class="co"># install.packages("openxlsx2")</span></span>
-<span id="cb25-2"><a href="#cb25-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(openxlsx2)</span>
-<span id="cb25-3"><a href="#cb25-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb25-4"><a href="#cb25-4" aria-hidden="true" tabindex="-1"></a>openxlsx2<span class="sc">::</span><span class="fu">write_xlsx</span>(</span>
-<span id="cb25-5"><a href="#cb25-5" aria-hidden="true" tabindex="-1"></a>    iris,</span>
-<span id="cb25-6"><a href="#cb25-6" aria-hidden="true" tabindex="-1"></a>    <span class="at">file =</span> <span class="fu">tempdir</span>()</span>
-<span id="cb25-7"><a href="#cb25-7" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb30"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb30-1"><a href="#cb30-1" aria-hidden="true" tabindex="-1"></a><span class="co"># install.packages("openxlsx2")</span></span>
+<span id="cb30-2"><a href="#cb30-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(openxlsx2)</span>
+<span id="cb30-3"><a href="#cb30-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb30-4"><a href="#cb30-4" aria-hidden="true" tabindex="-1"></a>openxlsx2<span class="sc">::</span><span class="fu">write_xlsx</span>(</span>
+<span id="cb30-5"><a href="#cb30-5" aria-hidden="true" tabindex="-1"></a>    iris,</span>
+<span id="cb30-6"><a href="#cb30-6" aria-hidden="true" tabindex="-1"></a>    <span class="at">file =</span> <span class="fu">tempdir</span>()</span>
+<span id="cb30-7"><a href="#cb30-7" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </div>
 </div>
