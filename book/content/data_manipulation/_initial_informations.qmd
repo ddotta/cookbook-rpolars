@@ -189,6 +189,14 @@ mydfNA <- pl$DataFrame(
 mydfNA$null_count()
 ```
 
+## tidypolars
+
+```{r}
+#| label: count-NA-tidypolars
+mydfNA |>
+  summarise(across(everything(), ~sum(is.na(.x))))
+```
+
 ## R base
 
 ```{r}
@@ -204,7 +212,7 @@ sapply(mydfNA, function(x) sum(is.na(x)))
 ```{r}
 #| label: count-NA-dplyr
 mydfNA |>
-  summarise(across(everything(), ~sum(is.na(.))))
+  summarise(across(everything(), ~sum(is.na(.x))))
 ```
 
 ## data.table
