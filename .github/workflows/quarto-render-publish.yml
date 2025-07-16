@@ -53,6 +53,10 @@ jobs:
             repos = c("https://community.r-multiverse.org", "https://cloud.r-project.org")
           )
         shell: Rscript {0}  
+        
+      - name: Check tidypolars version
+        run: |
+          Rscript -e 'packageVersion("tidypolars")'
 
       - name: Render Quarto Project
         uses: quarto-dev/quarto-actions/render@v2
