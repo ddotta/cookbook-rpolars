@@ -60,7 +60,7 @@ iris |>
 ## data.table
 
 ```{r}
-#| label: height-function-dplyr
+#| label: height-function-datatable
 nrow(iris_dt)
 ```
 
