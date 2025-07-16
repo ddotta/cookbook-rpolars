@@ -38,7 +38,7 @@ jobs:
         run: |
           install.packages(
             "polars",
-            repos = "https://community.r-multiverse.org")
+            repos = "https://community.r-multiverse.org"
           )
         shell: Rscript {0}      
 
