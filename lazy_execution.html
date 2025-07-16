@@ -496,17 +496,17 @@ Important
 │ ---                  ┆ ---  ┆ ---       │
 │ str                  ┆ f64  ┆ f64       │
 ╞══════════════════════╪══════╪═══════════╡
-│ Lorraine             ┆ null ┆ 85.0      │
-│ Picardie             ┆ 28.0 ┆ 74.370441 │
-│ Poitou-Charentes     ┆ null ┆ null      │
-│ Auvergne             ┆ null ┆ null      │
-│ Franche-Comté        ┆ null ┆ 67.397936 │
+│ Pays de la Loire     ┆ null ┆ null      │
+│ Haute-Normandie      ┆ 40.0 ┆ 81.0      │
+│ Rhône-Alpes          ┆ 68.0 ┆ null      │
+│ Alsace               ┆ 43.0 ┆ null      │
+│ null                 ┆ null ┆ null      │
 │ …                    ┆ …    ┆ …         │
-│ Nord-Pas-de-Calais   ┆ 60.0 ┆ null      │
-│ Haute-Normandie      ┆ null ┆ null      │
-│ Languedoc-Roussillon ┆ 60.0 ┆ null      │
-│ Centre               ┆ null ┆ null      │
-│ Pays de la Loire     ┆ 67.0 ┆ null      │
+│ Bretagne             ┆ 76.0 ┆ null      │
+│ Picardie             ┆ null ┆ null      │
+│ Basse-Normandie      ┆ 67.0 ┆ null      │
+│ Auvergne             ┆ null ┆ 68.0      │
+│ Languedoc-Roussillon ┆ null ┆ null      │
 └──────────────────────┴──────┴───────────┘</code></pre>
 </div>
 </div>
@@ -538,28 +538,28 @@ Important
 future. Use `as_polars_df()` instead.</code></pre>
 </div>
 <div class="cell-output cell-output-stdout">
-<pre><code>shape: (3_696, 3)
-┌───────────┬──────────────────────┬───────────┐
-│ region    ┆ departement          ┆ priority  │
-│ ---       ┆ ---                  ┆ ---       │
-│ str       ┆ str                  ┆ cat       │
-╞═══════════╪══════════════════════╪═══════════╡
-│ Aquitaine ┆ Pyrénées-Atlantiques ┆ Bronze    │
-│ Aquitaine ┆ Pyrénées-Atlantiques ┆ Bronze    │
-│ Aquitaine ┆ Pyrénées-Atlantiques ┆ Bronze    │
-│ Aquitaine ┆ Pyrénées-Atlantiques ┆ Bronze    │
-│ Aquitaine ┆ Pyrénées-Atlantiques ┆ Bronze    │
-│ …         ┆ …                    ┆ …         │
-│ Aquitaine ┆ Dordogne             ┆ Platinium │
-│ Aquitaine ┆ Dordogne             ┆ Platinium │
-│ Aquitaine ┆ Dordogne             ┆ Platinium │
-│ Aquitaine ┆ Dordogne             ┆ Platinium │
-│ Aquitaine ┆ Pyrénées-Atlantiques ┆ Bronze    │
-└───────────┴──────────────────────┴───────────┘</code></pre>
+<pre><code>shape: (3_304, 3)
+┌───────────┬─────────────┬──────────┐
+│ region    ┆ departement ┆ priority │
+│ ---       ┆ ---         ┆ ---      │
+│ str       ┆ str         ┆ cat      │
+╞═══════════╪═════════════╪══════════╡
+│ Aquitaine ┆ Dordogne    ┆ Gold     │
+│ Aquitaine ┆ Dordogne    ┆ Gold     │
+│ Aquitaine ┆ Dordogne    ┆ Gold     │
+│ Aquitaine ┆ Dordogne    ┆ Gold     │
+│ Aquitaine ┆ Dordogne    ┆ Gold     │
+│ …         ┆ …           ┆ …        │
+│ Aquitaine ┆ Landes      ┆ Bronze   │
+│ Aquitaine ┆ null        ┆ Gold     │
+│ Aquitaine ┆ Landes      ┆ Bronze   │
+│ Aquitaine ┆ Landes      ┆ Bronze   │
+│ Aquitaine ┆ Landes      ┆ Bronze   │
+└───────────┴─────────────┴──────────┘</code></pre>
 </div>
 <div class="sourceCode cell-code" id="cb19"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a><span class="fu">toc</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>0.063 sec elapsed</code></pre>
+<pre><code>0.062 sec elapsed</code></pre>
 </div>
 </div>
 <p>As seen above, we’re going to use the <code>lazy()</code> method to convert a <code>DataFrame</code> to a <code>LazyFrame</code>:</p>
@@ -579,28 +579,28 @@ future. Use `as_polars_df()` instead.</code></pre>
 future. Use `as_polars_df()` instead.</code></pre>
 </div>
 <div class="cell-output cell-output-stdout">
-<pre><code>shape: (3_696, 3)
-┌───────────┬──────────────────────┬───────────┐
-│ region    ┆ departement          ┆ priority  │
-│ ---       ┆ ---                  ┆ ---       │
-│ str       ┆ str                  ┆ cat       │
-╞═══════════╪══════════════════════╪═══════════╡
-│ Aquitaine ┆ Pyrénées-Atlantiques ┆ Bronze    │
-│ Aquitaine ┆ Pyrénées-Atlantiques ┆ Bronze    │
-│ Aquitaine ┆ Pyrénées-Atlantiques ┆ Bronze    │
-│ Aquitaine ┆ Pyrénées-Atlantiques ┆ Bronze    │
-│ Aquitaine ┆ Pyrénées-Atlantiques ┆ Bronze    │
-│ …         ┆ …                    ┆ …         │
-│ Aquitaine ┆ Dordogne             ┆ Platinium │
-│ Aquitaine ┆ Dordogne             ┆ Platinium │
-│ Aquitaine ┆ Dordogne             ┆ Platinium │
-│ Aquitaine ┆ Dordogne             ┆ Platinium │
-│ Aquitaine ┆ Pyrénées-Atlantiques ┆ Bronze    │
-└───────────┴──────────────────────┴───────────┘</code></pre>
+<pre><code>shape: (3_304, 3)
+┌───────────┬─────────────┬──────────┐
+│ region    ┆ departement ┆ priority │
+│ ---       ┆ ---         ┆ ---      │
+│ str       ┆ str         ┆ cat      │
+╞═══════════╪═════════════╪══════════╡
+│ Aquitaine ┆ Dordogne    ┆ Gold     │
+│ Aquitaine ┆ Dordogne    ┆ Gold     │
+│ Aquitaine ┆ Dordogne    ┆ Gold     │
+│ Aquitaine ┆ Dordogne    ┆ Gold     │
+│ Aquitaine ┆ Dordogne    ┆ Gold     │
+│ …         ┆ …           ┆ …        │
+│ Aquitaine ┆ Landes      ┆ Bronze   │
+│ Aquitaine ┆ null        ┆ Gold     │
+│ Aquitaine ┆ Landes      ┆ Bronze   │
+│ Aquitaine ┆ Landes      ┆ Bronze   │
+│ Aquitaine ┆ Landes      ┆ Bronze   │
+└───────────┴─────────────┴──────────┘</code></pre>
 </div>
 <div class="sourceCode cell-code" id="cb24"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a><span class="fu">toc</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>0.062 sec elapsed</code></pre>
+<pre><code>0.061 sec elapsed</code></pre>
 </div>
 </div>
 </section>
@@ -620,23 +620,21 @@ future. Use `as_polars_df()` instead.</code></pre>
 <span id="cb26-10"><a href="#cb26-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(<span class="st">"departement"</span>,<span class="st">"priority"</span>)<span class="sc">$</span></span>
 <span id="cb26-11"><a href="#cb26-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">agg</span>(pl<span class="sc">$</span><span class="fu">col</span>(<span class="st">"age"</span>)<span class="sc">$</span><span class="fu">mean</span>())</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>shape: (6, 3)
-┌─────────────────┬──────────┬───────────┐
-│ departement     ┆ priority ┆ age       │
-│ ---             ┆ ---      ┆ ---       │
-│ str             ┆ str      ┆ f64       │
-╞═════════════════╪══════════╪═══════════╡
-│ Finistère       ┆ Gold     ┆ 40.0      │
-│ Ille-et-Vilaine ┆ Bronze   ┆ 41.845875 │
-│ Finistère       ┆ Silver   ┆ 41.0      │
-│ Morbihan        ┆ Bronze   ┆ 29.0      │
-│ NA              ┆ Bronze   ┆ 30.0      │
-│ Ille-et-Vilaine ┆ Silver   ┆ 21.0      │
-└─────────────────┴──────────┴───────────┘</code></pre>
+<pre><code>shape: (4, 3)
+┌─────────────────┬──────────┬──────┐
+│ departement     ┆ priority ┆ age  │
+│ ---             ┆ ---      ┆ ---  │
+│ str             ┆ str      ┆ f64  │
+╞═════════════════╪══════════╪══════╡
+│ Ille-et-Vilaine ┆ Silver   ┆ 68.0 │
+│ Côtes-d'Armor   ┆ Silver   ┆ 26.0 │
+│ Finistère       ┆ Bronze   ┆ 20.0 │
+│ NA              ┆ Gold     ┆ 76.0 │
+└─────────────────┴──────────┴──────┘</code></pre>
 </div>
 <div class="sourceCode cell-code" id="cb28"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true" tabindex="-1"></a><span class="fu">toc</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>0.06 sec elapsed</code></pre>
+<pre><code>0.061 sec elapsed</code></pre>
 </div>
 </div>
 <p>… while the <code>lazy</code> method is represented by the <code>pl$scan_csv()</code>:</p>
@@ -653,19 +651,17 @@ future. Use `as_polars_df()` instead.</code></pre>
 <span id="cb30-10"><a href="#cb30-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">agg</span>(pl<span class="sc">$</span><span class="fu">col</span>(<span class="st">"age"</span>)<span class="sc">$</span><span class="fu">mean</span>())<span class="sc">$</span></span>
 <span id="cb30-11"><a href="#cb30-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">collect</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>shape: (6, 3)
-┌─────────────────┬──────────┬───────────┐
-│ departement     ┆ priority ┆ age       │
-│ ---             ┆ ---      ┆ ---       │
-│ str             ┆ str      ┆ f64       │
-╞═════════════════╪══════════╪═══════════╡
-│ NA              ┆ Bronze   ┆ 30.0      │
-│ Finistère       ┆ Gold     ┆ 40.0      │
-│ Ille-et-Vilaine ┆ Bronze   ┆ 41.845875 │
-│ Finistère       ┆ Silver   ┆ 41.0      │
-│ Morbihan        ┆ Bronze   ┆ 29.0      │
-│ Ille-et-Vilaine ┆ Silver   ┆ 21.0      │
-└─────────────────┴──────────┴───────────┘</code></pre>
+<pre><code>shape: (4, 3)
+┌─────────────────┬──────────┬──────┐
+│ departement     ┆ priority ┆ age  │
+│ ---             ┆ ---      ┆ ---  │
+│ str             ┆ str      ┆ f64  │
+╞═════════════════╪══════════╪══════╡
+│ NA              ┆ Gold     ┆ 76.0 │
+│ Finistère       ┆ Bronze   ┆ 20.0 │
+│ Côtes-d'Armor   ┆ Silver   ┆ 26.0 │
+│ Ille-et-Vilaine ┆ Silver   ┆ 68.0 │
+└─────────────────┴──────────┴──────┘</code></pre>
 </div>
 <div class="sourceCode cell-code" id="cb32"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb32-1"><a href="#cb32-1" aria-hidden="true" tabindex="-1"></a><span class="fu">toc</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
@@ -686,20 +682,18 @@ future. Use `as_polars_df()` instead.</code></pre>
 <span id="cb34-6"><a href="#cb34-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">arrange</span>(departement) <span class="sc">|&gt;</span></span>
 <span id="cb34-7"><a href="#cb34-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">collect</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code># A tibble: 6 × 3
+<pre><code># A tibble: 4 × 3
 # Groups:   departement [4]
   departement     priority mymean
   &lt;chr&gt;           &lt;fct&gt;     &lt;dbl&gt;
-1 Finistère       Silver     41  
-2 Finistère       Gold       40  
-3 Ille-et-Vilaine Bronze     41.8
-4 Ille-et-Vilaine Silver     21  
-5 Morbihan        Bronze     29  
-6 &lt;NA&gt;            Bronze     30  </code></pre>
+1 Côtes-d'Armor   Silver       26
+2 Finistère       Bronze       20
+3 Ille-et-Vilaine Silver       68
+4 &lt;NA&gt;            Gold         76</code></pre>
 </div>
 <div class="sourceCode cell-code" id="cb36"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb36-1"><a href="#cb36-1" aria-hidden="true" tabindex="-1"></a><span class="fu">toc</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>0.196 sec elapsed</code></pre>
+<pre><code>0.191 sec elapsed</code></pre>
 </div>
 </div>
 <div class="cell">
@@ -713,19 +707,17 @@ future. Use `as_polars_df()` instead.</code></pre>
 <span id="cb38-8"><a href="#cb38-8" aria-hidden="true" tabindex="-1"></a>)<span class="sc">$</span><span class="fu">sort</span>(<span class="st">"departement"</span>)<span class="sc">$</span></span>
 <span id="cb38-9"><a href="#cb38-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">collect</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>shape: (6, 3)
-┌─────────────────┬──────────┬───────────┐
-│ departement     ┆ priority ┆ age       │
-│ ---             ┆ ---      ┆ ---       │
-│ str             ┆ cat      ┆ f64       │
-╞═════════════════╪══════════╪═══════════╡
-│ null            ┆ Bronze   ┆ 30.0      │
-│ Finistère       ┆ Gold     ┆ 40.0      │
-│ Finistère       ┆ Silver   ┆ 41.0      │
-│ Ille-et-Vilaine ┆ Bronze   ┆ 41.845875 │
-│ Ille-et-Vilaine ┆ Silver   ┆ 21.0      │
-│ Morbihan        ┆ Bronze   ┆ 29.0      │
-└─────────────────┴──────────┴───────────┘</code></pre>
+<pre><code>shape: (4, 3)
+┌─────────────────┬──────────┬──────┐
+│ departement     ┆ priority ┆ age  │
+│ ---             ┆ ---      ┆ ---  │
+│ str             ┆ cat      ┆ f64  │
+╞═════════════════╪══════════╪══════╡
+│ null            ┆ Gold     ┆ 76.0 │
+│ Côtes-d'Armor   ┆ Silver   ┆ 26.0 │
+│ Finistère       ┆ Bronze   ┆ 20.0 │
+│ Ille-et-Vilaine ┆ Silver   ┆ 68.0 │
+└─────────────────┴──────────┴──────┘</code></pre>
 </div>
 <div class="sourceCode cell-code" id="cb40"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb40-1"><a href="#cb40-1" aria-hidden="true" tabindex="-1"></a><span class="fu">toc</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
@@ -753,20 +745,18 @@ Important
 <span id="cb42-6"><a href="#cb42-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">arrange</span>(departement) <span class="sc">|&gt;</span></span>
 <span id="cb42-7"><a href="#cb42-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">collect</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code># A tibble: 6 × 3
+<pre><code># A tibble: 4 × 3
 # Groups:   departement [4]
   departement     priority mymean
   &lt;chr&gt;           &lt;fct&gt;     &lt;dbl&gt;
-1 Finistère       Silver     41  
-2 Finistère       Gold       40  
-3 Ille-et-Vilaine Bronze     41.8
-4 Ille-et-Vilaine Silver     21  
-5 Morbihan        Bronze     29  
-6 &lt;NA&gt;            Bronze     30  </code></pre>
+1 Côtes-d'Armor   Silver       26
+2 Finistère       Bronze       20
+3 Ille-et-Vilaine Silver       68
+4 &lt;NA&gt;            Gold         76</code></pre>
 </div>
 <div class="sourceCode cell-code" id="cb44"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb44-1"><a href="#cb44-1" aria-hidden="true" tabindex="-1"></a><span class="fu">toc</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>0.092 sec elapsed</code></pre>
+<pre><code>0.093 sec elapsed</code></pre>
 </div>
 </div>
 </div>
