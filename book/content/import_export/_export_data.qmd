@@ -6,11 +6,10 @@ See [here](https://pola-rs.github.io/r-polars/man/IO_write_csv.html) for full fu
 
 ```{r}
 #| label: export-csv
-#| eval: false
 
 destination = tempfile(fileext = ".csv")
 as_polars_df(iris)$write_csv(destination)
-list.files(destination, recursive = TRUE)
+file.exists(destination)
 ```
 
 ## Export data to Parquet files
@@ -26,7 +25,7 @@ You can write data to a single Parquet file...
 
 destination = tempfile(fileext = ".parquet")
 as_polars_df(iris)$write_parquet(destination)
-list.files(destination, recursive = TRUE)
+file.exists(destination)
 ```
 
 ...And you can write to folder with a hive-partitioned structure   
@@ -37,6 +36,31 @@ list.files(destination, recursive = TRUE)
 destination = tempfile(fileext = ".parquet")
 as_polars_df(iris)$write_parquet(destination, partition_by = c("Species"))
 list.files(destination, recursive = TRUE)
+```
+
+## Export data to json/ndjson files
+
+The `write_json()` and `write_ndjson()` methods can be used to write to json/ndjson files.  
+
+See [here](https://pola-rs.github.io/r-polars/man/IO_write_json.html) or [here](https://pola-rs.github.io/r-polars/man/IO_write_ndjson.html) for full function syntax.  
+
+For a json file:  
+
+```{r}
+#| label: export-json
+
+destination = tempfile(fileext = ".json")
+as_polars_df(iris)$write_json(destination)
+file.exists(destination)
+```
+For a ndjson file:  
+
+```{r}
+#| label: export-ndjson
+
+destination = tempfile(fileext = ".ndjson")
+as_polars_df(iris)$write_ndjson(destination)
+file.exists(destination)
 ```
 
 ## Export data to Excel
