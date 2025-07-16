@@ -10,7 +10,7 @@ A `DataFrame` has a `schema` attribute which is a named list of DataTypes.
 #| label: get-schema
 mydf$schema
 # This works also on LazyFrame
-mydf$lazy()$schema
+# mydf$lazy()$schema
 ```
 
 ### Get the dimensions
