@@ -58,6 +58,15 @@ as_polars_df(iris)$
   median()
 ```
 
+## tidypolars
+
+```{r}
+#| label: chaining-tidypolars
+as_polars_df(iris) |>
+  group_by(Species) |>
+  summarise(across(everything(),median))
+```
+
 ## R base
 
 ```{r}
