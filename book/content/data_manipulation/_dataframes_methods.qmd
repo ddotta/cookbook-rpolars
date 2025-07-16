@@ -37,14 +37,14 @@ iris_dt[, c(Petal.Length)]
 
 #### Get a R List from DataFrame
 
-The `to_list()` method can be used to get a R List from `DataFrame`.
+The `as.list()` function can be used to get a R List from a Polars object.
 
 ::: {.panel-tabset}
 ## polars
 
 ```{r}
 #| label: to-list-polars
-mylist <- as_polars_df(iris)$to_list()
+mylist <- as.list(as_polars_df(iris))
 names(mylist)
 ```
 
