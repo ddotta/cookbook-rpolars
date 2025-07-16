@@ -34,7 +34,7 @@ jobs:
       - name: Install packages
         uses: r-lib/actions/setup-r-dependencies@v2
 
-        - name: Install polars from multiverse
+      - name: Install polars from multiverse
         run: |
           install.packages(
             "polars",
@@ -46,7 +46,7 @@ jobs:
         run: |
           Rscript -e 'packageVersion("polars")'
           
-        - name: Install tidypolars from multiverse
+      - name: Install tidypolars from multiverse
         run: |
           install.packages(
             "tidypolars",
