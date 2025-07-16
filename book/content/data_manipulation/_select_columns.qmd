@@ -60,7 +60,7 @@ inherits(as_polars_df(iris)[,c("Petal.Length","Petal.Width")],"DataFrame")
 inherits(as_polars_df(iris)[,c("Petal.Length","Petal.Width")],"Series")
 ```
 
-With Polars if you want to obtain a result in an R data.frame, you can simply add the method `to_data_frame()` at the end of the method chaining. See [here](#from-seriesdataframes-to-vectordata.frames) for examples.
+With Polars if you want to obtain a result in an R data.frame, you can simply use the function `as.data.frame()`. See [here](#from-seriesdataframes-to-vectordata.frames) for examples.
 
 ::: {.callout-tip}
 Beyond the minor differences discussed above, there are **two major reasons why you should use the `select()` method over the syntax with square brackets:**  

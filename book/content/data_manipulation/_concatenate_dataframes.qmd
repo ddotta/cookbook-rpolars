@@ -23,10 +23,10 @@ dfdown <- pl$DataFrame(
 dfleft <- pl$DataFrame(col1 = c("a","b","c"))
 dfright <- pl$DataFrame(col2 = c("x","y","z"))
 
-dfup_df <- dfup$to_data_frame()
-dfdown_df <- dfdown$to_data_frame()
-dfleft_df <- dfleft$to_data_frame()
-dfright_df <- dfright$to_data_frame()
+dfup_df <- as.data.frame(dfup)
+dfdown_df <- as.data.frame(dfdown)
+dfleft_df <- as.data.frame(dfleft)
+dfright_df <- as.data.frame(dfright)
 
 dfup_dt <- as.data.table(dfup)
 dfdown_dt <- as.data.table(dfdown)
@@ -121,7 +121,7 @@ pl$concat(list(dfup,dfdown),how = "diagonal")
 
 ```{r}
 #| label: diagonal-concatenation-rbase
-dfup_df <- dfup$to_data_frame()
+dfup_df <- as.data.frame(dfup)
 dfup_df[setdiff(names(dfdown_df), names(dfup_df))] <- NA
 dfdown_df[setdiff(names(dfup_df), names(dfdown_df))] <- NA
 rbind(dfup_df,dfdown_df)
@@ -131,7 +131,7 @@ rbind(dfup_df,dfdown_df)
 
 ```{r}
 #| label: diagonal-concatenation-dplyr
-dfup_df <- dfup$to_data_frame()
+dfup_df <- as.data.frame(dfup)
 bind_rows(list(dfup_df,dfdown_df))
 ```
 

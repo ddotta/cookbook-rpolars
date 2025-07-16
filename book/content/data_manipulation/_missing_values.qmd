@@ -38,7 +38,7 @@ mydfNA$
 
 ```{r}
 #| label: has-missing-values-rbase
-mydfNA2 <- mydfNA$to_data_frame()
+mydfNA2 <- as.data.frame(mydfNA)
 
 # Find null values
 data.frame(
@@ -87,14 +87,14 @@ mydfNA$
 ```{r}
 #| label: replace-missing-values-rbase
 
-mydfNA2 <- mydfNA$to_data_frame()
+mydfNA2 <- as.data.frame(mydfNA)
 
 # In the same columns
 mydfNA2[is.na(mydfNA2)] <- "missing"
 mydfNA2
 
 # In new columns suffixed by "_corrected"
-mydfNA2 <- mydfNA$to_data_frame()
+mydfNA2 <- as.data.frame(mydfNA)
 
 transform(mydfNA2,
           colA_corrected = ifelse(is.na(colA), "missing", colA),
@@ -107,7 +107,7 @@ transform(mydfNA2,
 ```{r}
 #| label: replace-missing-values-dplyr
 
-mydfNA2 <- mydfNA$to_data_frame()
+mydfNA2 <- as.data.frame(mydfNA)
 
 # In the same columns
 mydfNA2 %>%
@@ -123,7 +123,7 @@ mydfNA2 %>%
 ```{r}
 #| label: replace-missing-values-datatable
 
-mydfNA2 <- mydfNA$to_data_frame()
+mydfNA2 <- as.data.frame(mydfNA)
 mydfNA2_dt <- as.data.table(mydfNA2)
 
 # In the same columns
@@ -220,12 +220,12 @@ mydfNA$
 
 ```{r}
 #| label: replace-missing-values-expression-rbase
-mydfNA2 <- mydfNA$to_data_frame()
+mydfNA2 <- as.data.frame(mydfNA)
 
 # Replace missing values with the mean of the non-null values for that column
 mydfNA2$colC_corrected <- ifelse(is.na(mydfNA2$colC), mean(mydfNA2$colC, na.rm = TRUE), mydfNA2$colC)
 
-mydfNA2 <- mydfNA$to_data_frame()
+mydfNA2 <- as.data.frame(mydfNA)
 # Replace missing values with the values from another column
 mydfNA2$colB_corrected <- ifelse(is.na(mydfNA2$colB), mydfNA2$colA, mydfNA2$colB)
 mydfNA2
@@ -235,7 +235,7 @@ mydfNA2
 
 ```{r}
 #| label: replace-missing-values-expression-dplyr
-mydfNA2 <- mydfNA$to_data_frame()
+mydfNA2 <- as.data.frame(mydfNA)
 
 # Replace missing values with the mean of the non-null values for that column
 mydfNA2 %>%
@@ -250,7 +250,7 @@ mydfNA2 %>%
 ```{r}
 #| label: replace-missing-values-expression-datatable
 
-mydfNA2 <- mydfNA$to_data_frame()
+mydfNA2 <- as.data.frame(mydfNA)
 mydfNA2_dt <- as.data.table(mydfNA2)
 
 # Replace missing values with the mean of the non-null values for that column
@@ -291,7 +291,7 @@ mynewdfNA$
 
 ```{r}
 #| label: coalesce-rbase
-mynewdfNA2 <-  mynewdfNA$to_data_frame()
+mynewdfNA2 <-  as.data.frame(mynewdfNA)
 
 mynewdfNA2$col4 <- coalesce(mynewdfNA2$col1, mynewdfNA2$col2, mynewdfNA2$col3)
 mynewdfNA2
@@ -301,7 +301,7 @@ mynewdfNA2
 
 ```{r}
 #| label: coalesce-dplyr
-mynewdfNA2 <-  mynewdfNA$to_data_frame()
+mynewdfNA2 <-  as.data.frame(mynewdfNA)
 
 mynewdfNA2 %>%
   mutate(col4 = coalesce(col1, col2, col3))

@@ -46,7 +46,7 @@ parquet_polars_lazy <- function(variables) {
   return(result)
 }
 tic()
-parquet_polars_lazy()$collect()$to_data_frame()
+as.data.frame(parquet_polars_lazy()$collect())
 toc()
 ```
 
@@ -171,7 +171,7 @@ toc()
 #| warning: false
 
 unique_parquet_bmk <- microbenchmark(
-  "polars (lazy) - from unique parquet file" = parquet_polars_lazy()$collect()$to_data_frame(),
+  "polars (lazy) - from unique parquet file" = as.data.frame(parquet_polars_lazy()$collect()),
   "arrow (eager) - from unique parquet file" = arrow_eager(),
   "arrow (lazy) - from unique parquet file" = arrow_lazy() |> collect(),
   "Duckdb and SQL - from unique parquet file" = parquet_duckdb_sql(),

@@ -148,7 +148,7 @@ toc()
 partitioned_parquet_bmk <- microbenchmark(
   "arrow (lazy) - from partitioned parquet file" = partitioned_parquet_arrow_lazy(),
   "dplyr (duckdb) - from partitioned parquet file" = partitioned_parquet_dplyr_duckdb(),
-  "polars (lazy) - from partitioned parquet file" = partitioned_parquet_polars_lazy()$to_data_frame(),
+  "polars (lazy) - from partitioned parquet file" = as.data.frame(partitioned_parquet_polars_lazy()),
   times = 5
  )
 print(partitioned_parquet_bmk)
