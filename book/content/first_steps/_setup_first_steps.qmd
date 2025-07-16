@@ -21,7 +21,7 @@ if (any(installed_packages == FALSE)) {
 invisible(lapply(packages, library, character.only = TRUE))
 
 # Load tidypolars
-# library(tidypolars)
+library(tidypolars)
 
 # Creation of iris_dt
 iris_dt <- as.data.table(iris)
