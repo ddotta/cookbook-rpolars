@@ -34,7 +34,7 @@ Alternatively, the `dtype_strings()` method can be used to get columns types in 
 # With dtypes attribute (with a "s" and without parentheses)
 mydf$dtypes
 # This works also on LazyFrame
-mydf$lazy()$dtypes
+# mydf$lazy()$dtypes
 # With dtype_strings() method (wihout a "s" and with parentheses)
 mydf$dtype_strings()
 ```
@@ -90,7 +90,7 @@ A `DataFrame` has a `columns` attribute which returns the columns names of the `
 #| label: get-columns-names
 mydf$columns
 # This works also on LazyFrame
-mydf$lazy()$columns
+# mydf$lazy()$columns
 ```
 
 ### Rename columns
