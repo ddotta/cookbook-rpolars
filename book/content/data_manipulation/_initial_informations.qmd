@@ -36,7 +36,7 @@ mydf$dtypes
 # This works also on LazyFrame
 # mydf$lazy()$dtypes
 # With dtype_strings() method (wihout a "s" and with parentheses)
-mydf$dtype_strings()
+# mydf$dtype_strings()
 ```
 
 ### Get a glimpse
