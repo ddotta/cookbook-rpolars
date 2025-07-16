@@ -31,14 +31,6 @@ jobs:
           Ncpus: 2
           extra-repositories: https://rpolars.r-universe.dev
 
-      - name: Install tidypolars from multiverse
-        run: |
-          install.packages(
-            "tidypolars",
-            repos = c("https://community.r-multiverse.org", "https://cloud.r-project.org")
-          )
-        shell: Rscript {0}
-        
       - name: Install packages
         uses: r-lib/actions/setup-r-dependencies@v2
 

@@ -99,7 +99,10 @@ The `estimated_size()` method can be used to get an estimation of the total allo
 
 ```{r}
 #| label: get-size
-mydf
+mydf <- pl$DataFrame(
+  col1 = mynumbers_serie,
+  col2 = myletters_serie
+)
 mydf$estimated_size()
 ```
 
