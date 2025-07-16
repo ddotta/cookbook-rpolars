@@ -1,3 +1,17 @@
+## Export data to csv files
+
+The `write_csv()` method can be used to write to comma-separated values (csv) file.  
+
+See [here](https://pola-rs.github.io/r-polars/man/IO_write_csv.html) for full function syntax.  
+
+```{r}
+#| label: export-csv
+#| eval: false
+
+destination = tempfile(fileext = ".csv")
+as_polars_df(iris)$write_csv(destination)
+```
+
 ## Export data to Excel
 
 As with Python, there are no native method in Rust for **exporting to Excel format**.
