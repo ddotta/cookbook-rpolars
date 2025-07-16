@@ -11,17 +11,17 @@ Before we need to create some datasets to run our examples. Click to expand it! 
 #| results: 'hide'
 
 dfup <- pl$DataFrame(
-  col1 = as_polars_series(c("a")),
-  col2 = as_polars_series(c("b")),
-  col3 = as_polars_series(c("c"))
+  col1 = c("a"),
+  col2 = c("b"),
+  col3 = c("c")
 )
 dfdown <- pl$DataFrame(
-  col1 = as_polars_series(c("x")),
-  col2 = as_polars_series(c("y")),
-  col3 = as_polars_series(c("z"))
+  col1 = c("x"),
+  col2 = c("y"),
+  col3 = c("z")
 )
-dfleft <- pl$DataFrame(col1 = as_polars_series(c("a","b","c")))
-dfright <- pl$DataFrame(col2 = as_polars_series(c("x","y","z")))
+dfleft <- pl$DataFrame(col1 = c("a","b","c"))
+dfright <- pl$DataFrame(col2 = c("x","y","z"))
 
 dfup_df <- dfup$to_data_frame()
 dfdown_df <- dfdown$to_data_frame()

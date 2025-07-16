@@ -135,8 +135,8 @@ By default, `drop_nulls()` use all columns to drop rows:
 ```{r}
 #| label: drop_nulls_all_columns-polars
 data_pl <- pl$DataFrame(
-  col1 = as_polars_series(c(NA,"b","c")),
-  col2 = as_polars_series(c(1,2,NA))
+  col1 = c(NA,"b","c"),
+  col2 = c(1,2,NA)
 )
 data_pl$drop_nulls()
 ```

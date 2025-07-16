@@ -6,7 +6,7 @@ You can manually define a missing value using `NA` value in R:
 
 ```{r}
 pl$DataFrame(
-  col1 = as_polars_series(c(NA,"b","c"))
+  col1 = c(NA,"b","c")
 )
 ```
 

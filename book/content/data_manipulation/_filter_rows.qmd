@@ -62,7 +62,7 @@ The equivalent of `%in%` R operator is the `is_in()` method. It should be used i
 ```{r}
 #| label: example-is_in
 pl$DataFrame(
-  colA = as_polars_series(c("a","b","c"))
+  colA = c("a","b","c")
   )$filter(
   pl$col("colA")$is_in(pl$lit(c("a","b")))
   )
@@ -79,7 +79,7 @@ Here's an example:
 #| label: speed-up-filter-rows
 
 mydf <- pl$DataFrame(
-  col1 = as_polars_series(sort(runif(10000000)))
+  col1 = sort(runif(10000000))
 )
 
 microbenchmark(

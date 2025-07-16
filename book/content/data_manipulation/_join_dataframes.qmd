@@ -25,12 +25,12 @@ Let's see a simple example:
 #| label: join-polars
 # First, creation of colors_species Polars DataFrame
 colors <- pl$DataFrame(
-  Surname = as_polars_series(c("toto","titi","tata")),
-  Color = as_polars_series(c("blue","red","yellow"))
+  Surname = c("toto","titi","tata"),
+  Color = c("blue","red","yellow")
 )
 values <- pl$DataFrame(
-  Surname = as_polars_series(c("toto","titi","tata")),
-  value = as_polars_series(c(10,20,30))
+  Surname = c("toto","titi","tata"),
+  value = c(10,20,30)
 )
 # Let's join !
 colors$join(

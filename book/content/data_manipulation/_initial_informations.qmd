@@ -184,8 +184,8 @@ The `null_count()` method can be used to count NA values of a DataFrame.
 ```{r}
 #| label: null-count-polars
 mydfNA <- pl$DataFrame(
-  colA = as_polars_series(c("a",NA,"c")),
-  colB = as_polars_series(c("d",NA,NA)))
+  colA = c("a",NA,"c"),
+  colB = c("d",NA,NA))
 mydfNA$null_count()
 ```
 
