@@ -16,7 +16,7 @@ iris_polars <- as_polars_df(iris)
 
 Here, we can use `to_r()` and `to_data_frame()` methods.
 
-```{.r}
+```{r}
 # To convert Polars Series to a vector
 myvector$to_r()
 # To convert Polars Series to a list
