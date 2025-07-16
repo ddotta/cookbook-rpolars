@@ -106,11 +106,11 @@ mystruc <- as_polars_df(iris)$to_struct()
 mystruc
 ```
 
-`to_struct()` returns a `Series` which can be converted to a R list with `to_r` method.
+`to_struct()` returns a `Series` which can be converted to a R list with `as.vector()` function.  
 
 ```{r}
 #| label: to_struct-to-r
-mylist <- mystruc$to_r()
+mylist <- as.vector(mystruc)
 str(mylist)
 ```
 

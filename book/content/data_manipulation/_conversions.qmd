@@ -14,7 +14,7 @@ iris_polars <- as_polars_df(iris)
 
 ### From Series/DataFrames to vector/data.frames
 
-Here, we can use `to_r()` and `to_data_frame()` methods.
+Here, we can use `as.vector()` and `as.data.frame()` functions.
 
 ```{r}
 # To convert Polars Series to a vector
