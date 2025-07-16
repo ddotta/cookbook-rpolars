@@ -18,10 +18,10 @@ Here, we can use `to_r()` and `to_data_frame()` methods.
 
 ```{r}
 # To convert Polars Series to a vector
-myvector$to_r()
+as.vector(myvector)
 # To convert Polars Series to a list
-myvector$to_list()
+as.list(myvector)
 # To convert DataFrames to data.frames
-iris_polars$to_data_frame()$slice(1,5)
+as.data.frame(iris_polars$slice(1,5))
 ```
 
