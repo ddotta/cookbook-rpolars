@@ -46,6 +46,9 @@ jobs:
         run: |
           Rscript -e 'packageVersion("polars")'
           
+      - name: Set PAT
+        run: echo "GITHUB_PAT=${{ secrets.GH_PAT }}" >> $GITHUB_ENV
+        
       - name: Install tidypolars
         run: |
           remotes::install_github("etiennebacher/tidypolars")
