@@ -46,12 +46,9 @@ jobs:
         run: |
           Rscript -e 'packageVersion("polars")'
           
-      - name: Install tidypolars from multiverse
+      - name: Install tidypolars
         run: |
-          install.packages(
-            "tidypolars",
-            repos = c("https://community.r-multiverse.org", "https://cloud.r-project.org")
-          )
+          remotes::install_github("etiennebacher/tidypolars")
         shell: Rscript {0}  
         
       - name: Check tidypolars version
