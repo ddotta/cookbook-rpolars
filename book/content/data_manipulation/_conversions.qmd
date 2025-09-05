@@ -24,4 +24,3 @@ as.list(myvector)
 # To convert DataFrames to data.frames
 as.data.frame(iris_polars$slice(1,5))
 ```
-
