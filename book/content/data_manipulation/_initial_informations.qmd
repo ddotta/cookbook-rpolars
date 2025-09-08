@@ -31,10 +31,6 @@ Alternatively, the `dtype_strings()` method can be used to get columns types in 
 
 # With dtypes attribute (with a "s" and without parentheses)
 mydf$dtypes
-# This works also on LazyFrame
-mydf$lazy()$dtypes
-# With dtype_strings() method (wihout a "s" and with parentheses)
-mydf$dtype_strings()
 ```
 
 ### Get a glimpse
