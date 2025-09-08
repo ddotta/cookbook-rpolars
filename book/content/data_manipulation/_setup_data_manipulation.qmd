@@ -10,6 +10,7 @@ Click to expand it! 👇
 library(polars)
 library(dplyr)
 library(tidyr)
+library(tidypolars)
 library(data.table)
 library(arrow)
 library(microbenchmark)
