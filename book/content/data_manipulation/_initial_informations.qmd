@@ -166,7 +166,7 @@ The `null_count()` method can be used to count NA values of a DataFrame.
 mydfNA <- pl$DataFrame(
   colA = c("a",NA,"c"),
   colB = c("d",NA,NA))
-df$select(pl$all()$null_count())
+mydfNA$select(pl$all()$null_count())
 ```
 
 ## tidypolars
