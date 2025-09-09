@@ -19,7 +19,7 @@ as_polars_df(iris)$
   head(3)
 # Sort by two columns one in a decreasing manner and the other in an increasing manner
 as_polars_df(iris)$
-  sort(c("Species","Petal.Length"), descending = c(TRUE,FALSE))$
+  sort(pl$col("Species")$sort(descending = TRUE),pl$col("Petal.Length")$sort(descending = FALSE))$
   head(3)
 ```
 
