@@ -97,16 +97,6 @@ A character vector can be passed to the `columns` attribute to rename the column
 mydf$rename(col1 = "colA", col2 = "colB")
 ```
 
-
-### Get the size
-
-The `estimated_size()` method can be used to get an estimation of the total allocated size (in Bytes) of a `DataFrame`.
-
-```{r}
-#| label: get-size
-mydf$estimated_size()
-```
-
 ### Get the first n rows
 
 The `head()` method can be used to get the first n rows of a `DataFrame`.
