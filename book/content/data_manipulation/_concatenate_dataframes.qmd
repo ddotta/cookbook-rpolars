@@ -43,7 +43,7 @@ To concatenate multiple `DataFrames` vertically (=by row), you can use the `conc
 
 ```{r}
 #| label: vertical-concatenation-polars
-pl$concat(list(dfup,dfdown),how = "vertical")
+pl$concat(dfup,dfdown,how = "vertical")
 ```
 
 ## R base
