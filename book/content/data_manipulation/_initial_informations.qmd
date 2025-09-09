@@ -111,19 +111,15 @@ mydf$head(2)
 
 ### Count values in a DataFrame
 
-The `value_counts()` method can be used to count values in a Series of a DataFrame. 
-`value_counts()` works with a `Series`. It must therefore be supplied either with square brackets or with the `select()` method. See [here](#select-columns) to learn about it.
+The `value_counts()` method can be used to count the occurences of uniques values in a Series of a DataFrame. 
+`value_counts()` works with a `Series`. It must therefore be supplied with the `select()` method. See [here](#select-columns) to learn about it.
 
 ::: {.panel-tabset}
 ## polars
 
 ```{r}
 #| label: value-count-polars
-
-# 1st option with square brackets
-as_polars_df(iris)[,c("Species")]$value_counts()
-# 2nd option with select() method
-as_polars_df(iris)$select(pl$col("Species"))$to_series()$value_counts()
+as_polars_df(iris)$select(pl$col("Species")$value_counts())
 ```
 
 ## tidypolars
