@@ -15,7 +15,7 @@ The methods available for the `agg()` method are (in each group):
  - `median()` get the median
  - `quantile()` calculate quantiles
 
- Here's a minimal example with `sum` applied to 2 different columns:
+ Here's a minimal example with `sum` and `mean` applied to 2 different columns:
 
 ::: {.panel-tabset}
 ## polars
@@ -24,14 +24,15 @@ The methods available for the `agg()` method are (in each group):
 #| label: agg-polars
 as_polars_df(iris)$
   group_by("Species")$
-  agg(pl$col(c("Petal.Length","Petal.Width"))$sum())
+  agg(pl$sum("Petal.Length"),pl$col("Petal.Width")$mean())
 ```
 
 ## R base
 
 ```{r}
 #| label: aggregate-cbind-rbase
-aggregate(cbind(Petal.Length, Petal.Width) ~ Species, data = iris, FUN = sum)
+aggregate(Petal.Length ~ Species, data = iris, FUN = sum)
+aggregate(Petal.Width ~ Species, data = iris, FUN = mean)
 ```
 
 ## dplyr
@@ -39,9 +40,12 @@ aggregate(cbind(Petal.Length, Petal.Width) ~ Species, data = iris, FUN = sum)
 ```{r}
 #| label: summarise-dplyr
 data(iris)
-iris |>
-  group_by(Species) |>
-  summarise(across(c(Petal.Length, Petal.Width), sum))
+iris %>%
+  group_by(Species) %>%
+  summarise(
+    Petal.Length_sum = sum(Petal.Length),
+    Petal.Width_mean = mean(Petal.Width)
+  )
 ```
 
 ## data.table
@@ -49,7 +53,7 @@ iris |>
 ```{r}
 #| label: summarise-datatable
 iris_dt <- as.data.table(iris)
-iris_dt[, .(Petal.Length = sum(Petal.Length), Petal.Width = sum(Petal.Width)), by = Species]
+iris_dt[, .(Petal.Length = sum(Petal.Length), Petal.Width = mean(Petal.Width)), by = Species]
 ```
 :::
 
