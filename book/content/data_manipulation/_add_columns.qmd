@@ -105,11 +105,10 @@ as_polars_df(iris)$with_columns(
   pl$when(pl$col("Petal.Length") <= 2)$then(pl$lit("<=2"))$
     when(pl$col("Petal.Length") <= 5)$then(pl$lit("<=5"))$
     otherwise(pl$lit(">5"))$
-    alias("mygroups")
-# we only need to display 2 variables to check that it's OK
-)$select(
-  pl$col(c("Petal.Length","mygroups"))
-)[c(1,2,59,150),]
+    alias("mygroups"))$
+  # we only need to display 2 variables to check that it's OK
+  select(
+    c("Petal.Length","mygroups"))[c(1,2,59,150),]
 ```
 
 ## R base
