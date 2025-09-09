@@ -78,23 +78,23 @@ mydf$height
 
 ### Get the columns names
 
-A `DataFrame` has a `columns` attribute which returns the columns names of the `DataFrame` in a character vector.
+A `DataFrame` has a `columns` attribute which returns the columns names of the `DataFrame` in a character vector.  
+The `names()` method can be used to get the columns names.
 
 ```{r}
 #| label: get-columns-names
 mydf$columns
-# This works also on LazyFrame
-mydf$lazy()$columns
+# With names() method
+names(mydf)
 ```
 
 ### Rename columns
 
-A character vector can be passed to the `columns` attribute to rename the columns names of the `DataFrame`.
+A character vector can be passed to the `columns` attribute to rename the columns names of the `DataFrame`.  
 
 ```{r}
 #| label: renames-columns
-mydf$columns <- c("colA","colB")
-mydf$columns
+mydf$rename(col1 = "colA", col2 = "colB")
 ```
 
 
