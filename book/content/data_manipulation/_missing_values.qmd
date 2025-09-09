@@ -207,7 +207,7 @@ Here's some examples:
 # Replace missing values with the mean of the non-null values for that column
 mydfNA$
   with_columns(
-    pl$col("colC")$fill_null(pl$mean("colC"))$name$suffix("_corrected")
+    pl$col("colC")$fill_null(strategy = "mean")$name$suffix("_corrected")
   )
 # Replace missing values with the values from another column
 mydfNA$
