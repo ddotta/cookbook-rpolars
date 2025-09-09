@@ -68,18 +68,6 @@ Beyond the minor differences discussed above, there are **two major reasons why 
 - Expressions used in `select()` method can be optimised in [lazy mode](#introduction-to-lazy-mode) by the query optimizer.
 :::
 
-Finally, the `select()` method can also be used to re-order columns of a `DataFrame`.  
-For example, to re-order the columns in alphabetical order:  
-
-```{r}
-#| label: reorder-columns-select
-
-as_polars_df(iris)$select(
-  pl$col(sort(as_polars_df(iris)$columns)))$
-  head(3)
-```
-
-
 ### Selecting by data type
 
 To select columns by data type from a `DataFrame`, you can pass a data type to `pl$col` expression.
@@ -94,7 +82,7 @@ For example:
 # Select only Float64 columns
 as_polars_df(iris)$select(pl$col(pl$Float64))$head(3)
 # Select only numeric columns
-as_polars_df(iris)$select(pl$col(pl$numeric_dtypes))$head(3) 
+as_polars_df(iris)$select(cs$numeric())$head(3) 
 ```
 
 ## R base
