@@ -121,7 +121,7 @@ To learn more about Data types in Polars, see [here](https://pola-rs.github.io/p
 #### Cast
 
 The `cast()` method can be used to convert the data types of a column to a new one.  
-See [here](https://pola-rs.github.io/r-polars/man/series__to_r_vector.html#details) for the data types available with Polars.  
+See [here](https://pola-rs.github.io/r-polars/man/polars_dtype.html) for the data types available with Polars.  
 
 ::: {.panel-tabset}
 ## polars
@@ -185,7 +185,7 @@ A quick reminder:
 
 #### Check if Series is numeric
 
-The `is_numeric()` method can be used to check if `Series` is numeric.\
+The `infer_polars_dtype()` method can be used to check if `Series` is numeric.\
 Note that unlike R base, there is no method to check if a Series is character (in this case, its type is anyway Utf8).
 
 ::: {.panel-tabset}
