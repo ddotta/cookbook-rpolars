@@ -9,7 +9,7 @@ Let's see an example where we create new Boolean columns based on the start of a
 
 ```{r}
 #| label: string-starts_with-polars
-pl$DataFrame(mydf)$with_columns(
+as_polars_df(mydf)$with_columns(
   pl$col("col2")$str$starts_with("One")$alias("is_one"),
   pl$col("col2")$str$starts_with("Two")$alias("is_two")
 )
