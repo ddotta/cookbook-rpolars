@@ -92,7 +92,7 @@ It's argument are the same as `read_csv()` method (see section above).
 
 pl$scan_csv(
   "examples/iris.csv")$select( # lazy, don't do a thing
-    pl$col(c("Petal.Length","Petal.Width")) # select only 2 columns
+    pl$col("Petal.Length","Petal.Width") # select only 2 columns
   )$
   filter(
     pl$col("Petal.Length") > 4 # the filter is pushed down the scan, so less data is read into memory
