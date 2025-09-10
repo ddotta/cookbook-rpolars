@@ -185,26 +185,15 @@ A quick reminder:
 
 #### Check if Series is numeric
 
-The `infer_polars_dtype()` method can be used to check if `Series` is numeric.\
-Note that unlike R base, there is no method to check if a Series is character (in this case, its type is anyway Utf8).
+The `infer_polars_dtype()` method can be used to find the DataType corresponding to an R object.\
 
 ::: {.panel-tabset}
 ## polars
 
 ```{r}
 #| label: isnumeric-Series
-as_polars_series(1:4)$is_numeric()
-as_polars_series(c("a", "b", "c"))$is_numeric()
+as_polars_series(1:4)$infer_polars_dtype()
 ```
-
-## R base
-
-```{r}
-#| label: isnumeric-rbase
-is.numeric(1:4)
-is.numeric(c("a","b","c"))
-```
-:::
 
 #### Get length of a Series
 
