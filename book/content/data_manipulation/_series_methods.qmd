@@ -206,30 +206,6 @@ is.numeric(c("a","b","c"))
 ```
 :::
 
-#### Check if Series is sorted
-
-The `is_sorted()` method can be used to check if `Series` is sorted.\
-Note that R base provides `is.unsorted()` which returns the opposite boolean to `is_sorted()` of Polars.
-
-::: {.panel-tabset}
-## polars
-
-```{r}
-#| label: issorted-polars
-as_polars_series(1:4)$is_sorted()
-as_polars_series(c(1,3,2))$is_sorted()
-```
-
-## R base
-
-```{r}
-#| label: isunsorted-rbase
-is.unsorted(1:4)
-is.unsorted(c(1,3,2))
-```
-:::
-
-
 #### Get length of a Series
 
 The `len()` method can be used to get the length of a `Series`.
