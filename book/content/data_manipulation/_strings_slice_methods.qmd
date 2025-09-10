@@ -38,9 +38,9 @@ mydf <- data.frame(
 
 ```{r}
 #| label: string-slice-polars
-pl$DataFrame(mydf)$with_columns(
-  pl$col("col2")$str$slice(0,length=3)$alias("level"),
-  pl$col("col2")$str$slice(-1)$alias("x_y")
+as_polars_df(mydf)$with_columns(
+  pl$col("col2")$str$slice(0, 3)$alias("level"),   # les 3 premiers caractères
+  pl$col("col2")$str$slice(-1)$alias("x_y")        # le dernier caractère
 )
 ```
 
