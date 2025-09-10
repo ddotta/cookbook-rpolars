@@ -170,20 +170,6 @@ str(iris_dt)
 When working with very large tables we can **Reduce the memory footprint** by modifying the number of bits allocated to an element. ⚠️
 :::
 
-For example, the example below illustrates how converting Float64 to Float8 reduces memory usage:
-
-```{r}
-as_polars_df(iris)$estimated_size()
-
-#| label: reduce-footprint-polars
-as_polars_df(iris)$with_columns(
-  pl$col("Petal.Length")$cast(pl$Float32),
-  pl$col("Petal.Width")$cast(pl$Float32),
-  pl$col("Sepal.Length")$cast(pl$Float32),
-  pl$col("Sepal.Width")$cast(pl$Float32)
-  )$estimated_size()
-```
-
 When performing downcasting, it is crucial to ensure that the chosen number of bits is sufficient to accommodate the largest and smallest numbers in the column.
 
 A quick reminder:
