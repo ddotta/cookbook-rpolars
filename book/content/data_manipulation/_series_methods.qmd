@@ -120,7 +120,8 @@ To learn more about Data types in Polars, see [here](https://pola-rs.github.io/p
 
 #### Cast
 
-The `cast()` method can be used to convert the data types of a column to a new one.
+The `cast()` method can be used to convert the data types of a column to a new one.  
+See [here](https://pola-rs.github.io/r-polars/man/series__to_r_vector.html#details) for the data types available with Polars.  
 
 ::: {.panel-tabset}
 ## polars
@@ -129,8 +130,8 @@ The `cast()` method can be used to convert the data types of a column to a new o
 #| label: cast-polars
 as_polars_df(iris)$with_columns(
   pl$col("Petal.Length")$cast(pl$Int8), # The "Petal.Length" column is converted into integers
-  pl$col("Species")$cast(pl$Utf8) # The "Species" column is converted into strings
-  )$schema
+  pl$col("Species")$cast(pl$String) # The "Species" column is converted into strings
+)$schema
 ```
 
 ## R base
