@@ -108,7 +108,7 @@ To summarise the main types between Polars and R:
 
 | Polars      | R Base    |
 |-------------|-----------|
-| Utf8        | character |
+| String      | character |
 | Float64     | double    |
 | Int32       | integer   |
 | Boolean     | logical   |

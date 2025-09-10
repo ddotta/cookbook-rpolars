@@ -20,7 +20,7 @@ fn_transformation <- function(data) {
       pl$col(pl$Int32)$cast(pl$Float64))$
     # Make all Strings columns uppercase
     with_columns(
-      pl$col(pl$Utf8)$str$to_uppercase())$
+      pl$col(pl$String)$str$to_uppercase())$
     # Filter only the third first rows
     head(3)
   
