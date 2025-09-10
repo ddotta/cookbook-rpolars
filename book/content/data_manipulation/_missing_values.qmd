@@ -311,7 +311,7 @@ mynewdfNA2 %>%
 
 ```{r}
 #| label: coalesce-datatable
-mynewdfNA2 <-  mynewdfNA$to_data_frame()
+mynewdfNA2 <-   as.data.frame(mynewdfNA)
 mynewdfNA2_dt <- as.data.table(mynewdfNA2)
 
 mynewdfNA2_dt[, col4 := fcoalesce(col1, col2, col3)]
