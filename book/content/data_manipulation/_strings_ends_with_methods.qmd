@@ -9,7 +9,7 @@ Let's see an example where we filter the lines of a `DataFrame` based on the sta
 
 ```{r}
 #| label: string-ends_with-polars
-pl$DataFrame(mydf)$filter(
+as_polars_df(mydf)$filter(
   pl$col("col2")$str$ends_with("X")
 )
 ```
