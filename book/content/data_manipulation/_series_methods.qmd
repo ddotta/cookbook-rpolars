@@ -191,8 +191,9 @@ The `infer_polars_dtype()` method can be used to find the DataType corresponding
 ## polars
 
 ```{r}
-#| label: isnumeric-Series
-as_polars_series(1:4)$infer_polars_dtype()
+#| label: infer_polars_dtype-Series
+s <- as_polars_series(1:4)
+infer_polars_dtype(s)
 ```
 
 #### Get length of a Series
