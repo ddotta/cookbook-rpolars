@@ -33,7 +33,7 @@ Let's look at what happens when we request this `LazyFrame`:
 myquery <- as_polars_df(iris)$lazy()$filter(
   pl$col("Species") == "setosa"
 )$select(
-  pl$col(c("Species", "Petal.Length"))
+  pl$col("Species", "Petal.Length")
 )
 myquery
 ```
