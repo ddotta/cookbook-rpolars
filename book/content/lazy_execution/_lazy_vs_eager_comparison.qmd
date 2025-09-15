@@ -77,7 +77,7 @@ pl$scan_parquet("Datasets/fakir_file.parquet")$
   # Continue in lazy mode
   lazy()$
   select(
-    pl$col(c("region","Gold","Platinium"))
+    pl$col("region","Gold","Platinium")
   )$
   collect()
 ```
