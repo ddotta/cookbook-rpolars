@@ -100,10 +100,10 @@ as_polars_df(iris)$select(cs$numeric())$head(3)
 ```{r}
 #| label: select-datatype-tidypolars
 
-# Select only Float64 columns
-as_polars_df(iris)$select(pl$col(pl$Float64))$head(3)
 # Select only numeric columns
-as_polars_df(iris)$select(cs$numeric())$head(3) 
+as_polars_df(iris) %>% 
+  select(where(is.numeric)) %>% 
+  head(3)
 ```
 
 ## R base
