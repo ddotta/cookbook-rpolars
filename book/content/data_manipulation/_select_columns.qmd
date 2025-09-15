@@ -95,6 +95,17 @@ as_polars_df(iris)$select(pl$col(pl$Float64))$head(3)
 as_polars_df(iris)$select(cs$numeric())$head(3) 
 ```
 
+## tidypolars
+
+```{r}
+#| label: select-datatype-tidypolars
+
+# Select only Float64 columns
+as_polars_df(iris)$select(pl$col(pl$Float64))$head(3)
+# Select only numeric columns
+as_polars_df(iris)$select(cs$numeric())$head(3) 
+```
+
 ## R base
 
 ```{r}
@@ -113,10 +124,12 @@ iris[1:3, sapply(iris, is.numeric)]
 
 # Select only factor columns
 iris %>% 
-  select_if(is.factor)
+  select_if(is.factor) %>%
+  head(3)
 # Select only numeric columns
 iris %>% 
-  select_if(is.numeric)
+  select_if(is.numeric) %>%
+  head(3)
 ```
 
 ## data.table
