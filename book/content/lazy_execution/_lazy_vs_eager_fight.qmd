@@ -13,6 +13,8 @@ This fight will take place over 3 rounds :
 For this first round and as seen above, let's start with a simple query from a `DataFrame`:
 
 ```{r}
+#| label: fight-lazy_dataframe
+
 tic()
 #| label: fight-eager_dataframe
 as_polars_df(fake_data)$select(
@@ -47,7 +49,7 @@ tic()
 #| label: fight-eager_read_csv
 pl$read_csv("Datasets/fakir_file.csv", infer_schema_length=0)$
   select(
-    pl$col(c("region","departement","priority","age")))$
+    pl$col("region","departement","priority","age"))$
   with_columns(
     pl$col("age")$cast(pl$Int32,strict = FALSE))$
   filter(
@@ -65,7 +67,7 @@ toc()
 tic()
 pl$scan_csv("Datasets/fakir_file.csv", infer_schema_length=0)$
   select(
-    pl$col(c("region","departement","priority","age")))$
+    pl$col("region","departement","priority","age"))$
   with_columns(
     pl$col("age")$cast(pl$Int32,strict = FALSE))$
   filter(
