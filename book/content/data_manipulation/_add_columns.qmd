@@ -130,6 +130,22 @@ iris$mygroups <- ifelse(iris$Petal.Length <= 2, "<=2",
 iris[c(1,2,59,150), c("Petal.Length", "mygroups")]
 ```
 
+## tidypolars
+
+```{r}
+#| label: add-column-with-conditions-tidypolars
+#| pl_iris %>%
+  mutate(
+    mygroups = case_when(
+      Petal.Length <= 2 ~ "<=2",
+      Petal.Length <= 5 ~ "<=5",
+      TRUE ~ ">5"          # équivalent de .default
+    )
+  ) %>%
+  select(Petal.Length, mygroups) %>%
+  slice_head(n = 3)
+```
+
 ## dplyr
 
 ```{r}
