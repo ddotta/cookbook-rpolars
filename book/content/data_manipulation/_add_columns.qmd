@@ -134,7 +134,8 @@ iris[c(1,2,59,150), c("Petal.Length", "mygroups")]
 
 ```{r}
 #| label: add-column-with-conditions-tidypolars
-#| pl_iris %>%
+
+as_polars_df(iris) %>%
   mutate(
     mygroups = case_when(
       Petal.Length <= 2 ~ "<=2",
