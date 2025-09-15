@@ -15,9 +15,9 @@ For this first round and as seen above, let's start with a simple query from a `
 ```{r}
 tic()
 #| label: fight-eager_dataframe
-pl$DataFrame(fake_data)$select(
-    pl$col(c("region","departement","priority"))
-  )$
+as_polars_df(fake_data)$select(
+  pl$col("region","departement","priority")
+)$
   filter(
     pl$col("region") == "Aquitaine")
 toc()
@@ -28,9 +28,9 @@ As seen above, we're going to use the `lazy()` method to convert a `DataFrame` t
 ```{r}
 tic()
 #| label: fight-lazy_lazyframe
-pl$DataFrame(fake_data)$lazy()$
+as_polars_df(fake_data)$lazy()$
   select(
-    pl$col(c("region","departement","priority"))
+    pl$col("region","departement","priority")
   )$
   filter(
     pl$col("region") == "Aquitaine")$
