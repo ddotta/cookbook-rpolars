@@ -33,6 +33,14 @@ as_polars_df(iris)$filter(
   pl$col("Petal.Length") > 6 & pl$col("Petal.Width") < 2)
 ```
 
+## tidypolars
+
+```{r}
+#| label: filter-tidypolars
+as_polars_df(iris) |> 
+  filter(Petal.Length > 6 & Petal.Width < 2)  
+```
+
 ## R base
 
 ```{r}
