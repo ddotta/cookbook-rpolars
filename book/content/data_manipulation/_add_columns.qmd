@@ -31,6 +31,15 @@ as_polars_df(iris)$with_columns(
   pl$col("Petal.Length")$round(decimals = 0)
 )$head(3) # display the first 3 lines
 ```
+## tidypolars
+
+```{r}
+#| label: select-round-tidypolars
+
+as_polars_df(iris) |>
+  mutate(Petal.Length = round(Petal.Length,0)) |>
+  head(3)
+```
 
 ## R base
 
