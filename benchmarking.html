@@ -132,7 +132,6 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
       <a href="./">Cookbook Polars for R</a> 
         <div class="sidebar-tools-main tools-wide">
     <a href="https://github.com/ddotta/cookbook-rpolars/tree/main/book/" title="Source Code" class="quarto-navigation-tool px-1" aria-label="Source Code"><i class="bi bi-github"></i></a>
-    <a href="./Cookbook-Polars-for-R.pdf" title="Download PDF" class="quarto-navigation-tool px-1" aria-label="Download PDF"><i class="bi bi-file-pdf"></i></a>
     <div class="dropdown">
       <a href="" title="Share" id="quarto-navigation-tool-dropdown-0" class="quarto-navigation-tool dropdown-toggle px-1" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Share"><i class="bi bi-share"></i></a>
       <ul class="dropdown-menu" aria-labelledby="quarto-navigation-tool-dropdown-0">
@@ -588,23 +587,23 @@ Tip
 <div class="cell-output cell-output-stdout">
 <pre><code>Unit: milliseconds
                          expr       min        lq      mean    median        uq
-             robject_polars()  14.39658  14.62841  17.08159  15.51163  18.78945
-              robject_rbase() 131.73818 144.91998 152.59728 149.60272 165.83076
-              robject_dplyr()  20.40825  26.09569  29.38987  32.03580  32.78579
-           robject_collapse()  11.24945  12.65132  16.67177  17.87227  19.92227
-                 robject_dt()  44.61854  44.85481  48.38962  49.62127  49.96919
-       robject_duckdb_dplyr() 228.04456 242.84166 262.66091 250.46544 253.95490
-         robject_duckdb_sql()  64.95571  64.96156  71.33825  72.78427  74.29731
- robject_duckdb_arrow_dplyr() 168.47224 169.98296 179.68150 174.70430 187.52658
+             robject_polars()  12.55167  12.99642  15.09789  13.13931  15.89646
+              robject_rbase() 146.49866 152.80452 189.72413 163.51095 169.22857
+              robject_dplyr()  21.70055  26.81640  30.25491  32.08906  32.95725
+           robject_collapse()  11.36806  11.51297  16.10929  12.68251  20.19282
+                 robject_dt()  42.56732  43.07272  45.97147  43.86648  46.43317
+       robject_duckdb_dplyr() 255.59246 256.57463 280.84895 268.64149 278.99133
+         robject_duckdb_sql()  66.40384  66.76172  70.55649  71.96551  72.04056
+ robject_duckdb_arrow_dplyr() 181.09894 182.66972 194.27671 185.99975 200.88323
        max neval
-  22.08187     5
- 170.89476     5
-  35.62381     5
-  21.66352     5
-  52.88430     5
- 337.99797     5
-  79.69239     5
- 197.72144     5</code></pre>
+  20.90560     5
+ 316.57793     5
+  37.71126     5
+  24.79009     5
+  53.91769     5
+ 344.44484     5
+  75.61083     5
+ 220.73189     5</code></pre>
 </div>
 </div>
 <p>👉 <strong>Conclusion</strong> of this little benchmark <strong>using R objects already loaded in memory</strong>: the fastest to run is <code>collapse</code>. Next are <code>data.table</code> and <code>dplyr</code> followed closely by <code>polars</code>. 🏆🏆🏆 The worst performer is surprisingly <strong>duckdb with the dplyr syntax</strong>, while <strong>duckdb with the SQL language</strong> does very well and comes 4th in this ranking.</p>
@@ -664,14 +663,14 @@ Tip
 │ ---       ┆ ---        ┆ ---         ┆ ---        ┆ ---        ┆ ---         ┆ ---        │
 │ str       ┆ i64        ┆ f64         ┆ i64        ┆ f64        ┆ f64         ┆ f64        │
 ╞═══════════╪════════════╪═════════════╪════════════╪════════════╪═════════════╪════════════╡
+│ A         ┆ 2001       ┆ 4998.624945 ┆ 7999       ┆ 0.000038   ┆ 0.498445    ┆ 0.999988   │
 │ C         ┆ 2001       ┆ 5001.243285 ┆ 7999       ┆ 0.00003    ┆ 0.501472    ┆ 0.999992   │
 │ B         ┆ 2001       ┆ 5004.31148  ┆ 7999       ┆ 0.000034   ┆ 0.500546    ┆ 0.999986   │
-│ A         ┆ 2001       ┆ 4998.624945 ┆ 7999       ┆ 0.000038   ┆ 0.498445    ┆ 0.999988   │
 └───────────┴────────────┴─────────────┴────────────┴────────────┴─────────────┴────────────┘</code></pre>
 </div>
 <div class="sourceCode cell-code" id="cb14"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="fu">toc</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>0.109 sec elapsed</code></pre>
+<pre><code>0.11 sec elapsed</code></pre>
 </div>
 </div>
 </div>
@@ -716,14 +715,14 @@ Tip
 │ ---       ┆ ---        ┆ ---         ┆ ---        ┆ ---        ┆ ---         ┆ ---        │
 │ str       ┆ i64        ┆ f64         ┆ i64        ┆ f64        ┆ f64         ┆ f64        │
 ╞═══════════╪════════════╪═════════════╪════════════╪════════════╪═════════════╪════════════╡
-│ A         ┆ 2001       ┆ 4998.624945 ┆ 7999       ┆ 0.000038   ┆ 0.498445    ┆ 0.999988   │
 │ B         ┆ 2001       ┆ 5004.31148  ┆ 7999       ┆ 0.000034   ┆ 0.500546    ┆ 0.999986   │
 │ C         ┆ 2001       ┆ 5001.243285 ┆ 7999       ┆ 0.00003    ┆ 0.501472    ┆ 0.999992   │
+│ A         ┆ 2001       ┆ 4998.624945 ┆ 7999       ┆ 0.000038   ┆ 0.498445    ┆ 0.999988   │
 └───────────┴────────────┴─────────────┴────────────┴────────────┴─────────────┴────────────┘</code></pre>
 </div>
 <div class="sourceCode cell-code" id="cb18"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a><span class="fu">toc</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>0.052 sec elapsed</code></pre>
+<pre><code>0.046 sec elapsed</code></pre>
 </div>
 </div>
 </div>
@@ -765,7 +764,7 @@ Tip
 <span id="cb20-34"><a href="#cb20-34" aria-hidden="true" tabindex="-1"></a>res_rbase <span class="ot">&lt;-</span> <span class="fu">csv_rbase</span>()</span>
 <span id="cb20-35"><a href="#cb20-35" aria-hidden="true" tabindex="-1"></a><span class="fu">toc</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>6.273 sec elapsed</code></pre>
+<pre><code>6.867 sec elapsed</code></pre>
 </div>
 <div class="sourceCode cell-code" id="cb22"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(res_rbase)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
@@ -823,7 +822,7 @@ Tip
 <span id="cb24-39"><a href="#cb24-39" aria-hidden="true" tabindex="-1"></a>res_dplyr <span class="ot">&lt;-</span> <span class="fu">csv_dplyr</span>()</span>
 <span id="cb24-40"><a href="#cb24-40" aria-hidden="true" tabindex="-1"></a><span class="fu">toc</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>0.383 sec elapsed</code></pre>
+<pre><code>0.396 sec elapsed</code></pre>
 </div>
 <div class="sourceCode cell-code" id="cb26"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(res_dplyr)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
@@ -881,7 +880,7 @@ Tip
 <span id="cb28-41"><a href="#cb28-41" aria-hidden="true" tabindex="-1"></a>res_arrow <span class="ot">&lt;-</span> <span class="fu">csv_arrow</span>()</span>
 <span id="cb28-42"><a href="#cb28-42" aria-hidden="true" tabindex="-1"></a><span class="fu">toc</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>0.241 sec elapsed</code></pre>
+<pre><code>0.256 sec elapsed</code></pre>
 </div>
 <div class="sourceCode cell-code" id="cb30"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb30-1"><a href="#cb30-1" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(res_arrow)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
@@ -933,7 +932,7 @@ Tip
 </div>
 <div class="sourceCode cell-code" id="cb34"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb34-1"><a href="#cb34-1" aria-hidden="true" tabindex="-1"></a><span class="fu">toc</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>0.19 sec elapsed</code></pre>
+<pre><code>0.179 sec elapsed</code></pre>
 </div>
 </div>
 </div>
@@ -967,20 +966,20 @@ Note
 <span id="cb36-10"><a href="#cb36-10" aria-hidden="true" tabindex="-1"></a>csv_bmk</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>Unit: milliseconds
-                          expr        min         lq       mean     median
-  polars (eager) from csv file  100.10710  104.45615  110.24332  105.42976
-   polars (lazy) from csv file   49.99684   50.66335   53.59532   50.93296
-        R base - from csv file 5296.54776 5386.00485 5764.10443 5885.79341
-         dplyr - from csv file  313.07306  314.45092  364.51508  316.52342
- dplyr (Acero) - from csv file  157.72500  161.53851  268.74104  162.60366
-    data.table - from csv file  106.16420  108.40508  173.28179  190.36685
+                          expr        min         lq       mean    median
+  polars (eager) from csv file  101.62085  106.71240  109.32136  106.8325
+   polars (lazy) from csv file   42.19094   42.38918   45.46449   42.4430
+        R base - from csv file 5772.95175 5855.41003 5912.68949 5928.6065
+         dplyr - from csv file  314.59031  328.84499  437.23906  491.8728
+ dplyr (Acero) - from csv file  163.71085  164.31944  172.54922  166.9635
+    data.table - from csv file  105.61465  117.81512  215.85931  145.8934
          uq        max neval
-  116.37711  124.84646     5
-   52.15469   64.22875     5
- 6122.65865 6129.51750     5
-  319.51875  559.00925     5
-  394.11733  467.72070     5
-  191.09641  270.37639     5</code></pre>
+  109.78714  121.65389     5
+   44.29598   56.00334     5
+ 5966.11407 6040.36508     5
+  503.45285  547.43440     5
+  173.50893  194.24337     5
+  317.57556  392.39783     5</code></pre>
 </div>
 </div>
 <p>👉 <strong>Conclusion</strong> of this little benchmark based <strong>on csv files</strong>: the big winners are <code>polars (eager mode)</code> and <code>dplyr with {arrow}</code>. The results will undoubtedly be even better with <code>polars (lazy mode)</code>… 🏆🏆🏆 TO DO !!!</p>
@@ -1040,20 +1039,20 @@ Note
 <span id="cb38-25"><a href="#cb38-25" aria-hidden="true" tabindex="-1"></a>  <span class="fu">return</span>(result)</span>
 <span id="cb38-26"><a href="#cb38-26" aria-hidden="true" tabindex="-1"></a>}</span>
 <span id="cb38-27"><a href="#cb38-27" aria-hidden="true" tabindex="-1"></a><span class="fu">tic</span>()</span>
-<span id="cb38-28"><a href="#cb38-28" aria-hidden="true" tabindex="-1"></a><span class="fu">parquet_polars_lazy</span>()<span class="sc">$</span><span class="fu">collect</span>()<span class="sc">$</span><span class="fu">to_data_frame</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb38-28"><a href="#cb38-28" aria-hidden="true" tabindex="-1"></a><span class="fu">as.data.frame</span>(<span class="fu">parquet_polars_lazy</span>()<span class="sc">$</span><span class="fu">collect</span>())</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>  colString min_colInt mean_colInt max_colInt   min_colNum mean_colNum
-1         C       2001    5001.243       7999 3.045052e-05   0.5014723
+1         B       2001    5004.311       7999 3.385660e-05   0.5005457
 2         A       2001    4998.625       7999 3.794138e-05   0.4984446
-3         B       2001    5004.311       7999 3.385660e-05   0.5005457
+3         C       2001    5001.243       7999 3.045052e-05   0.5014723
   max_colNum
-1  0.9999921
+1  0.9999863
 2  0.9999879
-3  0.9999863</code></pre>
+3  0.9999921</code></pre>
 </div>
 <div class="sourceCode cell-code" id="cb40"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb40-1"><a href="#cb40-1" aria-hidden="true" tabindex="-1"></a><span class="fu">toc</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>0.032 sec elapsed</code></pre>
+<pre><code>0.024 sec elapsed</code></pre>
 </div>
 </div>
 </div>
@@ -1098,7 +1097,7 @@ Note
 </div>
 <div class="sourceCode cell-code" id="cb44"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb44-1"><a href="#cb44-1" aria-hidden="true" tabindex="-1"></a><span class="fu">toc</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>0.085 sec elapsed</code></pre>
+<pre><code>0.103 sec elapsed</code></pre>
 </div>
 </div>
 </div>
@@ -1138,8 +1137,8 @@ Note
   colString min_colInt mean_colInt mas_colInt min_colNum mean_colNum max_colNum
   &lt;chr&gt;          &lt;int&gt;       &lt;dbl&gt;      &lt;int&gt;      &lt;dbl&gt;       &lt;dbl&gt;      &lt;dbl&gt;
 1 B               2001       5004.       7999  0.0000339       0.501      1.000
-2 C               2001       5001.       7999  0.0000305       0.501      1.000
-3 A               2001       4999.       7999  0.0000379       0.498      1.000</code></pre>
+2 A               2001       4999.       7999  0.0000379       0.498      1.000
+3 C               2001       5001.       7999  0.0000305       0.501      1.000</code></pre>
 </div>
 <div class="sourceCode cell-code" id="cb48"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb48-1"><a href="#cb48-1" aria-hidden="true" tabindex="-1"></a><span class="fu">toc</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
@@ -1189,7 +1188,7 @@ Note
 </div>
 <div class="sourceCode cell-code" id="cb52"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb52-1"><a href="#cb52-1" aria-hidden="true" tabindex="-1"></a><span class="fu">toc</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>0.067 sec elapsed</code></pre>
+<pre><code>0.075 sec elapsed</code></pre>
 </div>
 </div>
 </div>
@@ -1199,7 +1198,7 @@ Note
 <h3 data-number="5.3.1" class="anchored" data-anchor-id="results-for-unique-parquet-file"><span class="header-section-number">5.3.1</span> Results for unique parquet file</h3>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb54"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb54-1"><a href="#cb54-1" aria-hidden="true" tabindex="-1"></a>unique_parquet_bmk <span class="ot">&lt;-</span> <span class="fu">microbenchmark</span>(</span>
-<span id="cb54-2"><a href="#cb54-2" aria-hidden="true" tabindex="-1"></a>  <span class="st">"polars (lazy) - from unique parquet file"</span> <span class="ot">=</span> <span class="fu">parquet_polars_lazy</span>()<span class="sc">$</span><span class="fu">collect</span>()<span class="sc">$</span><span class="fu">to_data_frame</span>(),</span>
+<span id="cb54-2"><a href="#cb54-2" aria-hidden="true" tabindex="-1"></a>  <span class="st">"polars (lazy) - from unique parquet file"</span> <span class="ot">=</span> <span class="fu">as.data.frame</span>(<span class="fu">parquet_polars_lazy</span>()<span class="sc">$</span><span class="fu">collect</span>()),</span>
 <span id="cb54-3"><a href="#cb54-3" aria-hidden="true" tabindex="-1"></a>  <span class="st">"arrow (eager) - from unique parquet file"</span> <span class="ot">=</span> <span class="fu">arrow_eager</span>(),</span>
 <span id="cb54-4"><a href="#cb54-4" aria-hidden="true" tabindex="-1"></a>  <span class="st">"arrow (lazy) - from unique parquet file"</span> <span class="ot">=</span> <span class="fu">arrow_lazy</span>() <span class="sc">|&gt;</span> <span class="fu">collect</span>(),</span>
 <span id="cb54-5"><a href="#cb54-5" aria-hidden="true" tabindex="-1"></a>  <span class="st">"Duckdb and SQL - from unique parquet file"</span> <span class="ot">=</span> <span class="fu">parquet_duckdb_sql</span>(),</span>
@@ -1209,15 +1208,15 @@ Note
 <div class="cell-output cell-output-stdout">
 <pre><code>Unit: milliseconds
                                       expr       min        lq      mean
-  polars (lazy) - from unique parquet file  22.55059  24.58096  27.26230
-  arrow (eager) - from unique parquet file  68.85400  74.87362  78.67519
-   arrow (lazy) - from unique parquet file 100.34809 106.42091 107.57132
- Duckdb and SQL - from unique parquet file  51.49014  52.30944  54.56829
+  polars (lazy) - from unique parquet file  20.04085  21.16325  24.41686
+  arrow (eager) - from unique parquet file  73.70130  91.85280  88.92748
+   arrow (lazy) - from unique parquet file 112.03263 117.23046 122.38679
+ Duckdb and SQL - from unique parquet file  51.48744  52.32287  55.47545
     median        uq       max neval
-  24.65582  25.18379  39.34036     5
-  78.59241  84.41689  86.63901     5
- 106.81364 110.70833 113.56562     5
-  53.00729  56.37833  59.65624     5</code></pre>
+  21.58467  21.92755  37.36798     5
+  92.50624  93.10927  93.46778     5
+ 117.38975 125.80413 139.47696     5
+  53.53523  59.60641  60.42531     5</code></pre>
 </div>
 </div>
 <p>👉 <strong>Conclusion</strong> of this little benchmark based <strong>on unique parquet files</strong>: the big winner is <code>polars (lazy mode)</code> ! 🏆🏆🏆</p>
@@ -1292,7 +1291,7 @@ Note
 </div>
 <div class="sourceCode cell-code" id="cb60"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb60-1"><a href="#cb60-1" aria-hidden="true" tabindex="-1"></a><span class="fu">toc</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>0.128 sec elapsed</code></pre>
+<pre><code>0.138 sec elapsed</code></pre>
 </div>
 </div>
 </div>
@@ -1336,13 +1335,13 @@ Note
 <pre><code># A tibble: 3 × 7
   colString min_colInt mean_colInt mas_colInt min_colNum mean_colNum max_colNum
   &lt;chr&gt;          &lt;int&gt;       &lt;dbl&gt;      &lt;int&gt;      &lt;dbl&gt;       &lt;dbl&gt;      &lt;dbl&gt;
-1 B               2001       5004.       7999  0.0000339       0.501      1.000
-2 A               2001       4999.       7999  0.0000379       0.498      1.000
-3 C               2001       5001.       7999  0.0000305       0.501      1.000</code></pre>
+1 C               2001       5001.       7999  0.0000305       0.501      1.000
+2 B               2001       5004.       7999  0.0000339       0.501      1.000
+3 A               2001       4999.       7999  0.0000379       0.498      1.000</code></pre>
 </div>
 <div class="sourceCode cell-code" id="cb64"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb64-1"><a href="#cb64-1" aria-hidden="true" tabindex="-1"></a><span class="fu">toc</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>0.3 sec elapsed</code></pre>
+<pre><code>0.336 sec elapsed</code></pre>
 </div>
 </div>
 </div>
@@ -1384,13 +1383,13 @@ Note
 │ str       ┆ i32        ┆ f64         ┆ i32        ┆ f64        ┆ f64         ┆ f64        │
 ╞═══════════╪════════════╪═════════════╪════════════╪════════════╪═════════════╪════════════╡
 │ B         ┆ 2001       ┆ 5004.31148  ┆ 7999       ┆ 0.000034   ┆ 0.500546    ┆ 0.999986   │
-│ C         ┆ 2001       ┆ 5001.243285 ┆ 7999       ┆ 0.00003    ┆ 0.501472    ┆ 0.999992   │
 │ A         ┆ 2001       ┆ 4998.624945 ┆ 7999       ┆ 0.000038   ┆ 0.498445    ┆ 0.999988   │
+│ C         ┆ 2001       ┆ 5001.243285 ┆ 7999       ┆ 0.00003    ┆ 0.501472    ┆ 0.999992   │
 └───────────┴────────────┴─────────────┴────────────┴────────────┴─────────────┴────────────┘</code></pre>
 </div>
 <div class="sourceCode cell-code" id="cb68"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb68-1"><a href="#cb68-1" aria-hidden="true" tabindex="-1"></a><span class="fu">toc</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>0.024 sec elapsed</code></pre>
+<pre><code>0.021 sec elapsed</code></pre>
 </div>
 </div>
 </div>
@@ -1402,20 +1401,20 @@ Note
 <div class="sourceCode cell-code" id="cb70"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb70-1"><a href="#cb70-1" aria-hidden="true" tabindex="-1"></a>partitioned_parquet_bmk <span class="ot">&lt;-</span> <span class="fu">microbenchmark</span>(</span>
 <span id="cb70-2"><a href="#cb70-2" aria-hidden="true" tabindex="-1"></a>  <span class="st">"arrow (lazy) - from partitioned parquet file"</span> <span class="ot">=</span> <span class="fu">partitioned_parquet_arrow_lazy</span>(),</span>
 <span id="cb70-3"><a href="#cb70-3" aria-hidden="true" tabindex="-1"></a>  <span class="st">"dplyr (duckdb) - from partitioned parquet file"</span> <span class="ot">=</span> <span class="fu">partitioned_parquet_dplyr_duckdb</span>(),</span>
-<span id="cb70-4"><a href="#cb70-4" aria-hidden="true" tabindex="-1"></a>  <span class="st">"polars (lazy) - from partitioned parquet file"</span> <span class="ot">=</span> <span class="fu">partitioned_parquet_polars_lazy</span>()<span class="sc">$</span><span class="fu">to_data_frame</span>(),</span>
+<span id="cb70-4"><a href="#cb70-4" aria-hidden="true" tabindex="-1"></a>  <span class="st">"polars (lazy) - from partitioned parquet file"</span> <span class="ot">=</span> <span class="fu">as.data.frame</span>(<span class="fu">partitioned_parquet_polars_lazy</span>()),</span>
 <span id="cb70-5"><a href="#cb70-5" aria-hidden="true" tabindex="-1"></a>  <span class="at">times =</span> <span class="dv">5</span></span>
 <span id="cb70-6"><a href="#cb70-6" aria-hidden="true" tabindex="-1"></a> )</span>
 <span id="cb70-7"><a href="#cb70-7" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(partitioned_parquet_bmk)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>Unit: milliseconds
-                                           expr      min        lq      mean
-   arrow (lazy) - from partitioned parquet file 105.3972 105.81027 107.86492
- dplyr (duckdb) - from partitioned parquet file 256.6856 257.22597 273.09037
-  polars (lazy) - from partitioned parquet file  22.0174  22.22226  24.54591
+                                           expr       min        lq      mean
+   arrow (lazy) - from partitioned parquet file 113.41831 115.75805 118.93090
+ dplyr (duckdb) - from partitioned parquet file 277.94244 279.23981 311.26173
+  polars (lazy) - from partitioned parquet file  19.26895  19.32011  22.10088
     median        uq       max neval
- 106.19355 106.35045 115.57317     5
- 261.18165 264.51536 325.84326     5
-  22.48782  22.85002  33.15207     5</code></pre>
+ 116.09406 123.49397 125.89011     5
+ 292.85771 338.38940 367.87928     5
+  19.43036  20.63114  31.85386     5</code></pre>
 </div>
 </div>
 <p>👉 <strong>Conclusion</strong> of this little benchmark based <strong>on partitioned parquet files</strong>: as for unique parquet files, the big winner is <code>polars (lazy mode)</code> ! 🏆🏆🏆</p>
@@ -1475,7 +1474,7 @@ Note
 </div>
 <div class="sourceCode cell-code" id="cb74"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb74-1"><a href="#cb74-1" aria-hidden="true" tabindex="-1"></a><span class="fu">toc</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>0.054 sec elapsed</code></pre>
+<pre><code>0.059 sec elapsed</code></pre>
 </div>
 </div>
 </div>
@@ -1491,10 +1490,8 @@ Note
 <span id="cb76-5"><a href="#cb76-5" aria-hidden="true" tabindex="-1"></a>duckdb_bmk</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>Unit: milliseconds
-                 expr     min       lq     mean   median       uq      max
- SQL from duckdb file 48.1574 48.68273 50.67644 49.70555 49.94159 56.89493
- neval
-     5</code></pre>
+                 expr      min       lq     mean  median      uq      max neval
+ SQL from duckdb file 56.24514 56.56853 57.25712 56.7004 56.8803 59.89122     5</code></pre>
 </div>
 </div>
 <p>Note that the query with the standard DBI methods is faster than those with dplyr verbs 🏆</p>
