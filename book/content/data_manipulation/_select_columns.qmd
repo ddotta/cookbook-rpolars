@@ -19,6 +19,16 @@ as_polars_df(iris)$select(
 )$head(3) # display the first 3 lines
 ```
 
+## tidypolars
+
+```{r}
+#| label: select-tidypolars
+
+as_polars_df(iris) |>
+  select(Petal.Length,Petal.Width) |>
+  head(3)
+```
+
 ## R base
 
 ```{r}
