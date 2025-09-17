@@ -87,6 +87,13 @@ To concatenate multiple `DataFrames` horizontally (=by col), you can use the `co
 pl$concat(dfleft,dfright,how = "horizontal")
 ```
 
+## tidypolars
+
+```{r}
+#| label: horizontal-concatenation-tidypolars
+bind_cols_polars(dfleft,dfright)
+```
+
 ## R base
 
 ```{r}
