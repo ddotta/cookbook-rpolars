@@ -77,6 +77,15 @@ as_polars_df(iris)$
   head(3)
 ```
 
+## tidypolars
+
+```{r}
+#| label: remove-column-pattern-tidypolars
+as_polars_df(iris) |>
+  select(-starts_with("Petal")) |>
+  head(3)
+```
+
 ## R base
 
 ```{r}
