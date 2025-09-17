@@ -131,6 +131,13 @@ dfup <- dfup$rename(col3="col4")
 pl$concat(dfup,dfdown,how = "diagonal")
 ```
 
+## tidypolars
+
+```{r}
+#| label: diagonal-concatenation-tidypolars
+bind_rows_polars(dfup,dfdown)
+```
+
 ## R base
 
 ```{r}
