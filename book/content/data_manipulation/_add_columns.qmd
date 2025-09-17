@@ -206,6 +206,15 @@ as_polars_df(df)$with_columns(
 )
 ```
 
+## tidypolars
+
+```{r}
+#| label: add-column-by-group-tidypolars
+as_polars_df(df) |>
+  group_by(name) |>
+  mutate(col3_max = max(col3))
+```
+
 ## R base
 
 ```{r}
