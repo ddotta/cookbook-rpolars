@@ -40,6 +40,23 @@ colors$join(
 )
 ```
 
+## tidypolars
+
+```{r}
+#| label: join-tidypolars
+colors <- pl$DataFrame(
+  Surname = c("toto","titi","tata"),
+  Color = c("blue","red","yellow")
+)
+values <- pl$DataFrame(
+  Surname = c("toto","titi","tata"),
+  value = c(10,20,30)
+)
+colors |>
+  left_join(values,
+            by = "Surname") 
+```
+
 ## R base
 
 ```{r}
