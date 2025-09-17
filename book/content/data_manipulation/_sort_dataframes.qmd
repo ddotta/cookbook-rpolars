@@ -213,6 +213,16 @@ as_polars_df(iris)$
   sort_by("Petal.Width"))
 ```
 
+## tidypolars
+
+```{r}
+#| label: sort_by-dataframe-tidypolars
+
+as_polars_df(iris) |>
+  arrange(Petal.Width) |>
+  select(Petal.Length)
+```
+
 ## R base
 
 ```{r}
