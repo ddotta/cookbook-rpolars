@@ -98,7 +98,7 @@ cbind(dfleft_df,dfright_df)
 
 ```{r}
 #| label: horizontal-concatenation-dplyr
-cbind(list(dfleft_df,dfright_df))
+bind_cols(list(dfleft_df,dfright_df))
 ```
 
 ## data.table
