@@ -46,6 +46,13 @@ To concatenate multiple `DataFrames` vertically (=by row), you can use the `conc
 pl$concat(dfup,dfdown,how = "vertical")
 ```
 
+## tidypolars
+
+```{r}
+#| label: vertical-concatenation-tidypolars
+bind_rows_polars(dfup,dfdown)
+```
+
 ## R base
 
 ```{r}
