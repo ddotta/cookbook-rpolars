@@ -30,6 +30,18 @@ as_polars_df(df)$pivot(
 )
 ```
 
+## tidypolars
+
+```{r}
+#| label: first-wide-pivot-polars-tidypolars
+as_polars_df(df) |>
+  pivot_wider(
+    id_cols = country,
+    names_from = city,
+    values_from = population
+  )
+```
+
 ## R base
 ```{r}
 #| label: first-wide-pivot-rbase
