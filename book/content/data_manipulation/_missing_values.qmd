@@ -34,6 +34,25 @@ mydfNA$
   )
 ```
 
+## tidypolars
+
+```{r}
+#| label: has-missing-values-tidypolars
+
+# Find null values
+mydfNA |> 
+  select(
+    colA) |> 
+  mutate(
+    is_null = is.na(colA),
+    is_not_null = !is.na(colA)
+  )
+
+# Filter by null values
+mydfNA |> 
+  filter(!is.na(colA) & !is.na(colB))
+```
+
 ## R base
 
 ```{r}
@@ -49,6 +68,26 @@ data.frame(
 
 # Filter by null values
 mydfNA2[!is.na(mydfNA2$colA) & !is.na(mydfNA2$colB), ]
+```
+
+## tidyr
+
+```{r}
+#| label: has-missing-values-tidypolars
+mydfNA2 <- as.data.frame(mydfNA)
+
+# Find null values
+mydfNA2 |> 
+  select(
+    colA) |> 
+  mutate(
+    is_null = is.na(colA),
+    is_not_null = !is.na(colA)
+  )
+
+# Filter by null values
+mydfNA2 |> 
+  filter(!is.na(colA) & !is.na(colB))
 ```
 :::
 
