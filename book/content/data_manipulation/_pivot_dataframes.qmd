@@ -89,6 +89,18 @@ as_polars_df(df)$pivot(
 )
 ```
 
+## tidypolars
+
+```{r}
+#| label: mean-wide-pivot-polars-tidypolars
+as_polars_df(df) |>
+  pivot_longer(
+    !country,
+    names_to = "variable",
+    values_to = "value"
+  )
+```
+
 ## R base
 ```{r}
 #| label: mean-wide-pivot-rbase
