@@ -23,6 +23,24 @@ as_polars_df(iris)$
   head(3)
 ```
 
+## tidypolars
+
+```{r}
+#| label: sort-dataframe-tidypolars
+# Sort by one column
+as_polars_df(iris) |>
+  arrange(Species) |>
+  head(3)
+# Sort by two columns
+as_polars_df(iris) |>
+  arrange(Species, Petal.Length) |>
+  head(3)
+# Sort by two columns one in a decreasing manner and the other in an increasing manner
+as_polars_df(iris) |>
+  arrange(desc(Species), Petal.Length) |>
+  head(3)
+```
+
 ## R base
 
 ```{r}
