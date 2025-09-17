@@ -103,6 +103,15 @@ as_polars_df(iris)$
   agg(pl$col(pl$Float64)$sum())
 ```
 
+## tidypolars
+
+```{r}
+#| label: summarise-advanced-tidypolars
+as_polars_df(iris) |>
+  group_by(Species) %>%
+  summarise(across(where(is.numeric), sum))
+```
+
 ## R base
 
 ```{r}
