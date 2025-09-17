@@ -27,6 +27,18 @@ as_polars_df(iris)$
   agg(pl$sum("Petal.Length"),pl$col("Petal.Width")$mean())
 ```
 
+## tidypolars
+
+```{r}
+#| label: summarise-tidypolars
+as_polars_df(iris) %>%
+  group_by(Species) %>%
+  summarise(
+    Petal.Length_sum = sum(Petal.Length),
+    Petal.Width_mean = mean(Petal.Width)
+  )
+```
+
 ## R base
 
 ```{r}
