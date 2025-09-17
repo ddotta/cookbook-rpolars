@@ -25,6 +25,15 @@ as_polars_df(iris)$
   head(3)
 ```
 
+## tidypolars
+
+```{r}
+#| label: remove-column-tidypolars
+as_polars_df(iris) |>
+  select(-c(Petal.Width,Sepal.Length,Sepal.Width)) |>
+  head(3)
+```
+
 ## R base
 
 ```{r}
