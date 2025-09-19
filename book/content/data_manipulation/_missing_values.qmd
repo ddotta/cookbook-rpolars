@@ -73,7 +73,7 @@ mydfNA2[!is.na(mydfNA2$colA) & !is.na(mydfNA2$colB), ]
 ## tidyr
 
 ```{r}
-#| label: has-missing-values-tidypolars
+#| label: has-missing-values-tidyr
 mydfNA2 <- as.data.frame(mydfNA)
 
 # Find null values
