@@ -73,7 +73,7 @@ mydfNA2[!is.na(mydfNA2$colA) & !is.na(mydfNA2$colB), ]
 ## tidyr
 
 ```{r}
-#| label: has-missing-values-tidyr
+#| label: has-missing-values-tidyrfWI
 mydfNA2 <- as.data.frame(mydfNA)
 
 # Find null values
@@ -121,6 +121,21 @@ mydfNA$
 )
 ```
 
+## tidypolars
+
+```{r}
+#| label: replace-missing-values-tidypolars
+
+# In the same columns
+mydfNA %>%
+  mutate(across(everything(), ~ifelse(is.na(.), "missing", .)))
+
+# In new columns suffixed by "_corrected"
+mydfNA %>%
+  mutate(across(c(colA, colB), ~ifelse(is.na(.), "missing", .), .names = "{.col}_corrected"))
+```
+
+
 ## R base
 
 ```{r}
@@ -154,7 +169,7 @@ mydfNA2 %>%
 
 # In new columns suffixed by "_corrected"
 mydfNA2 %>%
-  mutate(across(c(colA, colB), ~ifelse(is.na(.), "missing", .), .names = "{col}_corrected"))
+  mutate(across(c(colA, colB), ~ifelse(is.na(.), "missing", .), .names = "{.col}_corrected"))
 ```
 
 ## data.table
