@@ -293,7 +293,7 @@ mydfNA2 <- as.data.frame(mydfNA)
 
 # Replace missing values with the mean of the non-null values for that column
 mydfNA2 %>%
-  mutate(colC_corrected = ifelse(is.na(colC), mean(mydfNA2$colC, na.rm = TRUE), colC))
+  mutate(colC_corrected = ifelse(is.na(colC), mean(colC, na.rm = TRUE), colC))
 # Replace missing values with the values from another column
 mydfNA2 %>%
   mutate(colB_corrected = ifelse(is.na(colB), colA, colB))
