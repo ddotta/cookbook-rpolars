@@ -269,6 +269,17 @@ mydfNA$
     pl$col("colB")$fill_null(pl$col("colA"))$name$suffix("_corrected")
   )
 ```
+## tidypolars
+
+```{r}
+#| label: replace-missing-values-expression-tidypolars
+# Replace missing values with the mean of the non-null values for that column
+mydfNA %>%
+  mutate(colB_corrected = ifelse(is.na(colB), colA, colB))
+# Replace missing values with the values from another column
+mydfNA %>%
+  mutate(colB_corrected = ifelse(is.na(colB), colA, colB))
+```
 
 ## R base
 
