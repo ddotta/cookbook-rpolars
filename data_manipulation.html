@@ -433,9 +433,9 @@ Important
 │ ---        ┆ ---          ┆ ---         ┆ ---          ┆ ---         │
 │ cat        ┆ f64          ┆ f64         ┆ f64          ┆ f64         │
 ╞════════════╪══════════════╪═════════════╪══════════════╪═════════════╡
+│ setosa     ┆ 5.0          ┆ 3.4         ┆ 1.5          ┆ 0.2         │
 │ versicolor ┆ 5.9          ┆ 2.8         ┆ 4.35         ┆ 1.3         │
 │ virginica  ┆ 6.5          ┆ 3.0         ┆ 5.55         ┆ 2.0         │
-│ setosa     ┆ 5.0          ┆ 3.4         ┆ 1.5          ┆ 0.2         │
 └────────────┴──────────────┴─────────────┴──────────────┴─────────────┘</code></pre>
 </div>
 </div>
@@ -452,9 +452,9 @@ Important
 │ ---        ┆ ---          ┆ ---         ┆ ---          ┆ ---         │
 │ cat        ┆ f64          ┆ f64         ┆ f64          ┆ f64         │
 ╞════════════╪══════════════╪═════════════╪══════════════╪═════════════╡
-│ setosa     ┆ 5.0          ┆ 3.4         ┆ 1.5          ┆ 0.2         │
-│ virginica  ┆ 6.5          ┆ 3.0         ┆ 5.55         ┆ 2.0         │
 │ versicolor ┆ 5.9          ┆ 2.8         ┆ 4.35         ┆ 1.3         │
+│ virginica  ┆ 6.5          ┆ 3.0         ┆ 5.55         ┆ 2.0         │
+│ setosa     ┆ 5.0          ┆ 3.4         ┆ 1.5          ┆ 0.2         │
 └────────────┴──────────────┴─────────────┴──────────────┴─────────────┘</code></pre>
 </div>
 </div>
@@ -1057,11 +1057,11 @@ Here’s an example:</p>
 <div class="cell-output cell-output-stdout">
 <pre><code>Unit: milliseconds
                            expr      min       lq     mean   median       uq
- Without telling col1 is sorted 8.313981 8.470202 8.614597 8.527715 8.628894
-         Telling col1 is sorted 2.394488 2.489665 2.703642 2.558944 2.706914
+ Without telling col1 is sorted 5.531025 5.681692 5.885576 5.779625 5.984788
+         Telling col1 is sorted 2.441400 2.530126 2.758616 2.610800 2.737691
        max neval
- 12.971009   100
-  7.721506   100</code></pre>
+ 10.663132   100
+  7.649917   100</code></pre>
 </div>
 </div>
 </div>
@@ -2317,9 +2317,9 @@ Note
 │ ---        ┆ ---              ┆ ---              │
 │ cat        ┆ f64              ┆ f64              │
 ╞════════════╪══════════════════╪══════════════════╡
-│ setosa     ┆ 73.1             ┆ 0.246            │
-│ virginica  ┆ 277.6            ┆ 2.026            │
 │ versicolor ┆ 213.0            ┆ 1.326            │
+│ virginica  ┆ 277.6            ┆ 2.026            │
+│ setosa     ┆ 73.1             ┆ 0.246            │
 └────────────┴──────────────────┴──────────────────┘</code></pre>
 </div>
 </div>
@@ -2430,9 +2430,9 @@ Tip
 │ ---        ┆ ---          ┆ ---         ┆ ---          ┆ ---         │
 │ cat        ┆ f64          ┆ f64         ┆ f64          ┆ f64         │
 ╞════════════╪══════════════╪═════════════╪══════════════╪═════════════╡
-│ virginica  ┆ 329.4        ┆ 148.7       ┆ 277.6        ┆ 101.3       │
-│ versicolor ┆ 296.8        ┆ 138.5       ┆ 213.0        ┆ 66.3        │
 │ setosa     ┆ 250.3        ┆ 171.4       ┆ 73.1         ┆ 12.3        │
+│ versicolor ┆ 296.8        ┆ 138.5       ┆ 213.0        ┆ 66.3        │
+│ virginica  ┆ 329.4        ┆ 148.7       ┆ 277.6        ┆ 101.3       │
 └────────────┴──────────────┴─────────────┴──────────────┴─────────────┘</code></pre>
 </div>
 </div>
@@ -2449,9 +2449,9 @@ Tip
 │ ---        ┆ ---          ┆ ---         ┆ ---          ┆ ---         │
 │ cat        ┆ f64          ┆ f64         ┆ f64          ┆ f64         │
 ╞════════════╪══════════════╪═════════════╪══════════════╪═════════════╡
-│ setosa     ┆ 250.3        ┆ 171.4       ┆ 73.1         ┆ 12.3        │
-│ virginica  ┆ 329.4        ┆ 148.7       ┆ 277.6        ┆ 101.3       │
 │ versicolor ┆ 296.8        ┆ 138.5       ┆ 213.0        ┆ 66.3        │
+│ virginica  ┆ 329.4        ┆ 148.7       ┆ 277.6        ┆ 101.3       │
+│ setosa     ┆ 250.3        ┆ 171.4       ┆ 73.1         ┆ 12.3        │
 └────────────┴──────────────┴─────────────┴──────────────┴─────────────┘</code></pre>
 </div>
 </div>
@@ -2732,9 +2732,9 @@ This warning is displayed once every 8 hours.</code></pre>
 │ ---          ┆ ---         ┆ ---          ┆ ---         ┆ ---        │
 │ f64          ┆ f64         ┆ f64          ┆ f64         ┆ cat        │
 ╞══════════════╪═════════════╪══════════════╪═════════════╪════════════╡
+│ 6.3          ┆ 3.3         ┆ 6.0          ┆ 2.5         ┆ virginica  │
 │ 7.0          ┆ 3.2         ┆ 4.7          ┆ 1.4         ┆ versicolor │
 │ 5.1          ┆ 3.5         ┆ 1.4          ┆ 0.2         ┆ setosa     │
-│ 6.3          ┆ 3.3         ┆ 6.0          ┆ 2.5         ┆ virginica  │
 └──────────────┴─────────────┴──────────────┴─────────────┴────────────┘</code></pre>
 </div>
 <div class="sourceCode cell-code" id="cb257"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb257-1"><a href="#cb257-1" aria-hidden="true" tabindex="-1"></a><span class="co"># With one column keeping last entry</span></span>
@@ -2749,9 +2749,9 @@ This warning is displayed once every 8 hours.</code></pre>
 │ ---          ┆ ---         ┆ ---          ┆ ---         ┆ ---        │
 │ f64          ┆ f64         ┆ f64          ┆ f64         ┆ cat        │
 ╞══════════════╪═════════════╪══════════════╪═════════════╪════════════╡
+│ 5.9          ┆ 3.0         ┆ 5.1          ┆ 1.8         ┆ virginica  │
 │ 5.7          ┆ 2.8         ┆ 4.1          ┆ 1.3         ┆ versicolor │
 │ 5.0          ┆ 3.3         ┆ 1.4          ┆ 0.2         ┆ setosa     │
-│ 5.9          ┆ 3.0         ┆ 5.1          ┆ 1.8         ┆ virginica  │
 └──────────────┴─────────────┴──────────────┴─────────────┴────────────┘</code></pre>
 </div>
 <div class="sourceCode cell-code" id="cb259"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb259-1"><a href="#cb259-1" aria-hidden="true" tabindex="-1"></a><span class="co"># With two colums, keeping last entry and maintaining the same order</span></span>
@@ -2808,8 +2808,8 @@ This warning is displayed once every 8 hours.</code></pre>
 │ cat        ┆ f64          ┆ f64         ┆ f64          ┆ f64         │
 ╞════════════╪══════════════╪═════════════╪══════════════╪═════════════╡
 │ setosa     ┆ 5.0          ┆ 3.3         ┆ 1.4          ┆ 0.2         │
-│ virginica  ┆ 5.9          ┆ 3.0         ┆ 5.1          ┆ 1.8         │
 │ versicolor ┆ 5.7          ┆ 2.8         ┆ 4.1          ┆ 1.3         │
+│ virginica  ┆ 5.9          ┆ 3.0         ┆ 5.1          ┆ 1.8         │
 └────────────┴──────────────┴─────────────┴──────────────┴─────────────┘</code></pre>
 </div>
 <div class="sourceCode cell-code" id="cb265"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb265-1"><a href="#cb265-1" aria-hidden="true" tabindex="-1"></a><span class="co"># With two colums, keeping last entry and maintaining the same order</span></span>
@@ -2828,8 +2828,8 @@ This warning is displayed once every 8 hours.</code></pre>
 │ --- ┆ --- ┆ --- │
 │ i32 ┆ i32 ┆ i32 │
 ╞═════╪═════╪═════╡
-│ 3   ┆ 3   ┆ 4   │
 │ 1   ┆ 1   ┆ 1   │
+│ 3   ┆ 3   ┆ 4   │
 │ 2   ┆ 2   ┆ 2   │
 └─────┴─────┴─────┘</code></pre>
 </div>
@@ -4633,7 +4633,7 @@ Note
 <p>Of course, you are not limited to the built-in strategies of polars =&gt; with <code>fill_null()</code> you can also use expressions to replace missing values. It works with expression from the same column and from another column.</p>
 <p>Here’s some examples:</p>
 <div class="tabset-margin-container"></div><div class="panel-tabset">
-<ul class="nav nav-tabs" role="tablist"><li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-29-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-29-1" role="tab" aria-controls="tabset-29-1" aria-selected="true">polars</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-29-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-29-2" role="tab" aria-controls="tabset-29-2" aria-selected="false">R base</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-29-3-tab" data-bs-toggle="tab" data-bs-target="#tabset-29-3" role="tab" aria-controls="tabset-29-3" aria-selected="false">dplyr</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-29-4-tab" data-bs-toggle="tab" data-bs-target="#tabset-29-4" role="tab" aria-controls="tabset-29-4" aria-selected="false">data.table</a></li></ul>
+<ul class="nav nav-tabs" role="tablist"><li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-29-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-29-1" role="tab" aria-controls="tabset-29-1" aria-selected="true">polars</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-29-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-29-2" role="tab" aria-controls="tabset-29-2" aria-selected="false">tidypolars</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-29-3-tab" data-bs-toggle="tab" data-bs-target="#tabset-29-3" role="tab" aria-controls="tabset-29-3" aria-selected="false">R base</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-29-4-tab" data-bs-toggle="tab" data-bs-target="#tabset-29-4" role="tab" aria-controls="tabset-29-4" aria-selected="false">dplyr</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-29-5-tab" data-bs-toggle="tab" data-bs-target="#tabset-29-5" role="tab" aria-controls="tabset-29-5" aria-selected="false">data.table</a></li></ul>
 <div class="tab-content">
 <div id="tabset-29-1" class="tab-pane active" role="tabpanel" aria-labelledby="tabset-29-1-tab">
 <div class="cell">
@@ -4675,39 +4675,49 @@ Note
 </div>
 <div id="tabset-29-2" class="tab-pane" role="tabpanel" aria-labelledby="tabset-29-2-tab">
 <div class="cell">
-<div class="sourceCode cell-code" id="cb425"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb425-1"><a href="#cb425-1" aria-hidden="true" tabindex="-1"></a>mydfNA2 <span class="ot">&lt;-</span> <span class="fu">as.data.frame</span>(mydfNA)</span>
-<span id="cb425-2"><a href="#cb425-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb425-3"><a href="#cb425-3" aria-hidden="true" tabindex="-1"></a><span class="co"># Replace missing values with the mean of the non-null values for that column</span></span>
-<span id="cb425-4"><a href="#cb425-4" aria-hidden="true" tabindex="-1"></a>mydfNA2<span class="sc">$</span>colC_corrected <span class="ot">&lt;-</span> <span class="fu">ifelse</span>(<span class="fu">is.na</span>(mydfNA2<span class="sc">$</span>colC), <span class="fu">mean</span>(mydfNA2<span class="sc">$</span>colC, <span class="at">na.rm =</span> <span class="cn">TRUE</span>), mydfNA2<span class="sc">$</span>colC)</span>
-<span id="cb425-5"><a href="#cb425-5" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb425-6"><a href="#cb425-6" aria-hidden="true" tabindex="-1"></a>mydfNA2 <span class="ot">&lt;-</span> <span class="fu">as.data.frame</span>(mydfNA)</span>
-<span id="cb425-7"><a href="#cb425-7" aria-hidden="true" tabindex="-1"></a><span class="co"># Replace missing values with the values from another column</span></span>
-<span id="cb425-8"><a href="#cb425-8" aria-hidden="true" tabindex="-1"></a>mydfNA2<span class="sc">$</span>colB_corrected <span class="ot">&lt;-</span> <span class="fu">ifelse</span>(<span class="fu">is.na</span>(mydfNA2<span class="sc">$</span>colB), mydfNA2<span class="sc">$</span>colA, mydfNA2<span class="sc">$</span>colB)</span>
-<span id="cb425-9"><a href="#cb425-9" aria-hidden="true" tabindex="-1"></a>mydfNA2</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb425"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb425-1"><a href="#cb425-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Replace missing values with the mean of the non-null values for that column</span></span>
+<span id="cb425-2"><a href="#cb425-2" aria-hidden="true" tabindex="-1"></a>mydfNA <span class="sc">%&gt;%</span></span>
+<span id="cb425-3"><a href="#cb425-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">colB_corrected =</span> <span class="fu">ifelse</span>(<span class="fu">is.na</span>(colB), colA, colB))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>  colA colB colC colB_corrected
-1    a    d    1              d
-2 &lt;NA&gt; &lt;NA&gt;   NA           &lt;NA&gt;
-3    c &lt;NA&gt;    3              c</code></pre>
+<pre><code>shape: (3, 4)
+┌──────┬──────┬──────┬────────────────┐
+│ colA ┆ colB ┆ colC ┆ colB_corrected │
+│ ---  ┆ ---  ┆ ---  ┆ ---            │
+│ str  ┆ str  ┆ f64  ┆ str            │
+╞══════╪══════╪══════╪════════════════╡
+│ a    ┆ d    ┆ 1.0  ┆ d              │
+│ null ┆ null ┆ null ┆ null           │
+│ c    ┆ null ┆ 3.0  ┆ c              │
+└──────┴──────┴──────┴────────────────┘</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb427"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb427-1"><a href="#cb427-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Replace missing values with the values from another column</span></span>
+<span id="cb427-2"><a href="#cb427-2" aria-hidden="true" tabindex="-1"></a>mydfNA <span class="sc">%&gt;%</span></span>
+<span id="cb427-3"><a href="#cb427-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">colB_corrected =</span> <span class="fu">ifelse</span>(<span class="fu">is.na</span>(colB), colA, colB))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>shape: (3, 4)
+┌──────┬──────┬──────┬────────────────┐
+│ colA ┆ colB ┆ colC ┆ colB_corrected │
+│ ---  ┆ ---  ┆ ---  ┆ ---            │
+│ str  ┆ str  ┆ f64  ┆ str            │
+╞══════╪══════╪══════╪════════════════╡
+│ a    ┆ d    ┆ 1.0  ┆ d              │
+│ null ┆ null ┆ null ┆ null           │
+│ c    ┆ null ┆ 3.0  ┆ c              │
+└──────┴──────┴──────┴────────────────┘</code></pre>
 </div>
 </div>
 </div>
 <div id="tabset-29-3" class="tab-pane" role="tabpanel" aria-labelledby="tabset-29-3-tab">
 <div class="cell">
-<div class="sourceCode cell-code" id="cb427"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb427-1"><a href="#cb427-1" aria-hidden="true" tabindex="-1"></a>mydfNA2 <span class="ot">&lt;-</span> <span class="fu">as.data.frame</span>(mydfNA)</span>
-<span id="cb427-2"><a href="#cb427-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb427-3"><a href="#cb427-3" aria-hidden="true" tabindex="-1"></a><span class="co"># Replace missing values with the mean of the non-null values for that column</span></span>
-<span id="cb427-4"><a href="#cb427-4" aria-hidden="true" tabindex="-1"></a>mydfNA2 <span class="sc">%&gt;%</span></span>
-<span id="cb427-5"><a href="#cb427-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">colC_corrected =</span> <span class="fu">ifelse</span>(<span class="fu">is.na</span>(colC), <span class="fu">mean</span>(mydfNA2<span class="sc">$</span>colC, <span class="at">na.rm =</span> <span class="cn">TRUE</span>), colC))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>  colA colB colC colC_corrected
-1    a    d    1              1
-2 &lt;NA&gt; &lt;NA&gt;   NA              2
-3    c &lt;NA&gt;    3              3</code></pre>
-</div>
-<div class="sourceCode cell-code" id="cb429"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb429-1"><a href="#cb429-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Replace missing values with the values from another column</span></span>
-<span id="cb429-2"><a href="#cb429-2" aria-hidden="true" tabindex="-1"></a>mydfNA2 <span class="sc">%&gt;%</span></span>
-<span id="cb429-3"><a href="#cb429-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">colB_corrected =</span> <span class="fu">ifelse</span>(<span class="fu">is.na</span>(colB), colA, colB))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb429"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb429-1"><a href="#cb429-1" aria-hidden="true" tabindex="-1"></a>mydfNA2 <span class="ot">&lt;-</span> <span class="fu">as.data.frame</span>(mydfNA)</span>
+<span id="cb429-2"><a href="#cb429-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb429-3"><a href="#cb429-3" aria-hidden="true" tabindex="-1"></a><span class="co"># Replace missing values with the mean of the non-null values for that column</span></span>
+<span id="cb429-4"><a href="#cb429-4" aria-hidden="true" tabindex="-1"></a>mydfNA2<span class="sc">$</span>colC_corrected <span class="ot">&lt;-</span> <span class="fu">ifelse</span>(<span class="fu">is.na</span>(mydfNA2<span class="sc">$</span>colC), <span class="fu">mean</span>(mydfNA2<span class="sc">$</span>colC, <span class="at">na.rm =</span> <span class="cn">TRUE</span>), mydfNA2<span class="sc">$</span>colC)</span>
+<span id="cb429-5"><a href="#cb429-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb429-6"><a href="#cb429-6" aria-hidden="true" tabindex="-1"></a>mydfNA2 <span class="ot">&lt;-</span> <span class="fu">as.data.frame</span>(mydfNA)</span>
+<span id="cb429-7"><a href="#cb429-7" aria-hidden="true" tabindex="-1"></a><span class="co"># Replace missing values with the values from another column</span></span>
+<span id="cb429-8"><a href="#cb429-8" aria-hidden="true" tabindex="-1"></a>mydfNA2<span class="sc">$</span>colB_corrected <span class="ot">&lt;-</span> <span class="fu">ifelse</span>(<span class="fu">is.na</span>(mydfNA2<span class="sc">$</span>colB), mydfNA2<span class="sc">$</span>colA, mydfNA2<span class="sc">$</span>colB)</span>
+<span id="cb429-9"><a href="#cb429-9" aria-hidden="true" tabindex="-1"></a>mydfNA2</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>  colA colB colC colB_corrected
 1    a    d    1              d
@@ -4719,11 +4729,35 @@ Note
 <div id="tabset-29-4" class="tab-pane" role="tabpanel" aria-labelledby="tabset-29-4-tab">
 <div class="cell">
 <div class="sourceCode cell-code" id="cb431"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb431-1"><a href="#cb431-1" aria-hidden="true" tabindex="-1"></a>mydfNA2 <span class="ot">&lt;-</span> <span class="fu">as.data.frame</span>(mydfNA)</span>
-<span id="cb431-2"><a href="#cb431-2" aria-hidden="true" tabindex="-1"></a>mydfNA2_dt <span class="ot">&lt;-</span> <span class="fu">as.data.table</span>(mydfNA2)</span>
-<span id="cb431-3"><a href="#cb431-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb431-4"><a href="#cb431-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Replace missing values with the mean of the non-null values for that column</span></span>
-<span id="cb431-5"><a href="#cb431-5" aria-hidden="true" tabindex="-1"></a>mydfNA2_dt[, colC_corrected <span class="sc">:</span><span class="er">=</span> <span class="fu">ifelse</span>(<span class="fu">is.na</span>(colC), <span class="fu">mean</span>(mydfNA2_dt<span class="sc">$</span>colC, <span class="at">na.rm =</span> <span class="cn">TRUE</span>), colC)]</span>
-<span id="cb431-6"><a href="#cb431-6" aria-hidden="true" tabindex="-1"></a>mydfNA2_dt</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb431-2"><a href="#cb431-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb431-3"><a href="#cb431-3" aria-hidden="true" tabindex="-1"></a><span class="co"># Replace missing values with the mean of the non-null values for that column</span></span>
+<span id="cb431-4"><a href="#cb431-4" aria-hidden="true" tabindex="-1"></a>mydfNA2 <span class="sc">%&gt;%</span></span>
+<span id="cb431-5"><a href="#cb431-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">colC_corrected =</span> <span class="fu">ifelse</span>(<span class="fu">is.na</span>(colC), <span class="fu">mean</span>(colC, <span class="at">na.rm =</span> <span class="cn">TRUE</span>), colC))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>  colA colB colC colC_corrected
+1    a    d    1              1
+2 &lt;NA&gt; &lt;NA&gt;   NA              2
+3    c &lt;NA&gt;    3              3</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb433"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb433-1"><a href="#cb433-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Replace missing values with the values from another column</span></span>
+<span id="cb433-2"><a href="#cb433-2" aria-hidden="true" tabindex="-1"></a>mydfNA2 <span class="sc">%&gt;%</span></span>
+<span id="cb433-3"><a href="#cb433-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">colB_corrected =</span> <span class="fu">ifelse</span>(<span class="fu">is.na</span>(colB), colA, colB))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>  colA colB colC colB_corrected
+1    a    d    1              d
+2 &lt;NA&gt; &lt;NA&gt;   NA           &lt;NA&gt;
+3    c &lt;NA&gt;    3              c</code></pre>
+</div>
+</div>
+</div>
+<div id="tabset-29-5" class="tab-pane" role="tabpanel" aria-labelledby="tabset-29-5-tab">
+<div class="cell">
+<div class="sourceCode cell-code" id="cb435"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb435-1"><a href="#cb435-1" aria-hidden="true" tabindex="-1"></a>mydfNA2 <span class="ot">&lt;-</span> <span class="fu">as.data.frame</span>(mydfNA)</span>
+<span id="cb435-2"><a href="#cb435-2" aria-hidden="true" tabindex="-1"></a>mydfNA2_dt <span class="ot">&lt;-</span> <span class="fu">as.data.table</span>(mydfNA2)</span>
+<span id="cb435-3"><a href="#cb435-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb435-4"><a href="#cb435-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Replace missing values with the mean of the non-null values for that column</span></span>
+<span id="cb435-5"><a href="#cb435-5" aria-hidden="true" tabindex="-1"></a>mydfNA2_dt[, colC_corrected <span class="sc">:</span><span class="er">=</span> <span class="fu">ifelse</span>(<span class="fu">is.na</span>(colC), <span class="fu">mean</span>(mydfNA2_dt<span class="sc">$</span>colC, <span class="at">na.rm =</span> <span class="cn">TRUE</span>), colC)]</span>
+<span id="cb435-6"><a href="#cb435-6" aria-hidden="true" tabindex="-1"></a>mydfNA2_dt</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>     colA   colB  colC colC_corrected
    &lt;char&gt; &lt;char&gt; &lt;num&gt;          &lt;num&gt;
@@ -4731,9 +4765,9 @@ Note
 2:   &lt;NA&gt;   &lt;NA&gt;    NA              2
 3:      c   &lt;NA&gt;     3              3</code></pre>
 </div>
-<div class="sourceCode cell-code" id="cb433"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb433-1"><a href="#cb433-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Replace missing values with the values from another column</span></span>
-<span id="cb433-2"><a href="#cb433-2" aria-hidden="true" tabindex="-1"></a>mydfNA2_dt[, colB_corrected <span class="sc">:</span><span class="er">=</span> <span class="fu">ifelse</span>(<span class="fu">is.na</span>(colB), colA, colB)]</span>
-<span id="cb433-3"><a href="#cb433-3" aria-hidden="true" tabindex="-1"></a>mydfNA2_dt</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb437"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb437-1"><a href="#cb437-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Replace missing values with the values from another column</span></span>
+<span id="cb437-2"><a href="#cb437-2" aria-hidden="true" tabindex="-1"></a>mydfNA2_dt[, colB_corrected <span class="sc">:</span><span class="er">=</span> <span class="fu">ifelse</span>(<span class="fu">is.na</span>(colB), colA, colB)]</span>
+<span id="cb437-3"><a href="#cb437-3" aria-hidden="true" tabindex="-1"></a>mydfNA2_dt</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>     colA   colB  colC colC_corrected colB_corrected
    &lt;char&gt; &lt;char&gt; &lt;num&gt;          &lt;num&gt;         &lt;char&gt;
@@ -4755,16 +4789,16 @@ Note
 <div class="tab-content">
 <div id="tabset-30-1" class="tab-pane active" role="tabpanel" aria-labelledby="tabset-30-1-tab">
 <div class="cell">
-<div class="sourceCode cell-code" id="cb435"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb435-1"><a href="#cb435-1" aria-hidden="true" tabindex="-1"></a>mynewdfNA <span class="ot">&lt;-</span> pl<span class="sc">$</span><span class="fu">DataFrame</span>(</span>
-<span id="cb435-2"><a href="#cb435-2" aria-hidden="true" tabindex="-1"></a>  <span class="at">col1 =</span> <span class="fu">c</span>(<span class="cn">NA</span>,<span class="st">"y"</span>,<span class="cn">NA</span>),</span>
-<span id="cb435-3"><a href="#cb435-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">col2 =</span> <span class="fu">c</span>(<span class="cn">NA</span>,<span class="st">"v"</span>,<span class="st">"w"</span>),</span>
-<span id="cb435-4"><a href="#cb435-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">col3 =</span> <span class="fu">c</span>(<span class="st">"r"</span>,<span class="st">"s"</span>,<span class="cn">NA</span>)</span>
-<span id="cb435-5"><a href="#cb435-5" aria-hidden="true" tabindex="-1"></a>)</span>
-<span id="cb435-6"><a href="#cb435-6" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb435-7"><a href="#cb435-7" aria-hidden="true" tabindex="-1"></a>mynewdfNA<span class="sc">$</span></span>
-<span id="cb435-8"><a href="#cb435-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">with_columns</span>(</span>
-<span id="cb435-9"><a href="#cb435-9" aria-hidden="true" tabindex="-1"></a>    pl<span class="sc">$</span><span class="fu">coalesce</span>(<span class="st">"col1"</span>,<span class="st">"col2"</span>,<span class="st">"col3"</span>)<span class="sc">$</span><span class="fu">alias</span>(<span class="st">"col4"</span>)</span>
-<span id="cb435-10"><a href="#cb435-10" aria-hidden="true" tabindex="-1"></a>  )</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb439"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb439-1"><a href="#cb439-1" aria-hidden="true" tabindex="-1"></a>mynewdfNA <span class="ot">&lt;-</span> pl<span class="sc">$</span><span class="fu">DataFrame</span>(</span>
+<span id="cb439-2"><a href="#cb439-2" aria-hidden="true" tabindex="-1"></a>  <span class="at">col1 =</span> <span class="fu">c</span>(<span class="cn">NA</span>,<span class="st">"y"</span>,<span class="cn">NA</span>),</span>
+<span id="cb439-3"><a href="#cb439-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">col2 =</span> <span class="fu">c</span>(<span class="cn">NA</span>,<span class="st">"v"</span>,<span class="st">"w"</span>),</span>
+<span id="cb439-4"><a href="#cb439-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">col3 =</span> <span class="fu">c</span>(<span class="st">"r"</span>,<span class="st">"s"</span>,<span class="cn">NA</span>)</span>
+<span id="cb439-5"><a href="#cb439-5" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb439-6"><a href="#cb439-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb439-7"><a href="#cb439-7" aria-hidden="true" tabindex="-1"></a>mynewdfNA<span class="sc">$</span></span>
+<span id="cb439-8"><a href="#cb439-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">with_columns</span>(</span>
+<span id="cb439-9"><a href="#cb439-9" aria-hidden="true" tabindex="-1"></a>    pl<span class="sc">$</span><span class="fu">coalesce</span>(<span class="st">"col1"</span>,<span class="st">"col2"</span>,<span class="st">"col3"</span>)<span class="sc">$</span><span class="fu">alias</span>(<span class="st">"col4"</span>)</span>
+<span id="cb439-10"><a href="#cb439-10" aria-hidden="true" tabindex="-1"></a>  )</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>shape: (3, 4)
 ┌──────┬──────┬──────┬──────┐
@@ -4781,10 +4815,10 @@ Note
 </div>
 <div id="tabset-30-2" class="tab-pane" role="tabpanel" aria-labelledby="tabset-30-2-tab">
 <div class="cell">
-<div class="sourceCode cell-code" id="cb437"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb437-1"><a href="#cb437-1" aria-hidden="true" tabindex="-1"></a>mynewdfNA2 <span class="ot">&lt;-</span>  <span class="fu">as.data.frame</span>(mynewdfNA)</span>
-<span id="cb437-2"><a href="#cb437-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb437-3"><a href="#cb437-3" aria-hidden="true" tabindex="-1"></a>mynewdfNA2<span class="sc">$</span>col4 <span class="ot">&lt;-</span> <span class="fu">coalesce</span>(mynewdfNA2<span class="sc">$</span>col1, mynewdfNA2<span class="sc">$</span>col2, mynewdfNA2<span class="sc">$</span>col3)</span>
-<span id="cb437-4"><a href="#cb437-4" aria-hidden="true" tabindex="-1"></a>mynewdfNA2</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb441"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb441-1"><a href="#cb441-1" aria-hidden="true" tabindex="-1"></a>mynewdfNA2 <span class="ot">&lt;-</span>  <span class="fu">as.data.frame</span>(mynewdfNA)</span>
+<span id="cb441-2"><a href="#cb441-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb441-3"><a href="#cb441-3" aria-hidden="true" tabindex="-1"></a>mynewdfNA2<span class="sc">$</span>col4 <span class="ot">&lt;-</span> <span class="fu">coalesce</span>(mynewdfNA2<span class="sc">$</span>col1, mynewdfNA2<span class="sc">$</span>col2, mynewdfNA2<span class="sc">$</span>col3)</span>
+<span id="cb441-4"><a href="#cb441-4" aria-hidden="true" tabindex="-1"></a>mynewdfNA2</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>  col1 col2 col3 col4
 1 &lt;NA&gt; &lt;NA&gt;    r    r
@@ -4795,10 +4829,10 @@ Note
 </div>
 <div id="tabset-30-3" class="tab-pane" role="tabpanel" aria-labelledby="tabset-30-3-tab">
 <div class="cell">
-<div class="sourceCode cell-code" id="cb439"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb439-1"><a href="#cb439-1" aria-hidden="true" tabindex="-1"></a>mynewdfNA2 <span class="ot">&lt;-</span>  <span class="fu">as.data.frame</span>(mynewdfNA)</span>
-<span id="cb439-2"><a href="#cb439-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb439-3"><a href="#cb439-3" aria-hidden="true" tabindex="-1"></a>mynewdfNA2 <span class="sc">%&gt;%</span></span>
-<span id="cb439-4"><a href="#cb439-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">col4 =</span> <span class="fu">coalesce</span>(col1, col2, col3))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb443"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb443-1"><a href="#cb443-1" aria-hidden="true" tabindex="-1"></a>mynewdfNA2 <span class="ot">&lt;-</span>  <span class="fu">as.data.frame</span>(mynewdfNA)</span>
+<span id="cb443-2"><a href="#cb443-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb443-3"><a href="#cb443-3" aria-hidden="true" tabindex="-1"></a>mynewdfNA2 <span class="sc">%&gt;%</span></span>
+<span id="cb443-4"><a href="#cb443-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">col4 =</span> <span class="fu">coalesce</span>(col1, col2, col3))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>  col1 col2 col3 col4
 1 &lt;NA&gt; &lt;NA&gt;    r    r
@@ -4809,11 +4843,11 @@ Note
 </div>
 <div id="tabset-30-4" class="tab-pane" role="tabpanel" aria-labelledby="tabset-30-4-tab">
 <div class="cell">
-<div class="sourceCode cell-code" id="cb441"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb441-1"><a href="#cb441-1" aria-hidden="true" tabindex="-1"></a>mynewdfNA2 <span class="ot">&lt;-</span>   <span class="fu">as.data.frame</span>(mynewdfNA)</span>
-<span id="cb441-2"><a href="#cb441-2" aria-hidden="true" tabindex="-1"></a>mynewdfNA2_dt <span class="ot">&lt;-</span> <span class="fu">as.data.table</span>(mynewdfNA2)</span>
-<span id="cb441-3"><a href="#cb441-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb441-4"><a href="#cb441-4" aria-hidden="true" tabindex="-1"></a>mynewdfNA2_dt[, col4 <span class="sc">:</span><span class="er">=</span> <span class="fu">fcoalesce</span>(col1, col2, col3)]</span>
-<span id="cb441-5"><a href="#cb441-5" aria-hidden="true" tabindex="-1"></a>mynewdfNA2_dt</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb445"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb445-1"><a href="#cb445-1" aria-hidden="true" tabindex="-1"></a>mynewdfNA2 <span class="ot">&lt;-</span>   <span class="fu">as.data.frame</span>(mynewdfNA)</span>
+<span id="cb445-2"><a href="#cb445-2" aria-hidden="true" tabindex="-1"></a>mynewdfNA2_dt <span class="ot">&lt;-</span> <span class="fu">as.data.table</span>(mynewdfNA2)</span>
+<span id="cb445-3"><a href="#cb445-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb445-4"><a href="#cb445-4" aria-hidden="true" tabindex="-1"></a>mynewdfNA2_dt[, col4 <span class="sc">:</span><span class="er">=</span> <span class="fu">fcoalesce</span>(col1, col2, col3)]</span>
+<span id="cb445-5"><a href="#cb445-5" aria-hidden="true" tabindex="-1"></a>mynewdfNA2_dt</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>     col1   col2   col3   col4
    &lt;char&gt; &lt;char&gt; &lt;char&gt; &lt;char&gt;
@@ -4840,7 +4874,7 @@ With R base, the syntax is longer.</p>
 <div class="tab-content">
 <div id="tabset-31-1" class="tab-pane active" role="tabpanel" aria-labelledby="tabset-31-1-tab">
 <div class="cell">
-<div class="sourceCode cell-code" id="cb443"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb443-1"><a href="#cb443-1" aria-hidden="true" tabindex="-1"></a><span class="fu">as_polars_series</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">3</span>, <span class="at">name =</span> <span class="st">"toto"</span>)<span class="sc">$</span><span class="fu">alias</span>(<span class="st">"titi"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb447"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb447-1"><a href="#cb447-1" aria-hidden="true" tabindex="-1"></a><span class="fu">as_polars_series</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">3</span>, <span class="at">name =</span> <span class="st">"toto"</span>)<span class="sc">$</span><span class="fu">alias</span>(<span class="st">"titi"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>shape: (3, 1)
 ┌──────┐
@@ -4857,9 +4891,9 @@ With R base, the syntax is longer.</p>
 </div>
 <div id="tabset-31-2" class="tab-pane" role="tabpanel" aria-labelledby="tabset-31-2-tab">
 <div class="cell">
-<div class="sourceCode cell-code" id="cb445"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb445-1"><a href="#cb445-1" aria-hidden="true" tabindex="-1"></a>toto <span class="ot">&lt;-</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">3</span></span>
-<span id="cb445-2"><a href="#cb445-2" aria-hidden="true" tabindex="-1"></a>titi <span class="ot">&lt;-</span> toto</span>
-<span id="cb445-3"><a href="#cb445-3" aria-hidden="true" tabindex="-1"></a><span class="fu">rm</span>(toto)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb449"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb449-1"><a href="#cb449-1" aria-hidden="true" tabindex="-1"></a>toto <span class="ot">&lt;-</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">3</span></span>
+<span id="cb449-2"><a href="#cb449-2" aria-hidden="true" tabindex="-1"></a>titi <span class="ot">&lt;-</span> toto</span>
+<span id="cb449-3"><a href="#cb449-3" aria-hidden="true" tabindex="-1"></a><span class="fu">rm</span>(toto)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </div>
 </div>
@@ -4873,8 +4907,8 @@ With R base, the syntax is longer.</p>
 <div class="tab-content">
 <div id="tabset-32-1" class="tab-pane active" role="tabpanel" aria-labelledby="tabset-32-1-tab">
 <div class="cell">
-<div class="sourceCode cell-code" id="cb446"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb446-1"><a href="#cb446-1" aria-hidden="true" tabindex="-1"></a><span class="co"># all(as_polars_series(c(TRUE,TRUE))) doesn't work</span></span>
-<span id="cb446-2"><a href="#cb446-2" aria-hidden="true" tabindex="-1"></a><span class="fu">as_polars_series</span>(<span class="fu">c</span>(<span class="cn">TRUE</span>, <span class="cn">TRUE</span>, <span class="cn">NA</span>))<span class="sc">$</span><span class="fu">all</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb450"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb450-1"><a href="#cb450-1" aria-hidden="true" tabindex="-1"></a><span class="co"># all(as_polars_series(c(TRUE,TRUE))) doesn't work</span></span>
+<span id="cb450-2"><a href="#cb450-2" aria-hidden="true" tabindex="-1"></a><span class="fu">as_polars_series</span>(<span class="fu">c</span>(<span class="cn">TRUE</span>, <span class="cn">TRUE</span>, <span class="cn">NA</span>))<span class="sc">$</span><span class="fu">all</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>shape: (1, 1)
 ┌──────┐
@@ -4885,7 +4919,7 @@ With R base, the syntax is longer.</p>
 │ true │
 └──────┘</code></pre>
 </div>
-<div class="sourceCode cell-code" id="cb448"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb448-1"><a href="#cb448-1" aria-hidden="true" tabindex="-1"></a><span class="fu">as_polars_series</span>(<span class="fu">c</span>(<span class="cn">TRUE</span>, <span class="cn">TRUE</span>, <span class="cn">FALSE</span>))<span class="sc">$</span><span class="fu">all</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb452"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb452-1"><a href="#cb452-1" aria-hidden="true" tabindex="-1"></a><span class="fu">as_polars_series</span>(<span class="fu">c</span>(<span class="cn">TRUE</span>, <span class="cn">TRUE</span>, <span class="cn">FALSE</span>))<span class="sc">$</span><span class="fu">all</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>shape: (1, 1)
 ┌───────┐
@@ -4896,7 +4930,7 @@ With R base, the syntax is longer.</p>
 │ false │
 └───────┘</code></pre>
 </div>
-<div class="sourceCode cell-code" id="cb450"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb450-1"><a href="#cb450-1" aria-hidden="true" tabindex="-1"></a><span class="fu">as_polars_series</span>(<span class="fu">c</span>(<span class="cn">TRUE</span>, <span class="cn">TRUE</span>, <span class="cn">TRUE</span>))<span class="sc">$</span><span class="fu">all</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb454"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb454-1"><a href="#cb454-1" aria-hidden="true" tabindex="-1"></a><span class="fu">as_polars_series</span>(<span class="fu">c</span>(<span class="cn">TRUE</span>, <span class="cn">TRUE</span>, <span class="cn">TRUE</span>))<span class="sc">$</span><span class="fu">all</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>shape: (1, 1)
 ┌──────┐
@@ -4911,15 +4945,15 @@ With R base, the syntax is longer.</p>
 </div>
 <div id="tabset-32-2" class="tab-pane" role="tabpanel" aria-labelledby="tabset-32-2-tab">
 <div class="cell">
-<div class="sourceCode cell-code" id="cb452"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb452-1"><a href="#cb452-1" aria-hidden="true" tabindex="-1"></a><span class="fu">all</span>(<span class="fu">c</span>(<span class="cn">TRUE</span>,<span class="cn">TRUE</span>,<span class="cn">NA</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb456"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb456-1"><a href="#cb456-1" aria-hidden="true" tabindex="-1"></a><span class="fu">all</span>(<span class="fu">c</span>(<span class="cn">TRUE</span>,<span class="cn">TRUE</span>,<span class="cn">NA</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] NA</code></pre>
 </div>
-<div class="sourceCode cell-code" id="cb454"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb454-1"><a href="#cb454-1" aria-hidden="true" tabindex="-1"></a><span class="fu">all</span>(<span class="fu">c</span>(<span class="cn">TRUE</span>,<span class="cn">TRUE</span>,<span class="cn">FALSE</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb458"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb458-1"><a href="#cb458-1" aria-hidden="true" tabindex="-1"></a><span class="fu">all</span>(<span class="fu">c</span>(<span class="cn">TRUE</span>,<span class="cn">TRUE</span>,<span class="cn">FALSE</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] FALSE</code></pre>
 </div>
-<div class="sourceCode cell-code" id="cb456"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb456-1"><a href="#cb456-1" aria-hidden="true" tabindex="-1"></a><span class="fu">all</span>(<span class="fu">c</span>(<span class="cn">TRUE</span>,<span class="cn">TRUE</span>,<span class="cn">TRUE</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb460"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb460-1"><a href="#cb460-1" aria-hidden="true" tabindex="-1"></a><span class="fu">all</span>(<span class="fu">c</span>(<span class="cn">TRUE</span>,<span class="cn">TRUE</span>,<span class="cn">TRUE</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] TRUE</code></pre>
 </div>
@@ -4936,11 +4970,11 @@ With R base, the syntax is longer.</p>
 <div class="tab-content">
 <div id="tabset-33-1" class="tab-pane active" role="tabpanel" aria-labelledby="tabset-33-1-tab">
 <div class="cell">
-<div class="sourceCode cell-code" id="cb458"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb458-1"><a href="#cb458-1" aria-hidden="true" tabindex="-1"></a><span class="fu">as_polars_series</span>(letters)<span class="sc">$</span>dtype</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb462"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb462-1"><a href="#cb462-1" aria-hidden="true" tabindex="-1"></a><span class="fu">as_polars_series</span>(letters)<span class="sc">$</span>dtype</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>String</code></pre>
 </div>
-<div class="sourceCode cell-code" id="cb460"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb460-1"><a href="#cb460-1" aria-hidden="true" tabindex="-1"></a><span class="fu">as_polars_series</span>(<span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">2</span>))<span class="sc">$</span>dtype</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb464"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb464-1"><a href="#cb464-1" aria-hidden="true" tabindex="-1"></a><span class="fu">as_polars_series</span>(<span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">2</span>))<span class="sc">$</span>dtype</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>Float64</code></pre>
 </div>
@@ -4948,12 +4982,12 @@ With R base, the syntax is longer.</p>
 </div>
 <div id="tabset-33-2" class="tab-pane" role="tabpanel" aria-labelledby="tabset-33-2-tab">
 <div class="cell">
-<div class="sourceCode cell-code" id="cb462"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb462-1"><a href="#cb462-1" aria-hidden="true" tabindex="-1"></a><span class="fu">infer_type</span>(letters)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb466"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb466-1"><a href="#cb466-1" aria-hidden="true" tabindex="-1"></a><span class="fu">infer_type</span>(letters)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>Utf8
 string</code></pre>
 </div>
-<div class="sourceCode cell-code" id="cb464"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb464-1"><a href="#cb464-1" aria-hidden="true" tabindex="-1"></a><span class="fu">infer_type</span>(<span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">2</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb468"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb468-1"><a href="#cb468-1" aria-hidden="true" tabindex="-1"></a><span class="fu">infer_type</span>(<span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">2</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>Float64
 double</code></pre>
@@ -4980,31 +5014,31 @@ Tip
 <div class="tab-content">
 <div id="tabset-34-1" class="tab-pane active" role="tabpanel" aria-labelledby="tabset-34-1-tab">
 <div class="cell">
-<div class="sourceCode cell-code" id="cb466"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb466-1"><a href="#cb466-1" aria-hidden="true" tabindex="-1"></a><span class="fu">as_polars_series</span>(<span class="fu">c</span>(<span class="st">"x"</span>,<span class="st">"y"</span>,<span class="st">"z"</span>))<span class="sc">$</span>dtype</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb470"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb470-1"><a href="#cb470-1" aria-hidden="true" tabindex="-1"></a><span class="fu">as_polars_series</span>(<span class="fu">c</span>(<span class="st">"x"</span>,<span class="st">"y"</span>,<span class="st">"z"</span>))<span class="sc">$</span>dtype</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>String</code></pre>
 </div>
-<div class="sourceCode cell-code" id="cb468"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb468-1"><a href="#cb468-1" aria-hidden="true" tabindex="-1"></a><span class="fu">as_polars_series</span>(<span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">3</span>))<span class="sc">$</span>dtype</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb472"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb472-1"><a href="#cb472-1" aria-hidden="true" tabindex="-1"></a><span class="fu">as_polars_series</span>(<span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">3</span>))<span class="sc">$</span>dtype</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>Float64</code></pre>
 </div>
-<div class="sourceCode cell-code" id="cb470"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb470-1"><a href="#cb470-1" aria-hidden="true" tabindex="-1"></a><span class="fu">as_polars_series</span>(<span class="fu">c</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">3</span>))<span class="sc">$</span>dtype</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb474"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb474-1"><a href="#cb474-1" aria-hidden="true" tabindex="-1"></a><span class="fu">as_polars_series</span>(<span class="fu">c</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">3</span>))<span class="sc">$</span>dtype</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>Int32</code></pre>
 </div>
-<div class="sourceCode cell-code" id="cb472"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb472-1"><a href="#cb472-1" aria-hidden="true" tabindex="-1"></a><span class="fu">as_polars_series</span>(<span class="fu">c</span>(<span class="cn">TRUE</span>,<span class="cn">FALSE</span>))<span class="sc">$</span>dtype</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb476"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb476-1"><a href="#cb476-1" aria-hidden="true" tabindex="-1"></a><span class="fu">as_polars_series</span>(<span class="fu">c</span>(<span class="cn">TRUE</span>,<span class="cn">FALSE</span>))<span class="sc">$</span>dtype</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>Boolean</code></pre>
 </div>
-<div class="sourceCode cell-code" id="cb474"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb474-1"><a href="#cb474-1" aria-hidden="true" tabindex="-1"></a><span class="fu">as_polars_series</span>(<span class="fu">factor</span>(<span class="fu">c</span>(<span class="st">"a"</span>,<span class="st">"b"</span>,<span class="st">"c"</span>)))<span class="sc">$</span>dtype</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb478"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb478-1"><a href="#cb478-1" aria-hidden="true" tabindex="-1"></a><span class="fu">as_polars_series</span>(<span class="fu">factor</span>(<span class="fu">c</span>(<span class="st">"a"</span>,<span class="st">"b"</span>,<span class="st">"c"</span>)))<span class="sc">$</span>dtype</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>Categorical(ordering='lexical')</code></pre>
 </div>
-<div class="sourceCode cell-code" id="cb476"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb476-1"><a href="#cb476-1" aria-hidden="true" tabindex="-1"></a><span class="fu">as_polars_series</span>(<span class="fu">Sys.Date</span>())<span class="sc">$</span>dtype</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb480"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb480-1"><a href="#cb480-1" aria-hidden="true" tabindex="-1"></a><span class="fu">as_polars_series</span>(<span class="fu">Sys.Date</span>())<span class="sc">$</span>dtype</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>Date</code></pre>
 </div>
-<div class="sourceCode cell-code" id="cb478"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb478-1"><a href="#cb478-1" aria-hidden="true" tabindex="-1"></a><span class="fu">as_polars_series</span>(<span class="fu">c</span>(<span class="dv">0</span>,<span class="dv">1</span>))<span class="sc">$</span>dtype</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb482"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb482-1"><a href="#cb482-1" aria-hidden="true" tabindex="-1"></a><span class="fu">as_polars_series</span>(<span class="fu">c</span>(<span class="dv">0</span>,<span class="dv">1</span>))<span class="sc">$</span>dtype</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>Float64</code></pre>
 </div>
@@ -5012,27 +5046,27 @@ Tip
 </div>
 <div id="tabset-34-2" class="tab-pane" role="tabpanel" aria-labelledby="tabset-34-2-tab">
 <div class="cell">
-<div class="sourceCode cell-code" id="cb480"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb480-1"><a href="#cb480-1" aria-hidden="true" tabindex="-1"></a><span class="fu">typeof</span>(<span class="fu">c</span>(<span class="st">"x"</span>,<span class="st">"y"</span>,<span class="st">"z"</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb484"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb484-1"><a href="#cb484-1" aria-hidden="true" tabindex="-1"></a><span class="fu">typeof</span>(<span class="fu">c</span>(<span class="st">"x"</span>,<span class="st">"y"</span>,<span class="st">"z"</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] "character"</code></pre>
 </div>
-<div class="sourceCode cell-code" id="cb482"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb482-1"><a href="#cb482-1" aria-hidden="true" tabindex="-1"></a><span class="fu">typeof</span>(<span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">3</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb486"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb486-1"><a href="#cb486-1" aria-hidden="true" tabindex="-1"></a><span class="fu">typeof</span>(<span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">3</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] "double"</code></pre>
 </div>
-<div class="sourceCode cell-code" id="cb484"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb484-1"><a href="#cb484-1" aria-hidden="true" tabindex="-1"></a><span class="fu">typeof</span>(<span class="fu">c</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">3</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb488"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb488-1"><a href="#cb488-1" aria-hidden="true" tabindex="-1"></a><span class="fu">typeof</span>(<span class="fu">c</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">3</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] "integer"</code></pre>
 </div>
-<div class="sourceCode cell-code" id="cb486"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb486-1"><a href="#cb486-1" aria-hidden="true" tabindex="-1"></a><span class="fu">typeof</span>(<span class="fu">c</span>(<span class="cn">TRUE</span>,<span class="cn">FALSE</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb490"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb490-1"><a href="#cb490-1" aria-hidden="true" tabindex="-1"></a><span class="fu">typeof</span>(<span class="fu">c</span>(<span class="cn">TRUE</span>,<span class="cn">FALSE</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] "logical"</code></pre>
 </div>
-<div class="sourceCode cell-code" id="cb488"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb488-1"><a href="#cb488-1" aria-hidden="true" tabindex="-1"></a><span class="fu">typeof</span>(<span class="fu">factor</span>(<span class="fu">c</span>(<span class="st">"a"</span>,<span class="st">"b"</span>,<span class="st">"c"</span>)))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb492"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb492-1"><a href="#cb492-1" aria-hidden="true" tabindex="-1"></a><span class="fu">typeof</span>(<span class="fu">factor</span>(<span class="fu">c</span>(<span class="st">"a"</span>,<span class="st">"b"</span>,<span class="st">"c"</span>)))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] "integer"</code></pre>
 </div>
-<div class="sourceCode cell-code" id="cb490"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb490-1"><a href="#cb490-1" aria-hidden="true" tabindex="-1"></a><span class="fu">typeof</span>(<span class="fu">Sys.Date</span>())</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb494"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb494-1"><a href="#cb494-1" aria-hidden="true" tabindex="-1"></a><span class="fu">typeof</span>(<span class="fu">Sys.Date</span>())</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] "double"</code></pre>
 </div>
@@ -5086,10 +5120,10 @@ See <a href="https://pola-rs.github.io/r-polars/man/polars_dtype.html">here</a> 
 <div class="tab-content">
 <div id="tabset-35-1" class="tab-pane active" role="tabpanel" aria-labelledby="tabset-35-1-tab">
 <div class="cell">
-<div class="sourceCode cell-code" id="cb492"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb492-1"><a href="#cb492-1" aria-hidden="true" tabindex="-1"></a><span class="fu">as_polars_df</span>(iris)<span class="sc">$</span><span class="fu">with_columns</span>(</span>
-<span id="cb492-2"><a href="#cb492-2" aria-hidden="true" tabindex="-1"></a>  pl<span class="sc">$</span><span class="fu">col</span>(<span class="st">"Petal.Length"</span>)<span class="sc">$</span><span class="fu">cast</span>(pl<span class="sc">$</span>Int8), <span class="co"># The "Petal.Length" column is converted into integers</span></span>
-<span id="cb492-3"><a href="#cb492-3" aria-hidden="true" tabindex="-1"></a>  pl<span class="sc">$</span><span class="fu">col</span>(<span class="st">"Species"</span>)<span class="sc">$</span><span class="fu">cast</span>(pl<span class="sc">$</span>String) <span class="co"># The "Species" column is converted into strings</span></span>
-<span id="cb492-4"><a href="#cb492-4" aria-hidden="true" tabindex="-1"></a>)<span class="sc">$</span>schema</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb496"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb496-1"><a href="#cb496-1" aria-hidden="true" tabindex="-1"></a><span class="fu">as_polars_df</span>(iris)<span class="sc">$</span><span class="fu">with_columns</span>(</span>
+<span id="cb496-2"><a href="#cb496-2" aria-hidden="true" tabindex="-1"></a>  pl<span class="sc">$</span><span class="fu">col</span>(<span class="st">"Petal.Length"</span>)<span class="sc">$</span><span class="fu">cast</span>(pl<span class="sc">$</span>Int8), <span class="co"># The "Petal.Length" column is converted into integers</span></span>
+<span id="cb496-3"><a href="#cb496-3" aria-hidden="true" tabindex="-1"></a>  pl<span class="sc">$</span><span class="fu">col</span>(<span class="st">"Species"</span>)<span class="sc">$</span><span class="fu">cast</span>(pl<span class="sc">$</span>String) <span class="co"># The "Species" column is converted into strings</span></span>
+<span id="cb496-4"><a href="#cb496-4" aria-hidden="true" tabindex="-1"></a>)<span class="sc">$</span>schema</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>$Sepal.Length
 Float64
@@ -5110,10 +5144,10 @@ String</code></pre>
 </div>
 <div id="tabset-35-2" class="tab-pane" role="tabpanel" aria-labelledby="tabset-35-2-tab">
 <div class="cell">
-<div class="sourceCode cell-code" id="cb494"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb494-1"><a href="#cb494-1" aria-hidden="true" tabindex="-1"></a><span class="fu">data</span>(iris)</span>
-<span id="cb494-2"><a href="#cb494-2" aria-hidden="true" tabindex="-1"></a>iris<span class="sc">$</span>Petal.Length <span class="ot">&lt;-</span> <span class="fu">as.integer</span>(iris<span class="sc">$</span>Petal.Length)</span>
-<span id="cb494-3"><a href="#cb494-3" aria-hidden="true" tabindex="-1"></a>iris<span class="sc">$</span>Species <span class="ot">&lt;-</span> <span class="fu">as.integer</span>(iris<span class="sc">$</span>Species)</span>
-<span id="cb494-4"><a href="#cb494-4" aria-hidden="true" tabindex="-1"></a><span class="fu">str</span>(iris)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb498"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb498-1"><a href="#cb498-1" aria-hidden="true" tabindex="-1"></a><span class="fu">data</span>(iris)</span>
+<span id="cb498-2"><a href="#cb498-2" aria-hidden="true" tabindex="-1"></a>iris<span class="sc">$</span>Petal.Length <span class="ot">&lt;-</span> <span class="fu">as.integer</span>(iris<span class="sc">$</span>Petal.Length)</span>
+<span id="cb498-3"><a href="#cb498-3" aria-hidden="true" tabindex="-1"></a>iris<span class="sc">$</span>Species <span class="ot">&lt;-</span> <span class="fu">as.integer</span>(iris<span class="sc">$</span>Species)</span>
+<span id="cb498-4"><a href="#cb498-4" aria-hidden="true" tabindex="-1"></a><span class="fu">str</span>(iris)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>'data.frame':   150 obs. of  5 variables:
  $ Sepal.Length: num  5.1 4.9 4.7 4.6 5 5.4 4.6 5 4.4 4.9 ...
@@ -5126,12 +5160,12 @@ String</code></pre>
 </div>
 <div id="tabset-35-3" class="tab-pane" role="tabpanel" aria-labelledby="tabset-35-3-tab">
 <div class="cell">
-<div class="sourceCode cell-code" id="cb496"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb496-1"><a href="#cb496-1" aria-hidden="true" tabindex="-1"></a><span class="fu">data</span>(iris)</span>
-<span id="cb496-2"><a href="#cb496-2" aria-hidden="true" tabindex="-1"></a>iris <span class="sc">|&gt;</span></span>
-<span id="cb496-3"><a href="#cb496-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(</span>
-<span id="cb496-4"><a href="#cb496-4" aria-hidden="true" tabindex="-1"></a>    <span class="at">Petal.Length =</span> <span class="fu">as.integer</span>(Petal.Length),</span>
-<span id="cb496-5"><a href="#cb496-5" aria-hidden="true" tabindex="-1"></a>    <span class="at">Species =</span> <span class="fu">as.character</span>(Species)) <span class="sc">|&gt;</span></span>
-<span id="cb496-6"><a href="#cb496-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">str</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb500"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb500-1"><a href="#cb500-1" aria-hidden="true" tabindex="-1"></a><span class="fu">data</span>(iris)</span>
+<span id="cb500-2"><a href="#cb500-2" aria-hidden="true" tabindex="-1"></a>iris <span class="sc">|&gt;</span></span>
+<span id="cb500-3"><a href="#cb500-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(</span>
+<span id="cb500-4"><a href="#cb500-4" aria-hidden="true" tabindex="-1"></a>    <span class="at">Petal.Length =</span> <span class="fu">as.integer</span>(Petal.Length),</span>
+<span id="cb500-5"><a href="#cb500-5" aria-hidden="true" tabindex="-1"></a>    <span class="at">Species =</span> <span class="fu">as.character</span>(Species)) <span class="sc">|&gt;</span></span>
+<span id="cb500-6"><a href="#cb500-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">str</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>'data.frame':   150 obs. of  5 variables:
  $ Sepal.Length: num  5.1 4.9 4.7 4.6 5 5.4 4.6 5 4.4 4.9 ...
@@ -5144,9 +5178,9 @@ String</code></pre>
 </div>
 <div id="tabset-35-4" class="tab-pane" role="tabpanel" aria-labelledby="tabset-35-4-tab">
 <div class="cell">
-<div class="sourceCode cell-code" id="cb498"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb498-1"><a href="#cb498-1" aria-hidden="true" tabindex="-1"></a>iris_dt[, <span class="st">`</span><span class="at">:=</span><span class="st">`</span>(<span class="at">Petal.Length =</span> <span class="fu">as.integer</span>(Petal.Length),</span>
-<span id="cb498-2"><a href="#cb498-2" aria-hidden="true" tabindex="-1"></a>               <span class="at">Species =</span> <span class="fu">as.character</span>(Species))]</span>
-<span id="cb498-3"><a href="#cb498-3" aria-hidden="true" tabindex="-1"></a><span class="fu">str</span>(iris_dt)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb502"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb502-1"><a href="#cb502-1" aria-hidden="true" tabindex="-1"></a>iris_dt[, <span class="st">`</span><span class="at">:=</span><span class="st">`</span>(<span class="at">Petal.Length =</span> <span class="fu">as.integer</span>(Petal.Length),</span>
+<span id="cb502-2"><a href="#cb502-2" aria-hidden="true" tabindex="-1"></a>               <span class="at">Species =</span> <span class="fu">as.character</span>(Species))]</span>
+<span id="cb502-3"><a href="#cb502-3" aria-hidden="true" tabindex="-1"></a><span class="fu">str</span>(iris_dt)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>Classes 'data.table' and 'data.frame':  150 obs. of  5 variables:
  $ Sepal.Length: num  5.1 4.9 4.7 4.6 5 5.4 4.6 5 4.4 4.9 ...
@@ -5223,8 +5257,8 @@ Tip
 </p>
 <p>::: {.panel-tabset} ## polars</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb500"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb500-1"><a href="#cb500-1" aria-hidden="true" tabindex="-1"></a>s <span class="ot">&lt;-</span> <span class="fu">as_polars_series</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">4</span>)</span>
-<span id="cb500-2"><a href="#cb500-2" aria-hidden="true" tabindex="-1"></a><span class="fu">infer_polars_dtype</span>(s)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb504"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb504-1"><a href="#cb504-1" aria-hidden="true" tabindex="-1"></a>s <span class="ot">&lt;-</span> <span class="fu">as_polars_series</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">4</span>)</span>
+<span id="cb504-2"><a href="#cb504-2" aria-hidden="true" tabindex="-1"></a><span class="fu">infer_polars_dtype</span>(s)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>Int32</code></pre>
 </div>
@@ -5238,7 +5272,7 @@ Tip
 <div class="tab-content">
 <div id="tabset-36-1" class="tab-pane active" role="tabpanel" aria-labelledby="tabset-36-1-tab">
 <div class="cell">
-<div class="sourceCode cell-code" id="cb502"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb502-1"><a href="#cb502-1" aria-hidden="true" tabindex="-1"></a><span class="fu">as_polars_series</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">4</span>)<span class="sc">$</span><span class="fu">len</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb506"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb506-1"><a href="#cb506-1" aria-hidden="true" tabindex="-1"></a><span class="fu">as_polars_series</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">4</span>)<span class="sc">$</span><span class="fu">len</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] 4</code></pre>
 </div>
@@ -5246,7 +5280,7 @@ Tip
 </div>
 <div id="tabset-36-2" class="tab-pane" role="tabpanel" aria-labelledby="tabset-36-2-tab">
 <div class="cell">
-<div class="sourceCode cell-code" id="cb504"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb504-1"><a href="#cb504-1" aria-hidden="true" tabindex="-1"></a><span class="fu">length</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">4</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb508"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb508-1"><a href="#cb508-1" aria-hidden="true" tabindex="-1"></a><span class="fu">length</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">4</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] 4</code></pre>
 </div>
@@ -5276,11 +5310,11 @@ Tip
 <div class="tab-content">
 <div id="tabset-37-1" class="tab-pane active" role="tabpanel" aria-labelledby="tabset-37-1-tab">
 <div class="cell">
-<div class="sourceCode cell-code" id="cb506"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb506-1"><a href="#cb506-1" aria-hidden="true" tabindex="-1"></a><span class="fu">as_polars_series</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">4</span>)<span class="sc">$</span><span class="fu">equals</span>(<span class="fu">as_polars_series</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">4</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb510"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb510-1"><a href="#cb510-1" aria-hidden="true" tabindex="-1"></a><span class="fu">as_polars_series</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">4</span>)<span class="sc">$</span><span class="fu">equals</span>(<span class="fu">as_polars_series</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">4</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] TRUE</code></pre>
 </div>
-<div class="sourceCode cell-code" id="cb508"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb508-1"><a href="#cb508-1" aria-hidden="true" tabindex="-1"></a><span class="fu">as_polars_series</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">4</span>,<span class="at">name =</span> <span class="st">"toto"</span>)<span class="sc">$</span><span class="fu">equals</span>(<span class="fu">as_polars_series</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">4</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb512"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb512-1"><a href="#cb512-1" aria-hidden="true" tabindex="-1"></a><span class="fu">as_polars_series</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">4</span>,<span class="at">name =</span> <span class="st">"toto"</span>)<span class="sc">$</span><span class="fu">equals</span>(<span class="fu">as_polars_series</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">4</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] TRUE</code></pre>
 </div>
@@ -5288,7 +5322,7 @@ Tip
 </div>
 <div id="tabset-37-2" class="tab-pane" role="tabpanel" aria-labelledby="tabset-37-2-tab">
 <div class="cell">
-<div class="sourceCode cell-code" id="cb510"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb510-1"><a href="#cb510-1" aria-hidden="true" tabindex="-1"></a><span class="fu">identical</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">4</span>,<span class="dv">1</span><span class="sc">:</span><span class="dv">4</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb514"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb514-1"><a href="#cb514-1" aria-hidden="true" tabindex="-1"></a><span class="fu">identical</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">4</span>,<span class="dv">1</span><span class="sc">:</span><span class="dv">4</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] TRUE</code></pre>
 </div>
@@ -5302,7 +5336,7 @@ Tip
 <p>The <code>to_frame()</code> method can be used to convert a <code>Series</code> to a <code>DataFrame</code>.<br>
 In this case, a <code>DataFrame</code> with only one column will be created. If the <code>Series</code> is initially named then the column of the <code>DataFrame</code> will be named as such.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb512"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb512-1"><a href="#cb512-1" aria-hidden="true" tabindex="-1"></a><span class="fu">as_polars_series</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">3</span>, <span class="st">"toto"</span>)<span class="sc">$</span><span class="fu">to_frame</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb516"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb516-1"><a href="#cb516-1" aria-hidden="true" tabindex="-1"></a><span class="fu">as_polars_series</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">3</span>, <span class="st">"toto"</span>)<span class="sc">$</span><span class="fu">to_frame</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>shape: (3, 1)
 ┌──────┐
@@ -5325,7 +5359,7 @@ In this case, a <code>DataFrame</code> with only one column will be created. If 
 <div class="tab-content">
 <div id="tabset-38-1" class="tab-pane active" role="tabpanel" aria-labelledby="tabset-38-1-tab">
 <div class="cell">
-<div class="sourceCode cell-code" id="cb514"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb514-1"><a href="#cb514-1" aria-hidden="true" tabindex="-1"></a><span class="fu">as_polars_series</span>(iris<span class="sc">$</span>Species)<span class="sc">$</span><span class="fu">value_counts</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb518"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb518-1"><a href="#cb518-1" aria-hidden="true" tabindex="-1"></a><span class="fu">as_polars_series</span>(iris<span class="sc">$</span>Species)<span class="sc">$</span><span class="fu">value_counts</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>shape: (3, 1)
 ┌───────────────────┐
@@ -5342,7 +5376,7 @@ In this case, a <code>DataFrame</code> with only one column will be created. If 
 </div>
 <div id="tabset-38-2" class="tab-pane" role="tabpanel" aria-labelledby="tabset-38-2-tab">
 <div class="cell">
-<div class="sourceCode cell-code" id="cb516"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb516-1"><a href="#cb516-1" aria-hidden="true" tabindex="-1"></a><span class="fu">table</span>(iris<span class="sc">$</span>Species)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb520"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb520-1"><a href="#cb520-1" aria-hidden="true" tabindex="-1"></a><span class="fu">table</span>(iris<span class="sc">$</span>Species)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>
     setosa versicolor  virginica 
@@ -5352,8 +5386,8 @@ In this case, a <code>DataFrame</code> with only one column will be created. If 
 </div>
 <div id="tabset-38-3" class="tab-pane" role="tabpanel" aria-labelledby="tabset-38-3-tab">
 <div class="cell">
-<div class="sourceCode cell-code" id="cb518"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb518-1"><a href="#cb518-1" aria-hidden="true" tabindex="-1"></a>iris <span class="sc">|&gt;</span></span>
-<span id="cb518-2"><a href="#cb518-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">count</span>(Species)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb522"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb522-1"><a href="#cb522-1" aria-hidden="true" tabindex="-1"></a>iris <span class="sc">|&gt;</span></span>
+<span id="cb522-2"><a href="#cb522-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">count</span>(Species)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>     Species  n
 1     setosa 50
@@ -5364,7 +5398,7 @@ In this case, a <code>DataFrame</code> with only one column will be created. If 
 </div>
 <div id="tabset-38-4" class="tab-pane" role="tabpanel" aria-labelledby="tabset-38-4-tab">
 <div class="cell">
-<div class="sourceCode cell-code" id="cb520"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb520-1"><a href="#cb520-1" aria-hidden="true" tabindex="-1"></a>iris_dt[, .N, by <span class="ot">=</span> Species]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb524"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb524-1"><a href="#cb524-1" aria-hidden="true" tabindex="-1"></a>iris_dt[, .N, by <span class="ot">=</span> Species]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>      Species     N
        &lt;char&gt; &lt;int&gt;
@@ -5388,7 +5422,7 @@ In this case, a <code>DataFrame</code> with only one column will be created. If 
 <div class="tab-content">
 <div id="tabset-39-1" class="tab-pane active" role="tabpanel" aria-labelledby="tabset-39-1-tab">
 <div class="cell">
-<div class="sourceCode cell-code" id="cb522"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb522-1"><a href="#cb522-1" aria-hidden="true" tabindex="-1"></a><span class="fu">as_polars_series</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">3</span>)<span class="sc">$</span><span class="fu">sum</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb526"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb526-1"><a href="#cb526-1" aria-hidden="true" tabindex="-1"></a><span class="fu">as_polars_series</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">3</span>)<span class="sc">$</span><span class="fu">sum</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>shape: (1, 1)
 ┌─────┐
@@ -5403,7 +5437,7 @@ In this case, a <code>DataFrame</code> with only one column will be created. If 
 </div>
 <div id="tabset-39-2" class="tab-pane" role="tabpanel" aria-labelledby="tabset-39-2-tab">
 <div class="cell">
-<div class="sourceCode cell-code" id="cb524"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb524-1"><a href="#cb524-1" aria-hidden="true" tabindex="-1"></a><span class="fu">sum</span>(<span class="fu">c</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">3</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb528"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb528-1"><a href="#cb528-1" aria-hidden="true" tabindex="-1"></a><span class="fu">sum</span>(<span class="fu">c</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">3</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] 6</code></pre>
 </div>
@@ -5419,7 +5453,7 @@ In this case, a <code>DataFrame</code> with only one column will be created. If 
 <div class="tab-content">
 <div id="tabset-40-1" class="tab-pane active" role="tabpanel" aria-labelledby="tabset-40-1-tab">
 <div class="cell">
-<div class="sourceCode cell-code" id="cb526"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb526-1"><a href="#cb526-1" aria-hidden="true" tabindex="-1"></a><span class="fu">as_polars_df</span>(iris)<span class="sc">$</span><span class="fu">select</span>(pl<span class="sc">$</span><span class="fu">sum</span>(<span class="st">"Petal.Length"</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb530"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb530-1"><a href="#cb530-1" aria-hidden="true" tabindex="-1"></a><span class="fu">as_polars_df</span>(iris)<span class="sc">$</span><span class="fu">select</span>(pl<span class="sc">$</span><span class="fu">sum</span>(<span class="st">"Petal.Length"</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>shape: (1, 1)
 ┌──────────────┐
@@ -5434,7 +5468,7 @@ In this case, a <code>DataFrame</code> with only one column will be created. If 
 </div>
 <div id="tabset-40-2" class="tab-pane" role="tabpanel" aria-labelledby="tabset-40-2-tab">
 <div class="cell">
-<div class="sourceCode cell-code" id="cb528"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb528-1"><a href="#cb528-1" aria-hidden="true" tabindex="-1"></a><span class="fu">sum</span>(iris<span class="sc">$</span>Petal.Length)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb532"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb532-1"><a href="#cb532-1" aria-hidden="true" tabindex="-1"></a><span class="fu">sum</span>(iris<span class="sc">$</span>Petal.Length)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] 563.7</code></pre>
 </div>
@@ -5442,7 +5476,7 @@ In this case, a <code>DataFrame</code> with only one column will be created. If 
 </div>
 <div id="tabset-40-3" class="tab-pane" role="tabpanel" aria-labelledby="tabset-40-3-tab">
 <div class="cell">
-<div class="sourceCode cell-code" id="cb530"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb530-1"><a href="#cb530-1" aria-hidden="true" tabindex="-1"></a>iris <span class="sc">|&gt;</span> <span class="fu">summarise</span>(<span class="fu">sum</span>(Petal.Length))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb534"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb534-1"><a href="#cb534-1" aria-hidden="true" tabindex="-1"></a>iris <span class="sc">|&gt;</span> <span class="fu">summarise</span>(<span class="fu">sum</span>(Petal.Length))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>  sum(Petal.Length)
 1             563.7</code></pre>
@@ -5451,7 +5485,7 @@ In this case, a <code>DataFrame</code> with only one column will be created. If 
 </div>
 <div id="tabset-40-4" class="tab-pane" role="tabpanel" aria-labelledby="tabset-40-4-tab">
 <div class="cell">
-<div class="sourceCode cell-code" id="cb532"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb532-1"><a href="#cb532-1" aria-hidden="true" tabindex="-1"></a><span class="fu">sum</span>(iris_dt[, Petal.Length])</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb536"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb536-1"><a href="#cb536-1" aria-hidden="true" tabindex="-1"></a><span class="fu">sum</span>(iris_dt[, Petal.Length])</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] 496</code></pre>
 </div>
@@ -5463,7 +5497,7 @@ In this case, a <code>DataFrame</code> with only one column will be created. If 
 <li>From a <code>DataFrame</code> and a column as <strong>an expression</strong>:</li>
 </ul>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb534"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb534-1"><a href="#cb534-1" aria-hidden="true" tabindex="-1"></a><span class="fu">as_polars_df</span>(iris)<span class="sc">$</span><span class="fu">select</span>(pl<span class="sc">$</span><span class="fu">sum</span>(<span class="st">"Petal.Width"</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb538"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb538-1"><a href="#cb538-1" aria-hidden="true" tabindex="-1"></a><span class="fu">as_polars_df</span>(iris)<span class="sc">$</span><span class="fu">select</span>(pl<span class="sc">$</span><span class="fu">sum</span>(<span class="st">"Petal.Width"</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>shape: (1, 1)
 ┌─────────────┐
@@ -5484,8 +5518,8 @@ In this case, a <code>DataFrame</code> with only one column will be created. If 
 <div class="tab-content">
 <div id="tabset-41-1" class="tab-pane active" role="tabpanel" aria-labelledby="tabset-41-1-tab">
 <div class="cell">
-<div class="sourceCode cell-code" id="cb536"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb536-1"><a href="#cb536-1" aria-hidden="true" tabindex="-1"></a>df_pl <span class="ot">&lt;-</span> pl<span class="sc">$</span><span class="fu">DataFrame</span>(<span class="at">col1 =</span> <span class="fu">c</span>(10L,20L), <span class="at">col2=</span> <span class="fu">c</span>(30L,40L), <span class="at">col3 =</span> <span class="fu">c</span>(40L,50L))</span>
-<span id="cb536-2"><a href="#cb536-2" aria-hidden="true" tabindex="-1"></a>df_pl<span class="sc">$</span><span class="fu">with_columns</span>(pl<span class="sc">$</span><span class="fu">sum</span>(<span class="st">"col1"</span>, <span class="st">"col3"</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb540"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb540-1"><a href="#cb540-1" aria-hidden="true" tabindex="-1"></a>df_pl <span class="ot">&lt;-</span> pl<span class="sc">$</span><span class="fu">DataFrame</span>(<span class="at">col1 =</span> <span class="fu">c</span>(10L,20L), <span class="at">col2=</span> <span class="fu">c</span>(30L,40L), <span class="at">col3 =</span> <span class="fu">c</span>(40L,50L))</span>
+<span id="cb540-2"><a href="#cb540-2" aria-hidden="true" tabindex="-1"></a>df_pl<span class="sc">$</span><span class="fu">with_columns</span>(pl<span class="sc">$</span><span class="fu">sum</span>(<span class="st">"col1"</span>, <span class="st">"col3"</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>shape: (2, 3)
 ┌──────┬──────┬──────┐
@@ -5501,9 +5535,9 @@ In this case, a <code>DataFrame</code> with only one column will be created. If 
 </div>
 <div id="tabset-41-2" class="tab-pane" role="tabpanel" aria-labelledby="tabset-41-2-tab">
 <div class="cell">
-<div class="sourceCode cell-code" id="cb538"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb538-1"><a href="#cb538-1" aria-hidden="true" tabindex="-1"></a>df <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(<span class="at">col1 =</span> <span class="fu">c</span>(10L,20L), <span class="at">col2=</span> <span class="fu">c</span>(30L,40L), <span class="at">col3 =</span> <span class="fu">c</span>(40L,50L))</span>
-<span id="cb538-2"><a href="#cb538-2" aria-hidden="true" tabindex="-1"></a>mysum <span class="ot">&lt;-</span> <span class="fu">rowSums</span>(df[, <span class="fu">c</span>(<span class="st">"col1"</span>, <span class="st">"col3"</span>)])</span>
-<span id="cb538-3"><a href="#cb538-3" aria-hidden="true" tabindex="-1"></a><span class="fu">cbind</span>(df,mysum)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb542"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb542-1"><a href="#cb542-1" aria-hidden="true" tabindex="-1"></a>df <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(<span class="at">col1 =</span> <span class="fu">c</span>(10L,20L), <span class="at">col2=</span> <span class="fu">c</span>(30L,40L), <span class="at">col3 =</span> <span class="fu">c</span>(40L,50L))</span>
+<span id="cb542-2"><a href="#cb542-2" aria-hidden="true" tabindex="-1"></a>mysum <span class="ot">&lt;-</span> <span class="fu">rowSums</span>(df[, <span class="fu">c</span>(<span class="st">"col1"</span>, <span class="st">"col3"</span>)])</span>
+<span id="cb542-3"><a href="#cb542-3" aria-hidden="true" tabindex="-1"></a><span class="fu">cbind</span>(df,mysum)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>  col1 col2 col3 mysum
 1   10   30   40    50
@@ -5513,9 +5547,9 @@ In this case, a <code>DataFrame</code> with only one column will be created. If 
 </div>
 <div id="tabset-41-3" class="tab-pane" role="tabpanel" aria-labelledby="tabset-41-3-tab">
 <div class="cell">
-<div class="sourceCode cell-code" id="cb540"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb540-1"><a href="#cb540-1" aria-hidden="true" tabindex="-1"></a>df <span class="sc">|&gt;</span></span>
-<span id="cb540-2"><a href="#cb540-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">rowwise</span>() <span class="sc">|&gt;</span></span>
-<span id="cb540-3"><a href="#cb540-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">mysum =</span> <span class="fu">sum</span>(col1,col3))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb544"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb544-1"><a href="#cb544-1" aria-hidden="true" tabindex="-1"></a>df <span class="sc">|&gt;</span></span>
+<span id="cb544-2"><a href="#cb544-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">rowwise</span>() <span class="sc">|&gt;</span></span>
+<span id="cb544-3"><a href="#cb544-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">mysum =</span> <span class="fu">sum</span>(col1,col3))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 2 × 4
 # Rowwise: 
@@ -5528,9 +5562,9 @@ In this case, a <code>DataFrame</code> with only one column will be created. If 
 </div>
 <div id="tabset-41-4" class="tab-pane" role="tabpanel" aria-labelledby="tabset-41-4-tab">
 <div class="cell">
-<div class="sourceCode cell-code" id="cb542"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb542-1"><a href="#cb542-1" aria-hidden="true" tabindex="-1"></a>df_dt <span class="ot">&lt;-</span> <span class="fu">as.data.table</span>(df)</span>
-<span id="cb542-2"><a href="#cb542-2" aria-hidden="true" tabindex="-1"></a>df_dt[, somme <span class="sc">:</span><span class="er">=</span> <span class="fu">rowSums</span>(.SD), .SDcols <span class="ot">=</span> <span class="fu">c</span>(<span class="st">"col1"</span>, <span class="st">"col3"</span>)]</span>
-<span id="cb542-3"><a href="#cb542-3" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(df_dt)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb546"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb546-1"><a href="#cb546-1" aria-hidden="true" tabindex="-1"></a>df_dt <span class="ot">&lt;-</span> <span class="fu">as.data.table</span>(df)</span>
+<span id="cb546-2"><a href="#cb546-2" aria-hidden="true" tabindex="-1"></a>df_dt[, somme <span class="sc">:</span><span class="er">=</span> <span class="fu">rowSums</span>(.SD), .SDcols <span class="ot">=</span> <span class="fu">c</span>(<span class="st">"col1"</span>, <span class="st">"col3"</span>)]</span>
+<span id="cb546-3"><a href="#cb546-3" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(df_dt)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>    col1  col2  col3 somme
    &lt;int&gt; &lt;int&gt; &lt;int&gt; &lt;num&gt;
@@ -5546,9 +5580,9 @@ In this case, a <code>DataFrame</code> with only one column will be created. If 
 </ul>
 <p>An example with iris <code>Dataframe</code>:</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb544"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb544-1"><a href="#cb544-1" aria-hidden="true" tabindex="-1"></a>df_pl<span class="sc">$</span><span class="fu">with_columns</span>(</span>
-<span id="cb544-2"><a href="#cb544-2" aria-hidden="true" tabindex="-1"></a>  pl<span class="sc">$</span><span class="fu">sum_horizontal</span>(<span class="st">"col1"</span>, <span class="st">"col2"</span>, <span class="st">"col3"</span>)<span class="sc">$</span><span class="fu">alias</span>(<span class="st">"sum"</span>)</span>
-<span id="cb544-3"><a href="#cb544-3" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb548"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb548-1"><a href="#cb548-1" aria-hidden="true" tabindex="-1"></a>df_pl<span class="sc">$</span><span class="fu">with_columns</span>(</span>
+<span id="cb548-2"><a href="#cb548-2" aria-hidden="true" tabindex="-1"></a>  pl<span class="sc">$</span><span class="fu">sum_horizontal</span>(<span class="st">"col1"</span>, <span class="st">"col2"</span>, <span class="st">"col3"</span>)<span class="sc">$</span><span class="fu">alias</span>(<span class="st">"sum"</span>)</span>
+<span id="cb548-3"><a href="#cb548-3" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>shape: (2, 4)
 ┌──────┬──────┬──────┬─────┐
@@ -5573,7 +5607,7 @@ In this case, a <code>DataFrame</code> with only one column will be created. If 
 <div class="tab-content">
 <div id="tabset-42-1" class="tab-pane active" role="tabpanel" aria-labelledby="tabset-42-1-tab">
 <div class="cell">
-<div class="sourceCode cell-code" id="cb546"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb546-1"><a href="#cb546-1" aria-hidden="true" tabindex="-1"></a><span class="fu">as_polars_df</span>(iris)<span class="sc">$</span><span class="fu">select</span>(pl<span class="sc">$</span><span class="fu">col</span>(<span class="st">"Petal.Length"</span>))<span class="sc">$</span><span class="fu">to_series</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb550"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb550-1"><a href="#cb550-1" aria-hidden="true" tabindex="-1"></a><span class="fu">as_polars_df</span>(iris)<span class="sc">$</span><span class="fu">select</span>(pl<span class="sc">$</span><span class="fu">col</span>(<span class="st">"Petal.Length"</span>))<span class="sc">$</span><span class="fu">to_series</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>shape: (150, 1)
 ┌──────────────┐
@@ -5598,7 +5632,7 @@ In this case, a <code>DataFrame</code> with only one column will be created. If 
 </div>
 <div id="tabset-42-2" class="tab-pane" role="tabpanel" aria-labelledby="tabset-42-2-tab">
 <div class="cell">
-<div class="sourceCode cell-code" id="cb548"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb548-1"><a href="#cb548-1" aria-hidden="true" tabindex="-1"></a>iris<span class="sc">$</span>Petal.Length</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb552"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb552-1"><a href="#cb552-1" aria-hidden="true" tabindex="-1"></a>iris<span class="sc">$</span>Petal.Length</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>  [1] 1.4 1.4 1.3 1.5 1.4 1.7 1.4 1.5 1.4 1.5 1.5 1.6 1.4 1.1 1.2 1.5 1.3 1.4
  [19] 1.7 1.5 1.7 1.5 1.0 1.7 1.9 1.6 1.6 1.5 1.4 1.6 1.6 1.5 1.5 1.4 1.5 1.2
@@ -5614,8 +5648,8 @@ In this case, a <code>DataFrame</code> with only one column will be created. If 
 </div>
 <div id="tabset-42-3" class="tab-pane" role="tabpanel" aria-labelledby="tabset-42-3-tab">
 <div class="cell">
-<div class="sourceCode cell-code" id="cb550"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb550-1"><a href="#cb550-1" aria-hidden="true" tabindex="-1"></a>iris <span class="sc">|&gt;</span></span>
-<span id="cb550-2"><a href="#cb550-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">pull</span>(Petal.Length)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb554"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb554-1"><a href="#cb554-1" aria-hidden="true" tabindex="-1"></a>iris <span class="sc">|&gt;</span></span>
+<span id="cb554-2"><a href="#cb554-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">pull</span>(Petal.Length)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>  [1] 1.4 1.4 1.3 1.5 1.4 1.7 1.4 1.5 1.4 1.5 1.5 1.6 1.4 1.1 1.2 1.5 1.3 1.4
  [19] 1.7 1.5 1.7 1.5 1.0 1.7 1.9 1.6 1.6 1.5 1.4 1.6 1.6 1.5 1.5 1.4 1.5 1.2
@@ -5631,7 +5665,7 @@ In this case, a <code>DataFrame</code> with only one column will be created. If 
 </div>
 <div id="tabset-42-4" class="tab-pane" role="tabpanel" aria-labelledby="tabset-42-4-tab">
 <div class="cell">
-<div class="sourceCode cell-code" id="cb552"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb552-1"><a href="#cb552-1" aria-hidden="true" tabindex="-1"></a>iris_dt[, <span class="fu">c</span>(Petal.Length)]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb556"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb556-1"><a href="#cb556-1" aria-hidden="true" tabindex="-1"></a>iris_dt[, <span class="fu">c</span>(Petal.Length)]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>  [1] 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1
  [38] 1 1 1 1 1 1 1 1 1 1 1 1 1 4 4 4 4 4 4 4 3 4 3 3 4 4 4 3 4 4 4 4 3 4 4 4 4
@@ -5652,8 +5686,8 @@ In this case, a <code>DataFrame</code> with only one column will be created. If 
 <div class="tab-content">
 <div id="tabset-43-1" class="tab-pane active" role="tabpanel" aria-labelledby="tabset-43-1-tab">
 <div class="cell">
-<div class="sourceCode cell-code" id="cb554"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb554-1"><a href="#cb554-1" aria-hidden="true" tabindex="-1"></a>mylist <span class="ot">&lt;-</span> <span class="fu">as.list</span>(<span class="fu">as_polars_df</span>(iris))</span>
-<span id="cb554-2"><a href="#cb554-2" aria-hidden="true" tabindex="-1"></a><span class="fu">names</span>(mylist)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb558"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb558-1"><a href="#cb558-1" aria-hidden="true" tabindex="-1"></a>mylist <span class="ot">&lt;-</span> <span class="fu">as.list</span>(<span class="fu">as_polars_df</span>(iris))</span>
+<span id="cb558-2"><a href="#cb558-2" aria-hidden="true" tabindex="-1"></a><span class="fu">names</span>(mylist)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] "Sepal.Length" "Sepal.Width"  "Petal.Length" "Petal.Width"  "Species"     </code></pre>
 </div>
@@ -5661,8 +5695,8 @@ In this case, a <code>DataFrame</code> with only one column will be created. If 
 </div>
 <div id="tabset-43-2" class="tab-pane" role="tabpanel" aria-labelledby="tabset-43-2-tab">
 <div class="cell">
-<div class="sourceCode cell-code" id="cb556"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb556-1"><a href="#cb556-1" aria-hidden="true" tabindex="-1"></a>mylist <span class="ot">&lt;-</span> <span class="fu">as.list</span>(iris)</span>
-<span id="cb556-2"><a href="#cb556-2" aria-hidden="true" tabindex="-1"></a><span class="fu">names</span>(mylist)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb560"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb560-1"><a href="#cb560-1" aria-hidden="true" tabindex="-1"></a>mylist <span class="ot">&lt;-</span> <span class="fu">as.list</span>(iris)</span>
+<span id="cb560-2"><a href="#cb560-2" aria-hidden="true" tabindex="-1"></a><span class="fu">names</span>(mylist)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] "Sepal.Length" "Sepal.Width"  "Petal.Length" "Petal.Width"  "Species"     </code></pre>
 </div>
@@ -5692,7 +5726,7 @@ Important
 <div class="tab-content">
 <div id="tabset-44-1" class="tab-pane active" role="tabpanel" aria-labelledby="tabset-44-1-tab">
 <div class="cell">
-<div class="sourceCode cell-code" id="cb558"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb558-1"><a href="#cb558-1" aria-hidden="true" tabindex="-1"></a><span class="fu">as_polars_df</span>(iris)<span class="sc">$</span><span class="fu">slice</span>(<span class="dv">1</span>,<span class="dv">3</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb562"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb562-1"><a href="#cb562-1" aria-hidden="true" tabindex="-1"></a><span class="fu">as_polars_df</span>(iris)<span class="sc">$</span><span class="fu">slice</span>(<span class="dv">1</span>,<span class="dv">3</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>shape: (3, 5)
 ┌──────────────┬─────────────┬──────────────┬─────────────┬─────────┐
@@ -5709,7 +5743,7 @@ Important
 </div>
 <div id="tabset-44-2" class="tab-pane" role="tabpanel" aria-labelledby="tabset-44-2-tab">
 <div class="cell">
-<div class="sourceCode cell-code" id="cb560"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb560-1"><a href="#cb560-1" aria-hidden="true" tabindex="-1"></a>iris[<span class="dv">2</span><span class="sc">:</span><span class="dv">4</span>,]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb564"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb564-1"><a href="#cb564-1" aria-hidden="true" tabindex="-1"></a>iris[<span class="dv">2</span><span class="sc">:</span><span class="dv">4</span>,]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>  Sepal.Length Sepal.Width Petal.Length Petal.Width Species
 2          4.9         3.0          1.4         0.2  setosa
@@ -5720,8 +5754,8 @@ Important
 </div>
 <div id="tabset-44-3" class="tab-pane" role="tabpanel" aria-labelledby="tabset-44-3-tab">
 <div class="cell">
-<div class="sourceCode cell-code" id="cb562"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb562-1"><a href="#cb562-1" aria-hidden="true" tabindex="-1"></a>iris <span class="sc">|&gt;</span></span>
-<span id="cb562-2"><a href="#cb562-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">slice</span>(<span class="dv">2</span><span class="sc">:</span><span class="dv">4</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb566"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb566-1"><a href="#cb566-1" aria-hidden="true" tabindex="-1"></a>iris <span class="sc">|&gt;</span></span>
+<span id="cb566-2"><a href="#cb566-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">slice</span>(<span class="dv">2</span><span class="sc">:</span><span class="dv">4</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>  Sepal.Length Sepal.Width Petal.Length Petal.Width Species
 1          4.9         3.0          1.4         0.2  setosa
@@ -5732,7 +5766,7 @@ Important
 </div>
 <div id="tabset-44-4" class="tab-pane" role="tabpanel" aria-labelledby="tabset-44-4-tab">
 <div class="cell">
-<div class="sourceCode cell-code" id="cb564"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb564-1"><a href="#cb564-1" aria-hidden="true" tabindex="-1"></a>iris_dt[<span class="dv">2</span><span class="sc">:</span><span class="dv">4</span>,]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb568"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb568-1"><a href="#cb568-1" aria-hidden="true" tabindex="-1"></a>iris_dt[<span class="dv">2</span><span class="sc">:</span><span class="dv">4</span>,]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>   Sepal.Length Sepal.Width Petal.Length Petal.Width Species
           &lt;num&gt;       &lt;num&gt;        &lt;int&gt;       &lt;num&gt;  &lt;char&gt;
@@ -5749,8 +5783,8 @@ Important
 <h4 data-number="2.15.2.4" class="anchored" data-anchor-id="get-a-structure-from-a-dataframe"><span class="header-section-number">2.15.2.4</span> Get a structure from a DataFrame</h4>
 <p>The <code>to_struct()</code> method can be used to get a structure from a <code>DataFrame</code>.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb566"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb566-1"><a href="#cb566-1" aria-hidden="true" tabindex="-1"></a>mystruc <span class="ot">&lt;-</span> <span class="fu">as_polars_df</span>(iris)<span class="sc">$</span><span class="fu">to_struct</span>()</span>
-<span id="cb566-2"><a href="#cb566-2" aria-hidden="true" tabindex="-1"></a>mystruc</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb570"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb570-1"><a href="#cb570-1" aria-hidden="true" tabindex="-1"></a>mystruc <span class="ot">&lt;-</span> <span class="fu">as_polars_df</span>(iris)<span class="sc">$</span><span class="fu">to_struct</span>()</span>
+<span id="cb570-2"><a href="#cb570-2" aria-hidden="true" tabindex="-1"></a>mystruc</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>shape: (150, 1)
 ┌───────────────────────────────┐
@@ -5774,14 +5808,14 @@ Important
 </div>
 <p><code>to_struct()</code> returns a <code>Series</code> which can be converted to a R list with <code>as.vector()</code> function.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb568"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb568-1"><a href="#cb568-1" aria-hidden="true" tabindex="-1"></a>mylist <span class="ot">&lt;-</span> <span class="fu">as.vector</span>(mystruc)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb572"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb572-1"><a href="#cb572-1" aria-hidden="true" tabindex="-1"></a>mylist <span class="ot">&lt;-</span> <span class="fu">as.vector</span>(mystruc)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stderr">
 <pre><code>ℹ `as.vector()` on a Polars Series of type struct[5] may drop some useful
   attributes.
 ℹ Use `$to_r_vector()` instead for finer control of the conversion from Polars
   to R.</code></pre>
 </div>
-<div class="sourceCode cell-code" id="cb570"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb570-1"><a href="#cb570-1" aria-hidden="true" tabindex="-1"></a><span class="fu">str</span>(mylist)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb574"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb574-1"><a href="#cb574-1" aria-hidden="true" tabindex="-1"></a><span class="fu">str</span>(mylist)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>List of 5
  $ Sepal.Length: num [1:150] 5.1 4.9 4.7 4.6 5 5.4 4.6 5 4.4 4.9 ...
@@ -5794,8 +5828,8 @@ Important
 <p>mylist is now a list where each element is a column of the initial DataFrame.</p>
 <p>With <code>to_frame()</code> and <code>unnest()</code> methods, we can reconstruct the original DataFrame:</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb572"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb572-1"><a href="#cb572-1" aria-hidden="true" tabindex="-1"></a>back_df <span class="ot">&lt;-</span> mystruc<span class="sc">$</span><span class="fu">to_frame</span>()<span class="sc">$</span><span class="fu">unnest</span>()</span>
-<span id="cb572-2"><a href="#cb572-2" aria-hidden="true" tabindex="-1"></a>back_df</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb576"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb576-1"><a href="#cb576-1" aria-hidden="true" tabindex="-1"></a>back_df <span class="ot">&lt;-</span> mystruc<span class="sc">$</span><span class="fu">to_frame</span>()<span class="sc">$</span><span class="fu">unnest</span>()</span>
+<span id="cb576-2"><a href="#cb576-2" aria-hidden="true" tabindex="-1"></a>back_df</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>shape: (150, 1)
 ┌───────────────────────────────┐
@@ -5827,11 +5861,11 @@ Important
 <div class="tab-content">
 <div id="tabset-45-1" class="tab-pane active" role="tabpanel" aria-labelledby="tabset-45-1-tab">
 <div class="cell">
-<div class="sourceCode cell-code" id="cb574"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb574-1"><a href="#cb574-1" aria-hidden="true" tabindex="-1"></a>data_pl <span class="ot">&lt;-</span> pl<span class="sc">$</span><span class="fu">DataFrame</span>(</span>
-<span id="cb574-2"><a href="#cb574-2" aria-hidden="true" tabindex="-1"></a>  <span class="at">col1 =</span> <span class="fu">c</span>(<span class="cn">NA</span>,<span class="st">"b"</span>,<span class="st">"c"</span>),</span>
-<span id="cb574-3"><a href="#cb574-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">col2 =</span> <span class="fu">c</span>(<span class="dv">1</span>,<span class="dv">2</span>,<span class="cn">NA</span>)</span>
-<span id="cb574-4"><a href="#cb574-4" aria-hidden="true" tabindex="-1"></a>)</span>
-<span id="cb574-5"><a href="#cb574-5" aria-hidden="true" tabindex="-1"></a>data_pl<span class="sc">$</span><span class="fu">drop_nulls</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb578"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb578-1"><a href="#cb578-1" aria-hidden="true" tabindex="-1"></a>data_pl <span class="ot">&lt;-</span> pl<span class="sc">$</span><span class="fu">DataFrame</span>(</span>
+<span id="cb578-2"><a href="#cb578-2" aria-hidden="true" tabindex="-1"></a>  <span class="at">col1 =</span> <span class="fu">c</span>(<span class="cn">NA</span>,<span class="st">"b"</span>,<span class="st">"c"</span>),</span>
+<span id="cb578-3"><a href="#cb578-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">col2 =</span> <span class="fu">c</span>(<span class="dv">1</span>,<span class="dv">2</span>,<span class="cn">NA</span>)</span>
+<span id="cb578-4"><a href="#cb578-4" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb578-5"><a href="#cb578-5" aria-hidden="true" tabindex="-1"></a>data_pl<span class="sc">$</span><span class="fu">drop_nulls</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>shape: (1, 2)
 ┌──────┬──────┐
@@ -5846,11 +5880,11 @@ Important
 </div>
 <div id="tabset-45-2" class="tab-pane" role="tabpanel" aria-labelledby="tabset-45-2-tab">
 <div class="cell">
-<div class="sourceCode cell-code" id="cb576"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb576-1"><a href="#cb576-1" aria-hidden="true" tabindex="-1"></a>data_df <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(</span>
-<span id="cb576-2"><a href="#cb576-2" aria-hidden="true" tabindex="-1"></a>  <span class="at">col1 =</span> <span class="fu">c</span>(<span class="cn">NA</span>, <span class="st">"b"</span>, <span class="st">"c"</span>),</span>
-<span id="cb576-3"><a href="#cb576-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">col2 =</span> <span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">2</span>, <span class="cn">NA</span>)</span>
-<span id="cb576-4"><a href="#cb576-4" aria-hidden="true" tabindex="-1"></a>)</span>
-<span id="cb576-5"><a href="#cb576-5" aria-hidden="true" tabindex="-1"></a>data_df[<span class="fu">complete.cases</span>(data_df), ]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb580"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb580-1"><a href="#cb580-1" aria-hidden="true" tabindex="-1"></a>data_df <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(</span>
+<span id="cb580-2"><a href="#cb580-2" aria-hidden="true" tabindex="-1"></a>  <span class="at">col1 =</span> <span class="fu">c</span>(<span class="cn">NA</span>, <span class="st">"b"</span>, <span class="st">"c"</span>),</span>
+<span id="cb580-3"><a href="#cb580-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">col2 =</span> <span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">2</span>, <span class="cn">NA</span>)</span>
+<span id="cb580-4"><a href="#cb580-4" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb580-5"><a href="#cb580-5" aria-hidden="true" tabindex="-1"></a>data_df[<span class="fu">complete.cases</span>(data_df), ]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>  col1 col2
 2    b    2</code></pre>
@@ -5859,12 +5893,12 @@ Important
 </div>
 <div id="tabset-45-3" class="tab-pane" role="tabpanel" aria-labelledby="tabset-45-3-tab">
 <div class="cell">
-<div class="sourceCode cell-code" id="cb578"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb578-1"><a href="#cb578-1" aria-hidden="true" tabindex="-1"></a>data_df <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(</span>
-<span id="cb578-2"><a href="#cb578-2" aria-hidden="true" tabindex="-1"></a>  <span class="at">col1 =</span> <span class="fu">c</span>(<span class="cn">NA</span>, <span class="st">"b"</span>, <span class="st">"c"</span>),</span>
-<span id="cb578-3"><a href="#cb578-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">col2 =</span> <span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">2</span>, <span class="cn">NA</span>)</span>
-<span id="cb578-4"><a href="#cb578-4" aria-hidden="true" tabindex="-1"></a>)</span>
-<span id="cb578-5"><a href="#cb578-5" aria-hidden="true" tabindex="-1"></a>data_df <span class="sc">%&gt;%</span></span>
-<span id="cb578-6"><a href="#cb578-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(<span class="fu">complete.cases</span>(.))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb582"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb582-1"><a href="#cb582-1" aria-hidden="true" tabindex="-1"></a>data_df <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(</span>
+<span id="cb582-2"><a href="#cb582-2" aria-hidden="true" tabindex="-1"></a>  <span class="at">col1 =</span> <span class="fu">c</span>(<span class="cn">NA</span>, <span class="st">"b"</span>, <span class="st">"c"</span>),</span>
+<span id="cb582-3"><a href="#cb582-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">col2 =</span> <span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">2</span>, <span class="cn">NA</span>)</span>
+<span id="cb582-4"><a href="#cb582-4" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb582-5"><a href="#cb582-5" aria-hidden="true" tabindex="-1"></a>data_df <span class="sc">%&gt;%</span></span>
+<span id="cb582-6"><a href="#cb582-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(<span class="fu">complete.cases</span>(.))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>  col1 col2
 1    b    2</code></pre>
@@ -5873,11 +5907,11 @@ Important
 </div>
 <div id="tabset-45-4" class="tab-pane" role="tabpanel" aria-labelledby="tabset-45-4-tab">
 <div class="cell">
-<div class="sourceCode cell-code" id="cb580"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb580-1"><a href="#cb580-1" aria-hidden="true" tabindex="-1"></a>data_dt <span class="ot">&lt;-</span> <span class="fu">data.table</span>(</span>
-<span id="cb580-2"><a href="#cb580-2" aria-hidden="true" tabindex="-1"></a>  <span class="at">col1 =</span> <span class="fu">c</span>(<span class="cn">NA</span>, <span class="st">"b"</span>, <span class="st">"c"</span>),</span>
-<span id="cb580-3"><a href="#cb580-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">col2 =</span> <span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">2</span>, <span class="cn">NA</span>)</span>
-<span id="cb580-4"><a href="#cb580-4" aria-hidden="true" tabindex="-1"></a>)</span>
-<span id="cb580-5"><a href="#cb580-5" aria-hidden="true" tabindex="-1"></a><span class="fu">na.omit</span>(data_dt)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb584"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb584-1"><a href="#cb584-1" aria-hidden="true" tabindex="-1"></a>data_dt <span class="ot">&lt;-</span> <span class="fu">data.table</span>(</span>
+<span id="cb584-2"><a href="#cb584-2" aria-hidden="true" tabindex="-1"></a>  <span class="at">col1 =</span> <span class="fu">c</span>(<span class="cn">NA</span>, <span class="st">"b"</span>, <span class="st">"c"</span>),</span>
+<span id="cb584-3"><a href="#cb584-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">col2 =</span> <span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">2</span>, <span class="cn">NA</span>)</span>
+<span id="cb584-4"><a href="#cb584-4" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb584-5"><a href="#cb584-5" aria-hidden="true" tabindex="-1"></a><span class="fu">na.omit</span>(data_dt)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>     col1  col2
    &lt;char&gt; &lt;num&gt;
@@ -5893,7 +5927,7 @@ Important
 <div class="tab-content">
 <div id="tabset-46-1" class="tab-pane active" role="tabpanel" aria-labelledby="tabset-46-1-tab">
 <div class="cell">
-<div class="sourceCode cell-code" id="cb582"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb582-1"><a href="#cb582-1" aria-hidden="true" tabindex="-1"></a>data_pl<span class="sc">$</span><span class="fu">drop_nulls</span>(<span class="st">"col1"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb586"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb586-1"><a href="#cb586-1" aria-hidden="true" tabindex="-1"></a>data_pl<span class="sc">$</span><span class="fu">drop_nulls</span>(<span class="st">"col1"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>shape: (2, 2)
 ┌──────┬──────┐
@@ -5909,7 +5943,7 @@ Important
 </div>
 <div id="tabset-46-2" class="tab-pane" role="tabpanel" aria-labelledby="tabset-46-2-tab">
 <div class="cell">
-<div class="sourceCode cell-code" id="cb584"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb584-1"><a href="#cb584-1" aria-hidden="true" tabindex="-1"></a>data_df[<span class="sc">!</span><span class="fu">is.na</span>(data_df<span class="sc">$</span>col1), ]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb588"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb588-1"><a href="#cb588-1" aria-hidden="true" tabindex="-1"></a>data_df[<span class="sc">!</span><span class="fu">is.na</span>(data_df<span class="sc">$</span>col1), ]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>  col1 col2
 2    b    2
@@ -5919,8 +5953,8 @@ Important
 </div>
 <div id="tabset-46-3" class="tab-pane" role="tabpanel" aria-labelledby="tabset-46-3-tab">
 <div class="cell">
-<div class="sourceCode cell-code" id="cb586"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb586-1"><a href="#cb586-1" aria-hidden="true" tabindex="-1"></a>data_df <span class="sc">|&gt;</span></span>
-<span id="cb586-2"><a href="#cb586-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(<span class="sc">!</span><span class="fu">is.na</span>(col1))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb590"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb590-1"><a href="#cb590-1" aria-hidden="true" tabindex="-1"></a>data_df <span class="sc">|&gt;</span></span>
+<span id="cb590-2"><a href="#cb590-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(<span class="sc">!</span><span class="fu">is.na</span>(col1))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>  col1 col2
 1    b    2
@@ -5930,7 +5964,7 @@ Important
 </div>
 <div id="tabset-46-4" class="tab-pane" role="tabpanel" aria-labelledby="tabset-46-4-tab">
 <div class="cell">
-<div class="sourceCode cell-code" id="cb588"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb588-1"><a href="#cb588-1" aria-hidden="true" tabindex="-1"></a>data_dt[<span class="fu">complete.cases</span>(data_dt[, .SD, <span class="at">.SDcols =</span> <span class="st">"col1"</span>]), ]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb592"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb592-1"><a href="#cb592-1" aria-hidden="true" tabindex="-1"></a>data_dt[<span class="fu">complete.cases</span>(data_dt[, .SD, <span class="at">.SDcols =</span> <span class="st">"col1"</span>]), ]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>     col1  col2
    &lt;char&gt; &lt;num&gt;
@@ -5972,20 +6006,20 @@ Important
 </ul>
 <p>Let’s see an example:</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb590"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb590-1"><a href="#cb590-1" aria-hidden="true" tabindex="-1"></a>mydf <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(</span>
-<span id="cb590-2"><a href="#cb590-2" aria-hidden="true" tabindex="-1"></a>  <span class="at">col1 =</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">4</span>,</span>
-<span id="cb590-3"><a href="#cb590-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">col2 =</span> <span class="fu">c</span>(<span class="st">"One_X"</span>,<span class="st">"One_Y"</span>,<span class="st">"Two_X"</span>,<span class="st">"Two_Y"</span>)</span>
-<span id="cb590-4"><a href="#cb590-4" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb594"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb594-1"><a href="#cb594-1" aria-hidden="true" tabindex="-1"></a>mydf <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(</span>
+<span id="cb594-2"><a href="#cb594-2" aria-hidden="true" tabindex="-1"></a>  <span class="at">col1 =</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">4</span>,</span>
+<span id="cb594-3"><a href="#cb594-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">col2 =</span> <span class="fu">c</span>(<span class="st">"One_X"</span>,<span class="st">"One_Y"</span>,<span class="st">"Two_X"</span>,<span class="st">"Two_Y"</span>)</span>
+<span id="cb594-4"><a href="#cb594-4" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <div class="tabset-margin-container"></div><div class="panel-tabset">
 <ul class="nav nav-tabs" role="tablist"><li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-47-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-47-1" role="tab" aria-controls="tabset-47-1" aria-selected="true">polars</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-47-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-47-2" role="tab" aria-controls="tabset-47-2" aria-selected="false">R base</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-47-3-tab" data-bs-toggle="tab" data-bs-target="#tabset-47-3" role="tab" aria-controls="tabset-47-3" aria-selected="false">dplyr</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-47-4-tab" data-bs-toggle="tab" data-bs-target="#tabset-47-4" role="tab" aria-controls="tabset-47-4" aria-selected="false">data.table</a></li></ul>
 <div class="tab-content">
 <div id="tabset-47-1" class="tab-pane active" role="tabpanel" aria-labelledby="tabset-47-1-tab">
 <div class="cell">
-<div class="sourceCode cell-code" id="cb591"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb591-1"><a href="#cb591-1" aria-hidden="true" tabindex="-1"></a><span class="fu">as_polars_df</span>(mydf)<span class="sc">$</span><span class="fu">with_columns</span>(</span>
-<span id="cb591-2"><a href="#cb591-2" aria-hidden="true" tabindex="-1"></a>  pl<span class="sc">$</span><span class="fu">col</span>(<span class="st">"col2"</span>)<span class="sc">$</span>str<span class="sc">$</span><span class="fu">slice</span>(<span class="dv">0</span>, <span class="dv">3</span>)<span class="sc">$</span><span class="fu">alias</span>(<span class="st">"level"</span>),   <span class="co"># les 3 premiers caractères</span></span>
-<span id="cb591-3"><a href="#cb591-3" aria-hidden="true" tabindex="-1"></a>  pl<span class="sc">$</span><span class="fu">col</span>(<span class="st">"col2"</span>)<span class="sc">$</span>str<span class="sc">$</span><span class="fu">slice</span>(<span class="sc">-</span><span class="dv">1</span>)<span class="sc">$</span><span class="fu">alias</span>(<span class="st">"x_y"</span>)        <span class="co"># le dernier caractère</span></span>
-<span id="cb591-4"><a href="#cb591-4" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb595"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb595-1"><a href="#cb595-1" aria-hidden="true" tabindex="-1"></a><span class="fu">as_polars_df</span>(mydf)<span class="sc">$</span><span class="fu">with_columns</span>(</span>
+<span id="cb595-2"><a href="#cb595-2" aria-hidden="true" tabindex="-1"></a>  pl<span class="sc">$</span><span class="fu">col</span>(<span class="st">"col2"</span>)<span class="sc">$</span>str<span class="sc">$</span><span class="fu">slice</span>(<span class="dv">0</span>, <span class="dv">3</span>)<span class="sc">$</span><span class="fu">alias</span>(<span class="st">"level"</span>),   <span class="co"># les 3 premiers caractères</span></span>
+<span id="cb595-3"><a href="#cb595-3" aria-hidden="true" tabindex="-1"></a>  pl<span class="sc">$</span><span class="fu">col</span>(<span class="st">"col2"</span>)<span class="sc">$</span>str<span class="sc">$</span><span class="fu">slice</span>(<span class="sc">-</span><span class="dv">1</span>)<span class="sc">$</span><span class="fu">alias</span>(<span class="st">"x_y"</span>)        <span class="co"># le dernier caractère</span></span>
+<span id="cb595-4"><a href="#cb595-4" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>shape: (4, 4)
 ┌──────┬───────┬───────┬─────┐
@@ -6003,9 +6037,9 @@ Important
 </div>
 <div id="tabset-47-2" class="tab-pane" role="tabpanel" aria-labelledby="tabset-47-2-tab">
 <div class="cell">
-<div class="sourceCode cell-code" id="cb593"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb593-1"><a href="#cb593-1" aria-hidden="true" tabindex="-1"></a>mydf<span class="sc">$</span>level <span class="ot">&lt;-</span> <span class="fu">substr</span>(mydf<span class="sc">$</span>col2, <span class="dv">1</span>, <span class="dv">3</span>)</span>
-<span id="cb593-2"><a href="#cb593-2" aria-hidden="true" tabindex="-1"></a>mydf<span class="sc">$</span>x_y <span class="ot">&lt;-</span> <span class="fu">substr</span>(mydf<span class="sc">$</span>col2, <span class="fu">nchar</span>(mydf<span class="sc">$</span>col2), <span class="fu">nchar</span>(mydf<span class="sc">$</span>col2))</span>
-<span id="cb593-3"><a href="#cb593-3" aria-hidden="true" tabindex="-1"></a>mydf</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb597"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb597-1"><a href="#cb597-1" aria-hidden="true" tabindex="-1"></a>mydf<span class="sc">$</span>level <span class="ot">&lt;-</span> <span class="fu">substr</span>(mydf<span class="sc">$</span>col2, <span class="dv">1</span>, <span class="dv">3</span>)</span>
+<span id="cb597-2"><a href="#cb597-2" aria-hidden="true" tabindex="-1"></a>mydf<span class="sc">$</span>x_y <span class="ot">&lt;-</span> <span class="fu">substr</span>(mydf<span class="sc">$</span>col2, <span class="fu">nchar</span>(mydf<span class="sc">$</span>col2), <span class="fu">nchar</span>(mydf<span class="sc">$</span>col2))</span>
+<span id="cb597-3"><a href="#cb597-3" aria-hidden="true" tabindex="-1"></a>mydf</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>  col1  col2 level x_y
 1    1 One_X   One   X
@@ -6017,9 +6051,9 @@ Important
 </div>
 <div id="tabset-47-3" class="tab-pane" role="tabpanel" aria-labelledby="tabset-47-3-tab">
 <div class="cell">
-<div class="sourceCode cell-code" id="cb595"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb595-1"><a href="#cb595-1" aria-hidden="true" tabindex="-1"></a>mydf <span class="sc">|&gt;</span></span>
-<span id="cb595-2"><a href="#cb595-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">level =</span> <span class="fu">substr</span>(col2, <span class="dv">1</span>, <span class="dv">3</span>),</span>
-<span id="cb595-3"><a href="#cb595-3" aria-hidden="true" tabindex="-1"></a>         <span class="at">x_y =</span> <span class="fu">substr</span>(col2, <span class="fu">nchar</span>(col2), <span class="fu">nchar</span>(col2)))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb599"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb599-1"><a href="#cb599-1" aria-hidden="true" tabindex="-1"></a>mydf <span class="sc">|&gt;</span></span>
+<span id="cb599-2"><a href="#cb599-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">level =</span> <span class="fu">substr</span>(col2, <span class="dv">1</span>, <span class="dv">3</span>),</span>
+<span id="cb599-3"><a href="#cb599-3" aria-hidden="true" tabindex="-1"></a>         <span class="at">x_y =</span> <span class="fu">substr</span>(col2, <span class="fu">nchar</span>(col2), <span class="fu">nchar</span>(col2)))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>  col1  col2 level x_y
 1    1 One_X   One   X
@@ -6031,9 +6065,9 @@ Important
 </div>
 <div id="tabset-47-4" class="tab-pane" role="tabpanel" aria-labelledby="tabset-47-4-tab">
 <div class="cell">
-<div class="sourceCode cell-code" id="cb597"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb597-1"><a href="#cb597-1" aria-hidden="true" tabindex="-1"></a>mydt <span class="ot">&lt;-</span> <span class="fu">as.data.table</span>(mydf) </span>
-<span id="cb597-2"><a href="#cb597-2" aria-hidden="true" tabindex="-1"></a>mydt[, <span class="fu">c</span>(<span class="st">"level"</span>, <span class="st">"x_y"</span>) <span class="sc">:</span><span class="er">=</span> .(<span class="fu">substr</span>(col2, <span class="dv">1</span>, <span class="dv">3</span>), <span class="fu">substr</span>(col2, <span class="fu">nchar</span>(col2), <span class="fu">nchar</span>(col2)))]</span>
-<span id="cb597-3"><a href="#cb597-3" aria-hidden="true" tabindex="-1"></a>mydt</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb601"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb601-1"><a href="#cb601-1" aria-hidden="true" tabindex="-1"></a>mydt <span class="ot">&lt;-</span> <span class="fu">as.data.table</span>(mydf) </span>
+<span id="cb601-2"><a href="#cb601-2" aria-hidden="true" tabindex="-1"></a>mydt[, <span class="fu">c</span>(<span class="st">"level"</span>, <span class="st">"x_y"</span>) <span class="sc">:</span><span class="er">=</span> .(<span class="fu">substr</span>(col2, <span class="dv">1</span>, <span class="dv">3</span>), <span class="fu">substr</span>(col2, <span class="fu">nchar</span>(col2), <span class="fu">nchar</span>(col2)))]</span>
+<span id="cb601-3"><a href="#cb601-3" aria-hidden="true" tabindex="-1"></a>mydt</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>    col1   col2  level    x_y
    &lt;int&gt; &lt;char&gt; &lt;char&gt; &lt;char&gt;
@@ -6056,10 +6090,10 @@ Important
 <div class="tab-content">
 <div id="tabset-48-1" class="tab-pane active" role="tabpanel" aria-labelledby="tabset-48-1-tab">
 <div class="cell">
-<div class="sourceCode cell-code" id="cb599"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb599-1"><a href="#cb599-1" aria-hidden="true" tabindex="-1"></a><span class="fu">as_polars_df</span>(mydf)<span class="sc">$</span><span class="fu">with_columns</span>(</span>
-<span id="cb599-2"><a href="#cb599-2" aria-hidden="true" tabindex="-1"></a>  pl<span class="sc">$</span><span class="fu">col</span>(<span class="st">"col2"</span>)<span class="sc">$</span>str<span class="sc">$</span><span class="fu">starts_with</span>(<span class="st">"One"</span>)<span class="sc">$</span><span class="fu">alias</span>(<span class="st">"is_one"</span>),</span>
-<span id="cb599-3"><a href="#cb599-3" aria-hidden="true" tabindex="-1"></a>  pl<span class="sc">$</span><span class="fu">col</span>(<span class="st">"col2"</span>)<span class="sc">$</span>str<span class="sc">$</span><span class="fu">starts_with</span>(<span class="st">"Two"</span>)<span class="sc">$</span><span class="fu">alias</span>(<span class="st">"is_two"</span>)</span>
-<span id="cb599-4"><a href="#cb599-4" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb603"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb603-1"><a href="#cb603-1" aria-hidden="true" tabindex="-1"></a><span class="fu">as_polars_df</span>(mydf)<span class="sc">$</span><span class="fu">with_columns</span>(</span>
+<span id="cb603-2"><a href="#cb603-2" aria-hidden="true" tabindex="-1"></a>  pl<span class="sc">$</span><span class="fu">col</span>(<span class="st">"col2"</span>)<span class="sc">$</span>str<span class="sc">$</span><span class="fu">starts_with</span>(<span class="st">"One"</span>)<span class="sc">$</span><span class="fu">alias</span>(<span class="st">"is_one"</span>),</span>
+<span id="cb603-3"><a href="#cb603-3" aria-hidden="true" tabindex="-1"></a>  pl<span class="sc">$</span><span class="fu">col</span>(<span class="st">"col2"</span>)<span class="sc">$</span>str<span class="sc">$</span><span class="fu">starts_with</span>(<span class="st">"Two"</span>)<span class="sc">$</span><span class="fu">alias</span>(<span class="st">"is_two"</span>)</span>
+<span id="cb603-4"><a href="#cb603-4" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>shape: (4, 6)
 ┌──────┬───────┬───────┬─────┬────────┬────────┐
@@ -6077,9 +6111,9 @@ Important
 </div>
 <div id="tabset-48-2" class="tab-pane" role="tabpanel" aria-labelledby="tabset-48-2-tab">
 <div class="cell">
-<div class="sourceCode cell-code" id="cb601"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb601-1"><a href="#cb601-1" aria-hidden="true" tabindex="-1"></a>mydf<span class="sc">$</span>is_one <span class="ot">&lt;-</span> <span class="fu">grepl</span>(<span class="st">"^One"</span>, mydf<span class="sc">$</span>col2)</span>
-<span id="cb601-2"><a href="#cb601-2" aria-hidden="true" tabindex="-1"></a>mydf<span class="sc">$</span>is_two <span class="ot">&lt;-</span> <span class="fu">grepl</span>(<span class="st">"^Two"</span>, mydf<span class="sc">$</span>col2)</span>
-<span id="cb601-3"><a href="#cb601-3" aria-hidden="true" tabindex="-1"></a>mydf</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb605"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb605-1"><a href="#cb605-1" aria-hidden="true" tabindex="-1"></a>mydf<span class="sc">$</span>is_one <span class="ot">&lt;-</span> <span class="fu">grepl</span>(<span class="st">"^One"</span>, mydf<span class="sc">$</span>col2)</span>
+<span id="cb605-2"><a href="#cb605-2" aria-hidden="true" tabindex="-1"></a>mydf<span class="sc">$</span>is_two <span class="ot">&lt;-</span> <span class="fu">grepl</span>(<span class="st">"^Two"</span>, mydf<span class="sc">$</span>col2)</span>
+<span id="cb605-3"><a href="#cb605-3" aria-hidden="true" tabindex="-1"></a>mydf</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>  col1  col2 level x_y is_one is_two
 1    1 One_X   One   X   TRUE  FALSE
@@ -6091,9 +6125,9 @@ Important
 </div>
 <div id="tabset-48-3" class="tab-pane" role="tabpanel" aria-labelledby="tabset-48-3-tab">
 <div class="cell">
-<div class="sourceCode cell-code" id="cb603"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb603-1"><a href="#cb603-1" aria-hidden="true" tabindex="-1"></a>mydf <span class="sc">|&gt;</span></span>
-<span id="cb603-2"><a href="#cb603-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">level =</span> <span class="fu">substr</span>(col2, <span class="dv">1</span>, <span class="dv">3</span>),</span>
-<span id="cb603-3"><a href="#cb603-3" aria-hidden="true" tabindex="-1"></a>         <span class="at">x_y =</span> <span class="fu">substr</span>(col2, <span class="fu">nchar</span>(col2), <span class="fu">nchar</span>(col2)))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb607"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb607-1"><a href="#cb607-1" aria-hidden="true" tabindex="-1"></a>mydf <span class="sc">|&gt;</span></span>
+<span id="cb607-2"><a href="#cb607-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">level =</span> <span class="fu">substr</span>(col2, <span class="dv">1</span>, <span class="dv">3</span>),</span>
+<span id="cb607-3"><a href="#cb607-3" aria-hidden="true" tabindex="-1"></a>         <span class="at">x_y =</span> <span class="fu">substr</span>(col2, <span class="fu">nchar</span>(col2), <span class="fu">nchar</span>(col2)))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>  col1  col2 level x_y is_one is_two
 1    1 One_X   One   X   TRUE  FALSE
@@ -6105,9 +6139,9 @@ Important
 </div>
 <div id="tabset-48-4" class="tab-pane" role="tabpanel" aria-labelledby="tabset-48-4-tab">
 <div class="cell">
-<div class="sourceCode cell-code" id="cb605"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb605-1"><a href="#cb605-1" aria-hidden="true" tabindex="-1"></a>mydt <span class="ot">&lt;-</span> <span class="fu">as.data.table</span>(mydf) </span>
-<span id="cb605-2"><a href="#cb605-2" aria-hidden="true" tabindex="-1"></a>mydt[, <span class="fu">c</span>(<span class="st">"is_one"</span>, <span class="st">"is_two"</span>) <span class="sc">:</span><span class="er">=</span> .(<span class="fu">grepl</span>(<span class="st">"^One"</span>, col2), <span class="fu">grepl</span>(<span class="st">"^Two"</span>, col2))]</span>
-<span id="cb605-3"><a href="#cb605-3" aria-hidden="true" tabindex="-1"></a>mydt</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb609"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb609-1"><a href="#cb609-1" aria-hidden="true" tabindex="-1"></a>mydt <span class="ot">&lt;-</span> <span class="fu">as.data.table</span>(mydf) </span>
+<span id="cb609-2"><a href="#cb609-2" aria-hidden="true" tabindex="-1"></a>mydt[, <span class="fu">c</span>(<span class="st">"is_one"</span>, <span class="st">"is_two"</span>) <span class="sc">:</span><span class="er">=</span> .(<span class="fu">grepl</span>(<span class="st">"^One"</span>, col2), <span class="fu">grepl</span>(<span class="st">"^Two"</span>, col2))]</span>
+<span id="cb609-3"><a href="#cb609-3" aria-hidden="true" tabindex="-1"></a>mydt</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>    col1   col2  level    x_y is_one is_two
    &lt;int&gt; &lt;char&gt; &lt;char&gt; &lt;char&gt; &lt;lgcl&gt; &lt;lgcl&gt;
@@ -6130,9 +6164,9 @@ Important
 <div class="tab-content">
 <div id="tabset-49-1" class="tab-pane active" role="tabpanel" aria-labelledby="tabset-49-1-tab">
 <div class="cell">
-<div class="sourceCode cell-code" id="cb607"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb607-1"><a href="#cb607-1" aria-hidden="true" tabindex="-1"></a><span class="fu">as_polars_df</span>(mydf)<span class="sc">$</span><span class="fu">filter</span>(</span>
-<span id="cb607-2"><a href="#cb607-2" aria-hidden="true" tabindex="-1"></a>  pl<span class="sc">$</span><span class="fu">col</span>(<span class="st">"col2"</span>)<span class="sc">$</span>str<span class="sc">$</span><span class="fu">ends_with</span>(<span class="st">"X"</span>)</span>
-<span id="cb607-3"><a href="#cb607-3" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb611"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb611-1"><a href="#cb611-1" aria-hidden="true" tabindex="-1"></a><span class="fu">as_polars_df</span>(mydf)<span class="sc">$</span><span class="fu">filter</span>(</span>
+<span id="cb611-2"><a href="#cb611-2" aria-hidden="true" tabindex="-1"></a>  pl<span class="sc">$</span><span class="fu">col</span>(<span class="st">"col2"</span>)<span class="sc">$</span>str<span class="sc">$</span><span class="fu">ends_with</span>(<span class="st">"X"</span>)</span>
+<span id="cb611-3"><a href="#cb611-3" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>shape: (2, 6)
 ┌──────┬───────┬───────┬─────┬────────┬────────┐
@@ -6148,7 +6182,7 @@ Important
 </div>
 <div id="tabset-49-2" class="tab-pane" role="tabpanel" aria-labelledby="tabset-49-2-tab">
 <div class="cell">
-<div class="sourceCode cell-code" id="cb609"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb609-1"><a href="#cb609-1" aria-hidden="true" tabindex="-1"></a>mydf[<span class="fu">substr</span>(mydf<span class="sc">$</span>col2, <span class="fu">nchar</span>(mydf<span class="sc">$</span>col2), <span class="fu">nchar</span>(mydf<span class="sc">$</span>col2)) <span class="sc">==</span> <span class="st">"X"</span>, ]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb613"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb613-1"><a href="#cb613-1" aria-hidden="true" tabindex="-1"></a>mydf[<span class="fu">substr</span>(mydf<span class="sc">$</span>col2, <span class="fu">nchar</span>(mydf<span class="sc">$</span>col2), <span class="fu">nchar</span>(mydf<span class="sc">$</span>col2)) <span class="sc">==</span> <span class="st">"X"</span>, ]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>  col1  col2 level x_y is_one is_two
 1    1 One_X   One   X   TRUE  FALSE
@@ -6158,8 +6192,8 @@ Important
 </div>
 <div id="tabset-49-3" class="tab-pane" role="tabpanel" aria-labelledby="tabset-49-3-tab">
 <div class="cell">
-<div class="sourceCode cell-code" id="cb611"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb611-1"><a href="#cb611-1" aria-hidden="true" tabindex="-1"></a>mydf <span class="sc">|&gt;</span></span>
-<span id="cb611-2"><a href="#cb611-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(<span class="fu">endsWith</span>(col2, <span class="st">"X"</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb615"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb615-1"><a href="#cb615-1" aria-hidden="true" tabindex="-1"></a>mydf <span class="sc">|&gt;</span></span>
+<span id="cb615-2"><a href="#cb615-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(<span class="fu">endsWith</span>(col2, <span class="st">"X"</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>  col1  col2 level x_y is_one is_two
 1    1 One_X   One   X   TRUE  FALSE
@@ -6169,8 +6203,8 @@ Important
 </div>
 <div id="tabset-49-4" class="tab-pane" role="tabpanel" aria-labelledby="tabset-49-4-tab">
 <div class="cell">
-<div class="sourceCode cell-code" id="cb613"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb613-1"><a href="#cb613-1" aria-hidden="true" tabindex="-1"></a>mydt <span class="ot">&lt;-</span> <span class="fu">as.data.table</span>(mydf) </span>
-<span id="cb613-2"><a href="#cb613-2" aria-hidden="true" tabindex="-1"></a>mydt[<span class="fu">substr</span>(col2, <span class="fu">nchar</span>(col2), <span class="fu">nchar</span>(col2)) <span class="sc">==</span> <span class="st">"X"</span>]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb617"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb617-1"><a href="#cb617-1" aria-hidden="true" tabindex="-1"></a>mydt <span class="ot">&lt;-</span> <span class="fu">as.data.table</span>(mydf) </span>
+<span id="cb617-2"><a href="#cb617-2" aria-hidden="true" tabindex="-1"></a>mydt[<span class="fu">substr</span>(col2, <span class="fu">nchar</span>(col2), <span class="fu">nchar</span>(col2)) <span class="sc">==</span> <span class="st">"X"</span>]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>    col1   col2  level    x_y is_one is_two
    &lt;int&gt; &lt;char&gt; &lt;char&gt; &lt;char&gt; &lt;lgcl&gt; &lt;lgcl&gt;
@@ -6193,23 +6227,23 @@ Let’s try to create a R function to captue some <code>DataFrame</code> transfo
 - Make all Strings columns uppercase<br>
 - And filter only the third first rows</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb615"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb615-1"><a href="#cb615-1" aria-hidden="true" tabindex="-1"></a>fn_transformation <span class="ot">&lt;-</span> <span class="cf">function</span>(data) {</span>
-<span id="cb615-2"><a href="#cb615-2" aria-hidden="true" tabindex="-1"></a>  </span>
-<span id="cb615-3"><a href="#cb615-3" aria-hidden="true" tabindex="-1"></a>  data<span class="sc">$</span></span>
-<span id="cb615-4"><a href="#cb615-4" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Convert Integer columns into Float </span></span>
-<span id="cb615-5"><a href="#cb615-5" aria-hidden="true" tabindex="-1"></a>    <span class="fu">with_columns</span>(</span>
-<span id="cb615-6"><a href="#cb615-6" aria-hidden="true" tabindex="-1"></a>      pl<span class="sc">$</span><span class="fu">col</span>(pl<span class="sc">$</span>Int32)<span class="sc">$</span><span class="fu">cast</span>(pl<span class="sc">$</span>Float64))<span class="sc">$</span></span>
-<span id="cb615-7"><a href="#cb615-7" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Make all Strings columns uppercase</span></span>
-<span id="cb615-8"><a href="#cb615-8" aria-hidden="true" tabindex="-1"></a>    <span class="fu">with_columns</span>(</span>
-<span id="cb615-9"><a href="#cb615-9" aria-hidden="true" tabindex="-1"></a>      pl<span class="sc">$</span><span class="fu">col</span>(pl<span class="sc">$</span>String)<span class="sc">$</span>str<span class="sc">$</span><span class="fu">to_uppercase</span>())<span class="sc">$</span></span>
-<span id="cb615-10"><a href="#cb615-10" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Filter only the third first rows</span></span>
-<span id="cb615-11"><a href="#cb615-11" aria-hidden="true" tabindex="-1"></a>    <span class="fu">head</span>(<span class="dv">3</span>)</span>
-<span id="cb615-12"><a href="#cb615-12" aria-hidden="true" tabindex="-1"></a>  </span>
-<span id="cb615-13"><a href="#cb615-13" aria-hidden="true" tabindex="-1"></a>}</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb619"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb619-1"><a href="#cb619-1" aria-hidden="true" tabindex="-1"></a>fn_transformation <span class="ot">&lt;-</span> <span class="cf">function</span>(data) {</span>
+<span id="cb619-2"><a href="#cb619-2" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb619-3"><a href="#cb619-3" aria-hidden="true" tabindex="-1"></a>  data<span class="sc">$</span></span>
+<span id="cb619-4"><a href="#cb619-4" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Convert Integer columns into Float </span></span>
+<span id="cb619-5"><a href="#cb619-5" aria-hidden="true" tabindex="-1"></a>    <span class="fu">with_columns</span>(</span>
+<span id="cb619-6"><a href="#cb619-6" aria-hidden="true" tabindex="-1"></a>      pl<span class="sc">$</span><span class="fu">col</span>(pl<span class="sc">$</span>Int32)<span class="sc">$</span><span class="fu">cast</span>(pl<span class="sc">$</span>Float64))<span class="sc">$</span></span>
+<span id="cb619-7"><a href="#cb619-7" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Make all Strings columns uppercase</span></span>
+<span id="cb619-8"><a href="#cb619-8" aria-hidden="true" tabindex="-1"></a>    <span class="fu">with_columns</span>(</span>
+<span id="cb619-9"><a href="#cb619-9" aria-hidden="true" tabindex="-1"></a>      pl<span class="sc">$</span><span class="fu">col</span>(pl<span class="sc">$</span>String)<span class="sc">$</span>str<span class="sc">$</span><span class="fu">to_uppercase</span>())<span class="sc">$</span></span>
+<span id="cb619-10"><a href="#cb619-10" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Filter only the third first rows</span></span>
+<span id="cb619-11"><a href="#cb619-11" aria-hidden="true" tabindex="-1"></a>    <span class="fu">head</span>(<span class="dv">3</span>)</span>
+<span id="cb619-12"><a href="#cb619-12" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb619-13"><a href="#cb619-13" aria-hidden="true" tabindex="-1"></a>}</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>Let’s apply our method to <code>as_polars_df(iris)</code>:</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb616"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb616-1"><a href="#cb616-1" aria-hidden="true" tabindex="-1"></a><span class="fu">fn_transformation</span>(<span class="fu">as_polars_df</span>(mydf))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb620"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb620-1"><a href="#cb620-1" aria-hidden="true" tabindex="-1"></a><span class="fu">fn_transformation</span>(<span class="fu">as_polars_df</span>(mydf))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>shape: (3, 6)
 ┌──────┬───────┬───────┬─────┬────────┬────────┐
@@ -6225,13 +6259,13 @@ Let’s try to create a R function to captue some <code>DataFrame</code> transfo
 </div>
 <p>Our method <code>fn_transformation()</code> can now be re-used multiple times for example on another datasets:</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb618"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb618-1"><a href="#cb618-1" aria-hidden="true" tabindex="-1"></a>Newdf <span class="ot">&lt;-</span> pl<span class="sc">$</span><span class="fu">DataFrame</span>(</span>
-<span id="cb618-2"><a href="#cb618-2" aria-hidden="true" tabindex="-1"></a>  <span class="at">col_categ =</span> <span class="fu">factor</span>(<span class="fu">c</span>(<span class="st">"a"</span>,<span class="st">"b"</span>,<span class="st">"c"</span>)),</span>
-<span id="cb618-3"><a href="#cb618-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">col_str =</span> <span class="fu">c</span>(<span class="st">"x"</span>,<span class="st">"y"</span>,<span class="st">"z"</span>),</span>
-<span id="cb618-4"><a href="#cb618-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">col_num =</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">3</span></span>
-<span id="cb618-5"><a href="#cb618-5" aria-hidden="true" tabindex="-1"></a>)</span>
-<span id="cb618-6"><a href="#cb618-6" aria-hidden="true" tabindex="-1"></a>  </span>
-<span id="cb618-7"><a href="#cb618-7" aria-hidden="true" tabindex="-1"></a><span class="fu">fn_transformation</span>(Newdf)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb622"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb622-1"><a href="#cb622-1" aria-hidden="true" tabindex="-1"></a>Newdf <span class="ot">&lt;-</span> pl<span class="sc">$</span><span class="fu">DataFrame</span>(</span>
+<span id="cb622-2"><a href="#cb622-2" aria-hidden="true" tabindex="-1"></a>  <span class="at">col_categ =</span> <span class="fu">factor</span>(<span class="fu">c</span>(<span class="st">"a"</span>,<span class="st">"b"</span>,<span class="st">"c"</span>)),</span>
+<span id="cb622-3"><a href="#cb622-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">col_str =</span> <span class="fu">c</span>(<span class="st">"x"</span>,<span class="st">"y"</span>,<span class="st">"z"</span>),</span>
+<span id="cb622-4"><a href="#cb622-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">col_num =</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">3</span></span>
+<span id="cb622-5"><a href="#cb622-5" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb622-6"><a href="#cb622-6" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb622-7"><a href="#cb622-7" aria-hidden="true" tabindex="-1"></a><span class="fu">fn_transformation</span>(Newdf)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>shape: (3, 3)
 ┌───────────┬─────────┬─────────┐
