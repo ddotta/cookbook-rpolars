@@ -2,7 +2,7 @@
 
 Welcome to the [Polars](https://www.pola.rs/) cookbook for [R](https://www.r-project.org/) users. The goal of the cookbook is to provide solutions to common tasks and problems in using Polars with R. It allows R users using their usual packages to quickly get the syntax required to use Polars with R.
 
-It is structured around side-by-side comparisons between [polars](https://rpolars.github.io/), [tidypolars](https://github.com/etiennebacher/tidypolars), R base, [dplyr](https://dplyr.tidyverse.org/), [tidyr](https://tidyr.tidyverse.org/) and [data.table](https://rdatatable.gitlab.io/data.table/).
+It is structured around side-by-side comparisons between [polars](https://rpolars.github.io/), [tidypolars](https://tidypolars.etiennebacher.com/), R base, [dplyr](https://dplyr.tidyverse.org/), [tidyr](https://tidyr.tidyverse.org/) and [data.table](https://rdatatable.gitlab.io/data.table/).
 
 ![](content/images/navtabs-screenshot.png){fig-alt="nav-tabs for navigating between different R syntaxes" fig-align="center"}
 
