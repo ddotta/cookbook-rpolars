@@ -433,8 +433,8 @@ Important
 │ ---        ┆ ---          ┆ ---         ┆ ---          ┆ ---         │
 │ cat        ┆ f64          ┆ f64         ┆ f64          ┆ f64         │
 ╞════════════╪══════════════╪═════════════╪══════════════╪═════════════╡
-│ versicolor ┆ 5.9          ┆ 2.8         ┆ 4.35         ┆ 1.3         │
 │ virginica  ┆ 6.5          ┆ 3.0         ┆ 5.55         ┆ 2.0         │
+│ versicolor ┆ 5.9          ┆ 2.8         ┆ 4.35         ┆ 1.3         │
 │ setosa     ┆ 5.0          ┆ 3.4         ┆ 1.5          ┆ 0.2         │
 └────────────┴──────────────┴─────────────┴──────────────┴─────────────┘</code></pre>
 </div>
@@ -452,9 +452,9 @@ Important
 │ ---        ┆ ---          ┆ ---         ┆ ---          ┆ ---         │
 │ cat        ┆ f64          ┆ f64         ┆ f64          ┆ f64         │
 ╞════════════╪══════════════╪═════════════╪══════════════╪═════════════╡
+│ versicolor ┆ 5.9          ┆ 2.8         ┆ 4.35         ┆ 1.3         │
 │ setosa     ┆ 5.0          ┆ 3.4         ┆ 1.5          ┆ 0.2         │
 │ virginica  ┆ 6.5          ┆ 3.0         ┆ 5.55         ┆ 2.0         │
-│ versicolor ┆ 5.9          ┆ 2.8         ┆ 4.35         ┆ 1.3         │
 └────────────┴──────────────┴─────────────┴──────────────┴─────────────┘</code></pre>
 </div>
 </div>
@@ -736,8 +736,8 @@ The <code>names()</code> method can be used to get the columns names.</p>
 │ struct[2]         │
 ╞═══════════════════╡
 │ {"setosa",50}     │
-│ {"virginica",50}  │
 │ {"versicolor",50} │
+│ {"virginica",50}  │
 └───────────────────┘</code></pre>
 </div>
 </div>
@@ -1057,11 +1057,11 @@ Here’s an example:</p>
 <div class="cell-output cell-output-stdout">
 <pre><code>Unit: milliseconds
                            expr      min       lq     mean   median       uq
- Without telling col1 is sorted 8.379320 8.480393 8.647550 8.564996 8.669230
-         Telling col1 is sorted 2.423798 2.516546 2.754649 2.609950 2.761032
-       max neval
- 12.948888   100
-  7.663215   100</code></pre>
+ Without telling col1 is sorted 5.702744 5.997763 6.237174 6.128165 6.419645
+         Telling col1 is sorted 2.480216 2.710846 3.168397 2.918408 3.275860
+      max neval
+ 7.532350   100
+ 9.126664   100</code></pre>
 </div>
 </div>
 </div>
@@ -2295,9 +2295,9 @@ Note
 │ ---        ┆ ---          ┆ ---         │
 │ cat        ┆ f64          ┆ f64         │
 ╞════════════╪══════════════╪═════════════╡
+│ virginica  ┆ 277.6        ┆ 2.026       │
 │ versicolor ┆ 213.0        ┆ 1.326       │
 │ setosa     ┆ 73.1         ┆ 0.246       │
-│ virginica  ┆ 277.6        ┆ 2.026       │
 └────────────┴──────────────┴─────────────┘</code></pre>
 </div>
 </div>
@@ -2317,9 +2317,9 @@ Note
 │ ---        ┆ ---              ┆ ---              │
 │ cat        ┆ f64              ┆ f64              │
 ╞════════════╪══════════════════╪══════════════════╡
+│ versicolor ┆ 213.0            ┆ 1.326            │
 │ setosa     ┆ 73.1             ┆ 0.246            │
 │ virginica  ┆ 277.6            ┆ 2.026            │
-│ versicolor ┆ 213.0            ┆ 1.326            │
 └────────────┴──────────────────┴──────────────────┘</code></pre>
 </div>
 </div>
@@ -2406,9 +2406,9 @@ Tip
 │ ---        ┆ ---              ┆ ---               ┆ ---             ┆ ---              │
 │ cat        ┆ f64              ┆ f64               ┆ f64             ┆ f64              │
 ╞════════════╪══════════════════╪═══════════════════╪═════════════════╪══════════════════╡
+│ virginica  ┆ 277.6            ┆ 5.552             ┆ 101.3           ┆ 2.026            │
 │ versicolor ┆ 213.0            ┆ 4.26              ┆ 66.3            ┆ 1.326            │
 │ setosa     ┆ 73.1             ┆ 1.462             ┆ 12.3            ┆ 0.246            │
-│ virginica  ┆ 277.6            ┆ 5.552             ┆ 101.3           ┆ 2.026            │
 └────────────┴──────────────────┴───────────────────┴─────────────────┴──────────────────┘</code></pre>
 </div>
 </div>
@@ -2449,9 +2449,9 @@ Tip
 │ ---        ┆ ---          ┆ ---         ┆ ---          ┆ ---         │
 │ cat        ┆ f64          ┆ f64         ┆ f64          ┆ f64         │
 ╞════════════╪══════════════╪═════════════╪══════════════╪═════════════╡
+│ versicolor ┆ 296.8        ┆ 138.5       ┆ 213.0        ┆ 66.3        │
 │ setosa     ┆ 250.3        ┆ 171.4       ┆ 73.1         ┆ 12.3        │
 │ virginica  ┆ 329.4        ┆ 148.7       ┆ 277.6        ┆ 101.3       │
-│ versicolor ┆ 296.8        ┆ 138.5       ┆ 213.0        ┆ 66.3        │
 └────────────┴──────────────┴─────────────┴──────────────┴─────────────┘</code></pre>
 </div>
 </div>
@@ -2733,8 +2733,8 @@ This warning is displayed once every 8 hours.</code></pre>
 │ f64          ┆ f64         ┆ f64          ┆ f64         ┆ cat        │
 ╞══════════════╪═════════════╪══════════════╪═════════════╪════════════╡
 │ 5.1          ┆ 3.5         ┆ 1.4          ┆ 0.2         ┆ setosa     │
-│ 7.0          ┆ 3.2         ┆ 4.7          ┆ 1.4         ┆ versicolor │
 │ 6.3          ┆ 3.3         ┆ 6.0          ┆ 2.5         ┆ virginica  │
+│ 7.0          ┆ 3.2         ┆ 4.7          ┆ 1.4         ┆ versicolor │
 └──────────────┴─────────────┴──────────────┴─────────────┴────────────┘</code></pre>
 </div>
 <div class="sourceCode cell-code" id="cb257"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb257-1"><a href="#cb257-1" aria-hidden="true" tabindex="-1"></a><span class="co"># With one column keeping last entry</span></span>
@@ -2750,8 +2750,8 @@ This warning is displayed once every 8 hours.</code></pre>
 │ f64          ┆ f64         ┆ f64          ┆ f64         ┆ cat        │
 ╞══════════════╪═════════════╪══════════════╪═════════════╪════════════╡
 │ 5.0          ┆ 3.3         ┆ 1.4          ┆ 0.2         ┆ setosa     │
-│ 5.7          ┆ 2.8         ┆ 4.1          ┆ 1.3         ┆ versicolor │
 │ 5.9          ┆ 3.0         ┆ 5.1          ┆ 1.8         ┆ virginica  │
+│ 5.7          ┆ 2.8         ┆ 4.1          ┆ 1.3         ┆ versicolor │
 └──────────────┴─────────────┴──────────────┴─────────────┴────────────┘</code></pre>
 </div>
 <div class="sourceCode cell-code" id="cb259"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb259-1"><a href="#cb259-1" aria-hidden="true" tabindex="-1"></a><span class="co"># With two colums, keeping last entry and maintaining the same order</span></span>
@@ -2807,9 +2807,9 @@ This warning is displayed once every 8 hours.</code></pre>
 │ ---        ┆ ---          ┆ ---         ┆ ---          ┆ ---         │
 │ cat        ┆ f64          ┆ f64         ┆ f64          ┆ f64         │
 ╞════════════╪══════════════╪═════════════╪══════════════╪═════════════╡
-│ setosa     ┆ 5.0          ┆ 3.3         ┆ 1.4          ┆ 0.2         │
 │ virginica  ┆ 5.9          ┆ 3.0         ┆ 5.1          ┆ 1.8         │
 │ versicolor ┆ 5.7          ┆ 2.8         ┆ 4.1          ┆ 1.3         │
+│ setosa     ┆ 5.0          ┆ 3.3         ┆ 1.4          ┆ 0.2         │
 └────────────┴──────────────┴─────────────┴──────────────┴─────────────┘</code></pre>
 </div>
 <div class="sourceCode cell-code" id="cb265"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb265-1"><a href="#cb265-1" aria-hidden="true" tabindex="-1"></a><span class="co"># With two colums, keeping last entry and maintaining the same order</span></span>
@@ -2828,8 +2828,8 @@ This warning is displayed once every 8 hours.</code></pre>
 │ --- ┆ --- ┆ --- │
 │ i32 ┆ i32 ┆ i32 │
 ╞═════╪═════╪═════╡
-│ 2   ┆ 2   ┆ 2   │
 │ 1   ┆ 1   ┆ 1   │
+│ 2   ┆ 2   ┆ 2   │
 │ 3   ┆ 3   ┆ 4   │
 └─────┴─────┴─────┘</code></pre>
 </div>
@@ -5368,8 +5368,8 @@ In this case, a <code>DataFrame</code> with only one column will be created. If 
 │ struct[2]         │
 ╞═══════════════════╡
 │ {"setosa",50}     │
-│ {"virginica",50}  │
 │ {"versicolor",50} │
+│ {"virginica",50}  │
 └───────────────────┘</code></pre>
 </div>
 </div>
