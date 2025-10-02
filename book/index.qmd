@@ -21,7 +21,7 @@ The current build status as follows:
 
 Polars is a very fast and elegant dataframe library that does the same sort of thing as the main data manipulation packages in R including [dplyr](https://dplyr.tidyverse.org/) and [data.table](https://rdatatable.gitlab.io/data.table/).
 
-Most of this book is structured examples of Polars, dplyr and data.table idiomatic code, with comments on the API and performance of the three.
+Most of this book is structured examples of Polars, tidypolars, dplyr and data.table idiomatic code, with comments on the API and performance of the three.
 
 ## Who is this for?
 
